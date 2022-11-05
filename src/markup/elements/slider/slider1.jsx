@@ -8,7 +8,8 @@ function Slider1() {
 	const getListSlider = async () => {
 		try {
 			const response = await userApi.getAllSlider();
-			setListSlider(response);
+			console.log(response);
+			setListSlider(response.filter(res=>res.status===1));
 		} catch (responseError) {
 			console.log(responseError);
 		}

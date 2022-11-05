@@ -1,0 +1,30 @@
+.flexCenter {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.main {
+  width: 100%;
+}
+.selectFilter {
+  display: grid;
+  width: 70%;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 40px;
+  gap: 30px;
+  padding-left: 2%;
+}
+.searchFilter {
+  width: 30%;
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  button {
+    border: none;
+    background-color: #7367f0;
+    color: white;
+    border-radius: 4px;
+    padding: 0px 30px;
+  }
+}

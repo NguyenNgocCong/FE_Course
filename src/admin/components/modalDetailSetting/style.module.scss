@@ -1,0 +1,30 @@
+.rowFlex {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  margin-top: 30px;
+}
+
+.flexItem {
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  label {
+    font-size: 14px;
+    margin-right: 5px;
+  }
+}
+
+.inputForm {
+  width: 250px !important;
+}
+.btnCreate {
+  background-color: #7367f0 !important;
+  color: white;
+  height: 100%;
+}

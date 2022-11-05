@@ -58,7 +58,6 @@ function SubjectDetail(props) {
         try {
             const response = await adminApi.getSubjectDetail(id);
             setSubject(response);
-            console.log(response)
             setStatus(response.status);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
@@ -70,7 +69,7 @@ function SubjectDetail(props) {
     const getListManager = async () => {
         try {
             const response = await adminApi.getListManager();
-            setListManager(response.data);
+            setListManager(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,
@@ -81,7 +80,7 @@ function SubjectDetail(props) {
     const getListExpert = async () => {
         try {
             const response = await adminApi.getListExpert();
-            setListExpert(response.data);
+            setListExpert(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,
@@ -142,7 +141,7 @@ function SubjectDetail(props) {
     }, []);
 
     const optionStatus = [
-        { status: false, label: "Deactivate" },
+        { status: false, label: "Inactive" },
         { status: true, label: "Active" },
     ];
 
@@ -216,7 +215,7 @@ function SubjectDetail(props) {
                                                 <option value="">Select category</option>
                                                 {listCategory?.map((item, index) => {
                                                     if (type === 1) {
-                                                        return subject?.categoryId ===
+                                                        return subject?.setting_id ===
                                                             item?.setting_id ? (
                                                             <option
                                                                 key={index}
@@ -290,6 +289,25 @@ function SubjectDetail(props) {
                                                     }
                                                 })}
                                             </CFormSelect>
+                                        </div>
+                                    </CCol>
+                                    <CCol sm={6}>
+                                        <div className="mb-3">
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Price
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="text"
+                                                id="exampleFormControlInput1"
+                                                disabled={isNotAdmin}
+                                                placeholder=""
+                                                defaultValue={
+                                                    type === 1 ? subject?.price : ""
+                                                }
+                                                onChange={(e) =>
+                                                    setPrice(e.target.value)
+                                                }
+                                            />
                                         </div>
                                     </CCol>
                                     <CCol sm={6}>

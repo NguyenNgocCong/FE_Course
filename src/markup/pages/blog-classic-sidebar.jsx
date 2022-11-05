@@ -10,7 +10,7 @@ import BlogAside from "../elements/blog-aside";
 
 // Images
 import bannerImg from '../../images/banner/banner1.jpg';
-import { CRow, CCol, CCardImage, CCardTitle, CCardText } from '@coreui/react';
+import { CCard, CRow, CCol, CCardImage, CCardBody, CCardTitle, CCardText } from '@coreui/react';
 import { CButton } from '@coreui/react';
 import { userApi } from './../../api/userApi';
 import ReactHtmlParser from 'react-html-parser'
@@ -21,10 +21,10 @@ const BlogClassicSidebar = () => {
 	const searchBlog = useSelector((state) => state.blogReducers.search);
 
 	const getListPost = async () => {
+		console.log(searchBlog);
 		try {
 			const response = await userApi.getAllPost();
-			console.log(response);
-			setListPost(response.data.filter(res => res.title.toLowerCase().includes(searchBlog.toLowerCase())));
+			setListPost(response.filter(res => res.title.toLowerCase().includes(searchBlog.toLowerCase())));
 		} catch (responseError) {
 			console.log(responseError);
 		}
@@ -77,12 +77,12 @@ const BlogClassicSidebar = () => {
 														<CCardTitle><Link to={`/blog/${item?.id}`}>{item?.title}</Link></CCardTitle>
 														<CCardText>
 															<ul className="media-post">
-																<li><i className="fa fa-calendar"></i>{" " + new Date(item?.createdDate).toLocaleDateString()}</li>
+																<li><i className="fa fa-calendar"></i>{" " + new Date(item?.createDate).toLocaleDateString()}</li>
 																<li><i className="fa fa-user"></i> By {item?.author.fullname}</li>
 															</ul>
 														</CCardText>
 														<CCardText>
-															{ReactHtmlParser(item?.brefInfo)}
+															{ReactHtmlParser(item?.body)}
 														</CCardText>
 														<CButton><Link to={`/blog/${item?.id}`}>Read more</Link></CButton>
 													</CCol>
@@ -96,9 +96,9 @@ const BlogClassicSidebar = () => {
 											? (<><div className="pagination-bx rounded-sm gray m-b30 clearfix">
 												<ul className="pagination">
 													<li className="previous"><Link to="#"><i className="ti-arrow-left"></i> Prev</Link></li>
-													<li className="active"><Link >1</Link></li>
-													<li><Link >2</Link></li>
-													<li><Link >3</Link></li>
+													<li className="active"><Link to="#">1</Link></li>
+													<li><Link to="#">2</Link></li>
+													<li><Link to="#">3</Link></li>
 													<li className="next"><Link to="#">Next <i className="ti-arrow-right"></i></Link></li>
 												</ul>
 											</div></>)

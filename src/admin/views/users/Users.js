@@ -13,7 +13,7 @@ import {
 } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import CIcon from "@coreui/icons-react";
-import { cilLibraryAdd, cilPen } from "@coreui/icons";
+import { cilPen } from "@coreui/icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
@@ -38,37 +38,26 @@ const Users = () => {
   const columns = [
     {
       name: "ID",
-      minWidth: '10px',
-      maxWidth: '40px',
       selector: (row) => row?.id,
       sortable: true,
     },
     {
       name: "User",
-      maxWidth: '150px',
-      selector: (row) => row?.username,
-      sortable: true,
-    },
-    {
-      name: "Email",
-      selector: (row) => row?.email,
+      selector: (row) => row?.username || row?.email,
       sortable: true,
     },
     {
       name: "Fullname",
-      maxWidth: '200px',
       selector: (row) => row?.fullname,
       sortable: true,
     },
     {
       name: "Phone",
-      maxWidth: '150px',
       selector: (row) => row?.phoneNumber,
       sortable: true,
     },
     {
       name: "Role",
-      maxWidth: '150px',
       selector: (row) => (
         <div className="d-flex align-items-center justify-content-center">
           {row?.role?.replace("ROLE_", "") === "ADMIN" && (
@@ -93,11 +82,10 @@ const Users = () => {
     },
     {
       name: "Status",
-      maxWidth: '50px',
       selector: (row) => (
         <div className="d-flex align-items-center justify-content-center">
           <div className={`${row?.active ? Styles.active : Styles.inactive}`}>
-            <strong>{row?.active ? "Active" : "Deactivate"}</strong>
+            <strong>{row?.active ? "Active" : "Inactive"}</strong>
           </div>
         </div>
       ),
@@ -109,7 +97,7 @@ const Users = () => {
         <div className="my-2 d-flex justify-content-space-between">
           <CButton
             href={"/react/admin/users/" + row?.id}
-            style={{ width: "auto" }}
+            style={{ width: "100px" }}
             color="primary"
           >
             <CIcon icon={cilPen} />
@@ -117,10 +105,10 @@ const Users = () => {
           <div className="p-1"></div>
           <CButton
             color="warning"
-            style={{ width: "auto", textAlign: 'center' }}
+            style={{ width: "100px" }}
             onClick={() => submit(row)}
           >
-            {row?.active ? "Deactivate" : "Active"}
+            {row?.active ? "Deactive" : "Active"}
           </CButton>
         </div>
       ),
@@ -130,17 +118,13 @@ const Users = () => {
   const [listUser, setListUser] = useState([]);
   const [isModify, setIsModify] = useState(false);
   const [role, setRole] = useState("");
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState("");
   const [name, setName] = useState("");
-  const [page, setPage] = useState(0);
 
   const getListUser = async () => {
     try {
-      const params = {
-        name: name, status: status, role: role,
-      }
-      const response = await adminApi.getListUser(params, page, 10);
-      setListUser(response.data);
+      const response = await adminApi.getListUser(name, status, role, 100);
+      setListUser(response);
       console.log(response);
     } catch (responseError) {
       console.log(responseError);
@@ -210,6 +194,27 @@ const Users = () => {
       <Toaster position="top-center" reverseOrder={false} />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
+        {/* <div className={Styles.filters}>
+          <div style={{ marginBottom: "10px" }}>Filters</div>
+          <div className={Styles.listFilter}>
+            <div className={Styles.filterItem}>
+              <label>Role</label>
+              <CFormSelect
+                aria-label="Default select example"
+                style={{ height: "50px" }}
+                onChange={(e) => {
+                  setRole(e.target.value);
+                }}
+              >
+                <option value="">All Role</option>
+                <option value="ROLE_ADMIN">ADMIN</option>
+                <option value="ROLE_GUEST">GUEST</option>
+                <option value="ROLE_MANAGER">MANAGER</option>
+              </CFormSelect>
+            </div>
+          </div>
+        </div>
+            */}
         <div className={Styles.searchParams}>
           <div className={Styles.showEntry}>
             <CFormSelect
@@ -243,7 +248,7 @@ const Users = () => {
             >
               <option value="">All Status</option>
               <option value={true}>Active</option>
-              <option value={false}>Deactivate</option>
+              <option value={false}>Inactive</option>
             </CFormSelect>
             <CFormInput
               type="text"
@@ -262,7 +267,7 @@ const Users = () => {
                 )
               }
             >
-              <CIcon icon={cilLibraryAdd} />
+              Create New User
             </button>
           </div>
         </div>

@@ -5,8 +5,8 @@ export const adminApi = {
     const url = "/api/role/roles";
     return axiosApi.get(url);
   },
-  getListUser: (params, page, size) => {
-    const url = `/api/admin/users?page=2`;
+  getListUser: (name, status, role, size) => {
+    const url = `/api/admin/users?name=${name}&status=${status}&role=${role}&size=${size}`;
     return axiosApi.get(url);
   },
   updateActiveUser: (params) => {
@@ -114,7 +114,7 @@ export const adminApi = {
     return axiosApi.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-      }
+      },
     });
   },
   updatePost: (id, params, image) => {
@@ -126,7 +126,7 @@ export const adminApi = {
     return axiosApi.put(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-      }
+      },
     });
   },
 
@@ -148,7 +148,7 @@ export const adminApi = {
     return axiosApi.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-      }
+      },
     });
   },
   updateSlider: (id, image, params) => {
@@ -160,7 +160,7 @@ export const adminApi = {
     return axiosApi.put(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-      }
+      },
     });
   },
 
@@ -199,7 +199,7 @@ export const adminApi = {
     const url = `/api/combo/update?id=${id}`;
     return axiosApi.put(url, params);
   },
-  
+
   //List Category
   getListCategoryPost: () => {
     const url = `/api/admin/setting/list-category-post`;
@@ -208,5 +208,31 @@ export const adminApi = {
   getListCategorySubject: () => {
     const url = `/api/admin/setting/list-category-subject`;
     return axiosApi.get(url);
+  },
+
+  //setting
+  getListType: () => {
+    const url = `api/admin/setting/getListType`;
+    return axiosApi.get(url);
+  },
+  getListSetting: () => {
+    const url = `api/admin/setting/getListSetting`;
+    return axiosApi.get(url);
+  },
+  getDetailSetting: (id) => {
+    const url = `api/admin/setting/getSetting/${id}`;
+    return axiosApi.get(url);
+  },
+  updateSetting: (id, params) => {
+    const url = `api/admin/setting/updateSetting/${id}`;
+    return axiosApi.put(url, params);
+  },
+  deleteSetting: (id) => {
+    const url = `api/admin/setting/deleteSetting/${id}`;
+    return axiosApi.delete(url);
+  },
+  addSetting: (params) => {
+    const url = `api/admin/setting/addSetting`;
+    return axiosApi.post(url, params);
   },
 };

@@ -9,7 +9,7 @@ import Styles from "./style.module.scss";
 import toast, { Toaster } from "react-hot-toast";
 import DataTable from "react-data-table-component";
 import CIcon from '@coreui/icons-react';
-import { cilLibraryAdd, cilPen } from "@coreui/icons";
+import { cilPen } from "@coreui/icons";
 
 const Combo = () => {
     const [listCombo, setListCombo] = useState([]);
@@ -19,8 +19,7 @@ const Combo = () => {
         {
             name: "ID",
             selector: (row) => row?.id,
-            minWidth: '10px',
-            maxWidth: '40px',
+            maxWidth: '10px',
             sortable: true,
         },
         {
@@ -87,7 +86,7 @@ const Combo = () => {
                                 )
                             }
                         >
-                            <CIcon icon={cilLibraryAdd}/>
+                            Create New Combo
                         </button>
                     </div>
                 </div>

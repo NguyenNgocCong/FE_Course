@@ -11,7 +11,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Styles from "./style.module.scss";
 import DataTable from "react-data-table-component";
 import CIcon from '@coreui/icons-react';
-import { cilLibraryAdd, cilPen } from "@coreui/icons";
+import { cilPen } from "@coreui/icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
@@ -28,8 +28,7 @@ const Posts = () => {
         {
             name: "ID",
             selector: (row) => row.id,
-            minWidth: '10px',
-            maxWidth: '40px',
+            maxWidth: '10px',
             sortable: true,
         },
         {
@@ -45,13 +44,24 @@ const Posts = () => {
             sortable: false,
         },
         {
-            name: "Title",
+            name: "Post title",
             selector: (row) => row.title,
             sortable: true,
         },
         {
             name: "Brief info",
-            selector: (row) => row.brefInfo,
+            selector: (row) => {
+                let brief = row.body;
+                brief = brief.substring(3, brief.indexOf("</p>"));
+                while (brief.search("</") !== -1 || brief.search("<") !== -1) {
+                    brief = brief.replace("</", " ");
+                    brief = brief.replace("<", "");
+                }
+                while (brief.search("strong") !== -1) {
+                    brief = brief.replace("strong>", "");
+                }
+                return brief;
+            },
             sortable: true,
         },
         {
@@ -127,7 +137,7 @@ const Posts = () => {
                     <CButton
                         color={row?.status === 1 ? "danger" : "warning"}
                         onClick={() =>
-                            submit(row, 1)
+                            handleUpdateStatus(row, 1)
                         }
                     >{(() => {
                         if (row?.status === 0) {
@@ -207,7 +217,7 @@ const Posts = () => {
     const getListPost = async () => {
         try {
             const response = await adminApi.getAllPost(title, status);
-            setListPost(Object.values(response.data));
+            setListPost(Object.values(response));
             console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
@@ -311,7 +321,7 @@ const Posts = () => {
                                 )
                             }
                         >
-                            <CIcon icon={cilLibraryAdd}/>
+                            Create New Post
                         </button>
                     </div>
                 </div>

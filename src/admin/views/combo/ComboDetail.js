@@ -69,7 +69,7 @@ function ComboDetail(props) {
     ];
 
     const optionStatus = [
-        { status: false, label: "Deactivate" },
+        { status: false, label: "Inactive" },
         { status: true, label: "Active" },
     ];
 

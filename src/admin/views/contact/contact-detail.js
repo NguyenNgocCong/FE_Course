@@ -39,7 +39,7 @@ function ContactDetail(props) {
 
     const getContactById = async () => {
         const response = await adminApi.getAllContact();
-        setContact(response.data?.filter((item) => item?.id == id)[0]);
+        setContact(response?.filter((item) => item?.id == id)[0]);
     };
 
     const getListCategory = async () => {
