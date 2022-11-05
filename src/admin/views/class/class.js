@@ -1,4 +1,4 @@
-import { cilPen } from "@coreui/icons";
+import { cilLibraryAdd, cilNoteAdd, cilPen, cilPlus } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { CButton, CFormInput, CFormSelect } from "@coreui/react";
 import Cookies from "js-cookie";
@@ -19,11 +19,18 @@ function Class() {
     {
       name: "ID",
       selector: (row) => row.id,
+      minWidth: '10px',
+      maxWidth: '40px',
       sortable: true,
     },
     {
       name: "Class Code",
       selector: (row) => row.code,
+      sortable: true,
+    },
+    {
+      name: "Package",
+      selector: (row) => row.packages,
       sortable: true,
     },
     {
@@ -42,15 +49,10 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Package",
-      selector: (row) => row.packages,
-      sortable: true,
-    },
-    {
       name: "Status",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          {row.status ? "Active" : "Inactive"}
+          {row.status ? "Active" : "Deactivate"}
         </div>
       ),
       sortable: true,
@@ -75,7 +77,7 @@ function Class() {
   const getAllClass = async () => {
     try {
       const response = await adminApi.getAllClass(name, status);
-      setListClass(response);
+      setListClass(response.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 7000,
@@ -107,7 +109,7 @@ function Class() {
             >
               <option value="">All Status</option>
               <option value={true}>Active</option>
-              <option value={false}>Inactive</option>
+              <option value={false}>Deactivate</option>
             </CFormSelect>
             <CFormInput
               type="text"
@@ -126,7 +128,7 @@ function Class() {
                 )
               }
             >
-              Create New Post
+              <CIcon icon={cilLibraryAdd} />
             </button>
           </div>
         </div>

@@ -28,6 +28,7 @@ function PostDetail(props) {
     const [post, setPost] = useState();
     const [title, setTitle] = useState();
     const [categoryId, setCategoryId] = useState();
+    const [briefInfo, setBriefInfo] = useState();
     const [status, setStatus] = useState(0);
     const [author, setAuthor] = useState();
     const [content, setContent] = useState();
@@ -47,6 +48,7 @@ function PostDetail(props) {
             const response = await adminApi.getPostById(id);
             setPost(response);
             setStatus(response.status);
+            console.log(response)
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,
@@ -71,6 +73,7 @@ function PostDetail(props) {
             const params = {
                 title: title,
                 categoryId: categoryId,
+                brefInfo: briefInfo,
                 status: status,
                 author: author,
                 authorId: JSON.parse(Cookies.get("user")).id,
@@ -157,7 +160,7 @@ function PostDetail(props) {
                                                 <option value="">Select category</option>
                                                 {listCategory?.map((item, index) => {
                                                     if (type === 1) {
-                                                        return post?.setting_id ===
+                                                        return post?.categoryId ===
                                                             item?.setting_id ? (
                                                             <option
                                                                 key={index}
@@ -186,6 +189,21 @@ function PostDetail(props) {
                                                     }
                                                 })}
                                             </CFormSelect>
+                                        </div>
+                                        <div className="mb-3">
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Brief info (
+                                                <span style={{ color: "red" }}>*</span>)
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="title"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Brief info"
+                                                defaultValue={post?.brefInfo}
+                                                onChange={(e) =>
+                                                    setBriefInfo(e.target.value)
+                                                }
+                                            />
                                         </div>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
