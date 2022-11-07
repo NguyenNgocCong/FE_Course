@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 // Layout
 import Header from "../layout/header/header1";
@@ -11,7 +11,6 @@ import JoinBx from "../elements/join-bx";
 import FeatureContent3 from "../elements/feature-content3";
 import Counter2 from "../elements/counter/counter2";
 import Testimonial1 from "../elements/testimonial1";
-import Cookies from "js-cookie";
 
 function Index2() {
     return (

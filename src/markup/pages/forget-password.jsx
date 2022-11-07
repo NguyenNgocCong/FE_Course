@@ -1,5 +1,5 @@
-import React, { Component, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 // Images
 import logoWhite2 from "../../images/logo-white-2.png";
@@ -12,7 +12,6 @@ function ForgetPassword(props) {
     const [alertMessage, setAlertMessage] = useState();
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertType, setPopupAlertType] = useState("primary");
-    const history = useHistory();
 
     const handleForgetPass = async () => {
         try {

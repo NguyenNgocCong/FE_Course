@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import logoWhite2 from "../../images/logo-white-2.png";
 import bannerImg from "../../images/background/bg2.jpg";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { userApi } from "../../api/userApi";
 import axios from "axios";
-import useQuery from "../../hooks/useQuery";
 import toast, { Toaster } from "react-hot-toast";
 
 function ForgetPasswordInput(props) {

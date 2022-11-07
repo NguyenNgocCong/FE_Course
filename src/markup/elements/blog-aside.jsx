@@ -95,7 +95,7 @@ function BlogAside() {
                                     <div className="ttr-post-media">
                                         {" "}
                                         <img
-                                            src={blog?.thumnailUrl}
+                                            src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  blog?.thumnailUrl}
                                             width="200"
                                             height="143"
                                             alt=""

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Nav, Tab } from "react-bootstrap";
 
@@ -14,7 +14,6 @@ import ChangePassword from "../elements/profile-content/change-password";
 
 // Images
 import bannerImg from "../../images/banner/banner1.jpg";
-import profilePic1 from "../../images/profile/pic1.jpg";
 import avatarProfile from '../../images/icon/avatar.svg'
 import { userApi } from "../../api/userApi";
 

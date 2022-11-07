@@ -267,7 +267,7 @@ function PostDetail(props) {
                                         <CImage
                                             rounded
                                             thumbnail
-                                            src={!preview ? post?.thumnailUrl ? post?.thumnailUrl : img : preview}
+                                            src={!preview ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  post?.thumnailUrl ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  post?.thumnailUrl : img : preview}
                                             width={400}
                                             style={{ maxHeight: '240px' }}
                                             onLoad={() => URL.revokeObjectURL(preview)}

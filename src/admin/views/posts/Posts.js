@@ -37,7 +37,7 @@ const Posts = () => {
             maxWidth: '150px',
             selector: (row) => (
                 <img
-                    src={row.thumnailUrl}
+                    src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  row.thumnailUrl}
                     width={120}
                     alt='thumbnail'
                 />

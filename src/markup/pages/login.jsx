@@ -10,7 +10,6 @@ import { useScript } from "../../hooks/useScript";
 import toast, { Toaster } from "react-hot-toast";
 
 function Login(props) {
-  const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [alertMessage, setAlertMessage] = useState();
@@ -40,12 +39,12 @@ function Login(props) {
   });
 
   const handleLogin = async () => {
-    const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-    const regPassword =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_])[A-Za-z\\d@$!%*?&_]{8,20}$/;
-    const regEmail =
-      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    // if (!regEmail.test(username)) {
+    // const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+    // const regPassword =
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_])[A-Za-z\\d@$!%*?&_]{8,20}$/;
+    // const regEmail =
+    //   /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    // // if (!regEmail.test(username)) {
     //   setAlertMessage("Email is invalid");
     //   setAlertVisible(true);
     //   setPopupAlertType("danger");

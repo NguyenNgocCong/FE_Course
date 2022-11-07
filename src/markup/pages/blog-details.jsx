@@ -10,7 +10,6 @@ import BlogAside from "../elements/blog-aside";
 
 // Images
 import bannerImg from '../../images/banner/banner2.jpg';
-import blogPic1 from '../../images/blog/default/thum1.jpg';
 import testiPic1 from '../../images/testimonials/pic1.jpg';
 import testiPic2 from '../../images/testimonials/pic2.jpg';
 import testiPic3 from '../../images/testimonials/pic3.jpg';
@@ -31,7 +30,7 @@ function BlogDetails(prop) {
 	useEffect(() => {
 		// console.log(id);
 		getPostById();
-	},[])
+	},[]) // eslint-disable-next-line
 
 	return (
 		<>
@@ -67,7 +66,7 @@ function BlogDetails(prop) {
 								<div className="col-lg-9 col-xl-9 col-md-7">
 									<div className="recent-news blog-lg">
 										<div className="action-box blog-lg">
-											<img src={post?.thumnailUrl} alt="" />
+											<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  post?.thumnailUrl} alt="" />
 										</div>
 										<div className="info-bx">
 											<ul className="media-post">
