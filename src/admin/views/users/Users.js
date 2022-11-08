@@ -52,31 +52,24 @@ const Users = () => {
     {
       name: "Phone",
       left: true,
-      minWidth: '100px',
-      width: '130px',
-      maxWidth: '150px',
+      minWidth: '80px',
+      width: '110px',
+      maxWidth: '120px',
       selector: (row) => row?.phoneNumber,
       sortable: true,
     },
     {
       name: "Role",
-      width: '100px',
+      width: '130px',
       center: true,
       selector: (row) => (
         <div className="d-flex align-items-center justify-content-center">
-          {row?.role?.replace("ROLE_", "") === "ADMIN" && (
-            <AiOutlineDatabase color="#EA5455" />
-          )}
-          {row?.role?.replace("ROLE_", "") === "MANAGER" ||
-          row?.role?.replace("ROLE_", "") === "TRAINER" ||
-            row?.role?.replace("ROLE_", "") === "EXPERT" ? (
-            <FaDatabase color="#28C76F" />
-          ) : (
-            <></>
-          )}
-          {row?.role?.replace("ROLE_", "") === "GUEST" && (
-            <AiOutlineUser color="#7367F0" />
-          )}
+          {row?.role?.replace("ROLE_", "") === "ADMIN" 
+            ? <AiOutlineDatabase color="#EA5455" /> 
+            : (row?.role?.replace("ROLE_", "") === "GUEST" 
+            ? <AiOutlineUser color="#7367F0" />
+            : <FaDatabase color="#28C76F" />)
+          }
           <div style={{ marginLeft: "5px" }}>
             {" "}
             {row?.role?.replace("ROLE_", "")}

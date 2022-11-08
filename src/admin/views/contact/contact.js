@@ -42,6 +42,7 @@ const Contact = () => {
                 status: e.status,
             };
             const response = await adminApi.updateStatusContact(params, e?.id);
+            console.log(response)
             toast.success(response?.message, {
                 duration: 2000,
             });
@@ -54,7 +55,6 @@ const Contact = () => {
     };
 
     const submit = (row) => {
-
         confirmAlert({
             title: 'Confirm to change status',
             message: 'Are you sure to do this.',
@@ -109,6 +109,15 @@ const Contact = () => {
             sortable: true,
         },
         {
+            name: "Category",
+            left: true,
+            minWidth: '100px',
+            width: '130px',
+            maxWidth: '140px',
+            selector: (row) => row?.category.setting_title,
+            sortable: true,
+        },
+        {
             name: "Date created",
             center: true,
             minWidth: '140px',
@@ -118,24 +127,24 @@ const Contact = () => {
             format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
             sortable: true,
         },
-        {
-            name: "Date updated",
-            center: true,
-            minWidth: '140px',
-            width: '160px',
-            maxWidth: '180px',
-            selector: (row) => row?.updatedDate,
-            format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
-            sortable: true,
-        },
+        // {
+        //     name: "Date updated",
+        //     center: true,
+        //     minWidth: '140px',
+        //     width: '160px',
+        //     maxWidth: '180px',
+        //     selector: (row) => row?.updatedDate,
+        //     format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
+        //     sortable: true,
+        // },
         {
             name: "Status",
             width: '120px',
             center: true,
             selector: (row) => (
               <div className="d-flex align-items-center justify-content-center">
-                <div className={`${row?.active ? Styles.active : Styles.inactive}`}>
-                  <strong>{row?.active ? "Done" : "Not yet"}</strong>
+                <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
+                  <strong>{row?.status ? "Done" : "Not yet"}</strong>
                 </div>
               </div>
             ),
@@ -156,7 +165,7 @@ const Contact = () => {
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
                         onClick={() => submit(row)}
                     >
-                        {row?.active ? "Deactivate" : "Active"}
+                        {row?.status ? "Not yet" : "Done"}
                     </button>
                 </div>
             ),
