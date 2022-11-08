@@ -90,6 +90,7 @@ function UserDetail(props) {
         if (id !== undefined) {
             getUserById();
         }
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -160,7 +161,7 @@ function UserDetail(props) {
                                                 Phone Number
                                             </CFormLabel>
                                             <CFormInput
-                                                type="text"
+                                                type="number"
                                                 id="exampleFormControlInput1"
                                                 placeholder=""
                                                 defaultValue={user?.phoneNumber}

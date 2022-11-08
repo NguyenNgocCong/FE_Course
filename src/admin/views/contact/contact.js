@@ -13,6 +13,7 @@ import { Col, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import CIcon from "@coreui/icons-react";
 import { cilPen } from "@coreui/icons";
+import moment from "moment/moment";
 
 const Contact = () => {
     const [data, setDataTable] = useState([]);
@@ -92,36 +93,39 @@ const Contact = () => {
         },
         {
             name: "Fullname",
-            minWidth: '150px',
-            width: '200px',
-            maxWidth: '250px',
+            minWidth: '100px',
+            width: '150px',
+            maxWidth: '200px',
             selector: (row) => row?.fullName,
             sortable: true,
         },
         {
-            name: "Phone",
+            name: "Phone number",
             left: true,
             minWidth: '100px',
             width: '130px',
-            maxWidth: '150px',
+            maxWidth: '140px',
             selector: (row) => row?.phoneNumber,
             sortable: true,
         },
         {
             name: "Date created",
+            center: true,
             minWidth: '140px',
             width: '160px',
             maxWidth: '180px',
             selector: (row) => row?.createdDate,
+            format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
             sortable: true,
         },
         {
             name: "Date updated",
-            left: true,
-            minWidth: '100px',
-            width: '130px',
-            maxWidth: '150px',
+            center: true,
+            minWidth: '140px',
+            width: '160px',
+            maxWidth: '180px',
             selector: (row) => row?.updatedDate,
+            format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
             sortable: true,
         },
         {

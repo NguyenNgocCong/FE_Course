@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
-import { CButton } from "@coreui/react";
+import React, { useEffect, useState, } from "react";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import { adminApi } from "../../../api/adminApi";
 import toast, { Toaster } from "react-hot-toast";
@@ -11,9 +10,8 @@ import {
   CFormInput,
   CFormSelect,
 } from "@coreui/react";
-import { useHistory } from "react-router-dom";
 import CIcon from "@coreui/icons-react";
-import { cilLibraryAdd, cilPen } from "@coreui/icons";
+import { cilPen } from "@coreui/icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Col, Row } from "react-bootstrap";
@@ -70,6 +68,7 @@ const Users = () => {
             <AiOutlineDatabase color="#EA5455" />
           )}
           {row?.role?.replace("ROLE_", "") === "MANAGER" ||
+          row?.role?.replace("ROLE_", "") === "TRAINER" ||
             row?.role?.replace("ROLE_", "") === "EXPERT" ? (
             <FaDatabase color="#28C76F" />
           ) : (
@@ -189,9 +188,9 @@ const Users = () => {
   const onSearch = async (e) => {
     setName(e.target.value);
   };
-
   useEffect(() => {
     getListUser();
+  // eslint-disable-next-line
   }, [isModify, name, status, role, itemsPerPage, page]);
 
   useEffect(() => {
