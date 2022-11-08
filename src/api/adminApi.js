@@ -5,8 +5,8 @@ export const adminApi = {
     const url = "/api/role/roles";
     return axiosApi.get(url);
   },
-  getListUser: (params, page, size) => {
-    const url = `/api/admin/users?page=2`;
+  getListUser: ( page, size, name, status, role) => {
+    const url = `/api/admin/users?page=${page}&size=${size}&name=${name}&status=${status}&role=${role}`;
     return axiosApi.get(url);
   },
   updateActiveUser: (params) => {

@@ -127,21 +127,21 @@ const Users = () => {
     },
   ];
   const [listRole, setListRole] = useState([]);
-  const [listUser, setListUser] = useState([]);
+  const [data, setDataTable] = useState([]);
   const [isModify, setIsModify] = useState(false);
-  const [role, setRole] = useState("");
-  const [status, setStatus] = useState(0);
+  const [role, setRole] = useState(0);
+  const [status, setStatus] = useState("");
   const [name, setName] = useState("");
   const [page, setPage] = useState(0);
+  const [totalRows, setTotalRows] = useState(0);
+  const optionsPerPage = [10, 20, 50];
+  const [itemsPerPage, setItemsPerPage] = React.useState(optionsPerPage[0]);
 
   const getListUser = async () => {
     try {
-      const params = {
-        name: name, status: status, role: role,
-      }
-      const response = await adminApi.getListUser(params, page, 10);
-      setListUser(response.data);
-      console.log(response);
+      const response = await adminApi.getListUser(page, itemsPerPage, name, status, role);
+      setDataTable(response.data);
+      setTotalRows(response.totalItems)
     } catch (responseError) {
       console.log(responseError);
     }
@@ -198,12 +198,15 @@ const Users = () => {
 
   useEffect(() => {
     getListUser();
-  }, [isModify, name, status, role]);
+  }, [isModify, name, status, role, itemsPerPage, page]);
 
   useEffect(() => {
     getListRole();
   }, [])
 
+  const handlePerRowsChange = async (newPerPage) => {
+    setItemsPerPage(newPerPage);
+  }
   return (
     <div>
       <AppSidebar />
@@ -219,17 +222,14 @@ const Users = () => {
                 setRole(e.target.value);
               }}
             >
-              <option value="">All Role</option>
+              <option value={0}>All Role</option>
               {listRole?.map((item, index) => {
                 return (
                   <option
                     key={index}
-                    value={item?.setting_value}
+                    value={item?.setting_id}
                   >
-                    {item?.setting_value?.replace(
-                      "ROLE_",
-                      ""
-                    )}
+                    {item?.setting_title}
                   </option>
                 );
               })}
@@ -253,7 +253,7 @@ const Users = () => {
               style={{ width: "350px" }}
             />
           </div>
-          <div className={Styles.inputSearch}>
+          {/* <div className={Styles.inputSearch}>
             <button
               style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
               onClick={() =>
@@ -264,10 +264,19 @@ const Users = () => {
             >
               <CIcon icon={cilLibraryAdd} />
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="body flex-grow-1 px-3">
-          <DataTable columns={columns} data={listUser} pagination />
+          <DataTable
+            columns={columns}
+            data={data}
+            paginationTotalRows={totalRows}
+            onChangePage={(page) => setPage(page - 1)}
+            itemsPerPage={itemsPerPage}
+            onChangeRowsPerPage={handlePerRowsChange}
+            pagination
+            paginationServer
+          />
         </div>
         <AppFooter />
       </div>
