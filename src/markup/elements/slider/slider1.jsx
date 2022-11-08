@@ -35,7 +35,7 @@ function Slider1() {
 				{listSlider.map(slider => (
 					<div className="slider-item">
 						<div className="slider-thumb">
-							<img src={slider?.imageUrl} alt="" />
+							<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + slider?.imageUrl} alt="" />
 						</div>
 					</div>
 				))}

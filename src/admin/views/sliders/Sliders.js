@@ -33,7 +33,7 @@ const Sliders = () => {
             name: "ImageUrl",
             selector: (row) => (
                 <img
-                    src={row?.imageUrl}
+                    src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + row?.imageUrl}
                     width={120}
                     alt='thumbnail'
                 />

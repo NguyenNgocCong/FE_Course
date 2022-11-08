@@ -71,7 +71,7 @@ const BlogClassicSidebar = () => {
 											listPost.map((item) => (
 												<>
 													<CCol md={3}>
-														<CCardImage src={item?.thumnailUrl} />
+														<CCardImage src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + item?.thumnailUrl} />
 													</CCol>
 													<CCol md={9}>
 														<CCardTitle><Link to={`/blog/${item?.id}`}>{item?.title}</Link></CCardTitle>

@@ -113,7 +113,7 @@ function SliderDetail(props) {
                                     <CImage
                                         rounded
                                         thumbnail
-                                        src={!preview ? slider?.imageUrl ? slider?.imageUrl : img : preview}
+                                        src={!preview ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + slider?.imageUrl ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + slider?.imageUrl : img : preview}
                                         width={1200}
                                         style={{ maxHeight: '450px', display: 'block', margin: 'auto' }}
                                         onLoad={() => URL.revokeObjectURL(preview)}

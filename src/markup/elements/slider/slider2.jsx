@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 
 // Images
 import Image1 from "../../../images/slider/slide3.jpg"
 import pic1 from "../../../images/slider/pic1.png"
 
-class Slider2 extends Component{
-	
-	render(){
-		
+class Slider2 extends Component {
+
+	render() {
+
 		const settings = {
 			infinite: true,
 			speed: 1000,
 			slidesToShow: 1,
 			slidesToScroll: 1,
 		};
-		
-		return(
+
+		return (
 			<>
-				
+
 				<Slider {...settings} className="tt-slider slider-two slider-sp0 owl-none">
 					<div className="slider-item">
 						<div className="slider-thumb">
-							<img src={Image1} alt=""/>
+							<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + Image1} alt="" />
 						</div>
 						<div className="slider-content">
 							<div className="container">
@@ -39,16 +39,16 @@ class Slider2 extends Component{
 									</div>
 									<div className="col-lg-5">
 										<div className="slider-img">
-											<img src={pic1} alt=""/>
+											<img src={pic1} alt="" />
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>			
+					</div>
 					<div className="slider-item">
 						<div className="slider-thumb">
-							<img src={Image1} alt=""/>
+							<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + Image1} alt="" />
 						</div>
 						<div className="slider-content">
 							<div className="container">
@@ -64,15 +64,15 @@ class Slider2 extends Component{
 									</div>
 									<div className="col-lg-5">
 										<div className="slider-img">
-											<img src={pic1} alt=""/>
+											<img src={pic1} alt="" />
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>					
+					</div>
 				</Slider>
-				
+
 			</>
 		);
 	}
