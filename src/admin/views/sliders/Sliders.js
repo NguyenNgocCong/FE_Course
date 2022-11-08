@@ -13,6 +13,7 @@ import CIcon from '@coreui/icons-react';
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { Col, Row } from "react-bootstrap";
 
 const Sliders = () => {
     const [listSlider, setListSlider] = useState([]);
@@ -70,21 +71,19 @@ const Sliders = () => {
         },
         {
             name: "Action",
-            maxWidth: '140px',
+            maxWidth: '200px',
             selector: (row) => (
-                <>
+                <div style={{display:'flex'}}>
                     {(() => {
-                        return (<CButton
-                            className="mb-2"
+                        return (<div  className={Styles.inputSearch} style={{marginRight:"7px"}}><button
+                            style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right', margin:'0' }}
                             href={`/react/admin/sliders/${row?.id}`} color="primary"
                         >
                             <CIcon icon={cilPen} />
-                        </CButton>)
+                        </button></div>)
                     })()}
-
-                    <br />
-                    <CButton
-                        color={row?.status === 1 ? "danger" : "warning"}
+                    <div   className={Styles.inputSearch} style={{marginRight:"7px"}}><button
+                        style={{  backgroundColor:row?.status === 1 ? " #ff0e0e" : "#FFCC00", height: "30px", width: "80px", border: "none", float: 'right' , marginLeft:'0' }}
                         onClick={() =>
                             submit(row)
                         }
@@ -97,8 +96,8 @@ const Sliders = () => {
                             return (<>Publish</>)
                         }
                     })()}
-                    </CButton>
-                </>
+                    </button></div>
+                </div>
 
             ),
         },
@@ -173,8 +172,8 @@ const Sliders = () => {
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
 
-                <div className={Styles.searchParams}>
-                    <div className={Styles.showEntry}>
+                <Row className={`${Styles.searchParams} text-nowrap w-100 my-75 g-0 permission-header`}>
+                    <Col xs={12} lg={6} className={Styles.showEntry}>
                         <CFormSelect
                             aria-label="Default select example"
                             style={{ margin: "0px 10px", width: "140px" }}
@@ -187,8 +186,8 @@ const Sliders = () => {
                             <option value="1">Published</option>
                             <option value="2">Achieved</option>
                         </CFormSelect>
-                    </div>
-                    <div className={Styles.inputSearch}>
+                    </Col>
+                    <Col xs={12} lg={6} className={`${Styles.inputSearch} d-flex justify-content-end`}>
                         <button
                             style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
                             onClick={() =>
@@ -199,8 +198,8 @@ const Sliders = () => {
                         >
                             <CIcon icon={cilLibraryAdd}/>
                         </button>
-                    </div>
-                </div>
+                    </Col>
+                </Row>
                 <div className="body flex-grow-1 px-3">
                     <DataTable columns={columns} data={listSlider} pagination />
                 </div>

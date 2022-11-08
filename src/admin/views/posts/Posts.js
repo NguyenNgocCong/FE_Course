@@ -106,9 +106,7 @@ const Posts = () => {
                     {(() => {
                         if (row?.status === 1) {
                             return (<div  className={Styles.inputSearch} style={{marginRight:"7px"}}><button
-                               
                                 style={{ backgroundColor: "#bb2124", height: "30px", width: "40px", border: "none", float: 'right', margin:'0' }}
-                               
                                 onClick={() =>
                                     submit(row, 0)
                                 }
