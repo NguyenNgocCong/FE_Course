@@ -1,32 +1,35 @@
 import React, { useEffect, useState } from "react";
 import {
-    CTable,
-    CTableHead,
-    CTableRow,
-    CTableHeaderCell,
-    CTableBody,
-    CTableDataCell,
-    CButton,
+    CFormInput,
+    CFormSelect,
 } from "@coreui/react";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
-import CIcon from "@coreui/icons-react";
-import { cilPen, cilPeople } from "@coreui/icons";
-import { Link, useHistory } from "react-router-dom";
 import { adminApi } from "../../../api/adminApi";
 import toast, { Toaster } from "react-hot-toast";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import Styles from "./style.module.scss";
+import { Col, Row } from "react-bootstrap";
+import DataTable from "react-data-table-component";
+import CIcon from "@coreui/icons-react";
+import { cilPen } from "@coreui/icons";
 
 const Contact = () => {
-    const [listContact, setListContact] = useState([]);
+    const [data, setDataTable] = useState([]);
+    const [listCategory, setListCategory] = useState([]);
+    const [keywordSearch, setKeywordSearch] = useState("");
     const [isModify, setIsModify] = useState(false);
-    const history = useHistory();
-
+    const [category, setCategory] = useState(0);
+    const [page, setPage] = useState(0);
+    const [totalRows, setTotalRows] = useState(0);
+    const optionsPerPage = [10, 20, 50];
+    const [itemsPerPage, setItemsPerPage] = React.useState(optionsPerPage[0]);
     const getListContact = async () => {
         try {
             const response = await adminApi.getAllContact();
-            setListContact(Object.values(response.data));
-            console.log(response);
+            setDataTable(Object.values(response.data));
+            console.log(response.data);
+            setTotalRows(response.totalItems);
         } catch (responseError) {
             console.log(responseError);
         }
@@ -71,120 +74,143 @@ const Contact = () => {
         getListContact();
     }, [isModify]);
 
+
+    const columns = [
+        {
+            name: "ID",
+            width: '50px',
+            selector: (row) => row?.id,
+            sortable: true,
+        },
+        {
+            name: "Email",
+            minWidth: '225px',
+            width: '250px',
+            maxWidth: '275px',
+            selector: (row) => row?.email,
+            sortable: true,
+        },
+        {
+            name: "Fullname",
+            minWidth: '150px',
+            width: '200px',
+            maxWidth: '250px',
+            selector: (row) => row?.fullName,
+            sortable: true,
+        },
+        {
+            name: "Phone",
+            left: true,
+            minWidth: '100px',
+            width: '130px',
+            maxWidth: '150px',
+            selector: (row) => row?.phoneNumber,
+            sortable: true,
+        },
+        {
+            name: "Date created",
+            minWidth: '140px',
+            width: '160px',
+            maxWidth: '180px',
+            selector: (row) => row?.createdDate,
+            sortable: true,
+        },
+        {
+            name: "Date updated",
+            left: true,
+            minWidth: '100px',
+            width: '130px',
+            maxWidth: '150px',
+            selector: (row) => row?.updatedDate,
+            sortable: true,
+        },
+        {
+            name: "Status",
+            width: '120px',
+            center: true,
+            selector: (row) => (
+              <div className="d-flex align-items-center justify-content-center">
+                <div className={`${row?.active ? Styles.active : Styles.inactive}`}>
+                  <strong>{row?.active ? "Done" : "Not yet"}</strong>
+                </div>
+              </div>
+            ),
+            sortable: true,
+          },
+        {
+            name: "Action",
+            center: true,
+            selector: (row) => (
+                <div className={Styles.inputSearch}>
+                    <button
+                        onClick={() => { window.location.href = "/admin/contact/" + row?.id }}
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
+                    >
+                        <CIcon icon={cilPen} />
+                    </button>
+                    <button
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                        onClick={() => submit(row)}
+                    >
+                        {row?.active ? "Deactivate" : "Active"}
+                    </button>
+                </div>
+            ),
+        },
+    ];
+    const onSearch = async (e) => {
+        setKeywordSearch(e.target.value);
+      };
+    
+    const handlePerRowsChange = async (newPerPage) => {
+        setItemsPerPage(newPerPage);
+      }
+
     return (
         <div>
             <AppSidebar />
             <Toaster position="top-center" reverseOrder={false} />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
-                <div className="body flex-grow-1 px-3">
-                    <CTable
-                        align="middle"
-                        className="mb-0 border"
-                        hover
-                        responsive
-                    >
-                        <CTableHead color="light">
-                            <CTableRow>
-                                <CTableHeaderCell className="text-center">
-                                    <CIcon icon={cilPeople} />
-                                </CTableHeaderCell>
-                                <CTableHeaderCell>Fullname</CTableHeaderCell>
-                                <CTableHeaderCell>Email</CTableHeaderCell>
-                                {/* <CTableHeaderCell>Address</CTableHeaderCell> */}
-                                <CTableHeaderCell>
-                                    Phone Number
-                                </CTableHeaderCell>
-                                <CTableHeaderCell>Message</CTableHeaderCell>
-                                <CTableHeaderCell className="text-center">
-                                    Action
-                                </CTableHeaderCell>
-                            </CTableRow>
-                        </CTableHead>
-                        <CTableBody>
-                            {listContact?.map((item, index) => (
-                                <CTableRow
-                                    v-for="item in tableItems"
-                                    key={index}
-                                >
-                                    <CTableDataCell
-                                        className="text-center"
-                                        style={{
-                                            verticalAlign: "inherit",
+                <div className="body flex-grow px-2">
+                    <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }} >
+                        <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
+                            <Col xs={12} lg={2}>
+                                <div className='mt-50 width-270 mt-sm-0 mt-1'>
+                                    <CFormSelect
+                                        aria-label="Default select example"
+                                        onChange={(e) => {
+                                            setCategory(e.target.value);
                                         }}
                                     >
-                                        {item?.id}
-                                    </CTableDataCell>
-                                    <CTableDataCell
-                                        style={{
-                                            verticalAlign: "inherit",
-                                        }}
-                                    >
-                                        <div>{item?.fullName}</div>
-                                    </CTableDataCell>
-                                    <CTableDataCell
-                                        style={{
-                                            verticalAlign: "inherit",
-                                        }}
-                                    >
-                                        <div>{item?.email}</div>
-                                    </CTableDataCell>
-                                    {/* <CTableDataCell
-                                        style={{
-                                            verticalAlign: "inherit",
-                                        }}
-                                    >
-                                        <div>{item?.address}</div>
-                                    </CTableDataCell> */}
-                                    <CTableDataCell
-                                        style={{
-                                            verticalAlign: "inherit",
-                                        }}
-                                    >
-                                        <div>{item?.phoneNumber}</div>
-                                    </CTableDataCell>
-                                    <CTableDataCell
-                                        style={{
-                                            verticalAlign: "inherit",
-                                        }}
-                                    >
-                                        <div>{item?.message}</div>
-                                    </CTableDataCell>
-                                    <CTableDataCell className="text-center d-flex align-item-center justify-content-center">
-                                        <div className="mr-2">
-                                            <CButton
-                                                className="mb-2"
-                                                style={{ width: "auto" }}
-                                                color="primary"
-                                                onClick={() =>
-                                                    history.push(
-                                                        "/admin/contact/" +
-                                                        item?.id
-                                                    )
-                                                }
-                                            >
-                                                <CIcon icon={cilPen} />
-                                            </CButton>
-                                        </div>
-                                        <div className="mr-2">
-                                            <CButton
-                                                className="mb-2"
-                                                style={{ width: "135px" }}
-                                                color="warning"
-                                                onClick={() =>
-                                                    submit(item)
-                                                }
-                                            >
-                                                {item?.status
-                                                    ? "Resolved"
-                                                    : "Not Resolved"}
-                                            </CButton>
-                                        </div>
-                                    </CTableDataCell>
-                                </CTableRow>
-                            ))}
-                        </CTableBody>
-                    </CTable>
+                                        <option value="">All Status</option>
+                                        <option value={true}>Done</option>
+                                        <option value={false}>Not yet</option>
+                                    </CFormSelect>
+                                </div>
+                            </Col>
+                            <Col xs={12} lg={4}>
+                                <div className='mt-50 width-270 mt-sm-0 mt-1'>
+                                    <CFormInput
+                                        type="text"
+                                        id="exampleInputPassword1"
+                                        placeholder="Search..."
+                                        onChange={onSearch}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                    <DataTable
+                        columns={columns}
+                        data={data}
+                        paginationTotalRows={totalRows}
+                        onChangePage={(page) => setPage(page - 1)}
+                        itemsPerPage={itemsPerPage}
+                        onChangeRowsPerPage={handlePerRowsChange}
+                        pagination
+                        paginationServer
+                    />
                 </div>
                 <AppFooter />
             </div>
