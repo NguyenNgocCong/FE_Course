@@ -18,28 +18,38 @@ import CIcon from "@coreui/icons-react";
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { Row, Col } from "react-bootstrap";
+
 
 function Subjects() {
   const columns = [
     {
       name: "ID",
-      minWidth: '10px',
-      maxWidth: '40px',
+      width: '50px',
       selector: (row) => row.id,
       sortable: true,
     },
     {
       name: "Subject Code",
+      minWidth: '180px',
+      width: '200px',
+      maxWidth: '220px',
       selector: (row) => row.code,
       sortable: true,
     },
     {
       name: "Name",
+      minWidth: '225px',
+      width: '250px',
+      maxWidth: '275px',
       selector: (row) => row.name,
       sortable: true,
     },
     {
       name: "Manager",
+      minWidth: '180px',
+      width: '200px',
+      maxWidth: '220px',
       selector: (row) => (
         <>
           {" "}
@@ -51,11 +61,16 @@ function Subjects() {
     },
     {
       name: "Expert",
+      minWidth: '180px',
+      width: '200px',
+      maxWidth: '220px',
       selector: (row) => row.expert?.username,
       sortable: true,
     },
     {
       name: "Category",
+      minWidth: '160px',
+      width: '180px',
       maxWidth: '200px',
       selector: (row) => (
         <>
@@ -83,24 +98,22 @@ function Subjects() {
     },
     {
       name: "Action",
-      minWidth: '210px',
-      selector: (row, index) => (
-        <div className="my-2 d-flex justify-content-space-between">
-          <CButton
-            href={"/react/admin/subjects/" + row?.id}
-            style={{ width: "auto" }}
+      center:true,
+      selector: (row) => (
+        <div className={Styles.inputSearch}>
+          <button
+            onClick={() => { window.location.href = "/react/admin/subjects/" + row?.id }}
             color="primary"
+            style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
           >
             <CIcon icon={cilPen} />
-          </CButton>
-          <div className="p-1"></div>
-          <CButton
-            color="warning"
-            style={{ width: "auto", textAlign: 'center' }}
+          </button>
+          <button
+            style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
             onClick={() => submit(row)}
           >
-            {row?.status ? "Deactivate" : "Active"}
-          </CButton>
+            {row?.active ? "Deactivate" : "Active"}
+          </button>
         </div>
       ),
     },
@@ -191,65 +204,70 @@ function Subjects() {
       <Toaster position="top-center" reverseOrder={false} />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
-        <div className={Styles.searchParams}>
-          <div className={Styles.showEntry}>
-            <CFormSelect
-              aria-label="Default select example"
-              style={{ margin: "0px 0px", width: "180px" }}
-              onChange={(e) => {
-                setCategory(e.target.value);
-              }}
-            >
-              <option value="">All Category</option>
-              {listCategory?.map((item, index) => {
-                return (
-                  <option
-                    key={index}
-                    value={item?.setting_id}
-                  >
-                    {item?.setting_title}
-                  </option>
-                );
-              })}
-            </CFormSelect>
-            <CFormSelect
-              aria-label="Default select example"
-              style={{ margin: "0px 10px", width: "140px" }}
-              onChange={(e) => {
-                setStatus(e.target.value);
-              }}
-            >
-              <option value="">All Status</option>
-              <option value={true}>Active</option>
-              <option value={false}>Deactivate</option>
-            </CFormSelect>
-            <CFormInput
-              type="text"
-              id="exampleInputPassword1"
-              placeholder="Search..."
-              onChange={onSearch}
-              style={{ width: "350px" }}
-            />
+        <div className="body flex-grow px-2">
+          <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
+            <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
+              <Col xs={12} lg={2}>
+                <CFormSelect
+                  aria-label="Default select example"
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
+                >
+                  <option value={0}>All Category</option>
+                  {listCategory?.map((item, index) => {
+                    return (
+                      <option
+                        key={index}
+                        value={item?.setting_id}
+                      >
+                        {item?.setting_title}
+                      </option>
+                    );
+                  })}
+
+                </CFormSelect>
+              </Col>
+              <Col xs={12} lg={2}>
+                <CFormSelect
+                  onChange={(e) => {
+                    setStatus(e.target.value);
+                  }}
+                >
+                  <option value="">All Status</option>
+                  <option value={true}>Active</option>
+                  <option value={false}>Deactivate</option>
+                </CFormSelect>
+              </Col>
+              <Col xs={12} lg={4} >
+                <CFormInput
+                  type="text"
+                  id="exampleInputPassword1"
+                  placeholder="Search..."
+                  onChange={onSearch}
+                  style={{ width: "350px" }}
+                />
+              </Col>
+              <Col xs={4} >
+                <button
+                  style={{ backgroundColor: "#7367f0", border: "none", float: 'right' ,   height: '100%',width: '100px',color: 'white',borderRadius:'10px',marginRight:'inherit'}}
+                  onClick={() =>
+                    history.push(
+                      "/admin/subjects/create"
+                    )
+                  }
+                >
+                  <CIcon icon={cilLibraryAdd} />
+                </button>
+              </Col>
+            </Row>
           </div>
-          <div className={Styles.inputSearch}>
-            <button
-              style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-              onClick={() =>
-                history.push(
-                  "/admin/subjects/create"
-                )
-              }
-            >
-              <CIcon icon={cilLibraryAdd} />
-            </button>
-          </div>
-        </div>
-        <div className="body flex-grow-1 px-3">
           <DataTable columns={columns} data={listSubject} pagination />
         </div>
+        
         <AppFooter />
       </div>
-    </div>
+    </div >
   );
 }
 
