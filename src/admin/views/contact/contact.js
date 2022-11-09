@@ -17,10 +17,14 @@ import moment from "moment/moment";
 
 const Contact = () => {
     const [data, setDataTable] = useState([]);
+    // eslint-disable-next-line
     const [listCategory, setListCategory] = useState([]);
+    // eslint-disable-next-line
     const [keywordSearch, setKeywordSearch] = useState("");
     const [isModify, setIsModify] = useState(false);
+    // eslint-disable-next-line
     const [category, setCategory] = useState(0);
+    // eslint-disable-next-line
     const [page, setPage] = useState(0);
     const [totalRows, setTotalRows] = useState(0);
     const optionsPerPage = [10, 20, 50];
@@ -142,14 +146,14 @@ const Contact = () => {
             width: '120px',
             center: true,
             selector: (row) => (
-              <div className="d-flex align-items-center justify-content-center">
-                <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-                  <strong>{row?.status ? "Done" : "Not yet"}</strong>
+                <div className="d-flex align-items-center justify-content-center">
+                    <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
+                        <strong>{row?.status ? "Done" : "Not yet"}</strong>
+                    </div>
                 </div>
-              </div>
             ),
             sortable: true,
-          },
+        },
         {
             name: "Action",
             center: true,
@@ -173,11 +177,11 @@ const Contact = () => {
     ];
     const onSearch = async (e) => {
         setKeywordSearch(e.target.value);
-      };
-    
+    };
+
     const handlePerRowsChange = async (newPerPage) => {
         setItemsPerPage(newPerPage);
-      }
+    }
 
     return (
         <div>
@@ -192,6 +196,7 @@ const Contact = () => {
                                 <div className='mt-50 width-270 mt-sm-0 mt-1'>
                                     <CFormSelect
                                         aria-label="Default select example"
+                                        style={{ margin: "0px 0px", width: "180px" }}
                                         onChange={(e) => {
                                             setCategory(e.target.value);
                                         }}

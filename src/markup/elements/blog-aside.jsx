@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import blogPic1 from "../../images/blog/recent-blog/pic1.jpg";
-import blogPic2 from "../../images/blog/recent-blog/pic2.jpg";
-import blogPic3 from "../../images/blog/recent-blog/pic3.jpg";
 import { useDispatch } from 'react-redux';
 import { setSearch } from "../../redux/reducers/blog";
 import { useEffect } from "react";

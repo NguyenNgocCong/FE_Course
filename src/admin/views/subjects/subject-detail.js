@@ -10,7 +10,6 @@ import {
     CFormTextarea,
     CRow,
 } from "@coreui/react";
-import { _ } from "core-js";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -19,7 +18,6 @@ import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 
 function SubjectDetail(props) {
-    const [listSubject, setListSubject] = useState();
     const [listCategory, setListCategory] = useState([]);
     const [listManager, setListManager] = useState();
     const [listExpert, setListExpert] = useState();
@@ -31,7 +29,9 @@ function SubjectDetail(props) {
     const [note, setNote] = useState();
     const [manager, setManager] = useState();
     const [expert, setExpert] = useState();
+    // eslint-disable-next-line
     const [image, setImage] = useState();
+    // eslint-disable-next-line
     const [price, setPrice] = useState();
     const role = JSON.parse(Cookies.get("user"))?.role;
     const isNotAdmin = role !== "ROLE_ADMIN" ? true : false;
@@ -139,6 +139,7 @@ function SubjectDetail(props) {
         if (role === "ROLE_ADMIN") getListManager();
         getListExpert();
         getListCategory();
+        // eslint-disable-next-line
     }, []);
 
     const optionStatus = [

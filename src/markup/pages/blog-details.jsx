@@ -30,7 +30,8 @@ function BlogDetails(prop) {
 	useEffect(() => {
 		// console.log(id);
 		getPostById();
-	},[]) // eslint-disable-next-line
+		// eslint-disable-next-line
+	}, [])
 
 	return (
 		<>
@@ -66,7 +67,7 @@ function BlogDetails(prop) {
 								<div className="col-lg-9 col-xl-9 col-md-7">
 									<div className="recent-news blog-lg">
 										<div className="action-box blog-lg">
-											<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  post?.thumnailUrl} alt="" />
+											<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + post?.thumnailUrl} alt="" />
 										</div>
 										<div className="info-bx">
 											<ul className="media-post">

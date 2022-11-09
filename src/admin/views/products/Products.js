@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-    CButton,
     CFormSelect,
     CFormInput,
 } from "@coreui/react";
@@ -215,8 +214,11 @@ const Products = () => {
         setName(e.target.value);
     }
     useEffect(() => {
+
         getAllSubject();
     }, [isModify, name, status]);
+
+
     useEffect(() => {
         getListProduct();
     }, [isModify, status, title]);
@@ -234,6 +236,7 @@ const Products = () => {
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
                             <Col xs={12} lg={2}>
                                 <CFormSelect
+
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}

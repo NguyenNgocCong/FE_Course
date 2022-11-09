@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-    CButton,
     CFormInput,
     CFormSelect,
 } from "@coreui/react";
@@ -17,7 +16,9 @@ import { Col, Row } from "react-bootstrap";
 const Combos = () => {
     const [listSetting, setListSetting] = useState([]);
     const [listType, setListType] = useState([]);
+    // eslint-disable-next-line
     const [skip, setSkip] = useState(0);
+    // eslint-disable-next-line
     const [top, setTop] = useState(50);
     const [typeId, setTypeId] = useState(0);
     const [keyword, setKeyword] = useState("");
@@ -107,6 +108,7 @@ const Combos = () => {
 
     useEffect(() => {
         getListSetting();
+        // eslint-disable-next-line
     }, [typeId, keyword]);
 
     useEffect(() => {

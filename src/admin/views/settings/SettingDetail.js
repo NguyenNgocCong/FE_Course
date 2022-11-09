@@ -63,7 +63,7 @@ function SettingDetail(props) {
 
     const handleUpdateSetting = async () => {
         try {
-            const params = type == 1 ? {
+            const params = type === 1 ? {
                 setting_id: id,
                 type_id: typeId,
                 setting_title: title,
@@ -104,6 +104,7 @@ function SettingDetail(props) {
             getSettingById(id);
         }
         getAllType();
+        // eslint-disable-next-line
     }, []);
 
     return (

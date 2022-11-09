@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 // Images
@@ -13,7 +13,7 @@ import {
 } from "@coreui/react";
 import { useState } from "react";
 import { userApi } from "../../../api/userApi";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 function Footer1(props) {
   const [listCategory, setListCategory] = useState([]);
@@ -112,6 +112,7 @@ function Footer1(props) {
               <div className="col-lg-6 col-md-12 col-sm-12 footer-col-4">
                 <h5 style={{ color: "white" }}>Education & Courses</h5>
                 <iframe
+                  title=" "
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4854095316514!2d105.52487561540214!3d21.01325499368218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345b465a4e65fb%3A0xaae6040cfabe8fe!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBGUFQ!5e0!3m2!1svi!2s!4v1665753625139!5m2!1svi!2s"
                   width={"100%"}
                   height={300}

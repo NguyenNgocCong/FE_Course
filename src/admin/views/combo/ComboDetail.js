@@ -6,7 +6,6 @@ import {
     CCol,
     CFormInput,
     CFormLabel,
-    CFormSelect,
     CRow,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
@@ -63,21 +62,13 @@ function ComboDetail(props) {
         }
     };
 
-    const optionIsCombo = [
-        { combo: false, label: "False" },
-        { combo: true, label: "True" },
-    ];
-
-    const optionStatus = [
-        { status: false, label: "Deactivate" },
-        { status: true, label: "Active" },
-    ];
-
     useEffect(() => {
         if (type === 1) {
             getComboById(id);
         }
+        // eslint-disable-next-line
     }, []);
+
 
     return (
         <div>

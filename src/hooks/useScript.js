@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 export const useScript = (url, onload) => {
     useEffect(() => {
@@ -9,5 +9,6 @@ export const useScript = (url, onload) => {
         document.head.appendChild(script);
 
         return () => document.head.removeChild(script);
+        // eslint-disable-next-line
     }, []);
 };

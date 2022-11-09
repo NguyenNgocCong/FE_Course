@@ -1,7 +1,6 @@
-import { cilLibraryAdd, cilNoteAdd, cilPen, cilPlus } from "@coreui/icons";
+import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
-import { CButton, CFormInput, CFormSelect } from "@coreui/react";
-import Cookies from "js-cookie";
+import {  CFormInput, CFormSelect } from "@coreui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -11,7 +10,6 @@ import { useHistory } from "react-router-dom";
 import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import Styles from "./style.module.scss";
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Col, Row } from "react-bootstrap";
 
@@ -94,10 +92,7 @@ function Class() {
   const [status, setStatus] = useState("");
   const [listClass, setListClass] = useState([]);
   const [name, setName] = useState("");
-  const role = JSON.parse(Cookies.get("user"))?.role;
   const history = useHistory();
-  const isNotAdminOrManager =
-    role !== "ROLE_ADMIN" && role !== "ROLE_MANAGER" ? true : false;
 
   const getAllClass = async () => {
     try {
@@ -114,6 +109,7 @@ function Class() {
   };
   useEffect(() => {
     getAllClass();
+ // eslint-disable-next-line
   }, [status, name]);
 
   return (
@@ -128,7 +124,6 @@ function Class() {
               <Col xs={12} lg={2}>
                 <CFormSelect
                   aria-label="Default select example"
-                  
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}

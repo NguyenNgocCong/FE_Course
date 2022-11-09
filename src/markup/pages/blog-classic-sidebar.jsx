@@ -32,6 +32,7 @@ const BlogClassicSidebar = () => {
 
 	useEffect(() => {
 		getListPost();
+		 // eslint-disable-next-line
 	}, [searchBlog]);
 
 	return (

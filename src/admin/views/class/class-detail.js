@@ -9,7 +9,6 @@ import {
     CFormSelect,
     CRow,
 } from "@coreui/react";
-import { _ } from "core-js";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -93,6 +92,7 @@ function ClassDetail(props) {
             getClassById();
         }
         if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER") getListTrainer();
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => { }, [dateFrom, dateTo]);

@@ -30,6 +30,7 @@ function PostDetail(props) {
     const [categoryId, setCategoryId] = useState();
     const [briefInfo, setBriefInfo] = useState();
     const [status, setStatus] = useState(0);
+        // eslint-disable-next-line
     const [author, setAuthor] = useState();
     const [content, setContent] = useState();
     const [thumbnailUrl, setThumbnailUrl] = useState();
@@ -108,6 +109,7 @@ function PostDetail(props) {
             getPostById();
         }
         getListCategory();
+        // eslint-disable-next-line
     }, []);
 
     const optionStatus = [

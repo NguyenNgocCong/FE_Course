@@ -6,7 +6,6 @@ import {
     CCol,
     CFormInput,
     CFormLabel,
-    CFormSelect,
     CImage,
     CRow,
 } from "@coreui/react";
@@ -21,10 +20,10 @@ import {
 } from "../../components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import Cookies from "js-cookie";
 
 function ExpertDetail(props) {
     const [expert, setExpert] = useState();
+        // eslint-disable-next-line
     const [status, setStatus] = useState();
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
@@ -91,15 +90,8 @@ function ExpertDetail(props) {
 
     useEffect(() => {
         getExpertById();
+        // eslint-disable-next-line
     }, []);
-
-    const optionStatus = [
-        { status: 0, label: "Draft" },
-        { status: 1, label: "Submitted" },
-        { status: 2, label: "Published" },
-        { status: 3, label: "Achieved" },
-        { status: 4, label: "Rejected" },
-    ];
 
     return (
         <div>

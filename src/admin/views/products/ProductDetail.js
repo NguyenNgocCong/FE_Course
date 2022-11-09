@@ -106,6 +106,7 @@ function ProductDetail(props) {
             getProductById(id);
         }
         getAllSubject();
+        // eslint-disable-next-line
     }, []);
 
     return (

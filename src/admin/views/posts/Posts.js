@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-    CButton,
     CFormSelect,
     CFormInput,
 } from "@coreui/react";
@@ -235,6 +234,7 @@ const Posts = () => {
 
     useEffect(() => {
         getListPost();
+        // eslint-disable-next-line
     }, [isModify, status, title, category]);
 
     useEffect(() => {
@@ -274,7 +274,7 @@ const Posts = () => {
                             <Col md="auto">
                                 <CFormSelect
                                     aria-label="Default select example"
-                                    style={{ margin: "0px 10px", width: "140px" }}
+                                    style={{ margin: "0px 0px", width: "180px" }}
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}
@@ -301,6 +301,7 @@ const Posts = () => {
                                     style={{ width: "350px" }}
                                 />
                             </Col>
+
                             <Col  lg={4} className='d-flex justify-content-end'>  
                             <div className={Styles.inputSearch}>
                                 <button
@@ -314,6 +315,8 @@ const Posts = () => {
                                     <CIcon icon={cilLibraryAdd} />
                                 </button>
                             </div></Col>
+
+                            
                         </Row>
                     </div>
                     <DataTable columns={columns} data={listPost} pagination />

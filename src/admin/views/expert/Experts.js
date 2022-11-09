@@ -4,8 +4,6 @@ import { adminApi } from "../../../api/adminApi";
 import toast, { Toaster } from "react-hot-toast";
 import Styles from "./style.module.scss";
 import DataTable from "react-data-table-component";
-import { AiOutlineDatabase } from "react-icons/ai";
-import { FaDatabase } from "react-icons/fa";
 import {
     CFormInput,
 } from "@coreui/react";

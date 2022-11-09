@@ -10,8 +10,7 @@ import LecturersAside from "../elements/blog-aside";
 
 // Images
 import bannerImg from '../../images/banner/banner1.jpg';
-import { CRow, CCol, CCardImage, CCardTitle, CCardText } from '@coreui/react';
-import { CButton } from '@coreui/react';
+import { CRow, CCol, CCardImage, CCardTitle, CCardText, CButton } from '@coreui/react';
 import { userApi } from './../../api/userApi';
 import ReactHtmlParser from 'react-html-parser'
 import { useSelector } from 'react-redux';
@@ -32,6 +31,7 @@ const Lecturers = () => {
 
 	useEffect(() => {
 		getListPost();
+		  // eslint-disable-next-line
 	}, [searchLecturers]);
 
 	return (
@@ -40,13 +40,13 @@ const Lecturers = () => {
 			<Header />
 
 			<div className="page-content">
-				{/* <div className="page-banner ovbl-dark" style={{ backgroundImage: "url(" + bannerImg + ")" }}>
+				<div className="page-banner ovbl-dark" style={{ height:"200px", backgroundImage: "url(" + bannerImg + ")" }}>
 					<div className="container">
 						<div className="page-banner-entry">
 							<h1 className="text-white">Lecturers Classic Sidebar</h1>
 						</div>
 					</div>
-				</div> */}
+				</div>
 				<div className="breadcrumb-row">
 					<div className="container">
 						<ul className="list-inline">
@@ -57,7 +57,7 @@ const Lecturers = () => {
 				</div>
 
 				<div className="content-block">
-					<div className="section-area">
+					<div className="section-area" style={{marginTop:"20px"}}>
 						<div className="container">
 							<div className="row">
 								<div className="col-lg-3 col-xl-3 col-md-5 sticky-top">
@@ -72,17 +72,11 @@ const Lecturers = () => {
 														<CCardImage src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + item?.user.avatar} />
 													</CCol>
 													<CCol md={9}>
-
-														<CCardTitle><Link to={`/blog/${item?.id}`}>{item?.user?.fullname}</Link></CCardTitle>
-														<CCardText>
+														<CCardTitle style={{margin:"10px"}}><Link to={`/blog/${item?.id}`}>{item?.user?.fullname}</Link></CCardTitle>
+														<CCardText style={{margin:"10px"}}>
 															{ReactHtmlParser(item?.jobTitle)}
 														</CCardText>
-														<button
-															onClick={() => { window.location.href = "/lecturers/" + item?.id }}
-															style={{ backgroundColor: "#7367f0", height: "30px", width: "auto", border: "none"}}
-														>
-															Read more
-														</button>
+														<CButton><Link to={`/lecturers/${item?.id}`}>Read more</Link></CButton>
 													</CCol>
 													<hr />
 												</>
