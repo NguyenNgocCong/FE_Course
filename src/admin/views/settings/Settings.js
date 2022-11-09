@@ -127,6 +127,7 @@ const Settings = () => {
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
                             <Col xs={12} lg={2} >
                                 <CFormSelect
+                                    style={{ margin: "0px 0px", width: "180px" }}
                                     aria-label="Default select example"
                                     onChange={(e) => {
                                         setTypeId(e.target.value);

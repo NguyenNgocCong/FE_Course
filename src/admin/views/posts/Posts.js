@@ -253,6 +253,7 @@ const Posts = () => {
                             <Col xs={12} lg={2}>
                                 <CFormSelect
                                     aria-label="Default select example"
+                                    style={{ margin: "0px 0px", width: "180px" }}
                                     onChange={(e) => {
                                         setCategory(e.target.value);
                                     }}
@@ -273,6 +274,7 @@ const Posts = () => {
                             <Col xs={12} lg={2}>
                                 <CFormSelect
                                     aria-label="Default select example"
+                                    style={{ margin: "0px 0px", width: "180px" }}
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}
@@ -299,19 +301,19 @@ const Posts = () => {
                                     style={{ width: "350px" }}
                                 />
                             </Col>
-                            <Col xs={12} lg={4} className='d-flex justify-content-end'>  
-                            <div className={Styles.inputSearch}>
-                                <button
-                                    style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-                                    onClick={() =>
-                                        history.push(
-                                            "/admin/posts/create"
-                                        )
-                                    }
-                                >
-                                    <CIcon icon={cilLibraryAdd} />
-                                </button>
-                            </div></Col>
+                            <Col xs={12} lg={4} className='d-flex justify-content-end'>
+                                <div className={Styles.inputSearch}>
+                                    <button
+                                        style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
+                                        onClick={() =>
+                                            history.push(
+                                                "/admin/posts/create"
+                                            )
+                                        }
+                                    >
+                                        <CIcon icon={cilLibraryAdd} />
+                                    </button>
+                                </div></Col>
                         </Row>
                     </div>
                     <DataTable columns={columns} data={listPost} pagination />

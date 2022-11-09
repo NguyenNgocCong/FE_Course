@@ -64,11 +64,11 @@ const Users = () => {
       center: true,
       selector: (row) => (
         <div className="d-flex align-items-center justify-content-center">
-          {row?.role?.replace("ROLE_", "") === "ADMIN" 
-            ? <AiOutlineDatabase color="#EA5455" /> 
-            : (row?.role?.replace("ROLE_", "") === "GUEST" 
-            ? <AiOutlineUser color="#7367F0" />
-            : <FaDatabase color="#28C76F" />)
+          {row?.role?.replace("ROLE_", "") === "ADMIN"
+            ? <AiOutlineDatabase color="#EA5455" />
+            : (row?.role?.replace("ROLE_", "") === "GUEST"
+              ? <AiOutlineUser color="#7367F0" />
+              : <FaDatabase color="#28C76F" />)
           }
           <div style={{ marginLeft: "5px" }}>
             {" "}
@@ -183,7 +183,7 @@ const Users = () => {
   };
   useEffect(() => {
     getListUser();
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [isModify, name, status, role, itemsPerPage, page]);
 
   useEffect(() => {
@@ -205,6 +205,7 @@ const Users = () => {
               <Col xs={12} lg={2}>
                 <CFormSelect
                   aria-label="Default select example"
+                  style={{ margin: "0px 0px", width: "180px" }}
                   onChange={(e) => {
                     setRole(e.target.value);
                   }}
@@ -224,6 +225,7 @@ const Users = () => {
               </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
+                  style={{ margin: "0px 0px", width: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
