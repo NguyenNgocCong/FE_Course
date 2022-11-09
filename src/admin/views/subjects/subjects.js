@@ -89,7 +89,7 @@ function Subjects() {
       maxWidth: '120px',
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          {row.status ? "Active" : "Deactivate"}
+          <strong>{row.status ? "Active" : "Deactivate"}</strong>
         </div>
       ),
       sortable: true,
@@ -110,7 +110,7 @@ function Subjects() {
             style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
             onClick={() => submit(row)}
           >
-            {row?.active ? "Deactivate" : "Active"}
+            {row?.status ? "Deactivate" : "Active"}
           </button>
         </div>
       ),
@@ -244,10 +244,10 @@ function Subjects() {
                   id="exampleInputPassword1"
                   placeholder="Search..."
                   onChange={onSearch}
-                  style={{ width: "350px" }}
+                  
                 />
               </Col>
-              <Col xs={4} >
+              <Col xs={12} lg={4} >
                 <button
                   style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px', marginRight: 'inherit' }}
                   onClick={() =>

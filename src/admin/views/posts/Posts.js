@@ -250,7 +250,7 @@ const Posts = () => {
                 <div className="body flex-grow px-2">
                     <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-                            <Col xs={12} lg={2}>
+                            <Col  md="auto">
                                 <CFormSelect
                                     aria-label="Default select example"
                                     style={{ margin: "0px 0px", width: "180px" }}
@@ -271,7 +271,7 @@ const Posts = () => {
                                     })}
                                 </CFormSelect>
                             </Col>
-                            <Col xs={12} lg={2}>
+                            <Col md="auto">
                                 <CFormSelect
                                     aria-label="Default select example"
                                     style={{ margin: "0px 0px", width: "180px" }}
@@ -292,7 +292,7 @@ const Posts = () => {
                                     })}
                                 </CFormSelect>
                             </Col>
-                            <Col xs={12} lg={4}>
+                            <Col lg={4}>
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
@@ -301,19 +301,22 @@ const Posts = () => {
                                     style={{ width: "350px" }}
                                 />
                             </Col>
-                            <Col xs={12} lg={4} className='d-flex justify-content-end'>
-                                <div className={Styles.inputSearch}>
-                                    <button
-                                        style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-                                        onClick={() =>
-                                            history.push(
-                                                "/admin/posts/create"
-                                            )
-                                        }
-                                    >
-                                        <CIcon icon={cilLibraryAdd} />
-                                    </button>
-                                </div></Col>
+
+                            <Col  lg={4} className='d-flex justify-content-end'>  
+                            <div className={Styles.inputSearch}>
+                                <button
+                                    style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
+                                    onClick={() =>
+                                        history.push(
+                                            "/admin/posts/create"
+                                        )
+                                    }
+                                >
+                                    <CIcon icon={cilLibraryAdd} />
+                                </button>
+                            </div></Col>
+
+                            
                         </Row>
                     </div>
                     <DataTable columns={columns} data={listPost} pagination />

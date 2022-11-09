@@ -62,7 +62,6 @@ function Login(props) {
       Cookies.set("username", response?.username);
       Cookies.set("access_token", response?.accessToken);
       Cookies.set("roles", response?.roles);
-
       const responseAvatar = await userApi.getUserDetail();
       Cookies.set("user", JSON.stringify(responseAvatar));
       toast.success("Login sucessfully", {

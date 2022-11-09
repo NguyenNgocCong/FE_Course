@@ -121,10 +121,9 @@ function Class() {
         <div className="body flex-grow px-2">
           <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-              <Col xs={12} lg={2} >
+              <Col xs={12} lg={2}>
                 <CFormSelect
                   aria-label="Default select example"
-                  style={{ margin: "0px 0px", width: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
@@ -134,16 +133,16 @@ function Class() {
                   <option value={false}>Deactivate</option>
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={2}>
+              <Col xs={12} lg={4}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
                   placeholder="Search..."
                   onChange={onSearch}
-                  style={{ width: "350px" }}
+                  
                 />
               </Col>
-              <Col  >
+              <Col xs={12} lg={6} >
                 <button
                   style={{ backgroundColor: "#7367f0", border: "none", float: 'right',height: '100%',width: '100px',color: 'white',borderRadius:'10px' }}
                   onClick={() =>
