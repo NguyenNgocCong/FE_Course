@@ -73,32 +73,26 @@ const Sliders = () => {
             name: "Action",
             maxWidth: '200px',
             selector: (row) => (
-                <div style={{display:'flex'}}>
-                    {(() => {
-                        return (<div  className={Styles.inputSearch} style={{marginRight:"7px"}}><button
-                            style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right', margin:'0' }}
-                            href={`/react/admin/sliders/${row?.id}`} color="primary"
-                        >
-                            <CIcon icon={cilPen} />
-                        </button></div>)
-                    })()}
-                    <div   className={Styles.inputSearch} style={{marginRight:"7px"}}><button
-                        style={{  backgroundColor:row?.status === 1 ? " #ff0e0e" : "#FFCC00", height: "30px", width: "80px", border: "none", float: 'right' , marginLeft:'0' }}
-                        onClick={() =>
-                            submit(row)
-                        }
-                    >{(() => {
-                        if (row?.status === 0) {
-                            return (<>Publish</>)
-                        } else if (row?.status === 1) {
-                            return (<>Achieve</>)
-                        } else if (row?.status === 2) {
-                            return (<>Publish</>)
-                        }
-                    })()}
-                    </button></div>
+                <div className={Styles.inputSearch}>
+                    <button
+                        onClick={() => { window.location.href = "/react/admin/sliders/" + row?.id }}
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
+                    >
+                        <CIcon icon={cilPen} />
+                    </button>
+                    <button
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                        onClick={() => submit(row)}
+                    >
+                        {(() => {
+                            if (row?.status === 1) {
+                                return ("Achieve")
+                            } else if (row?.status === 2 || row?.status === 0) {
+                                return ("Publish")
+                            }
+                        })()}
+                    </button>
                 </div>
-
             ),
         },
     ];
@@ -196,7 +190,7 @@ const Sliders = () => {
                                 )
                             }
                         >
-                            <CIcon icon={cilLibraryAdd}/>
+                            <CIcon icon={cilLibraryAdd} />
                         </button>
                     </Col>
                 </Row>

@@ -38,7 +38,7 @@ const Posts = () => {
             maxWidth: '150px',
             selector: (row) => (
                 <img
-                    src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  row.thumnailUrl}
+                    src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + row.thumnailUrl}
                     width={120}
                     alt='thumbnail'
                 />
@@ -102,51 +102,43 @@ const Posts = () => {
             name: "Action",
             maxWidth: '180px',
             selector: (row) => (
-                <div style={{display:'flex'}}>
+                <div className={Styles.inputSearch}>
                     {(() => {
                         if (row?.status === 1) {
-                            return (<div  className={Styles.inputSearch} style={{marginRight:"7px"}}><button
-                                style={{ backgroundColor: "#bb2124", height: "30px", width: "40px", border: "none", float: 'right', margin:'0' }}
-                                onClick={() =>
-                                    submit(row, 0)
-                                }
+                            return (<button
+                                onClick={() => { window.location.href = "/react/admin/posts/" + row?.id }}
+                                style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                             >
                                 Approve
-                            </button></div>)
+                            </button>)
                         } else {
-                            return (<div   className={Styles.inputSearch} style={{marginRight:"7px"}}><button
-                             
-                                style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right', marginLeft:'0' }}
-                                href={`/react/admin/posts/${row?.id}`} color="primary"
+                            return (<button
+                                onClick={() => { window.location.href = "/react/admin/posts/" + row?.id }}
+                                style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                             >
                                 <CIcon icon={cilPen} />
-                            </button></div>)
+                            </button>)
                         }
                     })()}
-
-                    
-                    <div  className={Styles.inputSearch}><button
-                     style={{  backgroundColor:row?.status === 1 ? " #ff0e0e" : "#FFCC00", height: "30px", width: "80px", border: "none", float: 'right' , marginLeft:'0' }}
-                       
-                        onClick={() =>
-                            submit(row, 1)
-                        }
-                    >{(() => {
-                        if (row?.status === 0) {
-                            return (<>Submit</>)
-                        } else if (row?.status === 1) {
-                            return (<>Reject</>)
-                        } else if (row?.status === 2) {
-                            return (<>Achieve</>)
-                        } else if (row?.status === 3) {
-                            return (<>Publish</>)
-                        } else if (row?.status === 4) {
-                            return (<>Submit</>)
-                        }
-                    })()}
-                    </button></div>
+                    <button
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                        onClick={() => submit(row)}
+                    >
+                        {(() => {
+                            if (row?.status === 0) {
+                                return ("Submit")
+                            } else if (row?.status === 1) {
+                                return ("Reject")
+                            } else if (row?.status === 2) {
+                                return ("Achieve")
+                            } else if (row?.status === 3) {
+                                return ("Publish")
+                            } else if (row?.status === 4) {
+                                return ("Submit")
+                            }
+                        })()}
+                    </button>
                 </div>
-
             ),
         },
     ];
@@ -258,73 +250,73 @@ const Posts = () => {
 
                 <div className={Styles.searchParams}>
                     <div className={`${Styles.showEntry} w-100`}>
-                    <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-                    <Col xs={12} lg={2}>
-                        <CFormSelect
-                            aria-label="Default select example"
-                            style={{ margin: "0px 0px", width: "180px" }}
-                            onChange={(e) => {
-                                setCategory(e.target.value);
-                            }}
-                        >
-                            <option value="">All Category</option>
-                            {listCategory?.map((item, index) => {
-                                return (
-                                    <option
-                                        key={index}
-                                        value={item?.setting_id}
-                                    >
-                                        {item?.setting_title}
-                                    </option>
-                                );
-                            })}
-                        </CFormSelect>
-                        </Col>
-                        <Col xs={12} lg={2}>
-                        <CFormSelect
-                            aria-label="Default select example"
-                            style={{ margin: "0px 10px", width: "140px" }}
-                            onChange={(e) => {
-                                setStatus(e.target.value);
-                            }}
-                        >
-                            <option value="">All Status</option>
-                            {optionStatus?.map((item, index) => {
-                                return (
-                                    <option
-                                        key={index}
-                                        value={item?.status}
-                                    >
-                                        {item?.label}
-                                    </option>
-                                );
-                            })}
-                        </CFormSelect>
-                        </Col>
-                        <Col xs={12} lg={4}>
-                        <CFormInput
-                            type="text"
-                            id="exampleInputPassword1"
-                            placeholder="Search..."
-                            onChange={onSearch}
-                            style={{ width: "350px" }}
-                        />
-                        </Col>
-                      <Col xs={12} lg={4}  className='d-flex justify-content-end'>  <div className={Styles.inputSearch}>
-                        <button
-                            style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-                            onClick={() =>
-                                history.push(
-                                    "/admin/posts/create"
-                                )
-                            }
-                        >
-                            <CIcon icon={cilLibraryAdd}/>
-                        </button>
-                    </div></Col>
-                         </Row>
+                        <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
+                            <Col xs={12} lg={2}>
+                                <CFormSelect
+                                    aria-label="Default select example"
+                                    style={{ margin: "0px 0px", width: "180px" }}
+                                    onChange={(e) => {
+                                        setCategory(e.target.value);
+                                    }}
+                                >
+                                    <option value="">All Category</option>
+                                    {listCategory?.map((item, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={item?.setting_id}
+                                            >
+                                                {item?.setting_title}
+                                            </option>
+                                        );
+                                    })}
+                                </CFormSelect>
+                            </Col>
+                            <Col xs={12} lg={2}>
+                                <CFormSelect
+                                    aria-label="Default select example"
+                                    style={{ margin: "0px 10px", width: "140px" }}
+                                    onChange={(e) => {
+                                        setStatus(e.target.value);
+                                    }}
+                                >
+                                    <option value="">All Status</option>
+                                    {optionStatus?.map((item, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={item?.status}
+                                            >
+                                                {item?.label}
+                                            </option>
+                                        );
+                                    })}
+                                </CFormSelect>
+                            </Col>
+                            <Col xs={12} lg={4}>
+                                <CFormInput
+                                    type="text"
+                                    id="exampleInputPassword1"
+                                    placeholder="Search..."
+                                    onChange={onSearch}
+                                    style={{ width: "350px" }}
+                                />
+                            </Col>
+                            <Col xs={12} lg={4} className='d-flex justify-content-end'>  <div className={Styles.inputSearch}>
+                                <button
+                                    style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
+                                    onClick={() =>
+                                        history.push(
+                                            "/admin/posts/create"
+                                        )
+                                    }
+                                >
+                                    <CIcon icon={cilLibraryAdd} />
+                                </button>
+                            </div></Col>
+                        </Row>
                     </div>
-                   
+
                 </div>
                 <div className="body flex-grow-1 px-3">
                     <DataTable columns={columns} data={listPost} pagination />
