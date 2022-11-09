@@ -10,6 +10,8 @@ import avatarProfile from '../../../images/icon/avatar.svg'
 import { useSelector, useDispatch } from "react-redux";
 import { setEditAvatar } from "../../../redux/reducers/user";
 
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 function Header() {
   const [id, setId] = useState(Cookies.get("id"));
   const [user, setUser] = useState(Cookies.get("user") === undefined ? Cookies.get("user") : JSON.parse(Cookies.get("user")));

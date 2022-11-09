@@ -124,6 +124,7 @@ function Class() {
               <Col xs={12} lg={2} >
                 <CFormSelect
                   aria-label="Default select example"
+                  style={{ margin: "0px 0px", width: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}

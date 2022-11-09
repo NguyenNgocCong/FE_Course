@@ -44,6 +44,8 @@ import ForgetPasswordInput from "./pages/forget-password-input";
 import Users from "../admin/views/users/Users";
 import Dashboard from "../admin/views/dashboard/Dashboard";
 import UserDetail from "../admin/views/users/UserDetail";
+// eslint-disable-next-line
+import DefaultLayout from "../admin/layout/DefaultLayout";
 import Cookies from "js-cookie";
 import Error401 from "./pages/error-401";
 import Contact from "../admin/views/contact/contact";

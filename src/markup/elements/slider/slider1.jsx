@@ -29,19 +29,15 @@ function Slider1() {
 	}, []);
 
 	return (
-		<>
-
-			<Slider {...settings} className="tt-slider slider-one slider-sp0">
-				{listSlider.map(slider => (
-					<div className="slider-item">
-						<div className="slider-thumb">
-							<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + slider?.imageUrl} alt="" />
-						</div>
+		<Slider {...settings} className="tt-slider slider-one slider-sp0">
+			{listSlider.map(slider => (
+				<div key={slider?.id} className="slider-item">
+					<div className="slider-thumb">
+						<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + slider?.imageUrl} alt="" />
 					</div>
-				))}
-			</Slider>
-
-		</>
+				</div>
+			))}
+		</Slider>
 	);
 }
 

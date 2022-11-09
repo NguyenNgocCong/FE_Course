@@ -206,6 +206,7 @@ function Subjects() {
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
               <Col xs={12} lg={2}>
                 <CFormSelect
+                  style={{ margin: "0px 0px", width: "180px" }}
                   aria-label="Default select example"
                   onChange={(e) => {
                     setCategory(e.target.value);
@@ -227,6 +228,7 @@ function Subjects() {
               </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
+                  style={{ margin: "0px 0px", width: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
