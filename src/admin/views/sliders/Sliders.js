@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-    CButton,
     CFormSelect,
 } from "@coreui/react";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
@@ -19,7 +18,6 @@ const Sliders = () => {
     const [listSlider, setListSlider] = useState([]);
     const [isModify, setIsModify] = useState(false);
     const [status, setStatus] = useState("");
-    const [validTo, setValidTo] = useState("");
     const history = useHistory();
 
     const columns = [
@@ -157,6 +155,7 @@ const Sliders = () => {
 
     useEffect(() => {
         getListSlider();
+        // eslint-disable-next-line
     }, [isModify, status]);
 
     return (

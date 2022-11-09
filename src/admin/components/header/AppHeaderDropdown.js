@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import { Link, useHistory } from 'react-router-dom';
 
 const AppHeaderDropdown = () => {
+    // eslint-disable-next-line
     const [id, setId] = useState(Cookies.get("id"));
     const user = JSON.parse(Cookies.get("user"));
     const history = useHistory();

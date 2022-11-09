@@ -1,10 +1,9 @@
-import React, { Component, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sticky from "react-stickynode";
 
 // Images
 import logo from "../../../images/logo.png";
-import adv from "../../../images/adv/adv.jpg";
 import Cookies from "js-cookie";
 import { CAvatar } from "@coreui/react";
 import avatarProfile from '../../../images/icon/avatar.svg'
@@ -14,9 +13,9 @@ import { setEditAvatar } from "../../../redux/reducers/user";
 function Header() {
   const [id, setId] = useState(Cookies.get("id"));
   const [user, setUser] = useState(Cookies.get("user") === undefined ? Cookies.get("user") : JSON.parse(Cookies.get("user")));
+		 // eslint-disable-next-line
   const [role, setRole] = useState(Cookies.get("roles"));
   const [isExpand, setIsExpand] = useState(false);
-  const [acceptRole, setAcceptRole] = useState(["ROLE_ADMIN", "ROLE_SUPPORTER", "ROLE_MANAGER"]);
 
   const dispatch = useDispatch();
   const editAvatar = useSelector((state) => state.userReducers.editAvatar);
@@ -72,6 +71,7 @@ function Header() {
   useEffect(() => {
     setUser(Cookies.get("user") === undefined ? Cookies.get("user") : JSON.parse(Cookies.get("user")));
     dispatch(setEditAvatar(false));
+		 // eslint-disable-next-line
   }, [editAvatar])
 
   const handleLogout = () => {

@@ -18,8 +18,7 @@ import { userApi } from "../../../api/userApi";
 import {
     AppFooter,
     AppHeader,
-    AppSidebar,
-    DocsExample,
+    AppSidebar
 } from "../../components";
 
 function ContactDetail(props) {
@@ -39,7 +38,7 @@ function ContactDetail(props) {
 
     const getContactById = async () => {
         const response = await adminApi.getAllContact();
-        setContact(response.data?.filter((item) => item?.id == id)[0]);
+        setContact(response.data?.filter((item) => item?.id === id)[0]);
     };
 
     const getListCategory = async () => {
@@ -77,6 +76,7 @@ function ContactDetail(props) {
     useEffect(() => {
         getContactById();
         getListCategory();
+        // eslint-disable-next-line
     }, []);
 
     return (

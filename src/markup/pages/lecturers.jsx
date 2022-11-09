@@ -9,9 +9,7 @@ import Footer from "../layout/footer/footer1";
 import LecturersAside from "../elements/blog-aside";
 
 // Images
-import bannerImg from '../../images/banner/banner1.jpg';
 import { CRow, CCol, CCardImage, CCardTitle, CCardText } from '@coreui/react';
-import { CButton } from '@coreui/react';
 import { userApi } from './../../api/userApi';
 import ReactHtmlParser from 'react-html-parser'
 import { useSelector } from 'react-redux';
@@ -32,6 +30,7 @@ const Lecturers = () => {
 
 	useEffect(() => {
 		getListPost();
+		  // eslint-disable-next-line
 	}, [searchLecturers]);
 
 	return (

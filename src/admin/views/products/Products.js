@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-    CButton,
     CFormSelect,
     CFormInput,
 } from "@coreui/react";
@@ -235,6 +234,7 @@ const Products = () => {
 
     useEffect(() => {
         getListPost();
+        // eslint-disable-next-line
     }, [isModify, status, title, category]);
 
     useEffect(() => {

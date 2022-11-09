@@ -17,10 +17,14 @@ import moment from "moment/moment";
 
 const Contact = () => {
     const [data, setDataTable] = useState([]);
+        // eslint-disable-next-line
     const [listCategory, setListCategory] = useState([]);
+        // eslint-disable-next-line
     const [keywordSearch, setKeywordSearch] = useState("");
     const [isModify, setIsModify] = useState(false);
+        // eslint-disable-next-line
     const [category, setCategory] = useState(0);
+        // eslint-disable-next-line
     const [page, setPage] = useState(0);
     const [totalRows, setTotalRows] = useState(0);
     const optionsPerPage = [10, 20, 50];

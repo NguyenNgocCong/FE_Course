@@ -7,7 +7,6 @@ import {
     CFormInput,
     CFormLabel,
     CFormSelect,
-    CFormTextarea,
     CImage,
     CRow,
 } from "@coreui/react";
@@ -18,8 +17,7 @@ import { adminApi } from "../../../api/adminApi";
 import {
     AppFooter,
     AppHeader,
-    AppSidebar,
-    DocsExample,
+    AppSidebar
 } from "../../components";
 
 function SliderDetail(props) {
@@ -89,6 +87,7 @@ function SliderDetail(props) {
         if (type === 1) {
             getSliderById();
         }
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -104,7 +103,7 @@ function SliderDetail(props) {
                                 <strong>Slider Details</strong>
                             </CCardHeader>
                             <CCardBody>
-                                <div className="mb-3"> 
+                                <div className="mb-3">
                                     <CFormLabel htmlFor="exampleFormControlInput1">
                                         Image (
                                         <span style={{ color: "red" }}>*</span>)

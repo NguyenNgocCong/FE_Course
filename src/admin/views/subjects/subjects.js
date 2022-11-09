@@ -1,10 +1,8 @@
 import {
-  CButton,
   CFormInput,
   CFormSelect,
 } from "@coreui/react";
 import Styles from "./style.module.scss";
-import Cookies from "js-cookie";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -98,7 +96,7 @@ function Subjects() {
     },
     {
       name: "Action",
-      center:true,
+      center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
           <button
@@ -121,12 +119,10 @@ function Subjects() {
   const [listSubject, setListSubject] = useState([]);
   const [listCategory, setListCategory] = useState([]);
   const [category, setCategory] = useState("");
-  const role = JSON.parse(Cookies.get("user"))?.role;
   const [status, setStatus] = useState('');
   const [name, setName] = useState('');
   const [isModify, setIsModify] = useState(false);
   const history = useHistory();
-  const isNotAdmin = role !== "ROLE_ADMIN" ? true : false;
 
   const getAllSubject = async () => {
     try {
@@ -192,6 +188,7 @@ function Subjects() {
 
   useEffect(() => {
     getAllSubject();
+    // eslint-disable-next-line
   }, [isModify, name, status, category]);
 
   useEffect(() => {
@@ -250,7 +247,7 @@ function Subjects() {
               </Col>
               <Col xs={4} >
                 <button
-                  style={{ backgroundColor: "#7367f0", border: "none", float: 'right' ,   height: '100%',width: '100px',color: 'white',borderRadius:'10px',marginRight:'inherit'}}
+                  style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px', marginRight: 'inherit' }}
                   onClick={() =>
                     history.push(
                       "/admin/subjects/create"
@@ -264,7 +261,7 @@ function Subjects() {
           </div>
           <DataTable columns={columns} data={listSubject} pagination />
         </div>
-        
+
         <AppFooter />
       </div>
     </div >

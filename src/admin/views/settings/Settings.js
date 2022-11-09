@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-    CButton,
     CFormInput,
     CFormSelect,
 } from "@coreui/react";
@@ -17,7 +16,9 @@ import { Col, Row } from "react-bootstrap";
 const Settings = () => {
     const [listSetting, setListSetting] = useState([]);
     const [listType, setListType] = useState([]);
+    // eslint-disable-next-line
     const [skip, setSkip] = useState(0);
+    // eslint-disable-next-line
     const [top, setTop] = useState(50);
     const [typeId, setTypeId] = useState(0);
     const [keyword, setKeyword] = useState("");
@@ -108,6 +109,7 @@ const Settings = () => {
 
     useEffect(() => {
         getListSetting();
+        // eslint-disable-next-line
     }, [typeId, keyword]);
 
     useEffect(() => {
@@ -126,7 +128,6 @@ const Settings = () => {
                             <Col xs={12} lg={2} >
                                 <CFormSelect
                                     aria-label="Default select example"
-                                    style={{ margin: "0px 10px", width: "140px" }}
                                     onChange={(e) => {
                                         setTypeId(e.target.value);
                                     }}
