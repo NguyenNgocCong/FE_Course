@@ -116,7 +116,7 @@ class Markup extends Component {
                         <Route path="/products" exact component={ProductsUser} />
                         <Route path="/lecturers" exact component={LecturersUser} />
                         <Route
-                            path="/courses-details"
+                            path="/courses-details/:id"
                             exact
                             component={CoursesDetails}
                         />
