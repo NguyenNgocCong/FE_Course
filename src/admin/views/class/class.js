@@ -122,7 +122,6 @@ function Class() {
       <Toaster position="top-center" reverseOrder={false} />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
-
         <div className="body flex-grow px-2">
           <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
@@ -162,12 +161,8 @@ function Class() {
               </Col>
             </Row>
           </div>
-
           <DataTable columns={columns} data={listClass} pagination />
-
         </div>
-
-        
         <AppFooter />
       </div>
     </div>

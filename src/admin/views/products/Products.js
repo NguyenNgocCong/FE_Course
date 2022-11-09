@@ -247,9 +247,8 @@ const Products = () => {
             <Toaster position="top-center" reverseOrder={false} />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
-
-                <div className={Styles.searchParams}>
-                    <div className={`${Styles.showEntry} w-100`}>
+                <div className="body flex-grow px-2">
+                    <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
                             <Col xs={12} lg={2}>
                                 <CFormSelect
@@ -316,12 +315,8 @@ const Products = () => {
                             </div></Col>
                         </Row>
                     </div>
-
-                </div>
-                <div className="body flex-grow-1 px-3">
                     <DataTable columns={columns} data={listPost} pagination />
                 </div>
-
                 <AppFooter />
             </div>
         </div>

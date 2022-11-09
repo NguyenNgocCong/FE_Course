@@ -12,6 +12,7 @@ import toast, { Toaster } from "react-hot-toast";
 import DataTable from "react-data-table-component";
 import CIcon from '@coreui/icons-react';
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
+import { Col, Row } from "react-bootstrap";
 
 const Settings = () => {
     const [listSetting, setListSetting] = useState([]);
@@ -62,20 +63,17 @@ const Settings = () => {
         },
         {
             name: "Action",
+            center: true,
             maxWidth: '140px',
             selector: (row) => (
-                <>
-                    {(() => {
-                        return (<CButton
-                            href={`/react/admin/settings/${row?.setting_id}`} color="primary"
-                        >
-                            <CIcon icon={cilPen} />
-                        </CButton>)
-                    })()}
-
-                    <br />
-                </>
-
+                <div className={Styles.inputSearch}>
+                    <button
+                        onClick={() => { window.location.href = "/react/admin/settings/" + row?.id }}
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
+                    >
+                        <CIcon icon={cilPen} />
+                    </button>
+                </div>
             ),
         },
     ];
@@ -122,49 +120,56 @@ const Settings = () => {
             <Toaster position="top-center" reverseOrder={false} />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
-
-                <div className={Styles.searchParams}>
-                    <div className={Styles.showEntry}>
-                        <CFormSelect
-                            aria-label="Default select example"
-                            style={{ margin: "0px 10px", width: "140px" }}
-                            onChange={(e) => {
-                                setTypeId(e.target.value);
-                            }}
-                        >
-                            <option value={0}>All Type</option>
-                            {listType?.map((item, index) => {
-                                return (
-                                    <option
-                                        key={index}
-                                        value={item?.type_id}
+                <div className="body flex-grow px-2">
+                    <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
+                        <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
+                            <Col xs={12} lg={2} >
+                                <CFormSelect
+                                    aria-label="Default select example"
+                                    style={{ margin: "0px 10px", width: "140px" }}
+                                    onChange={(e) => {
+                                        setTypeId(e.target.value);
+                                    }}
+                                >
+                                    <option value={0}>All Type</option>
+                                    {listType?.map((item, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={item?.type_id}
+                                            >
+                                                {item?.title}
+                                            </option>
+                                        );
+                                    })}
+                                </CFormSelect>
+                            </Col>
+                            <Col xs={12} lg={2}>
+                                <CFormInput
+                                    type="text"
+                                    id="exampleInputPassword1"
+                                    placeholder="Search..."
+                                    onChange={onSearch}
+                                    style={{ width: "350px" }}
+                                />
+                            </Col>
+                            <Col xs={12} lg={8} className='d-flex justify-content-end'>
+                                <div className={Styles.inputSearch}>
+                                    <button
+                                        style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
+                                        onClick={() =>
+                                            history.push(
+                                                "/admin/settings/create"
+                                            )
+                                        }
                                     >
-                                        {item?.title}
-                                    </option>
-                                );
-                            })}
-                        </CFormSelect>
-                        <CFormInput
-                            type="text"
-                            id="exampleInputPassword1"
-                            placeholder="Search..."
-                            onChange={onSearch}
-                            style={{ width: "350px" }}
-                        />
+                                        <CIcon icon={cilLibraryAdd} />
+                                    </button>
+                                </div>
+                            </Col>
+                        </Row>
                     </div>
-                    
-                    <div className={Styles.inputSearch}>
-                        <button
-                            style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-                            onClick={() =>
-                                history.push(
-                                    "/admin/settings/create"
-                                )
-                            }
-                        >
-                            <CIcon icon={cilLibraryAdd} />
-                        </button>
-                    </div>
+
                 </div>
                 <div className="body flex-grow-1 px-3">
                     <DataTable columns={columns} data={listSetting} pagination />
@@ -172,7 +177,7 @@ const Settings = () => {
 
                 <AppFooter />
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -165,39 +165,39 @@ const Sliders = () => {
             <Toaster position="top-center" reverseOrder={false} />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
-
-                <Row className={`${Styles.searchParams} text-nowrap w-100 my-75 g-0 permission-header`}>
-                    <Col xs={12} lg={6} className={Styles.showEntry}>
-                        <CFormSelect
-                            aria-label="Default select example"
-                            style={{ margin: "0px 10px", width: "140px" }}
-                            onChange={(e) => {
-                                setStatus(e.target.value);
-                            }}
-                        >
-                            <option value="">All Status</option>
-                            <option value="0">Draft</option>
-                            <option value="1">Published</option>
-                            <option value="2">Achieved</option>
-                        </CFormSelect>
-                    </Col>
-                    <Col xs={12} lg={6} className={`${Styles.inputSearch} d-flex justify-content-end`}>
-                        <button
-                            style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-                            onClick={() =>
-                                history.push(
-                                    "/admin/sliders/create"
-                                )
-                            }
-                        >
-                            <CIcon icon={cilLibraryAdd} />
-                        </button>
-                    </Col>
-                </Row>
-                <div className="body flex-grow-1 px-3">
+                <div className="body flex-grow px-2">
+                    <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
+                        <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
+                            <Col xs={12} lg={6} className={Styles.showEntry}>
+                                <CFormSelect
+                                    aria-label="Default select example"
+                                    style={{ margin: "0px 10px", width: "140px" }}
+                                    onChange={(e) => {
+                                        setStatus(e.target.value);
+                                    }}
+                                >
+                                    <option value="">All Status</option>
+                                    <option value="0">Draft</option>
+                                    <option value="1">Published</option>
+                                    <option value="2">Achieved</option>
+                                </CFormSelect>
+                            </Col>
+                            <Col xs={12} lg={6} className={`${Styles.inputSearch} d-flex justify-content-end`}>
+                                <button
+                                    style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
+                                    onClick={() =>
+                                        history.push(
+                                            "/admin/sliders/create"
+                                        )
+                                    }
+                                >
+                                    <CIcon icon={cilLibraryAdd} />
+                                </button>
+                            </Col>
+                        </Row>
+                    </div>
                     <DataTable columns={columns} data={listSlider} pagination />
                 </div>
-
                 <AppFooter />
             </div>
         </div>
