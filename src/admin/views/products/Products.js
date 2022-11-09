@@ -17,12 +17,12 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Col, Row } from "react-bootstrap";
 
 const Products = () => {
-    const [listPost, setListPost] = useState([]);
-    const [listCategory, setListCategory] = useState([]);
-    const [category, setCategory] = useState("");
+    const [listProduct, setListProduct] = useState([]);
     const [isModify, setIsModify] = useState(false);
     const [status, setStatus] = useState("");
     const [title, setTitle] = useState("");
+    const [name, setName] = useState('');
+    const [listSubject, setListSubject] = useState([]);
     const history = useHistory();
 
     const columns = [
@@ -30,145 +30,131 @@ const Products = () => {
             name: "ID",
             selector: (row) => row.id,
             minWidth: '10px',
-            maxWidth: '40px',
+            width: "50px",
+            maxWidth: '60px',
             sortable: true,
         },
         {
-            name: "Thumbnail",
-            maxWidth: '150px',
-            selector: (row) => (
-                <img
-                    src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + row.thumnailUrl}
-                    width={120}
-                    alt='thumbnail'
-                />
-            ),
-            sortable: false,
-        },
-        {
             name: "Title",
+            minWidth: "100px",
+            width: "200px",
+            maxWidth: "300px",
             selector: (row) => row.title,
             sortable: true,
         },
         {
-            name: "Brief info",
-            selector: (row) => row.brefInfo,
+            name: "Excerpt",
+            minWidth: "100px",
+            width: "150px",
+            maxWidth: "200px",
+            selector: (row) => row.excerpt,
             sortable: true,
         },
         {
-            name: "Category",
-            maxWidth: '200px',
+            name: "Duration",
+            minWidth: "100px",
+            width: "150px",
+            maxWidth: "200px",
+            selector: (row) => row.duration,
+            sortable: true,
+        },
+        {
+            name: "Subject",
+            minWidth: "100px",
+            width: "150px",
+            maxWidth: "200px",
             selector: (row) => (
-                <>
-                    <div>
-                        {listCategory.map((category) => {
-                            return category?.setting_id === row.categoryId
-                                ? category.setting_title
-                                : ""
-                        })
-                        }
-                    </div>
-                </>
+              <>
+                <div>
+                  {listSubject.map((subject) => {
+                    return subject?.setting_id === row.subjectId
+                      ? subject.setting_title
+                      : ""
+                  })
+                  }
+                </div>
+              </>
+            ),
+            sortable: true,
+          },
+        {
+            name: "Description",
+            minWidth: "300px",
+            width: "350px",
+            maxWidth: "400px",
+            selector: (row) => row.description,
+            sortable: true,
+        },
+        {
+            name: "Price",
+            minWidth: "100px",
+            width: "120px",
+            maxWidth: "140px",
+            selector: (row) => row.listPrice,
+            sortable: true,
+        },
+        {
+            name: "Sale Price",
+            minWidth: "100px",
+            width: "120px",
+            maxWidth: "140px",
+            selector: (row) => row.sale_price,
+            sortable: true,
+        },
+        {
+            name: "IsCombo",
+            minWidth: "100px",
+            width: "120px",
+            maxWidth: "140px",
+            selector: (row) => (
+                <div className={`${row?.combo ? Styles.active : Styles.inactive}`}>
+                    <strong>{row.combo ? "True" : "False"}</strong>
+                </div>
             ),
             sortable: true,
         },
         {
             name: "Status",
-            maxWidth: '140px',
+            minWidth: "100px",
+            width: "120px",
+            maxWidth: "140px",
             selector: (row) => (
-                <>
-                    <div className={` ${row?.status !== 4 ? Styles.active : Styles.inactive}`} style={{ textAlign: 'center' }}>
-                        {(() => {
-                            if (row?.status === 0) {
-                                return (<>Draft</>)
-                            } else if (row?.status === 1) {
-                                return (<>Submitted</>)
-                            } else if (row?.status === 2) {
-                                return (<>Published</>)
-                            } else if (row?.status === 3) {
-                                return (<>Achieved</>)
-                            } else if (row?.status === 4) {
-                                return (<>Rejected</>)
-                            }
-                        })()}
-                    </div>
-                    <br />
-                    <div>{row?.createDate}</div>
-                </>
+                <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
+                    <strong>{row.status ? "Active" : "Deactivate"}</strong>
+                </div>
             ),
             sortable: true,
         },
         {
             name: "Action",
-            maxWidth: '180px',
+            center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
-                    {(() => {
-                        if (row?.status === 1) {
-                            return (<button
-                                onClick={() => { window.location.href = "/react/admin/posts/" + row?.id }}
-                                style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
-                            >
-                                Approve
-                            </button>)
-                        } else {
-                            return (<button
-                                onClick={() => { window.location.href = "/react/admin/posts/" + row?.id }}
-                                style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
-                            >
-                                <CIcon icon={cilPen} />
-                            </button>)
-                        }
-                    })()}
+                    <button
+                        onClick={() => { window.location.href = "/react/admin/products/" + row?.id }}
+                        color="primary"
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
+                    >
+                        <CIcon icon={cilPen} />
+                    </button>
                     <button
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
                         onClick={() => submit(row)}
                     >
-                        {(() => {
-                            if (row?.status === 0) {
-                                return ("Submit")
-                            } else if (row?.status === 1) {
-                                return ("Reject")
-                            } else if (row?.status === 2) {
-                                return ("Achieve")
-                            } else if (row?.status === 3) {
-                                return ("Publish")
-                            } else if (row?.status === 4) {
-                                return ("Submit")
-                            }
-                        })()}
+                        {row?.status ? "Deactivate" : "Active"}
                     </button>
                 </div>
             ),
         },
     ];
 
-    const handleUpdateStatus = async (row, type) => {
-        let id = row.id;
-        let status = row.status;
-        let statusChange = -1;
-        if (status === 0) {
-            statusChange = 1;
-        } else if (status === 1) {
-            if (type === 0) {
-                statusChange = 2;
-            } else {
-                statusChange = 4;
-            }
-        } else if (status === 2) {
-            statusChange = 3;
-        } else if (status === 3) {
-            statusChange = 2;
-        } else if (status === 4) {
-            statusChange = 1;
-        }
-        console.log(id, status);
+    const handleUpdateStatus = async (row) => {
+
         try {
             const params = {
-                status: statusChange,
+                status: !row?.status,
             };
-
-            const response = await adminApi.updatePost(id, params, null);
+            const response = await adminApi.updateProduct(row?.id, params);
             setIsModify(!isModify);
             toast.success(response?.message, {
                 duration: 2000,
@@ -180,7 +166,8 @@ const Products = () => {
         }
     }
 
-    const submit = (row, type) => {
+
+    const submit = (row) => {
 
         confirmAlert({
             title: 'Confirm to change status',
@@ -188,7 +175,7 @@ const Products = () => {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => handleUpdateStatus(row, type)
+                    onClick: () => handleUpdateStatus(row)
                 },
                 {
                     label: 'No',
@@ -197,11 +184,10 @@ const Products = () => {
             ]
         });
     }
-
-    const getListPost = async () => {
+    const getAllSubject = async () => {
         try {
-            const response = await adminApi.getAllPost(title, status);
-            setListPost(Object.values(response.data));
+            const response = await adminApi.getAllSubject(name, status);
+            setListSubject(response.data);
             console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
@@ -210,10 +196,11 @@ const Products = () => {
         }
     };
 
-    const getListCategory = async () => {
+    const getListProduct = async () => {
         try {
-            const response = await adminApi.getListCategoryPost();
-            setListCategory(response);
+            const response = await adminApi.getAllProduct()
+            setListProduct(Object.values(response.data));
+            console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,
@@ -221,25 +208,20 @@ const Products = () => {
         }
     };
 
+
+
     const onSearch = (e) => {
         setTitle(e.target.value);
+        setName(e.target.value);
     }
-
-    const optionStatus = [
-        { status: 0, label: "Draft" },
-        { status: 1, label: "Submitted" },
-        { status: 2, label: "Published" },
-        { status: 3, label: "Achieved" },
-        { status: 4, label: "Rejected" },
-    ];
-
     useEffect(() => {
-        getListPost();
-    }, [isModify, status, title, category]);
-
+        getAllSubject();
+    }, [isModify, name, status]);
     useEffect(() => {
-        getListCategory();
-    }, [])
+        getListProduct();
+    }, [isModify, status, title]);
+
+
 
     return (
         <div>
@@ -252,44 +234,13 @@ const Products = () => {
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
                             <Col xs={12} lg={2}>
                                 <CFormSelect
-                                    aria-label="Default select example"
-                                    style={{ margin: "0px 0px", width: "180px" }}
-                                    onChange={(e) => {
-                                        setCategory(e.target.value);
-                                    }}
-                                >
-                                    <option value="">All Category</option>
-                                    {listCategory?.map((item, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={item?.setting_id}
-                                            >
-                                                {item?.setting_title}
-                                            </option>
-                                        );
-                                    })}
-                                </CFormSelect>
-                            </Col>
-                            <Col xs={12} lg={2}>
-                                <CFormSelect
-                                    aria-label="Default select example"
-                                    style={{ margin: "0px 10px", width: "140px" }}
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}
                                 >
                                     <option value="">All Status</option>
-                                    {optionStatus?.map((item, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={item?.status}
-                                            >
-                                                {item?.label}
-                                            </option>
-                                        );
-                                    })}
+                                    <option value={true}>Active</option>
+                                    <option value={false}>Deactivate</option>
                                 </CFormSelect>
                             </Col>
                             <Col xs={12} lg={4}>
@@ -298,15 +249,14 @@ const Products = () => {
                                     id="exampleInputPassword1"
                                     placeholder="Search..."
                                     onChange={onSearch}
-                                    style={{ width: "350px" }}
                                 />
                             </Col>
-                            <Col xs={12} lg={4} className='d-flex justify-content-end'>  <div className={Styles.inputSearch}>
+                            <Col xs={12} lg={6} className='d-flex justify-content-end'>  <div className={Styles.inputSearch}>
                                 <button
                                     style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
                                     onClick={() =>
                                         history.push(
-                                            "/admin/posts/create"
+                                            "/admin/products/create"
                                         )
                                     }
                                 >
@@ -315,7 +265,7 @@ const Products = () => {
                             </div></Col>
                         </Row>
                     </div>
-                    <DataTable columns={columns} data={listPost} pagination />
+                    <DataTable columns={columns} data={listProduct} pagination />
                 </div>
                 <AppFooter />
             </div>
