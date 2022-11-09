@@ -26,7 +26,7 @@ function ComboDetail(props) {
     const location = useLocation();
     const history = useHistory();
     const id = location.pathname.substring(
-        "/admin/combo/".length,
+        "/admin/combos/".length,
         location.pathname.length
     );
     const type = id !== "create" ? 1 : 0;
@@ -55,7 +55,7 @@ function ComboDetail(props) {
             toast.success(response?.message, {
                 duration: 2000,
             });
-            history.push("/admin/combo");
+            history.push("/admin/combos");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,

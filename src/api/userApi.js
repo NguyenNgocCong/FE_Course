@@ -45,6 +45,12 @@ export const userApi = {
         return axiosApi.post(url, params);
     },
 
+    //expert
+    getAllExpert: () => {
+        const url = `/api/expert/views`;
+        return axiosApi.get(url);
+    },
+
     //Blog
     getAllPost: () => {
         const url = `/api/post/views`;

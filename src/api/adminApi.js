@@ -5,7 +5,7 @@ export const adminApi = {
     const url = "/api/role/roles";
     return axiosApi.get(url);
   },
-  getListUser: ( page, size, name, status, role) => {
+  getListUser: (page, size, name, status, role) => {
     const url = `/api/admin/users?page=${page}&size=${size}&name=${name}&status=${status}&role=${role}`;
     return axiosApi.get(url);
   },
@@ -30,7 +30,7 @@ export const adminApi = {
     const url = "/api/admin/users/manager-list";
     return axiosApi.get(url);
   },
-  getListExpert: () => {
+  getListUserExpert: () => {
     const url = "/api/admin/users/expert-list";
     return axiosApi.get(url);
   },
@@ -56,7 +56,16 @@ export const adminApi = {
     const url = `/api/admin/web-contact/update?id=${id}`;
     return axiosApi.put(url, params);
   },
-
+  // expert
+  getListExperts: (page, size, kekword) => {
+    const url = `/api/expert?page=${page}&size=${size}&kekword=${kekword}`;
+    return axiosApi.get(url);
+  },
+  // expert
+  getExpertById: (id) => {
+    const url = `/api/expert/${id}`;
+    return axiosApi.get(url);
+  },
   // subject
   getAllSubject: (name, status) => {
     const url = `/api/subjects?status=${status}&code=${name}`;
@@ -220,7 +229,7 @@ export const adminApi = {
     const url = `/api/admin/setting/getListType`;
     return axiosApi.get(url);
   },
-  
+
   //List Category
   getListCategoryPost: () => {
     const url = `/api/admin/setting/list-category-post`;

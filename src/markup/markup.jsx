@@ -29,6 +29,7 @@ import ForgetPassword from "./pages/forget-password";
 
 // Courses
 import ProductsUser from "./pages/courses";
+import LecturersUser from "./pages/lecturers";
 import CoursesDetails from "./pages/courses-details";
 
 // Blog Pages
@@ -62,6 +63,8 @@ import Combo from "../admin/views/combo/Combo";
 import ComboDetail from "../admin/views/combo/ComboDetail";
 import Settings from "../admin/views/settings/Settings";
 import SettingDetail from "../admin/views/settings/SettingDetail";
+import Experts from "../admin/views/expert/Experts";
+import ExpertDetail from "../admin/views/expert/ExpertDetail";
 
 
 class Markup extends Component {
@@ -112,6 +115,7 @@ class Markup extends Component {
 
                         {/* Courses */}
                         <Route path="/products" exact component={ProductsUser} />
+                        <Route path="/lecturers" exact component={LecturersUser} />
                         <Route
                             path="/courses-details"
                             exact
@@ -143,10 +147,10 @@ class Markup extends Component {
                         <PrivateRoute path="/admin/users/:username" exact>
                             <UserDetail />
                         </PrivateRoute>
-                        <PrivateRoute path="/admin/contact" exact>
+                        <PrivateRoute path="/admin/contacts" exact>
                             <Contact />
                         </PrivateRoute>
-                        <PrivateRoute path="/admin/contact/:username" exact>
+                        <PrivateRoute path="/admin/contacts/:username" exact>
                             <ContactDetail />
                         </PrivateRoute>
 
@@ -164,6 +168,14 @@ class Markup extends Component {
                         </PrivateRoute>
                         <PrivateRoute path="/admin/class/:id" exact>
                             <ClassDetail />
+                        </PrivateRoute>
+
+                        {/* Expert */}
+                        <PrivateRoute path="/admin/experts" exact>
+                            <Experts />
+                        </PrivateRoute>
+                        <PrivateRoute path="/admin/experts/:id" exact>
+                            <ExpertDetail />
                         </PrivateRoute>
 
                         {/* Post */}
@@ -200,13 +212,13 @@ class Markup extends Component {
                         </PrivateRoute>
 
                         {/* Combo */}
-                        <PrivateRoute path="/admin/combo" exact>
+                        <PrivateRoute path="/admin/combos" exact>
                             <Combo />
                         </PrivateRoute>
-                        <PrivateRoute path="/admin/combo/create" exact>
+                        <PrivateRoute path="/admin/combos/create" exact>
                             <ComboDetail />
                         </PrivateRoute>
-                        <PrivateRoute path="/admin/combo/:id" exact>
+                        <PrivateRoute path="/admin/combos/:id" exact>
                             <ComboDetail />
                         </PrivateRoute>
 

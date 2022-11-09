@@ -23,7 +23,7 @@ const _nav = [
     {
         component: CNavItem,
         name: "Contact",
-        to: "/admin/contact",
+        to: "/admin/contacts",
         icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
     },
     {
@@ -55,11 +55,16 @@ const _nav = [
         name: "Products",
         to: "/admin/products",
         icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
+    },{
+        component: CNavItem,
+        name: "Expert",
+        to: "/admin/experts",
+        icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
     },
     {
         component: CNavItem,
         name: "Combo",
-        to: "/admin/combo",
+        to: "/admin/combos",
         icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
     },
     {

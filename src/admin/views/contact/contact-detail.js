@@ -33,7 +33,7 @@ function ContactDetail(props) {
     const history = useHistory();
     const location = useLocation();
     const id = location.pathname.substring(
-        "/admin/contact/".length,
+        "/admin/contacts/".length,
         location.pathname.length
     );
 
@@ -66,7 +66,7 @@ function ContactDetail(props) {
             toast.success(response?.message, {
                 duration: 2000,
             });
-            history.push('/admin/contact');
+            history.push('/admin/contacts');
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,

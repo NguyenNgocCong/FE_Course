@@ -80,7 +80,7 @@ function SubjectDetail(props) {
 
     const getListExpert = async () => {
         try {
-            const response = await adminApi.getListExpert();
+            const response = await adminApi.getListUserExpert();
             setListExpert(response.data);
         } catch (responseError) {
             toast.error(responseError?.data.message, {

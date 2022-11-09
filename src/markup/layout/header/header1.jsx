@@ -150,7 +150,7 @@ function Header() {
                             </li>
                           </Link>
                         ) : role === "ROLE_SUPPORTER" ? (
-                          <Link to="/admin/contact">
+                          <Link to="/admin/contacts">
                             <li>
                               Admin
                             </li>
@@ -281,7 +281,10 @@ function Header() {
                     </ul>
                   </li>
                   <li>
-                    <Link to="/events">Events</Link>
+                    <Link to="/lecturers">Lecturers</Link>
+                  </li>
+                  <li>
+                    <Link to="/events"></Link>
                   </li>
                   <li>
                     <Link to="/products">
