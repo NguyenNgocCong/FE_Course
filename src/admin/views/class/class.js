@@ -92,6 +92,7 @@ function Class() {
   const history = useHistory();
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
+  // eslint-disable-next-line
   const [isModify, setIsModify] = useState(false);
   const [listTraner, setListTrainer] = useState([]);
   const [traner, setTrainer] = useState(0);
@@ -153,6 +154,7 @@ function Class() {
               <Col xs={12} lg={2}>
                 <CFormSelect
                   aria-label="Default select example"
+                  style={{ margin: "0px 0px", maxWidth: "180px" }}
                   onChange={(e) => {
                     setTrainer(e.target.value);
                   }}
@@ -173,6 +175,7 @@ function Class() {
               <Col xs={12} lg={2}>
                 <CFormSelect
                   aria-label="Default select example"
+                  style={{ margin: "0px 0px", maxWidth: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}

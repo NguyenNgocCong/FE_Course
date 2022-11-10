@@ -205,6 +205,7 @@ const Contact = () => {
                             <Col xs={12} lg={2}>
                                 <CFormSelect
                                     aria-label="Default select example"
+                                    style={{ margin: "0px 0px", maxWidth: "180px" }}
                                     onChange={(e) => {
                                         setCategory(e.target.value);
                                     }}
@@ -227,6 +228,7 @@ const Contact = () => {
                                 <div className='mt-50 width-270 mt-sm-0 mt-1'>
                                     <CFormSelect
                                         aria-label="Default select example"
+                                        style={{ margin: "0px 0px", maxWidth: "180px" }}
                                         onChange={(e) => {
                                             setStatus(e.target.value);
                                         }}

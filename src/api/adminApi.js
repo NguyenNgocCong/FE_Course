@@ -107,8 +107,8 @@ export const adminApi = {
   },
 
   //post
-  getAllPost: (title, status) => {
-    const url = `/api/post?title=${title}&status=${status}`;
+  getAllPost: (page, size, keyword, category, status) => {
+    const url = `/api/post?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
   getPostById: (id) => {

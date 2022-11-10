@@ -16,14 +16,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Col, Row } from "react-bootstrap";
 
 const Posts = () => {
-    const [listPost, setListPost] = useState([]);
-    const [listCategory, setListCategory] = useState([]);
-    const [category, setCategory] = useState("");
-    const [isModify, setIsModify] = useState(false);
-    const [status, setStatus] = useState("");
-    const [title, setTitle] = useState("");
-    const history = useHistory();
-
     const columns = [
         {
             name: "ID",
@@ -142,6 +134,18 @@ const Posts = () => {
         },
     ];
 
+    const [data, setDataTable] = useState([]);
+    const [keywordSearch, setKeywordSearch] = useState("");
+    const [isModify, setIsModify] = useState(false);
+    const [listCategory, setListCategory] = useState([]);
+    const [category, setCategory] = useState(0);
+    const [status, setStatus] = useState(-1);
+    const [page, setPage] = useState(0);
+    const [totalRows, setTotalRows] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = React.useState(10);
+    const history = useHistory();
+
+
     const handleUpdateStatus = async (row, type) => {
         let id = row.id;
         let status = row.status;
@@ -199,9 +203,9 @@ const Posts = () => {
 
     const getListPost = async () => {
         try {
-            const response = await adminApi.getAllPost(title, status);
-            setListPost(Object.values(response.data));
-            console.log(response);
+            const response = await adminApi.getAllPost(page, itemsPerPage, keywordSearch, category, status);
+            setDataTable(response.data);
+            setTotalRows(response.totalItems);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,
@@ -221,7 +225,7 @@ const Posts = () => {
     };
 
     const onSearch = (e) => {
-        setTitle(e.target.value);
+        setKeywordSearch(e.target.value);
     }
 
     const optionStatus = [
@@ -235,11 +239,15 @@ const Posts = () => {
     useEffect(() => {
         getListPost();
         // eslint-disable-next-line
-    }, [isModify, status, title, category]);
+    }, [isModify, keywordSearch, page, status, category]);
 
     useEffect(() => {
         getListCategory();
     }, [])
+
+    const handlePerRowsChange = async (newPerPage) => {
+        setItemsPerPage(newPerPage);
+    }
 
     return (
         <div>
@@ -253,6 +261,7 @@ const Posts = () => {
                             <Col lg={2}>
                                 <CFormSelect
                                     aria-label="Default select example"
+                                    style={{ margin: "0px 0px", maxWidth: "180px" }}
                                     onChange={(e) => {
                                         setCategory(e.target.value);
                                     }}
@@ -273,6 +282,7 @@ const Posts = () => {
                             <Col lg={2}>
                                 <CFormSelect
                                     aria-label="Default select example"
+                                    style={{ margin: "0px 0px", maxWidth: "180px" }}
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}
@@ -298,25 +308,33 @@ const Posts = () => {
                                     onChange={onSearch}
                                 />
                             </Col>
-                            <Col  lg={4} className='d-flex justify-content-end'>  
-                            <div className={Styles.inputSearch}>
-                                <button
-                                    style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-                                    onClick={() =>
-                                        history.push(
-                                            "/admin/posts/create"
-                                        )
-                                    }
-                                >
-                                    <CIcon icon={cilLibraryAdd} />
-                                </button>
-                            </div></Col>
+                            <Col lg={4} className='d-flex justify-content-end'>
+                                <div className={Styles.inputSearch}>
+                                    <button
+                                        style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
+                                        onClick={() =>
+                                            history.push(
+                                                "/admin/posts/create"
+                                            )
+                                        }
+                                    >
+                                        <CIcon icon={cilLibraryAdd} />
+                                    </button>
+                                </div></Col>
 
-                            
+
                         </Row>
                     </div>
-                    <DataTable columns={columns} data={listPost} pagination />
-                </div>
+                    <DataTable
+                        columns={columns}
+                        data={data}
+                        paginationTotalRows={totalRows}
+                        onChangePage={(page) => setPage(page - 1)}
+                        itemsPerPage={itemsPerPage}
+                        onChangeRowsPerPage={handlePerRowsChange}
+                        pagination
+                        paginationServer
+                    /></div>
                 <AppFooter />
             </div>
         </div>
