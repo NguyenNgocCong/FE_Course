@@ -330,6 +330,7 @@
 }
 .topbar-left ul li a,
 .topbar-right ul li a {
+    text-decoration: none;
     color: #000;
 }
 .topbar-left ul,
@@ -553,17 +554,18 @@
     display: inline-block;
 }
 .menu-links .nav > li > a:hover {
-    background-color: transparent;
-    color: #efbb20;
+    background-color: transparent !important;
+    color: #efbb20 !important;
 }
 .menu-links .nav > li > a:active,
 .menu-links .nav > li > a:focus {
     background-color: transparent;
 }
-.menu-links .nav > li.active > a,
+.menu-links .nav > li.active > a,.menu-links .nav > li > a,
 .menu-links .nav > li.current-menu-item > a {
+    text-decoration: none;
     background-color: transparent;
-    color: #efbb20;
+    color: #4c1864;
 }
 .menu-links .nav > li:hover > a {
     color: #efbb20;
@@ -1977,7 +1979,7 @@ footer .widget_services ul li:hover {
     transition: all 0.5s;
 }
 .footer_widget ul li a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* Subscribe Form */
@@ -2276,6 +2278,7 @@ footer .pt-social-link ul li {
 .media-post li a {
     color: #585e6d;
     vertical-align: middle;
+    text-decoration: none;
 }
 .media-post li a i {
     color: var(--primary);
@@ -3595,6 +3598,14 @@ footer .pt-social-link ul li {
     font-weight: 400;
 }
 .account-container .btn.button-md {
+    background-color: #f7b205;
+    border: none;
+    color: #4c1864;
+    padding: 12px 40px;
+}
+.account-container .btn.button-md:hover {
+    background-color: #4c1864;
+    color: #f7b205;
     padding: 12px 40px;
 }
 .account-container .form-control {
@@ -3608,7 +3619,7 @@ footer .pt-social-link ul li {
 }
 .account-form .heading-bx p a {
     color: var(--primary);
-    text-decoration: underline;
+    text-decoration: none;
     padding-bottom: 0px;
 }
 /* .g-recaptcha {
