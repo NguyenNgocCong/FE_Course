@@ -12,7 +12,6 @@ import LecturersAside from "../elements/blog-aside";
 import bannerImg from '../../images/banner/banner1.jpg';
 import { CRow, CCol, CCardImage, CCardTitle, CCardText, CButton } from '@coreui/react';
 import { userApi } from './../../api/userApi';
-import ReactHtmlParser from 'react-html-parser'
 import { useSelector } from 'react-redux';
 
 const Lecturers = () => {
@@ -31,16 +30,14 @@ const Lecturers = () => {
 
 	useEffect(() => {
 		getListPost();
-		  // eslint-disable-next-line
+		// eslint-disable-next-line
 	}, [searchLecturers]);
 
 	return (
 		<>
-
 			<Header />
-
 			<div className="page-content">
-				<div className="page-banner ovbl-dark" style={{ height:"200px", backgroundImage: "url(" + bannerImg + ")" }}>
+				<div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
 					<div className="container">
 						<div className="page-banner-entry">
 							<h1 className="text-white">Lecturers Classic Sidebar</h1>
@@ -55,9 +52,8 @@ const Lecturers = () => {
 						</ul>
 					</div>
 				</div>
-
 				<div className="content-block">
-					<div className="section-area" style={{marginTop:"20px"}}>
+					<div className="section-area" style={{ marginTop: "20px" }}>
 						<div className="container">
 							<div className="row">
 								<div className="col-lg-3 col-xl-3 col-md-5 sticky-top">
@@ -67,19 +63,19 @@ const Lecturers = () => {
 									<CRow className="g-0">
 										{
 											listPost.map((item) => (
-												<>
+												<CRow key={item?.id}>
 													<CCol md={3}>
 														<CCardImage src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + item?.user.avatar} />
 													</CCol>
 													<CCol md={9}>
-														<CCardTitle style={{margin:"10px"}}><Link to={`/blog/${item?.id}`}>{item?.user?.fullname}</Link></CCardTitle>
-														<CCardText style={{margin:"10px"}}>
-															{ReactHtmlParser(item?.jobTitle)}
-														</CCardText>
+														<CCardTitle >
+															<Link to={`/blog/${item?.id}`}>{item?.user?.fullname}</Link>
+														</CCardTitle>
+														<CCardText >{item?.jobTitle}</CCardText>
 														<CButton><Link to={`/lecturers/${item?.id}`}>Read more</Link></CButton>
 													</CCol>
 													<hr />
-												</>
+												</CRow>
 											))
 										}
 									</CRow>
@@ -88,27 +84,21 @@ const Lecturers = () => {
 											? (<><div className="pagination-bx rounded-sm gray m-b30 clearfix">
 												<ul className="pagination">
 													<li className="previous"><Link to="#"><i className="ti-arrow-left"></i> Prev</Link></li>
-													<li className="active"><Link >1</Link></li>
-													<li><Link >2</Link></li>
-													<li><Link >3</Link></li>
+													<li className="active"><CButton >1</CButton></li>
+													<li><CButton >2</CButton></li>
+													<li><CButton >3</CButton></li>
 													<li className="next"><Link to="#">Next <i className="ti-arrow-right"></i></Link></li>
 												</ul>
 											</div></>)
 											: (<h5 style={{ marginLeft: '50px' }}>Can't find any lecturers</h5>)
 									}
-
 								</div>
-
 							</div>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
-
 			<Footer />
-
 		</>
 	);
 }

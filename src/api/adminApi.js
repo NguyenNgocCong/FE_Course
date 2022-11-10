@@ -5,8 +5,8 @@ export const adminApi = {
     const url = "/api/role/roles";
     return axiosApi.get(url);
   },
-  getListUser: (page, size, name, status, role) => {
-    const url = `/api/admin/users?page=${page}&size=${size}&name=${name}&status=${status}&role=${role}`;
+  getListUser: (page, size, keyword, status, role) => {
+    const url = `/api/admin/users?page=${page}&size=${size}&keyword=${keyword}&status=${status}&role=${role}`;
     return axiosApi.get(url);
   },
   updateActiveUser: (params) => {
@@ -40,8 +40,8 @@ export const adminApi = {
   },
 
   // Web Contact
-  getAllContact: () => {
-    const url = "/api/admin/web-contact/";
+  getAllContact: (page, size, keyword, category, status) => {
+    const url = `/api/admin/web-contact?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
   updateStatusContact: (params, id) => {
@@ -67,8 +67,8 @@ export const adminApi = {
     return axiosApi.get(url);
   },
   // subject
-  getAllSubject: (name, status) => {
-    const url = `/api/subjects?status=${status}&code=${name}`;
+  getAllSubject: (page, size, keyword, category, status) => {
+    const url = `/api/subjects?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
   getSubjectDetail: (id) => {
@@ -89,8 +89,8 @@ export const adminApi = {
   },
 
   // class
-  getAllClass: (name, status) => {
-    const url = `/api/class?status=${status}&code=${name}`;
+  getAllClass:  (page, size, keyword, category, status) => {
+    const url = `/api/class?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
   getClassDetail: (id) => {
@@ -209,8 +209,8 @@ export const adminApi = {
     return axiosApi.put(url, params);
   },
 
-  getAllSetting: (skip, top, type_id, keyword) => {
-    const url = `/api/admin/setting/getListSetting?skip=${skip}&top=${top}&type_id=${type_id}&keyword=${keyword}`;
+  getAllSetting: (page, size, type_id, keyword) => {
+    const url = `/api/admin/setting/getListSetting?page=${page}&size=${size}&category=${type_id}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
   getSettingById: (id) => {
@@ -237,6 +237,10 @@ export const adminApi = {
   },
   getListCategorySubject: () => {
     const url = `/api/admin/setting/list-category-subject`;
+    return axiosApi.get(url);
+  },
+  getListCategoryWebContact: () => {
+    const url = `/api/admin/setting/list-category-WebContact`;
     return axiosApi.get(url);
   },
 };

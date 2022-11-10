@@ -250,10 +250,9 @@ const Posts = () => {
                 <div className="body flex-grow px-2">
                     <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-                            <Col  md="auto">
+                            <Col lg={2}>
                                 <CFormSelect
                                     aria-label="Default select example"
-                                    style={{ margin: "0px 0px", width: "180px" }}
                                     onChange={(e) => {
                                         setCategory(e.target.value);
                                     }}
@@ -271,10 +270,9 @@ const Posts = () => {
                                     })}
                                 </CFormSelect>
                             </Col>
-                            <Col md="auto">
+                            <Col lg={2}>
                                 <CFormSelect
                                     aria-label="Default select example"
-                                    style={{ margin: "0px 0px", width: "180px" }}
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}
@@ -298,10 +296,8 @@ const Posts = () => {
                                     id="exampleInputPassword1"
                                     placeholder="Search..."
                                     onChange={onSearch}
-                                    style={{ width: "350px" }}
                                 />
                             </Col>
-
                             <Col  lg={4} className='d-flex justify-content-end'>  
                             <div className={Styles.inputSearch}>
                                 <button

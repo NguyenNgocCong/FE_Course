@@ -45,9 +45,7 @@ const AppHeaderDropdown = () => {
             <CDropdownMenu className="pt-0" placement="bottom-end" >
                 <CDropdownItem>
                     <Link to="/">
-                        <li>
-                            Home
-                        </li>
+                        Home
                     </Link>
                 </CDropdownItem>
                 <CDropdownItem>

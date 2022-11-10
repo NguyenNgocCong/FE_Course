@@ -1,6 +1,6 @@
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
-import {  CFormInput, CFormSelect } from "@coreui/react";
+import { CFormInput, CFormSelect } from "@coreui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -89,28 +89,57 @@ function Class() {
       ),
     },
   ];
-  const [status, setStatus] = useState("");
-  const [listClass, setListClass] = useState([]);
-  const [name, setName] = useState("");
   const history = useHistory();
+  const [data, setDataTable] = useState([]);
+  const [keywordSearch, setKeywordSearch] = useState("");
+  const [isModify, setIsModify] = useState(false);
+  const [listTraner, setListTrainer] = useState([]);
+  const [traner, setTrainer] = useState(0);
+  const [status, setStatus] = useState("");
+  const [page, setPage] = useState(0);
+  const [totalRows, setTotalRows] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = React.useState(10);
 
   const getAllClass = async () => {
     try {
-      const response = await adminApi.getAllClass(name, status);
-      setListClass(response.data);
+      const response = await adminApi.getAllClass(page, itemsPerPage, keywordSearch, traner, status);
+      setDataTable(response.data);
+      setTotalRows(response.totalItems)
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 7000,
       });
     }
   };
-  const onSearch = async (e) => {
-    setName(e.target.value);
+
+  const getListTrainer = async () => {
+    try {
+      const response = await adminApi.getListTrainer();
+      setListTrainer(response.data);
+    } catch (responseError) {
+      toast.error(responseError?.data.message, {
+        duration: 7000,
+      });
+    }
   };
+
+  const onSearch = async (e) => {
+    setKeywordSearch(e.target.value);
+  };
+
   useEffect(() => {
     getAllClass();
- // eslint-disable-next-line
-  }, [status, name]);
+    // eslint-disable-next-line
+  },[isModify, keywordSearch, status, traner, itemsPerPage, page]);
+
+  useEffect(() => {
+    getListTrainer();
+    // eslint-disable-next-line
+  }, []);
+
+  const handlePerRowsChange = async (newPerPage) => {
+    setItemsPerPage(newPerPage);
+  }
 
   return (
     <div>
@@ -121,6 +150,26 @@ function Class() {
         <div className="body flex-grow px-2">
           <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
+              <Col xs={12} lg={2}>
+                <CFormSelect
+                  aria-label="Default select example"
+                  onChange={(e) => {
+                    setTrainer(e.target.value);
+                  }}
+                >
+                  <option value={0}>All Trainer</option>
+                  {listTraner?.map((item, index) => {
+                    return (
+                      <option
+                        key={index}
+                        value={item?.id}
+                      >
+                        {item?.fullname}
+                      </option>
+                    );
+                  })}
+                </CFormSelect>
+              </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
                   aria-label="Default select example"
@@ -139,12 +188,12 @@ function Class() {
                   id="exampleInputPassword1"
                   placeholder="Search..."
                   onChange={onSearch}
-                  
+
                 />
               </Col>
-              <Col xs={12} lg={6} >
+              <Col xs={12} lg={4} >
                 <button
-                  style={{ backgroundColor: "#7367f0", border: "none", float: 'right',height: '100%',width: '100px',color: 'white',borderRadius:'10px' }}
+                  style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px' }}
                   onClick={() =>
                     history.push(
                       "/admin/class/create"
@@ -156,8 +205,16 @@ function Class() {
               </Col>
             </Row>
           </div>
-          <DataTable columns={columns} data={listClass} pagination />
-        </div>
+          <DataTable
+            columns={columns}
+            data={data}
+            paginationTotalRows={totalRows}
+            onChangePage={(page) => setPage(page - 1)}
+            itemsPerPage={itemsPerPage}
+            onChangeRowsPerPage={handlePerRowsChange}
+            pagination
+            paginationServer
+          /> </div>
         <AppFooter />
       </div>
     </div>

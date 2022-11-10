@@ -78,7 +78,7 @@ function BlogAside() {
                         <li className="active"><Link to="#">General</Link></li>
                         {
                             listCategory.map(category => {
-                                return (<li><Link to="/courses-details">{category.setting_title}</Link></li>)
+                                return (<li key={category?.setting_id}><Link to="/courses-details">{category.setting_title}</Link></li>)
                             })
                         }
                     </ul>
@@ -88,7 +88,7 @@ function BlogAside() {
                     <div className="widget-post-bx">
                         {recentBlog.map(blog => {
                             return (
-                                <div className="widget-post clearfix">
+                                <div className="widget-post clearfix"  key={blog?.id}>
                                     <div className="ttr-post-media">
                                         {" "}
                                         <img

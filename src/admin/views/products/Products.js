@@ -63,19 +63,19 @@ const Products = () => {
             width: "150px",
             maxWidth: "200px",
             selector: (row) => (
-              <>
-                <div>
-                  {listSubject.map((subject) => {
-                    return subject?.setting_id === row.subjectId
-                      ? subject.setting_title
-                      : ""
-                  })
-                  }
-                </div>
-              </>
+                <>
+                    <div>
+                        {listSubject.map((subject) => {
+                            return subject?.setting_id === row.subjectId
+                                ? subject.setting_title
+                                : ""
+                        })
+                        }
+                    </div>
+                </>
             ),
             sortable: true,
-          },
+        },
         {
             name: "Description",
             minWidth: "300px",
@@ -214,8 +214,8 @@ const Products = () => {
         setName(e.target.value);
     }
     useEffect(() => {
-
         getAllSubject();
+        // eslint-disable-next-line
     }, [isModify, name, status]);
 
 

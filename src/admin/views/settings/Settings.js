@@ -14,14 +14,13 @@ import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import { Col, Row } from "react-bootstrap";
 
 const Settings = () => {
-    const [listSetting, setListSetting] = useState([]);
+    const [data, setData] = useState([]);
     const [listType, setListType] = useState([]);
-    // eslint-disable-next-line
-    const [skip, setSkip] = useState(0);
-    // eslint-disable-next-line
-    const [top, setTop] = useState(50);
+    const [page, setPage] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
     const [typeId, setTypeId] = useState(0);
     const [keyword, setKeyword] = useState("");
+    const [totalRows, setTotalRows] = useState(0);
     const history = useHistory();
 
     const columns = [
@@ -69,7 +68,7 @@ const Settings = () => {
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
-                        onClick={() => { window.location.href = "/react/admin/settings/" + row?.id }}
+                        onClick={() => { window.location.href = "/react/admin/settings/" + row?.setting_id }}
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
                         <CIcon icon={cilPen} />
@@ -81,9 +80,9 @@ const Settings = () => {
 
     const getListSetting = async () => {
         try {
-            const response = await adminApi.getAllSetting(skip, top, typeId, keyword);
-            setListSetting(response);
-            console.log(response);
+            const response = await adminApi.getAllSetting(page, itemsPerPage, typeId, keyword);
+            setData(response.data);
+            setTotalRows(response.totalItems)
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,
@@ -115,6 +114,10 @@ const Settings = () => {
     useEffect(() => {
         getAllType();
     }, [])
+
+    const handlePerRowsChange = async (newPerPage) => {
+        setItemsPerPage(newPerPage);
+    }
 
     return (
         <div>
@@ -174,7 +177,15 @@ const Settings = () => {
 
                 </div>
                 <div className="body flex-grow-1 px-3">
-                    <DataTable columns={columns} data={listSetting} pagination />
+                    <DataTable   
+                    columns={columns}
+                        data={data}
+                        paginationTotalRows={totalRows}
+                        onChangePage={(page) => setPage(page - 1)}
+                        itemsPerPage={itemsPerPage}
+                        onChangeRowsPerPage={handlePerRowsChange}
+                        pagination
+                        paginationServer></DataTable>
                 </div>
 
                 <AppFooter />

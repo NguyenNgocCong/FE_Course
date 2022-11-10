@@ -116,19 +116,24 @@ function Subjects() {
       ),
     },
   ];
-  const [listSubject, setListSubject] = useState([]);
-  const [listCategory, setListCategory] = useState([]);
-  const [category, setCategory] = useState("");
-  const [status, setStatus] = useState('');
-  const [name, setName] = useState('');
+  const [data, setDataTable] = useState([]);
+  const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
+  // eslint-disable-next-line
+  const [listCategory, setListCategory] = useState([]);
+  // eslint-disable-next-line
+  const [category, setCategory] = useState(0);
+  const [status, setStatus] = useState("");
+  const [page, setPage] = useState(0);
+  const [totalRows, setTotalRows] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = React.useState(10);
   const history = useHistory();
 
   const getAllSubject = async () => {
     try {
-      const response = await adminApi.getAllSubject(name, status);
-      setListSubject(response.data);
-      console.log(response);
+      const response = await adminApi.getAllSubject(page, itemsPerPage, keywordSearch, category, status);
+      setDataTable(response.data);
+      setTotalRows(response.totalItems);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 7000,
@@ -183,17 +188,21 @@ function Subjects() {
   };
 
   const onSearch = async (e) => {
-    setName(e.target.value);
+    setKeywordSearch(e.target.value);
   };
 
   useEffect(() => {
     getAllSubject();
     // eslint-disable-next-line
-  }, [isModify, name, status, category]);
+  }, [isModify, keywordSearch, page, status, category]);
 
   useEffect(() => {
     getListCategory();
   }, []);
+
+  const handlePerRowsChange = async (newPerPage) => {
+    setItemsPerPage(newPerPage);
+}
 
   return (
     <div>
@@ -244,7 +253,7 @@ function Subjects() {
                   id="exampleInputPassword1"
                   placeholder="Search..."
                   onChange={onSearch}
-                  
+
                 />
               </Col>
               <Col xs={12} lg={4} >
@@ -261,7 +270,16 @@ function Subjects() {
               </Col>
             </Row>
           </div>
-          <DataTable columns={columns} data={listSubject} pagination />
+          <DataTable
+            columns={columns}
+            data={data}
+            paginationTotalRows={totalRows}
+            onChangePage={(page) => setPage(page - 1)}
+            itemsPerPage={itemsPerPage}
+            onChangeRowsPerPage={handlePerRowsChange}
+            pagination
+            paginationServer
+          />
         </div>
 
         <AppFooter />
