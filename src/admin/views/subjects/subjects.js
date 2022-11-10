@@ -1,7 +1,4 @@
-import {
-  CFormInput,
-  CFormSelect,
-} from "@coreui/react";
+import { CFormInput, CFormSelect } from "@coreui/react";
 import Styles from "./style.module.scss";
 import React from "react";
 import { useEffect } from "react";
@@ -14,40 +11,39 @@ import { FaDatabase } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import CIcon from "@coreui/icons-react";
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
-
 
 function Subjects() {
   const columns = [
     {
       name: "ID",
-      width: '50px',
+      width: "50px",
       selector: (row) => row.id,
       sortable: true,
     },
     {
       name: "Subject Code",
-      minWidth: '180px',
-      width: '200px',
-      maxWidth: '220px',
+      minWidth: "180px",
+      width: "200px",
+      maxWidth: "220px",
       selector: (row) => row.code,
       sortable: true,
     },
     {
       name: "Name",
-      minWidth: '225px',
-      width: '250px',
-      maxWidth: '275px',
+      minWidth: "225px",
+      width: "250px",
+      maxWidth: "275px",
       selector: (row) => row.name,
       sortable: true,
     },
     {
       name: "Manager",
-      minWidth: '180px',
-      width: '200px',
-      maxWidth: '220px',
+      minWidth: "180px",
+      width: "200px",
+      maxWidth: "220px",
       selector: (row) => (
         <>
           {" "}
@@ -59,26 +55,25 @@ function Subjects() {
     },
     {
       name: "Expert",
-      minWidth: '180px',
-      width: '200px',
-      maxWidth: '220px',
+      minWidth: "180px",
+      width: "200px",
+      maxWidth: "220px",
       selector: (row) => row.expert?.username,
       sortable: true,
     },
     {
       name: "Category",
-      minWidth: '160px',
-      width: '180px',
-      maxWidth: '200px',
+      minWidth: "160px",
+      width: "180px",
+      maxWidth: "200px",
       selector: (row) => (
         <>
           <div>
             {listCategory.map((category) => {
               return category?.setting_id === row.categoryId
                 ? category.setting_title
-                : ""
-            })
-            }
+                : "";
+            })}
           </div>
         </>
       ),
@@ -86,7 +81,7 @@ function Subjects() {
     },
     {
       name: "Status",
-      maxWidth: '120px',
+      maxWidth: "120px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
           <strong>{row.status ? "Active" : "Deactivate"}</strong>
@@ -100,14 +95,28 @@ function Subjects() {
       selector: (row) => (
         <div className={Styles.inputSearch}>
           <button
-            onClick={() => { window.location.href = "/react/admin/subjects/" + row?.id }}
+            onClick={() => {
+              window.location.href = "/react/admin/subjects/" + row?.id;
+            }}
             color="primary"
-            style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
+            style={{
+              backgroundColor: "#7367f0",
+              height: "30px",
+              width: "40px",
+              border: "none",
+              float: "right",
+            }}
           >
             <CIcon icon={cilPen} />
           </button>
           <button
-            style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+            style={{
+              backgroundColor: "#7367f0",
+              height: "30px",
+              width: "80px",
+              border: "none",
+              float: "right",
+            }}
             onClick={() => submit(row)}
           >
             {row?.status ? "Deactivate" : "Active"}
@@ -119,8 +128,8 @@ function Subjects() {
   const [listSubject, setListSubject] = useState([]);
   const [listCategory, setListCategory] = useState([]);
   const [category, setCategory] = useState("");
-  const [status, setStatus] = useState('');
-  const [name, setName] = useState('');
+  const [status, setStatus] = useState("");
+  const [name, setName] = useState("");
   const [isModify, setIsModify] = useState(false);
   const history = useHistory();
 
@@ -130,29 +139,28 @@ function Subjects() {
       setListSubject(response.data);
       console.log(response);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.data?.message, {
         duration: 7000,
       });
     }
   };
 
   const submit = (row) => {
-
     confirmAlert({
-      title: 'Confirm to change status',
-      message: 'Are you sure to do this.',
+      title: "Confirm to change status",
+      message: "Are you sure to do this.",
       buttons: [
         {
-          label: 'Yes',
-          onClick: () => handleUpdateActiveSubject(row)
+          label: "Yes",
+          onClick: () => handleUpdateActiveSubject(row),
         },
         {
-          label: 'No',
+          label: "No",
           //onClick: () => alert('Click No')
-        }
-      ]
+        },
+      ],
     });
-  }
+  };
 
   const handleUpdateActiveSubject = async (row) => {
     try {
@@ -202,8 +210,14 @@ function Subjects() {
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
         <div className="body flex-grow px-2">
-          <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
-            <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "15px 20px",
+              margin: "0px 0px 15px 0px",
+            }}
+          >
+            <Row className="text-nowrap w-100 my-75 g-0 permission-header">
               <Col xs={12} lg={2}>
                 <CFormSelect
                   style={{ margin: "0px 0px", width: "180px" }}
@@ -215,15 +229,11 @@ function Subjects() {
                   <option value={0}>All Category</option>
                   {listCategory?.map((item, index) => {
                     return (
-                      <option
-                        key={index}
-                        value={item?.setting_id}
-                      >
+                      <option key={index} value={item?.setting_id}>
                         {item?.setting_title}
                       </option>
                     );
                   })}
-
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={2}>
@@ -238,23 +248,27 @@ function Subjects() {
                   <option value={false}>Deactivate</option>
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={4} >
+              <Col xs={12} lg={4}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
                   placeholder="Search..."
                   onChange={onSearch}
-                  
                 />
               </Col>
-              <Col xs={12} lg={4} >
+              <Col xs={12} lg={4}>
                 <button
-                  style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px', marginRight: 'inherit' }}
-                  onClick={() =>
-                    history.push(
-                      "/admin/subjects/create"
-                    )
-                  }
+                  style={{
+                    backgroundColor: "#7367f0",
+                    border: "none",
+                    float: "right",
+                    height: "100%",
+                    width: "100px",
+                    color: "white",
+                    borderRadius: "10px",
+                    marginRight: "inherit",
+                  }}
+                  onClick={() => history.push("/admin/subjects/create")}
                 >
                   <CIcon icon={cilLibraryAdd} />
                 </button>
@@ -266,7 +280,7 @@ function Subjects() {
 
         <AppFooter />
       </div>
-    </div >
+    </div>
   );
 }
 
