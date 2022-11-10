@@ -17,28 +17,34 @@ import moment from "moment/moment";
 
 const Contact = () => {
     const [data, setDataTable] = useState([]);
-    // eslint-disable-next-line
-    const [listCategory, setListCategory] = useState([]);
-    // eslint-disable-next-line
     const [keywordSearch, setKeywordSearch] = useState("");
     const [isModify, setIsModify] = useState(false);
-    // eslint-disable-next-line
+    const [listCategory, setListCategory] = useState([]);
     const [category, setCategory] = useState(0);
-    // eslint-disable-next-line
+    const [status, setStatus] = useState("");
     const [page, setPage] = useState(0);
     const [totalRows, setTotalRows] = useState(0);
-    const optionsPerPage = [10, 20, 50];
-    const [itemsPerPage, setItemsPerPage] = React.useState(optionsPerPage[0]);
+    const [itemsPerPage, setItemsPerPage] = React.useState(10);
+
     const getListContact = async () => {
         try {
-            const response = await adminApi.getAllContact();
+            const response = await adminApi.getAllContact(page, itemsPerPage, keywordSearch, category, status);
             setDataTable(Object.values(response.data));
-            console.log(response.data);
             setTotalRows(response.totalItems);
         } catch (responseError) {
             console.log(responseError);
         }
     };
+
+    const getListCategory = async () => {
+        try {
+            const response = await adminApi.getListCategoryWebContact();
+            setListCategory(response);
+        } catch (responseError) {
+            console.log(responseError);
+        }
+    };
+
 
     const handleUpdateStatus = async (e) => {
         try {
@@ -77,8 +83,12 @@ const Contact = () => {
 
     useEffect(() => {
         getListContact();
-    }, [isModify]);
+        // eslint-disable-next-line
+    }, [isModify, keywordSearch, category, status]);
 
+    useEffect(() => {
+        getListCategory();
+    }, [])
 
     const columns = [
         {
@@ -193,12 +203,32 @@ const Contact = () => {
                     <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }} >
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
                             <Col xs={12} lg={2}>
+                                <CFormSelect
+                                    aria-label="Default select example"
+                                    onChange={(e) => {
+                                        setCategory(e.target.value);
+                                    }}
+                                >
+                                    <option value={0}>All Category</option>
+                                    {listCategory?.map((item, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={item?.setting_id}
+                                            >
+                                                {item?.setting_title}
+                                            </option>
+                                        );
+                                    })}
+
+                                </CFormSelect>
+                            </Col>
+                            <Col xs={12} lg={2}>
                                 <div className='mt-50 width-270 mt-sm-0 mt-1'>
                                     <CFormSelect
                                         aria-label="Default select example"
-                                        style={{ margin: "0px 0px", width: "180px" }}
                                         onChange={(e) => {
-                                            setCategory(e.target.value);
+                                            setStatus(e.target.value);
                                         }}
                                     >
                                         <option value="">All Status</option>
