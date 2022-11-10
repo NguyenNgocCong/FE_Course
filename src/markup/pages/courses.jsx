@@ -16,17 +16,16 @@ import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 
 function Products() {
   const [listProduct, setListProduct] = useState([]);
-	const [totalItem,setTotalItem]=useState(0);
-	const [totalPages,setTotalPages]=useState(0);
-	const [currentPage,setCurrentPage]=useState(0);
+  const [totalItem, setTotalItem] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const getListProduct = async () => {
     try {
       const response = await adminApi.getAllProduct();
       setListProduct(Object.values(response.data));
-			setTotalItem(response.totalItems)
-			setTotalPages(response.totalPages)
-			setCurrentPage(response.currentPage +1 )
-    
+      setTotalItem(response.totalItems);
+      setTotalPages(response.totalPages);
+      setCurrentPage(response.currentPage + 1);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 7000,
@@ -170,15 +169,28 @@ function Products() {
                       >
                         <div className="cours-bx">
                           <div className="action-box">
-                            <img src={item.subject.image} alt="" />
-                            <Link onClick={()=>{ window.location.href = "/react/courses-details/" + item.id }} className="btn">
+                            <img src={item?.subject?.image} alt="" />
+                            <Link
+                              onClick={() => {
+                                window.location.href =
+                                  "/react/courses-details/" + item.id;
+                              }}
+                              className="btn"
+                            >
                               Read More
                             </Link>
                           </div>
                           <div className="info-bx">
-                            <span>{item.subject.name}</span>
+                            <span>{item?.subject?.name}</span>
                             <h6>
-                              <Link onClick={()=>{ window.location.href = "/react/courses-details/" + item.id }}>{item.title}</Link>
+                              <Link
+                                onClick={() => {
+                                  window.location.href =
+                                    "/react/courses-details/" + item.id;
+                                }}
+                              >
+                                {item.title}
+                              </Link>
                             </h6>
                           </div>
                           <div className="cours-more-info">
@@ -210,7 +222,12 @@ function Products() {
 													<li><Link to="#">3</Link></li>
 													<li className="next"><Link to="#">Next <i className="ti-arrow-right"></i></Link></li>
 												</ul> */}
-                       <PagingQuestion currentPage={currentPage} totalPage={totalPages} totalItem={totalItem}  onChange={()=>{}}></PagingQuestion>
+                        <PagingQuestion
+                          currentPage={currentPage}
+                          totalPage={totalPages}
+                          totalItem={totalItem}
+                          onChange={() => {}}
+                        ></PagingQuestion>
                       </div>
                     </div>
                   </div>

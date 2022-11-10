@@ -1,10 +1,12 @@
+
+
 .example {
   &:not(:first-child) {
     margin-top: 1.5rem;
   }
 
   .tab-content {
-    background-color: $light-50 !important;
+    background-color: #f0f0f0 !important;
 
     @at-root .dark-theme & {
       background-color: rgba(255, 255, 255, .1) !important;
@@ -90,7 +92,17 @@
       margin: 1rem -1rem -1rem;
     }
 
-    @include media-breakpoint-up(sm) {
+    // @include media-breakpoint-up(sm) {
+    //   .fixed-top,
+    //   .sticky-top {
+    //     margin: -1.5rem -1.5rem 1rem;
+    //   }
+    //   .fixed-bottom {
+    //     margin: 1rem -1.5rem -1.5rem;
+    //   }
+    // }
+
+    @media only screen and (min-width: 560px) {
       .fixed-top,
       .sticky-top {
         margin: -1.5rem -1.5rem 1rem;

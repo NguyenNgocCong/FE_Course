@@ -123,7 +123,7 @@ export const adminApi = {
     return axiosApi.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-      }
+      },
     });
   },
   updatePost: (id, params, image) => {
@@ -135,7 +135,7 @@ export const adminApi = {
     return axiosApi.put(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-      }
+      },
     });
   },
 
@@ -157,7 +157,7 @@ export const adminApi = {
     return axiosApi.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-      }
+      },
     });
   },
   updateSlider: (id, image, params) => {
@@ -169,7 +169,7 @@ export const adminApi = {
     return axiosApi.put(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-      }
+      },
     });
   },
 

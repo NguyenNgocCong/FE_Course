@@ -1,28 +1,25 @@
+import { cilLibraryAdd, cilPen } from "@coreui/icons";
+import CIcon from "@coreui/icons-react";
+import { CFormInput, CFormSelect } from "@coreui/react";
 import React, { useEffect, useState } from "react";
-import {
-    CFormSelect,
-    CFormInput,
-} from "@coreui/react";
-import { AppFooter, AppHeader, AppSidebar } from "../../components";
+import { Col, Row } from "react-bootstrap";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import DataTable from "react-data-table-component";
+import toast, { Toaster } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { adminApi } from "../../../api/adminApi";
-import toast, { Toaster } from "react-hot-toast";
+import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import Styles from "./style.module.scss";
-import DataTable from "react-data-table-component";
-import CIcon from '@coreui/icons-react';
-import { cilLibraryAdd, cilPen } from "@coreui/icons";
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
-import { Col, Row } from "react-bootstrap";
 
 const Products = () => {
-    const [listProduct, setListProduct] = useState([]);
-    const [isModify, setIsModify] = useState(false);
-    const [status, setStatus] = useState("");
-    const [title, setTitle] = useState("");
-    const [name, setName] = useState('');
-    const [listSubject, setListSubject] = useState([]);
-    const history = useHistory();
+  const [listProduct, setListProduct] = useState([]);
+  const [isModify, setIsModify] = useState(false);
+  const [status, setStatus] = useState("");
+  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
+  const [listSubject, setListSubject] = useState([]);
+  const history = useHistory();
 
     const columns = [
         {
@@ -273,7 +270,7 @@ const Products = () => {
                 <AppFooter />
             </div>
         </div>
-    );
+      )
 };
 
 export default Products;
