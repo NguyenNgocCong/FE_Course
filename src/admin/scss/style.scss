@@ -1,5 +1,4 @@
 // If you want to override variables do it here
-@import "variables";
 
 $enable-ltr: true;
 $enable-rtl: true;
@@ -8,7 +7,6 @@ $enable-rtl: true;
 @import "@coreui/coreui/scss/coreui";
 
 // Import Chart.js custom tooltips styles
-@import "@coreui/chartjs/scss/coreui-chartjs";
 
 @import "layout";
 @import "example";
