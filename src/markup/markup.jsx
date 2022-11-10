@@ -81,12 +81,12 @@ class Markup extends Component {
                         <Route path="/about" exact component={About2} />
 
                         {/* Events */}
-                        <Route path="/events" exact component={Events} />
+                        {/* <Route path="/events" exact component={Events} />
                         <Route
                             path="/events-details"
                             exact
                             component={EventsDetails}
-                        />
+                        /> */}
 
                         {/* Faq */}
                         <Route path="/faq" exact component={Faq2} />

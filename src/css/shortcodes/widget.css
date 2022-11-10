@@ -84,6 +84,7 @@
 .widget_services ul li a {
     color: #000;
 	text-transform: capitalize;
+    text-decoration: none;
 }
 .widget_categories ul li a:hover,
 .widget_categories ul li.active a,
@@ -284,6 +285,7 @@
     margin: 0 5px 5px 0;
     color: #000;
 	font-weight: 400;
+    text-decoration: none;
 }
 .widget_tag_cloud a:hover {
     background-color: var(--primary);
