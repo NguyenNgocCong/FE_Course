@@ -287,7 +287,7 @@ const Posts = () => {
                                         setStatus(e.target.value);
                                     }}
                                 >
-                                    <option value="">All Status</option>
+                                    <option value={0}>All Status</option>
                                     {optionStatus?.map((item, index) => {
                                         return (
                                             <option

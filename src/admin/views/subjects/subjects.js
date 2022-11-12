@@ -66,17 +66,18 @@ function Subjects() {
       minWidth: "160px",
       width: "180px",
       maxWidth: "200px",
-      selector: (row) => (
-        <>
-          <div>
-            {listCategory.map((category) => {
-              return category?.setting_id === row.categoryId
-                ? category.setting_title
-                : "";
-            })}
-          </div>
-        </>
-      ),
+      selector: (row) => row.category?.setting_title,
+      // selector: (row) => (
+      //   <>
+      //     <div>
+      //       {listCategory.map((category) => {
+      //         return category?.setting_id === row.category.setting_title
+      //           ? category.setting_title
+      //           : "";
+      //       })}
+      //     </div>
+      //   </>
+      // ),
       sortable: true,
     },
     {
