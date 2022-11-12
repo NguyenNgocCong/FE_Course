@@ -109,12 +109,6 @@ function Header() {
               </div>
               <div className="topbar-right w-auto d-flex">
                 <ul className="d-flex align-items-center">
-                  <li>
-                    <select className="header-lang-bx">
-                      <option data-icon="flag flag-uk">English UK</option>
-                      <option data-icon="flag flag-us">English US</option>
-                    </select>
-                  </li>
                   {id ? (
                     <li className="is-logged-in">
                       <div
