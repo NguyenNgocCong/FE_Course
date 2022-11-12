@@ -54,7 +54,7 @@ function ProductDetail(props) {
 
     const getAllSubject = async () => {
         try {
-            const response = await adminApi.getAllSubject("", 1);
+            const response = await adminApi.getAllSubject(0, 100, "", 0, true);
             setListSubject(response.data);
         } catch (responseError) {
             toast.error(responseError?.data.message, {

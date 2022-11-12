@@ -18,6 +18,7 @@ const Settings = () => {
     const [listType, setListType] = useState([]);
     const [page, setPage] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [status, setStatus] = useState("");
     const [typeId, setTypeId] = useState(0);
     const [keyword, setKeyword] = useState("");
     const [totalRows, setTotalRows] = useState(0);
@@ -80,7 +81,7 @@ const Settings = () => {
 
     const getListSetting = async () => {
         try {
-            const response = await adminApi.getAllSetting(page, itemsPerPage, typeId, keyword);
+            const response = await adminApi.getAllSetting(page, itemsPerPage, typeId, keyword, status ? status : "");
             setData(response.data);
             setTotalRows(response.totalItems)
         } catch (responseError) {
@@ -109,7 +110,7 @@ const Settings = () => {
     useEffect(() => {
         getListSetting();
         // eslint-disable-next-line
-    }, [typeId, keyword]);
+    }, [typeId, keyword, status, page]);
 
     useEffect(() => {
         getAllType();
@@ -150,6 +151,18 @@ const Settings = () => {
                                 </CFormSelect>
                             </Col>
                             <Col xs={12} lg={2}>
+                                <CFormSelect
+                                    style={{ margin: "0px 0px", maxWidth: "180px" }}
+                                    onChange={(e) => {
+                                        setStatus(e.target.value);
+                                    }}
+                                >
+                                    <option value="">All Status</option>
+                                    <option value={true}>Active</option>
+                                    <option value={false}>Deactivate</option>
+                                </CFormSelect>
+                            </Col>
+                            <Col xs={12} lg={2}>
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
@@ -158,7 +171,7 @@ const Settings = () => {
                                     style={{ width: "350px" }}
                                 />
                             </Col>
-                            <Col xs={12} lg={8} className='d-flex justify-content-end'>
+                            <Col xs={12} lg={6} className='d-flex justify-content-end'>
                                 <div className={Styles.inputSearch}>
                                     <button
                                         style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
@@ -177,8 +190,8 @@ const Settings = () => {
 
                 </div>
                 <div className="body flex-grow-1 px-3">
-                    <DataTable   
-                    columns={columns}
+                    <DataTable
+                        columns={columns}
                         data={data}
                         paginationTotalRows={totalRows}
                         onChangePage={(page) => setPage(page - 1)}
