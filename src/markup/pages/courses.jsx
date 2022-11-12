@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Layout
-import Header from "../layout/header/header1";
 import Footer from "../layout/footer/footer1";
+import Header from "../layout/header/header1";
 
 // Images
-import bannerImg from "../../images/banner/banner3.jpg";
+import toast from "react-hot-toast";
+import { adminApi } from "../../api/adminApi";
 import adv from "../../images/adv/adv.jpg";
+import bannerImg from "../../images/banner/banner3.jpg";
 import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
 import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
-import { adminApi } from "../../api/adminApi";
-import toast from "react-hot-toast";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 
 function Products() {
-  const [listProduct, setListProduct] = useState([]);
-  const [totalItem, setTotalItem] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
+  const location = useLocation();
+  const page = location.search.split("=")[1] || 1;
+
+  const [res, setRes] = useState({
+    currentPage: 0,
+    data: [productSimple],
+    totalItems: 0,
+    totalPages: 0,
+  });
+
   const getListProduct = async () => {
     try {
-      const response = await adminApi.getAllProduct();
-      setListProduct(Object.values(response.data));
-      setTotalItem(response.totalItems);
-      setTotalPages(response.totalPages);
-      setCurrentPage(response.currentPage + 1);
+      adminApi.getAllPackageView(page - 1).then((res) => setRes(res));
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 7000,
@@ -36,10 +38,8 @@ function Products() {
     getListProduct();
     // eslint-disable-next-line
   }, []);
-  useEffect(() => {
-    console.log("post", listProduct);
-    // eslint-disable-next-line
-  }, [listProduct]);
+
+  const { totalItems, totalPages, data, currentPage } = res;
 
   return (
     <>
@@ -162,7 +162,7 @@ function Products() {
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
                   <div className="row">
-                    {listProduct.map((item) => (
+                    {data.map((item) => (
                       <div
                         className="col-md-6 col-lg-4 col-sm-6 m-b30"
                         key={item.id}
@@ -225,7 +225,7 @@ function Products() {
                         <PagingQuestion
                           currentPage={currentPage}
                           totalPage={totalPages}
-                          totalItem={totalItem}
+                          totalItem={totalItems}
                           onChange={() => {}}
                         ></PagingQuestion>
                       </div>
@@ -242,5 +242,19 @@ function Products() {
     </>
   );
 }
+
+const productSimple = {
+  combo: true,
+  createdDate: "2022-11-04 17:59:57.51",
+  description: "test123",
+  duration: "Duration1",
+  excerpt: "asdasdasd",
+  id: 2,
+  listPrice: 500,
+  sale_price: 12300,
+  status: false,
+  title: "Product 1",
+  updatedDate: "2022-11-04 17:59:57.51",
+};
 
 export default Products;

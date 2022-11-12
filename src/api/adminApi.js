@@ -89,7 +89,7 @@ export const adminApi = {
   },
 
   // class
-  getAllClass:  (page, size, keyword, category, status) => {
+  getAllClass: (page, size, keyword, category, status) => {
     const url = `/api/class?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
@@ -140,8 +140,8 @@ export const adminApi = {
   },
 
   //slide
-  getAllSlider: (status) => {
-    const url = `/api/slide/manage?status=${status}`;
+  getAllSlider: (page, size, status) => {
+    const url = `/api/slide/manage?page=${page}&size=${size}&status=${status}`;
     return axiosApi.get(url);
   },
   getSliderById: (id) => {
@@ -174,8 +174,12 @@ export const adminApi = {
   },
 
   //product
-  getAllProduct: () => {
-    const url = `/api/package`;
+  getAllProduct: (page = 0, size, keyword, category, status) => {
+    const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    return axiosApi.get(url);
+  },
+  getAllPackageView: (page = 0) => {
+    const url = `/api/package?page=${page}`;
     return axiosApi.get(url);
   },
   getProductById: (id) => {
@@ -209,8 +213,9 @@ export const adminApi = {
     return axiosApi.put(url, params);
   },
 
-  getAllSetting: (page, size, type_id, keyword) => {
-    const url = `/api/admin/setting/getListSetting?page=${page}&size=${size}&category=${type_id}&keyword=${keyword}`;
+  getAllSetting: (page, size, type_id, keyword, status) => {
+    console.log(status);
+    const url = `/api/admin/setting/getListSetting?page=${page}&size=${size}&category=${type_id}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
   getSettingById: (id) => {
