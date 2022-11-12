@@ -129,9 +129,7 @@ function Subjects() {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
-  // eslint-disable-next-line
   const [listCategory, setListCategory] = useState([]);
-  // eslint-disable-next-line
   const [category, setCategory] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
@@ -296,7 +294,6 @@ function Subjects() {
             paginationServer
           />
         </div>
-
         <AppFooter />
       </div>
     </div>
