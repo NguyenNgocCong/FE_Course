@@ -64,6 +64,7 @@ import Products from "./../admin/views/products/Products";
 import SliderDetail from "./../admin/views/sliders/SliderDetail";
 import ComboHome from "./pages/combo";
 import ComboDetailHome from "./pages/ComboDetails";
+import ExpertsUser from "./pages/Expert";
 import Error401 from "./pages/error-401";
 
 class Markup extends Component {
@@ -106,6 +107,15 @@ class Markup extends Component {
 
             {/* Courses */}
             <Route path="/products" exact component={ProductsUser} />
+            <Route path="/lecturers" exact component={LecturersUser} />
+            <Route
+              path="/courses-details/:id"
+              exact
+              component={CoursesDetails}
+            />
+
+            {/* expert */}
+            <Route path="/expert" exact component={ExpertsUser} />
             <Route path="/lecturers" exact component={LecturersUser} />
             <Route
               path="/courses-details/:id"
