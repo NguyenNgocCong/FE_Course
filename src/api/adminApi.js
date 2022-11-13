@@ -214,7 +214,6 @@ export const adminApi = {
   },
 
   getAllSetting: (page, size, type_id, keyword, status) => {
-    console.log(status);
     const url = `/api/admin/setting/getListSetting?page=${page}&size=${size}&category=${type_id}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },

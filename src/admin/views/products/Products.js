@@ -13,14 +13,6 @@ import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import Styles from "./style.module.scss";
 
 const Products = () => {
-  const [listProduct, setListProduct] = useState([]);
-  const [isModify, setIsModify] = useState(false);
-  const [status, setStatus] = useState("");
-  const [title, setTitle] = useState("");
-  const [name, setName] = useState("");
-  const [listSubject, setListSubject] = useState([]);
-  const history = useHistory();
-
     const columns = [
         {
             name: "ID",
@@ -59,18 +51,7 @@ const Products = () => {
             minWidth: "100px",
             width: "150px",
             maxWidth: "200px",
-            selector: (row) => (
-                <>
-                    <div>
-                        {listSubject.map((subject) => {
-                            return subject?.setting_id === row.subjectId
-                                ? subject.setting_title
-                                : ""
-                        })
-                        }
-                    </div>
-                </>
-            ),
+            selector: (row) => row.sucjectCode?.name,
             sortable: true,
         },
         {
@@ -143,9 +124,17 @@ const Products = () => {
             ),
         },
     ];
-
+    const [data, setDataTable] = useState([]);
+    const [keywordSearch, setKeywordSearch] = useState("");
+    const [isModify, setIsModify] = useState(false);
+    const [listsubject, setListSubject] = useState([]);
+    const [category, setCategory] = useState(0);
+    const [status, setStatus] = useState("");
+    const [page, setPage] = useState(0);
+    const [totalRows, setTotalRows] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = React.useState(10);
+    const history = useHistory();
     const handleUpdateStatus = async (row) => {
-
         try {
             const params = {
                 status: !row?.status,
@@ -182,9 +171,8 @@ const Products = () => {
     }
     const getAllSubject = async () => {
         try {
-            const response = await adminApi.getAllSubject(name, status);
+            const response = await adminApi.getAllSubject(0, 100, "", 0, "");
             setListSubject(response.data);
-            console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,
@@ -194,9 +182,9 @@ const Products = () => {
 
     const getListProduct = async () => {
         try {
-            const response = await adminApi.getAllProduct()
-            setListProduct(Object.values(response.data));
-            console.log(response);
+            const response = await adminApi.getAllProduct(page, itemsPerPage, keywordSearch, category, status);
+            setDataTable(response.data);
+            setTotalRows(response.totalItems);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,
@@ -207,20 +195,22 @@ const Products = () => {
 
 
     const onSearch = (e) => {
-        setTitle(e.target.value);
-        setName(e.target.value);
+        setKeywordSearch(e.target.value);
     }
     useEffect(() => {
         getAllSubject();
         // eslint-disable-next-line
-    }, [isModify, name, status]);
+    }, []);
 
 
     useEffect(() => {
         getListProduct();
-    }, [isModify, status, title]);
+        // eslint-disable-next-line
+    }, [isModify, keywordSearch, page, status, category]);
 
-
+    const handlePerRowsChange = async (newPerPage) => {
+        setItemsPerPage(newPerPage);
+    }
 
     return (
         <div>
@@ -233,7 +223,25 @@ const Products = () => {
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
                             <Col xs={12} lg={2}>
                                 <CFormSelect
-
+                                    style={{ margin: "0px 0px", maxWidth: "180px" }}
+                                    aria-label="Default select example"
+                                    onChange={(e) => {
+                                        setCategory(e.target.value);
+                                    }}
+                                >
+                                    <option value={0}>All Category</option>
+                                    {listsubject?.map((item, index) => {
+                                        return (
+                                            <option key={index} value={item?.id}>
+                                                {item?.name}
+                                            </option>
+                                        );
+                                    })}
+                                </CFormSelect>
+                            </Col>
+                            <Col xs={12} lg={2}>
+                                <CFormSelect
+                                    style={{ margin: "0px 0px", maxWidth: "180px" }}
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}
@@ -251,7 +259,7 @@ const Products = () => {
                                     onChange={onSearch}
                                 />
                             </Col>
-                            <Col xs={12} lg={6} className='d-flex justify-content-end'>  <div className={Styles.inputSearch}>
+                            <Col xs={12} lg={4} className='d-flex justify-content-end'>  <div className={Styles.inputSearch}>
                                 <button
                                     style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
                                     onClick={() =>
@@ -265,12 +273,21 @@ const Products = () => {
                             </div></Col>
                         </Row>
                     </div>
-                    <DataTable columns={columns} data={listProduct} pagination />
+                    <DataTable
+                        columns={columns}
+                        data={data}
+                        paginationTotalRows={totalRows}
+                        onChangePage={(page) => setPage(page - 1)}
+                        itemsPerPage={itemsPerPage}
+                        onChangeRowsPerPage={handlePerRowsChange}
+                        pagination
+                        paginationServer
+                    />
                 </div>
                 <AppFooter />
             </div>
         </div>
-      )
+    )
 };
 
 export default Products;

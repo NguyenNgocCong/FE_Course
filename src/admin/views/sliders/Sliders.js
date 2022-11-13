@@ -15,11 +15,13 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Col, Row } from "react-bootstrap";
 
 const Sliders = () => {
-    const [listSlider, setListSlider] = useState([]);
+    const [data, setDataTable] = useState([]);
     const [isModify, setIsModify] = useState(false);
     const [status, setStatus] = useState("");
+    const [page, setPage] = useState(0);
+    const [totalRows, setTotalRows] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = React.useState(10);
     const history = useHistory();
-
     const columns = [
         {
             name: "ID",
@@ -143,9 +145,9 @@ const Sliders = () => {
 
     const getListSlider = async () => {
         try {
-            const response = await adminApi.getAllSlider(status);
-            setListSlider(response.data);
-            console.log(response);
+            const response = await adminApi.getAllSlider(page, itemsPerPage, status);
+            setDataTable(response.data);
+            setTotalRows(response.totalItems);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 7000,
@@ -156,7 +158,11 @@ const Sliders = () => {
     useEffect(() => {
         getListSlider();
         // eslint-disable-next-line
-    }, [isModify, status]);
+    }, [isModify, status, page]);
+
+    const handlePerRowsChange = async (newPerPage) => {
+        setItemsPerPage(newPerPage);
+    }
 
     return (
         <div>
@@ -195,7 +201,16 @@ const Sliders = () => {
                             </Col>
                         </Row>
                     </div>
-                    <DataTable columns={columns} data={listSlider} pagination />
+                    <DataTable
+                        columns={columns}
+                        data={data}
+                        paginationTotalRows={totalRows}
+                        onChangePage={(page) => setPage(page - 1)}
+                        itemsPerPage={itemsPerPage}
+                        onChangeRowsPerPage={handlePerRowsChange}
+                        pagination
+                        paginationServer
+                    />
                 </div>
                 <AppFooter />
             </div>
