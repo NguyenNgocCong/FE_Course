@@ -57,8 +57,9 @@ export const adminApi = {
     return axiosApi.put(url, params);
   },
   // expert
-  getListExperts: (page, size, kekword) => {
-    const url = `/api/expert?page=${page}&size=${size}&kekword=${kekword}`;
+  getListExperts: (page, size, keyword) => {
+    console.log()
+    const url = `/api/expert?page=${page}&size=${size}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
   getExpertById: (id) => {
@@ -208,8 +209,8 @@ export const adminApi = {
   },
 
   //combo
-  getAllCombo: () => {
-    const url = `/api/combo`;
+  getAllCombo: (page, size, keyword) => {
+      const url = `/api/combo?page=${page}&size=${size}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
   getComboById: (id) => {
