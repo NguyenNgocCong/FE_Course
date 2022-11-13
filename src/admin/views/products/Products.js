@@ -75,7 +75,7 @@ const Products = () => {
             minWidth: "100px",
             width: "120px",
             maxWidth: "140px",
-            selector: (row) => row.sale_price,
+            selector: (row) => row.salePrice,
             sortable: true,
         },
         {

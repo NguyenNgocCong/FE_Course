@@ -27,7 +27,7 @@ function ExpertDetail(props) {
     const [status, setStatus] = useState();
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
-    const [fullname, setFullname] = useState(0);
+    const [fullname, setFullname] = useState();
     const [phone, setPhone] = useState();
     const [company, setCompany] = useState();
     const [jobTitle , setJobTitle] = useState();
@@ -45,7 +45,6 @@ function ExpertDetail(props) {
     const getExpertById = async () => {
         try {
             const response = await adminApi.getExpertById(id);
-            console.log(response)
             setExpert(response);
         } catch (responseError) {
             console.log(responseError)
@@ -58,6 +57,7 @@ function ExpertDetail(props) {
     const handleUpdatePost = async (e) => {
         try {
             const params = {
+                userId:expert.user?.id,
                 username: username,
                 email: email,
                 fullname: fullname,
@@ -68,7 +68,7 @@ function ExpertDetail(props) {
                 status: status
             };
             console.log(thumbnailUrl);
-            const response = await adminApi.updatePost(id, params, thumbnailUrl)
+            const response = await adminApi.updateExpert(id, params, thumbnailUrl)
             // setHasUpdate(!hasUpdate);
             toast.success(response?.message, {
                 duration: 2000,
@@ -117,7 +117,7 @@ function ExpertDetail(props) {
                                                 type="username"
                                                 id="exampleFormControlInput1"
                                                 placeholder="UserName"
-                                                defaultValue={expert?.user?.usename}
+                                                defaultValue={expert?.user?.username}
                                                 onChange={(e) =>
                                                     setUsername(e.target.value)
                                                 }
@@ -132,6 +132,7 @@ function ExpertDetail(props) {
                                                 type="email"
                                                 id="exampleFormControlInput1"
                                                 placeholder="Email"
+                                                disabled={true}
                                                 defaultValue={expert?.user?.email}
                                                 onChange={(e) =>
                                                     setEmail(e.target.value)
@@ -162,7 +163,7 @@ function ExpertDetail(props) {
                                                 type="phone"
                                                 id="exampleFormControlInput1"
                                                 placeholder="Phone"
-                                                defaultValue={expert?.user?.phone}
+                                                defaultValue={expert?.user?.phoneNumber}
                                                 onChange={(e) =>
                                                     setPhone(e.target.value)
                                                 }
@@ -201,7 +202,7 @@ function ExpertDetail(props) {
                                                 type="company"
                                                 id="exampleFormControlInput1"
                                                 placeholder="Company"
-                                                defaultValue={expert?.user?.phone}
+                                                defaultValue={expert?.company}
                                                 onChange={(e) =>
                                                     setCompany(e.target.value)
                                                 }
@@ -216,7 +217,7 @@ function ExpertDetail(props) {
                                                 type="jobTitle"
                                                 id="exampleFormControlInput1"
                                                 placeholder="Job title"
-                                                defaultValue={expert?.user?.phone}
+                                                defaultValue={expert?.jobTitle}
                                                 onChange={(e) =>
                                                     setJobTitle(e.target.value)
                                                 }
@@ -229,7 +230,7 @@ function ExpertDetail(props) {
                                             </CFormLabel>
                                             <CKEditor
                                                 editor={ClassicEditor}
-                                                data={expert?.body}
+                                                data={expert?.description}
                                                 onChange={(event, editor) => {
                                                     const data = editor.getData();
                                                     setDescription(data);

@@ -61,10 +61,22 @@ export const adminApi = {
     const url = `/api/expert?page=${page}&size=${size}&kekword=${kekword}`;
     return axiosApi.get(url);
   },
-  // expert
   getExpertById: (id) => {
     const url = `/api/expert/${id}`;
     return axiosApi.get(url);
+  },
+  updateExpert: (id, params, image) => {
+    const url = `/api/expert/update`;
+    var formData = new FormData();
+    formData.append("id", id);
+    formData.append("data", JSON.stringify(params));
+    console.log(JSON.stringify(params))
+    formData.append("image", image);
+    return axiosApi.put(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
   // subject
   getAllSubject: (page, size, keyword, category, status) => {
