@@ -132,7 +132,7 @@ const Experts = () => {
                 status: statusChange,
             };
 
-            const response = await adminApi.updatePost(id, params, null);
+            const response = await adminApi.updateExpert(id, params, null);
             setIsModify(!isModify);
             toast.success(response?.message, {
                 duration: 2000,
