@@ -89,7 +89,7 @@ export const adminApi = {
   },
 
   // class
-  getAllClass:  (page, size, keyword, category, status) => {
+  getAllClass: (page, size, keyword, category, status) => {
     const url = `/api/class?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
@@ -174,8 +174,12 @@ export const adminApi = {
   },
 
   //product
-  getAllProduct:  (page, size, keyword, category, status) => {
+  getAllProduct: (page = 0, size, keyword, category, status) => {
     const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    return axiosApi.get(url);
+  },
+  getAllPackageView: (page = 0) => {
+    const url = `/api/package?page=${page}`;
     return axiosApi.get(url);
   },
   getProductById: (id) => {
@@ -210,7 +214,6 @@ export const adminApi = {
   },
 
   getAllSetting: (page, size, type_id, keyword, status) => {
-    console.log(status)
     const url = `/api/admin/setting/getListSetting?page=${page}&size=${size}&category=${type_id}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },

@@ -15,101 +15,7 @@ import { adminApi } from "../../api/adminApi";
 import toast from "react-hot-toast";
 
 function CoursesDetails(props) {
-  const [product, setProduct] = useState({
-    id: 2,
-    createdDate: "2022-11-04 17:59:57.51",
-    updatedDate: "2022-11-04 17:59:57.51",
-    title: "Product 1",
-    excerpt: "Excerpt 1",
-    duration: "Duration",
-    description: "test",
-    status: false,
-    listPrice: 500,
-    sale_price: 0,
-    subject: {
-      id: 2,
-      createdDate: "2022-11-04 13:05:26.517",
-      updatedDate: "2022-11-09 21:47:20.95",
-      code: "JAVA1ádasda",
-      name: "Basic java1",
-      status: true,
-      note: "check",
-      image: null,
-      manager: {
-        id: 3,
-        createdDate: "2022-10-25 11:05:54.823",
-        updatedDate: "2022-11-09 21:46:19.918",
-        email: "manage1@gmail.com",
-        username: "manager1",
-        password:
-          "$2a$10$RHsbG.e7Z.7deSZo2YR4YeqMHe8l9Jr02/C26qausIH4MPpsf6ebC",
-        fullname: "Manager1",
-        phoneNumber: "0358283749",
-        avatar: null,
-        note: null,
-        active: true,
-        registerToken: "pvfzzoD8nMwJJu8XX29XLhi7XG2TRs",
-        timeRegisterToken: "2022-10-25T11:05:55",
-        resetPasswordToken: null,
-        type_account: null,
-        role: {
-          setting_id: 3,
-          type: {
-            type_id: 1,
-            title: "User Role",
-          },
-          setting_title: "Manager",
-          setting_value: "ROLE_MANAGER",
-          display_order: "role of manager",
-          status: true,
-          desciption: "role of manager",
-        },
-      },
-      expert: {
-        id: 8,
-        createdDate: "2022-10-25 11:07:01.252",
-        updatedDate: "2022-11-07 12:00:48.766",
-        email: "expert2@gmail.com",
-        username: "expert2",
-        password:
-          "$2a$10$5hB.S1F2mmY1a19omdGGiebwWXanOJXfLceeL6OlyHSEwg2znEaU2",
-        fullname: "Expert2",
-        phoneNumber: null,
-        avatar: null,
-        note: null,
-        active: true,
-        registerToken: "teNmBZM4k1lhaengvFGKFX6oVRvUkI",
-        timeRegisterToken: "2022-10-25T11:07:01",
-        resetPasswordToken: null,
-        type_account: null,
-        role: {
-          setting_id: 8,
-          type: {
-            type_id: 1,
-            title: "User Role",
-          },
-          setting_title: "Expert",
-          setting_value: "ROLE_EXPERT",
-          display_order: "role of expert",
-          status: true,
-          desciption: "role of expert",
-        },
-      },
-      category: {
-        setting_id: 12,
-        type: {
-          type_id: 6,
-          title: "Subject Category",
-        },
-        setting_title: "Lập trình web",
-        setting_value: null,
-        display_order: null,
-        status: true,
-        desciption: null,
-      },
-    },
-    combo: true,
-  });
+  const [product, setProduct] = useState(couresDetailExample);
   const location = useLocation();
   const id = location.pathname.substring(
     "/courses-details/".length,
@@ -208,7 +114,9 @@ function CoursesDetails(props) {
                       </div>
                       <div className="price categories">
                         <span>Categories</span>
-                        <h5 className="text-primary">{product.subject.category.type.title}</h5>
+                        <h5 className="text-primary">
+                          {product?.subject?.category?.type?.title}
+                        </h5>
                       </div>
                     </div>
                     <div className="course-info-list scroll-page">
@@ -271,14 +179,10 @@ function CoursesDetails(props) {
                     </div>
                     <div className="ttr-post-info m-b30">
                       <div className="ttr-post-title ">
-                        <h2 className="post-title">
-                          {product.title}
-                        </h2>
+                        <h2 className="post-title">{product.title}</h2>
                       </div>
                       <div className="ttr-post-text">
-                        <p>
-                         {product.description}
-                        </p>
+                        <p>{product.description}</p>
                       </div>
                     </div>
                   </div>
@@ -650,5 +554,19 @@ function CoursesDetails(props) {
     </>
   );
 }
+
+const couresDetailExample = {
+  id: 2,
+  createdDate: "2022-11-04 17:59:57.51",
+  updatedDate: "2022-11-04 17:59:57.51",
+  title: "Product 1",
+  excerpt: "asdasdasd",
+  duration: "Duration1",
+  description: "test123",
+  combo: true,
+  status: false,
+  listPrice: 500.0,
+  sale_price: 12300.0,
+};
 
 export default CoursesDetails;
