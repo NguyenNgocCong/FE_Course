@@ -5,6 +5,6 @@ export const comboApi = {
     return axiosApi.get(`/api/combo/?page=${page}`);
   },
   getComboById: (id) => {
-    return axiosApi.get(`/api/combo/id`);
+    return axiosApi.get(`/api/combo/${id}`);
   },
 };
