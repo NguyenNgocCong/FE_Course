@@ -280,9 +280,6 @@ function Header() {
                     <Link to="/lecturers">Lecturers</Link>
                   </li>
                   <li>
-                    <Link to="/events"></Link>
-                  </li>
-                  <li>
                     <Link to="/products">
                       Product
                     </Link>
