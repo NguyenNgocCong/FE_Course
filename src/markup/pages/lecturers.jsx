@@ -84,9 +84,9 @@ const Lecturers = () => {
 											? (<><div className="pagination-bx rounded-sm gray m-b30 clearfix">
 												<ul className="pagination">
 													<li className="previous"><Link to="#"><i className="ti-arrow-left"></i> Prev</Link></li>
-													<li className="active"><CButton >1</CButton></li>
-													<li><CButton >2</CButton></li>
-													<li><CButton >3</CButton></li>
+													<li className="active"><Link >1</Link></li>
+													<li><Link >2</Link></li>
+													<li><Link >3</Link></li>
 													<li className="next"><Link to="#">Next <i className="ti-arrow-right"></i></Link></li>
 												</ul>
 											</div></>)

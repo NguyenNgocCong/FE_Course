@@ -57,14 +57,27 @@ export const adminApi = {
     return axiosApi.put(url, params);
   },
   // expert
-  getListExperts: (page, size, kekword) => {
-    const url = `/api/expert?page=${page}&size=${size}&kekword=${kekword}`;
+  getListExperts: (page, size, keyword) => {
+    console.log()
+    const url = `/api/expert?page=${page}&size=${size}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
-  // expert
   getExpertById: (id) => {
     const url = `/api/expert/${id}`;
     return axiosApi.get(url);
+  },
+  updateExpert: (id, params, image) => {
+    const url = `/api/expert/update`;
+    var formData = new FormData();
+    formData.append("id", id);
+    formData.append("data", JSON.stringify(params));
+    console.log(JSON.stringify(params))
+    formData.append("image", image);
+    return axiosApi.put(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
   // subject
   getAllSubject: (page, size, keyword, category, status) => {
@@ -196,8 +209,8 @@ export const adminApi = {
   },
 
   //combo
-  getAllCombo: () => {
-    const url = `/api/combo`;
+  getAllCombo: (page, size, keyword) => {
+      const url = `/api/combo?page=${page}&size=${size}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
   getComboById: (id) => {
@@ -214,7 +227,6 @@ export const adminApi = {
   },
 
   getAllSetting: (page, size, type_id, keyword, status) => {
-    console.log(status);
     const url = `/api/admin/setting/getListSetting?page=${page}&size=${size}&category=${type_id}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },

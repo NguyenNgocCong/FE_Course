@@ -148,7 +148,7 @@ function Footer1(props) {
                     <div className="w-50">
                       <CFormSelect
                         aria-label="Default select example"
-                        style={{ height: "55px" }}
+                        style={{ height: "55px" ,color: "#b0b0b0",fontWeight:"600"}}
                         placeholder="Category"
                         onChange={(e) => {
                           //   dispatch(setValueFilter(e.target.value));

@@ -66,17 +66,18 @@ function Subjects() {
       minWidth: "160px",
       width: "180px",
       maxWidth: "200px",
-      selector: (row) => (
-        <>
-          <div>
-            {listCategory.map((category) => {
-              return category?.setting_id === row.categoryId
-                ? category.setting_title
-                : "";
-            })}
-          </div>
-        </>
-      ),
+      selector: (row) => row.category?.setting_title,
+      // selector: (row) => (
+      //   <>
+      //     <div>
+      //       {listCategory.map((category) => {
+      //         return category?.setting_id === row.category.setting_title
+      //           ? category.setting_title
+      //           : "";
+      //       })}
+      //     </div>
+      //   </>
+      // ),
       sortable: true,
     },
     {
@@ -128,9 +129,7 @@ function Subjects() {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
-  // eslint-disable-next-line
   const [listCategory, setListCategory] = useState([]);
-  // eslint-disable-next-line
   const [category, setCategory] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
@@ -295,7 +294,6 @@ function Subjects() {
             paginationServer
           />
         </div>
-
         <AppFooter />
       </div>
     </div>

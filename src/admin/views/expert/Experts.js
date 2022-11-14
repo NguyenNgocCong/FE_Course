@@ -101,7 +101,6 @@ const Experts = () => {
     const getListExperts = async () => {
         try {
             const response = await adminApi.getListExperts(page, itemsPerPage, keyword);
-            console.log(response);
             setDataTable(response.data);
             setTotalRows(response.totalItems)
         } catch (responseError) {
@@ -128,13 +127,12 @@ const Experts = () => {
         } else if (status === 4) {
             statusChange = 1;
         }
-        console.log(id, status);
         try {
             const params = {
                 status: statusChange,
             };
 
-            const response = await adminApi.updatePost(id, params, null);
+            const response = await adminApi.updateExpert(id, params, null);
             setIsModify(!isModify);
             toast.success(response?.message, {
                 duration: 2000,
@@ -170,7 +168,7 @@ const Experts = () => {
     useEffect(() => {
         getListExperts();
         // eslint-disable-next-line
-    }, [itemsPerPage, page,isModify]);
+    }, [itemsPerPage, page, isModify, keyword]);
 
     const handlePerRowsChange = async (newPerPage) => {
         setItemsPerPage(newPerPage);
