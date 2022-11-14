@@ -229,7 +229,7 @@ const Products = () => {
                                         setCategory(e.target.value);
                                     }}
                                 >
-                                    <option value={0}>All Category</option>
+                                    <option value={0}>All Subject</option>
                                     {listsubject?.map((item, index) => {
                                         return (
                                             <option key={index} value={item?.id}>

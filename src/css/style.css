@@ -1332,6 +1332,7 @@
 }
 .breadcrumb-row ul li a {
     color: #000;
+    text-decoration: none;
 }
 @media only screen and (max-width: 767px) {
     .page-banner-entry {
