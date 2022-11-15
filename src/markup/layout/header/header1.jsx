@@ -141,19 +141,19 @@ function Header() {
                       >
                         {role === "ROLE_ADMIN" ? (
                           <Link to="/admin/dashboard">
-                            <li>
+                            <li className="text-left">
                               Dashboard
                             </li>
                           </Link>
                         ) : role === "ROLE_SUPPORTER" ? (
                           <Link to="/admin/contacts">
-                            <li>
+                            <li className="text-left">
                               Admin
                             </li>
                           </Link>
                         ) : role === "ROLE_MANAGER" ? (
                           <Link to="/admin/subjects">
-                            <li>
+                            <li className="text-left">
                               Admin
                             </li>
                           </Link>
@@ -161,24 +161,24 @@ function Header() {
                           ""
                         )}
                         <Link to="/profile">
-                          <li>
+                          <li className="text-left">
                             User Profile
                           </li>
                         </Link>
-                        <Link to="/profile">
-                          <li>
+                        <Link to="/profile" >
+                          <li className="text-left">
                             Change Password
                           </li>
                         </Link>
-                        <li onClick={handleLogout}>Logout</li>
+                        <li className="text-left" onClick={handleLogout}>Logout</li>
                       </ul>
                     </li>
                   ) : (
                     <div>
-                      <li>
-                        <Link to="/login">Login</Link>
+                      <li className="text-left">
+                        <Link to="/login" >Login</Link>
                       </li>
-                      <li>
+                      <li className="text-left">
                         <Link to="/register">Register</Link>
                       </li>
                     </div>
