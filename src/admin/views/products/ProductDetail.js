@@ -47,7 +47,7 @@ function ProductDetail(props) {
             setIsCombo(response.combo);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -58,7 +58,7 @@ function ProductDetail(props) {
             setListSubject(response.data);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -86,7 +86,7 @@ function ProductDetail(props) {
             history.push("/admin/products");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -238,6 +238,7 @@ function ProductDetail(props) {
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormSelect
+                                                disabled={true}
                                                 aria-label="Default select example"
                                                 onChange={(e) =>
                                                     setIsCombo(e.target.value)

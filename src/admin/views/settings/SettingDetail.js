@@ -44,7 +44,7 @@ function SettingDetail(props) {
             setStatus(response.status);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -56,7 +56,7 @@ function SettingDetail(props) {
             console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -89,7 +89,7 @@ function SettingDetail(props) {
             history.push("/admin/settings");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };

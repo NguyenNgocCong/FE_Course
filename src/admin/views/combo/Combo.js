@@ -1,74 +1,78 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, } from "react";
+import { AppFooter, AppHeader, AppSidebar } from "../../components";
+import { adminApi } from "../../../api/adminApi";
+import { Toaster } from "react-hot-toast";
+import Styles from "./style.module.scss";
+import DataTable from "react-data-table-component";
 import {
     CFormInput,
-    CFormSelect,
 } from "@coreui/react";
-import { AppFooter, AppHeader, AppSidebar } from "../../components";
-import { useHistory } from "react-router-dom";
-import { adminApi } from "../../../api/adminApi";
-import Styles from "./style.module.scss";
-import toast, { Toaster } from "react-hot-toast";
-import DataTable from "react-data-table-component";
-import CIcon from '@coreui/icons-react';
-import { cilLibraryAdd, cilPen } from "@coreui/icons";
+import CIcon from "@coreui/icons-react";
+import { cilPen, cilCircle, cilLibraryAdd } from "@coreui/icons";
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Col, Row } from "react-bootstrap";
+import moment from "moment";
+import { useHistory } from "react-router-dom";
 
-const Combos = () => {
-    const [listSetting, setListSetting] = useState([]);
-    const [listType, setListType] = useState([]);
-    // eslint-disable-next-line
-    const [skip, setSkip] = useState(0);
-    // eslint-disable-next-line
-    const [top, setTop] = useState(50);
-    const [typeId, setTypeId] = useState(0);
-    const [keyword, setKeyword] = useState("");
-    const history = useHistory();
+const vacancieTemplate = (props) => {
+    return (props?.comboPackages?.map((element, index) => (
+        <div key={index} style={{ margin: "2px" }} className="d-flex align-items-center">
+            <div className={`${Styles.element}`}>
+                <CIcon icon={cilCircle} height="7px" /> Title: {element?._package?.title}, Sale Price: {element?.salePrice}đ
+            </div>
+        </div>
+    )))
+}
+const Combo = () => {
 
     const columns = [
         {
             name: "ID",
-            selector: (row) => row?.setting_id,
-            minWidth: '10px',
-            maxWidth: '40px',
+            width: '50px',
+            selector: (row) => row?.id,
             sortable: true,
         },
         {
             name: "Title",
-            selector: (row) => row?.setting_title,
+            minWidth: '150px',
+            width: '200px',
+            maxWidth: '250px',
+            selector: (row) => row?.title,
             sortable: true,
         },
         {
-            name: "Display Order",
-            selector: (row) => row?.display_order,
+            name: "description",
+            minWidth: '250px',
+            width: '250px',
+            maxWidth: '275px',
+            selector: (row) => row?.description,
             sortable: true,
         },
         {
-            name: "Value",
-            selector: (row) => row?.setting_value,
+            name: "Last update",
+            minWidth: '175px',
+            width: '200px',
+            maxWidth: '225px',
+            selector: (row) => row?.updatedDate,
+            format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
             sortable: true,
         },
         {
-            name: "Description",
-            selector: (row) => row?.desciption,
-            sortable: true,
-        },
-        {
-            name: "Status",
-            maxWidth: '160px',
-            selector: (row) => (
-                <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-                    {row.status ? "Active" : "Deactivate"}
-                </div>
-            ),
+            name: "Packages",
+            left: true,
+            minWidth: '350px',
+            width: '300',
+            maxWidth: '350px',
+            selector: (row) => vacancieTemplate(row),
             sortable: true,
         },
         {
             name: "Action",
-            maxWidth: '140px',
+            center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
-                        onClick={() => { window.location.href = "/react/admin/settings/" + row?.id }}
+                        onClick={() => { window.location.href = "/react/admin/experts/" + row?.id }}
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
                         <CIcon icon={cilPen} />
@@ -77,44 +81,35 @@ const Combos = () => {
             ),
         },
     ];
+    const [data, setDataTable] = useState([]);
+    const [keyword, setKeyword] = useState("");
+    const [page, setPage] = useState(0);
+    const [totalRows, setTotalRows] = useState(0);
+    const optionsPerPage = [10, 20, 50];
+    const [itemsPerPage, setItemsPerPage] = React.useState(optionsPerPage[0]);
+    const history = useHistory();
 
-    const getListSetting = async () => {
+    const getListCombo = async () => {
         try {
-            const response = await adminApi.getAllSetting(skip, top, typeId, keyword);
-            setListSetting(response);
-            console.log(response);
+            const response = await adminApi.getAllCombo(page, itemsPerPage, keyword);
+            setDataTable(response.data);
+            setTotalRows(response.totalItems)
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
-                duration: 7000,
-            });
+            console.log(responseError);
         }
     };
 
-    const onSearch = (e) => {
+    const onSearch = async (e) => {
         setKeyword(e.target.value);
-    }
-
-    const getAllType = async () => {
-        try {
-            const response = await adminApi.getListType();
-            setListType(response);
-            console.log(response);
-        } catch (responseError) {
-            toast.error(responseError?.data.message, {
-                duration: 7000,
-            });
-        }
     };
-
     useEffect(() => {
-        getListSetting();
+        getListCombo();
         // eslint-disable-next-line
-    }, [typeId, keyword]);
+    }, [itemsPerPage, page, keyword]);
 
-    useEffect(() => {
-        getAllType();
-    }, [])
-
+    const handlePerRowsChange = async (newPerPage) => {
+        setItemsPerPage(newPerPage);
+    }
     return (
         <div>
             <AppSidebar />
@@ -122,64 +117,45 @@ const Combos = () => {
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
                 <div className="body flex-grow px-2">
-                    <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
+                    <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }} >
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-                            <Col xs={12} lg={2} >
-                                <CFormSelect
-                                    aria-label="Default select example"
-                                    style={{ margin: "0px 10px", width: "140px" }}
-                                    onChange={(e) => {
-                                        setTypeId(e.target.value);
-                                    }}
-                                >
-                                    <option value={0}>All Type</option>
-                                    {listType?.map((item, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={item?.type_id}
-                                            >
-                                                {item?.title}
-                                            </option>
-                                        );
-                                    })}
-                                </CFormSelect>
-                            </Col>
-                            <Col xs={12} lg={2}>
+                            <Col xs={12} lg={4}>
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
                                     placeholder="Search..."
                                     onChange={onSearch}
-                                    style={{ width: "350px" }}
                                 />
                             </Col>
-                            <Col xs={12} lg={8} className='d-flex justify-content-end'>
-                                <div className={Styles.inputSearch}>
-                                    <button
-                                        style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-                                        onClick={() =>
-                                            history.push(
-                                                "/admin/settings/create"
-                                            )
-                                        }
-                                    >
-                                        <CIcon icon={cilLibraryAdd} />
-                                    </button>
-                                </div>
-                            </Col>
+                            <Col xs={12} lg={8} className='d-flex justify-content-end'>  <div className={Styles.inputSearch}>
+                                <button
+                                    style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
+                                    onClick={() =>
+                                        history.push(
+                                            "/admin/combos/create"
+                                        )
+                                    }
+                                >
+                                    <CIcon icon={cilLibraryAdd} />
+                                </button>
+                            </div></Col>
                         </Row>
                     </div>
-
+                    <DataTable
+                        columns={columns}
+                        data={data}
+                        paginationTotalRows={totalRows}
+                        onChangePage={(page) => setPage(page - 1)}
+                        itemsPerPage={itemsPerPage}
+                        onChangeRowsPerPage={handlePerRowsChange}
+                        pagination
+                        paginationServer
+                    />
                 </div>
-                <div className="body flex-grow-1 px-3">
-                    <DataTable columns={columns} data={listSetting} pagination />
-                </div>
-
                 <AppFooter />
             </div>
-        </div >
+        </div>
     );
 };
 
-export default Combos;
+export default Combo;

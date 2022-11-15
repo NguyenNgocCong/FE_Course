@@ -144,7 +144,7 @@ function Subjects() {
       setTotalRows(response.totalItems);
     } catch (responseError) {
       toast.error(responseError?.data?.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };
@@ -178,7 +178,7 @@ function Subjects() {
       setIsModify(!isModify);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };
@@ -189,7 +189,7 @@ function Subjects() {
       setListCategory(response);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };

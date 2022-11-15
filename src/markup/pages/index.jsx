@@ -18,32 +18,18 @@ class Index extends Component{
 	render(){
 		return (
 			<>
-				
 				<Header />
-				
-				<div className="page-content bg-white">
-				
+				<div className="page-content ">
 					<MainSlider />
-					
 					<div className="content-block" id="content-area">
-						
-						
 						<ServicesContent2 />
-						
 						<PopularCoursesSlider />
-						
 						<OnlineCourses />
-						
 						<UpcomingEventSlider />
-						
 						<Testimonial2 />
-						
 						<RecentNewsSlider />
-						
 					</div>
-					
 				</div>
-				
 				<Footer/>
 				
 			</>

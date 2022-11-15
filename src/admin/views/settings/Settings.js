@@ -86,7 +86,7 @@ const Settings = () => {
             setTotalRows(response.totalItems)
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -102,7 +102,7 @@ const Settings = () => {
             console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };

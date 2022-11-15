@@ -44,7 +44,7 @@ function ClassDetail(props) {
             console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -55,7 +55,7 @@ function ClassDetail(props) {
             setListTrainer(response.data);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -82,7 +82,7 @@ function ClassDetail(props) {
             history.push("/admin/class");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };

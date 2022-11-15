@@ -32,7 +32,7 @@ function Footer1(props) {
       setListCategory(response);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };

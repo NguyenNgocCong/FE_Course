@@ -178,7 +178,7 @@ const Posts = () => {
             });
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     }
@@ -208,7 +208,7 @@ const Posts = () => {
             setTotalRows(response.totalItems);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -219,7 +219,7 @@ const Posts = () => {
             setListCategory(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };

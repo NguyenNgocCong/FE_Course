@@ -120,7 +120,7 @@ const Sliders = () => {
             });
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     }
@@ -150,7 +150,7 @@ const Sliders = () => {
             setTotalRows(response.totalItems);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };

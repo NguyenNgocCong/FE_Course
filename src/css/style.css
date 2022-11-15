@@ -271,9 +271,9 @@
 	2. HEADER TOPBAR
 =================================*/
 .top-bar {
-    background-color: #ffffff;
+    background-color: orange;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    color: #000;
+    color: #ffffff;
     padding: 11px 0;
 }
 .topbar-left {
@@ -331,7 +331,7 @@
 .topbar-left ul li a,
 .topbar-right ul li a {
     text-decoration: none;
-    color: #000;
+    color: #4c1864;
 }
 .topbar-left ul,
 .topbar-right ul {
@@ -507,8 +507,8 @@
 /*=================================
 	4. MENU BAR
 =================================*/
+
 .menu-bar {
-    background: #ffffff;
     width: 100%;
     position: relative;
 }

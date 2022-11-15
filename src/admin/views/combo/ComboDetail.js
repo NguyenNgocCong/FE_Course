@@ -36,7 +36,7 @@ function ComboDetail(props) {
             setCombo(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -57,7 +57,7 @@ function ComboDetail(props) {
             history.push("/admin/combos");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
