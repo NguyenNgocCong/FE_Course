@@ -17,9 +17,9 @@ const Experts = () => {
 
     const columns = [
         {
-            name: "ID",
+             name: "STT",
             width: '50px',
-            selector: (row) => row?.id,
+            selector: (row, rowIndex) => rowIndex + 1,
             sortable: true,
         },
         {

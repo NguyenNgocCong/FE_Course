@@ -14,47 +14,46 @@ import { Col, Row } from "react-bootstrap";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 
-const vacancieTemplate = (props) => {
+const packageTemplate = (props) => {
     return (props?.comboPackages?.map((element, index) => (
         <div key={index} style={{ margin: "2px" }} className="d-flex align-items-center">
             <div className={`${Styles.element}`}>
-                <CIcon icon={cilCircle} height="7px" /> Title: {element?._package?.title}, Sale Price: {element?.salePrice}đ
+                <CIcon icon={cilCircle} height="7px" /> Title: {element?._package?.title}, Price: {element?.salePrice}đ
             </div>
         </div>
     )))
+}
+
+const priceTemplate = (props) => {
+    let price = 0
+    props?.comboPackages?.map((element) => (
+        price += element?.salePrice
+    ))
+    return (<div>{price}đ</div>)
 }
 const Combo = () => {
 
     const columns = [
         {
-            name: "ID",
+             name: "STT",
             width: '50px',
-            selector: (row) => row?.id,
+            selector: (row, rowIndex) => rowIndex + 1,
             sortable: true,
         },
         {
             name: "Title",
-            minWidth: '150px',
-            width: '200px',
-            maxWidth: '250px',
+            minWidth: '125px',
+            width: '150px',
+            maxWidth: '175px',
             selector: (row) => row?.title,
             sortable: true,
         },
         {
             name: "description",
-            minWidth: '250px',
+            minWidth: '225px',
             width: '250px',
             maxWidth: '275px',
             selector: (row) => row?.description,
-            sortable: true,
-        },
-        {
-            name: "Last update",
-            minWidth: '175px',
-            width: '200px',
-            maxWidth: '225px',
-            selector: (row) => row?.updatedDate,
-            format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
             sortable: true,
         },
         {
@@ -63,7 +62,20 @@ const Combo = () => {
             minWidth: '350px',
             width: '300',
             maxWidth: '350px',
-            selector: (row) => vacancieTemplate(row),
+            selector: (row) => packageTemplate(row),
+            sortable: true,
+        },
+        {
+            name: "Price",
+            width: '100px',
+            selector: (row) => priceTemplate(row),
+            sortable: true,
+        },
+        {
+            name: "Last update",
+            width: '150px',
+            selector: (row) => row?.updatedDate,
+            format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
             sortable: true,
         },
         {
@@ -127,18 +139,19 @@ const Combo = () => {
                                     onChange={onSearch}
                                 />
                             </Col>
-                            <Col xs={12} lg={8} className='d-flex justify-content-end'>  <div className={Styles.inputSearch}>
-                                <button
-                                    style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-                                    onClick={() =>
-                                        history.push(
-                                            "/admin/combos/create"
-                                        )
-                                    }
-                                >
-                                    <CIcon icon={cilLibraryAdd} />
-                                </button>
-                            </div></Col>
+                            <Col xs={12} lg={8} className='d-flex justify-content-end'>
+                                <div className={Styles.inputSearch}>
+                                    <button
+                                        style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
+                                        onClick={() =>
+                                            history.push(
+                                                "/admin/combos/create"
+                                            )
+                                        }
+                                    >
+                                        <CIcon icon={cilLibraryAdd} />
+                                    </button>
+                                </div></Col>
                         </Row>
                     </div>
                     <DataTable

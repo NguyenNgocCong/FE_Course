@@ -18,10 +18,9 @@ import { Col, Row } from "react-bootstrap";
 const Posts = () => {
     const columns = [
         {
-            name: "ID",
-            selector: (row) => row.id,
-            minWidth: '10px',
-            maxWidth: '40px',
+            name: "STT",
+            width: '50px',
+            selector: (row, rowIndex) => rowIndex + 1,
             sortable: true,
         },
         {

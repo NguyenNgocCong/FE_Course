@@ -19,8 +19,8 @@ import {
     AppSidebar,
 } from "../../components";
 
-function ProductDetail(props) {
-    const [product, setProduct] = useState();
+function PackagesDetail(props) {
+    const [packages, setPackage] = useState();
     const [listSubject, setListSubject] = useState();
     const [status, setStatus] = useState(0);
     const [title, setTitle] = useState();
@@ -34,15 +34,15 @@ function ProductDetail(props) {
     const location = useLocation();
     const history = useHistory();
     const id = location.pathname.substring(
-        "/admin/products/".length,
+        "/admin/packagess/".length,
         location.pathname.length
     );
     const type = id !== "create" ? 1 : 0;
 
-    const getProductById = async () => {
+    const getPackageById = async () => {
         try {
-            const response = await adminApi.getProductById(id);
-            setProduct(response);
+            const response = await adminApi.getPackageById(id);
+            setPackage(response);
             setStatus(response.status);
             setIsCombo(response.combo);
         } catch (responseError) {
@@ -78,12 +78,12 @@ function ProductDetail(props) {
             };
             const response =
                 type === 1
-                    ? await adminApi.updateProduct(id, params)
-                    : await adminApi.createProduct(params);
+                    ? await adminApi.updatePackage(id, params)
+                    : await adminApi.createPackage(params);
             toast.success(response?.message, {
                 duration: 2000,
             });
-            history.push("/admin/products");
+            history.push("/admin/packagess");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -103,7 +103,7 @@ function ProductDetail(props) {
 
     useEffect(() => {
         if (type === 1) {
-            getProductById(id);
+            getPackageById(id);
         }
         getAllSubject();
         // eslint-disable-next-line
@@ -119,7 +119,7 @@ function ProductDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardHeader>
-                                <strong>Product Details</strong>
+                                <strong>Package Details</strong>
                             </CCardHeader>
                             <CCardBody>
                                 <CRow className="g-3 mb-3">
@@ -133,7 +133,7 @@ function ProductDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 defaultValue={
-                                                    type === 1 ? product?.title : ""
+                                                    type === 1 ? packages?.title : ""
                                                 }
                                                 onChange={(e) =>
                                                     setTitle(e.target.value)
@@ -151,7 +151,7 @@ function ProductDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 defaultValue={
-                                                    type === 1 ? product?.excerpt : ""
+                                                    type === 1 ? packages?.excerpt : ""
                                                 }
                                                 onChange={(e) =>
                                                     setExcerpt(e.target.value)
@@ -169,7 +169,7 @@ function ProductDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 defaultValue={
-                                                    type === 1 ? product?.duration : ""
+                                                    type === 1 ? packages?.duration : ""
                                                 }
                                                 onChange={(e) =>
                                                     setDuration(e.target.value)
@@ -187,7 +187,7 @@ function ProductDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 defaultValue={
-                                                    type === 1 ? product?.description : ""
+                                                    type === 1 ? packages?.description : ""
                                                 }
                                                 onChange={(e) =>
                                                     setDescription(e.target.value)
@@ -205,7 +205,7 @@ function ProductDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 defaultValue={
-                                                    type === 1 ? product?.listPrice : ""
+                                                    type === 1 ? packages?.listPrice : ""
                                                 }
                                                 onChange={(e) =>
                                                     setListPrice(e.target.value)
@@ -223,7 +223,7 @@ function ProductDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 defaultValue={
-                                                    type === 1 ? product?.sale_price : ""
+                                                    type === 1 ? packages?.sale_price : ""
                                                 }
                                                 onChange={(e) =>
                                                     setSalePrice(e.target.value)
@@ -246,7 +246,7 @@ function ProductDetail(props) {
                                             >
                                                 {optionIsCombo?.map((item, index) => {
                                                     if (type === 1) {
-                                                        return product?.combo ===
+                                                        return packages?.combo ===
                                                             item?.combo ? (
                                                             <option
                                                                 key={index}
@@ -291,7 +291,7 @@ function ProductDetail(props) {
                                             >
                                                 {optionStatus?.map((item, index) => {
                                                     if (type === 1) {
-                                                        return product?.status ===
+                                                        return packages?.status ===
                                                             item?.status ? (
                                                             <option
                                                                 key={index}
@@ -337,7 +337,7 @@ function ProductDetail(props) {
                                                 <option>Select subject</option>
                                                 {listSubject?.map((item, index) => {
                                                     if (type === 1) {
-                                                        return product?.subjectId === item?.id ? (
+                                                        return packages?.subjectId === item?.id ? (
                                                             <option
                                                                 key={index}
                                                                 value={
@@ -391,4 +391,4 @@ function ProductDetail(props) {
     );
 }
 
-export default ProductDetail;
+export default PackagesDetail;

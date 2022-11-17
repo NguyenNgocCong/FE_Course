@@ -8,7 +8,7 @@ const Contact = React.lazy(() => import("./admin/views/contact/contact"));
 const Class = React.lazy(() => import("./admin/views/class/class"));
 const Posts = React.lazy(() => import("./admin/views/posts/Posts"));
 const Sliders = React.lazy(() => import("./admin/views/sliders/Sliders"));
-const Products = React.lazy(() => import("./admin/views/products/Products"));
+const Packages = React.lazy(() => import("./admin/views/packages/Packages"));
 const Experts = React.lazy(() => import("./admin/views/expert/Experts"));
 const Combo = React.lazy(() => import("./admin/views/combo/Combo"));
 const Settings = React.lazy(() => import("./admin/views/settings/Settings"));
@@ -22,7 +22,7 @@ const routes = [
     { path: "/admin/class", name: "Class", element: Class },
     { path: "/admin/posts", name: "Posts", element: Posts },
     { path: "/admin/sliders", name: "Sliders", element: Sliders },
-    { path: "/admin/products", name: "Products", element: Products },
+    { path: "/admin/products", name: "Packages", element: Packages },
     { path: "/admin/experts", name: "Experts", element: Experts },
     { path: "/admin/combos", name: "Combo", element: Combo },
     { path: "/admin/settings", name: "Settings", element: Settings },

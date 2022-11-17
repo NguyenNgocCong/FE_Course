@@ -20,9 +20,9 @@ const Users = () => {
 
   const columns = [
     {
-      name: "ID",
+      name: "STT",
       width: '50px',
-      selector: (row) => row?.id,
+      selector: (row, rowIndex) => rowIndex + 1,
       sortable: true,
     },
     {
@@ -204,8 +204,8 @@ const Users = () => {
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
               <Col xs={12} lg={2}>
                 <CFormSelect
-                                  style={{ margin: "0px 0px", maxWidth: "180px" }}
-                                  onChange={(e) => {
+                  style={{ margin: "0px 0px", maxWidth: "180px" }}
+                  onChange={(e) => {
                     setRole(e.target.value);
                   }}
                 >
@@ -224,8 +224,8 @@ const Users = () => {
               </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
-                                  style={{ margin: "0px 0px", maxWidth: "180px" }}
-                                  onChange={(e) => {
+                  style={{ margin: "0px 0px", maxWidth: "180px" }}
+                  onChange={(e) => {
                     setStatus(e.target.value);
                   }}
                 >

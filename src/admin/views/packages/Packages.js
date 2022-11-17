@@ -12,7 +12,7 @@ import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import Styles from "./style.module.scss";
 
-const Products = () => {
+const Packages = () => {
     const columns = [
         {
             name: "ID",
@@ -108,7 +108,7 @@ const Products = () => {
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
-                        onClick={() => { window.location.href = "/react/admin/products/" + row?.id }}
+                        onClick={() => { window.location.href = "/react/admin/packages/" + row?.id }}
                         color="primary"
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
@@ -259,7 +259,8 @@ const Products = () => {
                                     onChange={onSearch}
                                 />
                             </Col>
-                            <Col xs={12} lg={4} className='d-flex justify-content-end'>  <div className={Styles.inputSearch}>
+                            <Col xs={12} lg={4} className='d-flex justify-content-end'>  
+                            <div className={Styles.inputSearch}>
                                 <button
                                     style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
                                     onClick={() =>
@@ -290,4 +291,4 @@ const Products = () => {
     )
 };
 
-export default Products;
+export default Packages;

@@ -54,13 +54,13 @@ import ExpertDetail from "../admin/views/expert/ExpertDetail";
 import Experts from "../admin/views/expert/Experts";
 import PostDetail from "../admin/views/posts/PostDetail";
 import Posts from "../admin/views/posts/Posts";
-import ProductDetail from "../admin/views/products/ProductDetail";
+import PackageDetail from "../admin/views/packages/PackageDetail";
 import SettingDetail from "../admin/views/settings/SettingDetail";
 import Settings from "../admin/views/settings/Settings";
 import Sliders from "../admin/views/sliders/Sliders";
 import SubjectDetail from "../admin/views/subjects/subject-detail";
 import Subjects from "../admin/views/subjects/subjects";
-import Products from "./../admin/views/products/Products";
+import Packages from "./../admin/views/packages/Packages";
 import SliderDetail from "./../admin/views/sliders/SliderDetail";
 import ComboHome from "./pages/combo";
 import ComboDetailHome from "./pages/ComboDetails";
@@ -198,14 +198,14 @@ class Markup extends Component {
             </PrivateRoute>
 
             {/* Product */}
-            <PrivateRoute path="/admin/products" exact>
-              <Products />
+            <PrivateRoute path="/admin/packages" exact>
+              <Packages />
             </PrivateRoute>
-            <PrivateRoute path="/admin/products/create" exact>
-              <ProductDetail />
+            <PrivateRoute path="/admin/packages/create" exact>
+              <PackageDetail/>
             </PrivateRoute>
-            <PrivateRoute path="/admin/products/:id" exact>
-              <ProductDetail />
+            <PrivateRoute path="/admin/packages/:id" exact>
+              <PackageDetail />
             </PrivateRoute>
 
             {/* Combo */}

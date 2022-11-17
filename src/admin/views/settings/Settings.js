@@ -26,10 +26,9 @@ const Settings = () => {
 
     const columns = [
         {
-            name: "ID",
-            selector: (row) => row?.setting_id,
-            minWidth: '10px',
-            maxWidth: '40px',
+            name: "STT",
+            width: '50px',
+            selector: (row, rowIndex) => rowIndex + 1,
             sortable: true,
         },
         {
