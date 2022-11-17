@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sticky from "react-stickynode";
 
@@ -6,16 +6,20 @@ import Sticky from "react-stickynode";
 import logo from "../../../images/logo.png";
 import Cookies from "js-cookie";
 import { CAvatar } from "@coreui/react";
-import avatarProfile from '../../../images/icon/avatar.svg'
+import avatarProfile from "../../../images/icon/avatar.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { setEditAvatar } from "../../../redux/reducers/user";
 
-import 'react-confirm-alert/src/react-confirm-alert.css';
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 function Header() {
   const [id, setId] = useState(Cookies.get("id"));
-  const [user, setUser] = useState(Cookies.get("user") === undefined ? Cookies.get("user") : JSON.parse(Cookies.get("user")));
-		 // eslint-disable-next-line
+  const [user, setUser] = useState(
+    Cookies.get("user") === undefined
+      ? Cookies.get("user")
+      : JSON.parse(Cookies.get("user"))
+  );
+  // eslint-disable-next-line
   const [role, setRole] = useState(Cookies.get("roles"));
   const [isExpand, setIsExpand] = useState(false);
 
@@ -68,13 +72,17 @@ function Header() {
         console.log("close");
       }
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    setUser(Cookies.get("user") === undefined ? Cookies.get("user") : JSON.parse(Cookies.get("user")));
+    setUser(
+      Cookies.get("user") === undefined
+        ? Cookies.get("user")
+        : JSON.parse(Cookies.get("user"))
+    );
     dispatch(setEditAvatar(false));
-		 // eslint-disable-next-line
-  }, [editAvatar])
+    // eslint-disable-next-line
+  }, [editAvatar]);
 
   const handleLogout = () => {
     Cookies.remove("id");
@@ -83,7 +91,7 @@ function Header() {
     Cookies.remove("roles");
     Cookies.remove("user");
     setId(undefined);
-  }
+  };
 
   return (
     <>
@@ -112,16 +120,20 @@ function Header() {
                   {id ? (
                     <li className="is-logged-in">
                       <div
-                        onClick={() =>
-                          setIsExpand(!isExpand)
-                        }
+                        onClick={() => setIsExpand(!isExpand)}
                         className="mb-0"
                       >
-                        <CAvatar src={
-                          user?.avatar ?
-                            user?.avatar.substr("http://localhost:8080/api/account/downloadFile/".length) !== "null"
-                              ? user?.avatar
-                              : avatarProfile : avatarProfile}
+                        <CAvatar
+                          src={
+                            user?.avatar
+                              ? user?.avatar.substr(
+                                  "http://localhost:8080/api/account/downloadFile/"
+                                    .length
+                                ) !== "null"
+                                ? user?.avatar
+                                : avatarProfile
+                              : avatarProfile
+                          }
                         />
                       </div>
                       <ul
@@ -129,46 +141,36 @@ function Header() {
                         style={
                           isExpand
                             ? {
-                              visibility: "visible",
-                              opacity: "1",
-                              width: '200px'
-                            }
+                                visibility: "visible",
+                                opacity: "1",
+                                width: "200px",
+                              }
                             : {
-                              visibility: "hidden",
-                              opacity: "0",
-                            }
+                                visibility: "hidden",
+                                opacity: "0",
+                              }
                         }
                       >
                         {role === "ROLE_ADMIN" ? (
                           <Link to="/admin/dashboard">
-                            <li>
-                              Dashboard
-                            </li>
+                            <li>Dashboard</li>
                           </Link>
                         ) : role === "ROLE_SUPPORTER" ? (
                           <Link to="/admin/contacts">
-                            <li>
-                              Admin
-                            </li>
+                            <li>Admin</li>
                           </Link>
                         ) : role === "ROLE_MANAGER" ? (
                           <Link to="/admin/subjects">
-                            <li>
-                              Admin
-                            </li>
+                            <li>Admin</li>
                           </Link>
                         ) : (
                           ""
                         )}
                         <Link to="/profile">
-                          <li>
-                            User Profile
-                          </li>
+                          <li>User Profile</li>
                         </Link>
                         <Link to="/profile">
-                          <li>
-                            Change Password
-                          </li>
+                          <li>Change Password</li>
                         </Link>
                         <li onClick={handleLogout}>Logout</li>
                       </ul>
@@ -280,14 +282,13 @@ function Header() {
                     <Link to="/lecturers">Lecturers</Link>
                   </li>
                   <li>
-                    <Link to="/products">
-                      Product
-                    </Link>
+                    <Link to="/products">Product</Link>
                   </li>
                   <li>
-                    <Link to="/combo">
-                      Combo
-                    </Link>
+                    <Link to="/combo">Combo</Link>
+                  </li>
+                  <li>
+                    <Link to="/class">Classes</Link>
                   </li>
                   <li>
                     <Link to="/blog">Blog</Link>

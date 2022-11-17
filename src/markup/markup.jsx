@@ -63,9 +63,12 @@ import Subjects from "../admin/views/subjects/subjects";
 import Products from "./../admin/views/products/Products";
 import SliderDetail from "./../admin/views/sliders/SliderDetail";
 import ComboHome from "./pages/combo";
+import ClassUser from "./pages/Class";
+
 import ComboDetailHome from "./pages/ComboDetails";
 import ExpertsUser from "./pages/Expert";
 import Error401 from "./pages/error-401";
+import ClassUserDetails from "./pages/ClassUserDetails";
 
 class Markup extends Component {
   render() {
@@ -126,6 +129,10 @@ class Markup extends Component {
             {/* Combos */}
             <Route path="/combo" exact component={ComboHome} />
             <Route path="/combo/:id" exact component={ComboDetailHome} />
+
+            {/* class */}
+            <Route path="/class" exact component={ClassUser} />
+            <Route path="/class/:id" exact component={ClassUserDetails} />
 
             {/* Blog Pages */}
             <Route path="/blog" exact component={BlogClassicSidebar} />
