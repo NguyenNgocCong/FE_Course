@@ -189,7 +189,7 @@ function Header() {
           </div>
         </div>
         <Sticky enabled={true} className="sticky-header navbar-expand-lg">
-          <div className="menu-bar clearfix">
+          <div className="menu-bar clearfix" style={{background:'#fff'}}>
             <div className="container clearfix">
               {/* <!-- Header Logo ==== --> */}
               <div className="menu-logo">
