@@ -12,29 +12,16 @@ import bannerImg from "../../images/banner/banner3.jpg";
 import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
 import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
+import { classApi } from "../../api/classApi";
 
-function Combos() {
-  const [res, setRes] = useState({
-    totalItems: 0,
-    data: [
-      {
-        id: 1,
-        createdDate: "2022-10-30 12:45:28.197",
-        updatedDate: "2022-10-30 12:45:28.197",
-        title: "title",
-        description: "test1",
-        comboPackages: [],
-      },
-    ],
-    totalPages: 0,
-    currentPage: 0,
-  });
+function Class() {
+  const [res, setRes] = useState(classEx);
 
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     // eslint-disable-next-line
-    comboApi.getAllCombo(page - 1).then((res) => {
+    classApi.getAllClass(page - 1).then((res) => {
       setRes(res);
     });
   }, [page]);
@@ -162,27 +149,32 @@ function Combos() {
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
                   <div className="row">
-                    {data.map((item) => (
+                    {data.map((item, index) => (
                       <div
                         className="col-md-6 col-lg-4 col-sm-6 m-b30"
-                        key={item.id}
+                        key={index}
                       >
                         <div className="cours-bx">
                           <div className="action-box">
                             <img src={blogRecentPic1} alt="" />
-                            <Link to={`/combo/${item.id}`} className="btn">
+                            <Link
+                              to={`/class/${item._class.id}`}
+                              className="btn"
+                            >
                               Read More
                             </Link>
                           </div>
                           <div className="info-bx">
-                            <span>{item.title}</span>
+                            <span>{item._class.status}</span>
                             <h6>
-                              <Link to={"/combo/" + item.id}>{item.title}</Link>
+                              <Link to={`/class/${item._class.id}`}>
+                                {item._class.trainer.fullname}
+                              </Link>
                             </h6>
                           </div>
                           <div className="cours-more-info">
                             <div className="review">
-                              <span> Description</span>
+                              <span> {item.supporter.fullname}</span>
                               {/* <ul className="cours-star">
 																<li className="active"><i className="fa fa-star"></i></li>
 																<li className="active"><i className="fa fa-star"></i></li>
@@ -190,7 +182,7 @@ function Combos() {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 															</ul> */}
-                              <div>{item.description}</div>
+                              <div>{item._class.status}</div>
                             </div>
                             {/* <div className="price">
                               <del>${item}</del>
@@ -230,4 +222,57 @@ function Combos() {
   );
 }
 
-export default Combos;
+const classEx = {
+  totalItems: 0,
+  data: [
+    {
+      startDate: "2022-11-09T07:00:00.000+00:00",
+      _package: {
+        id: 2,
+        createdDate: "2022-11-04 17:59:57.51",
+        updatedDate: "2022-11-04 17:59:57.51",
+        title: "Product 1",
+        excerpt: "asdasdasd",
+        duration: "Duration1",
+        description: "test123",
+        combo: true,
+        status: false,
+        listPrice: 500.0,
+        sale_price: 12300.0,
+      },
+      supporter: {
+        id: 22,
+        username: "Marketer",
+        email: "Marketer@gmail.com",
+        fullname: "Marketer",
+        phoneNumber: "",
+        avatar:
+          "http://localhost:8080/api/account/downloadFile/24659c6a-2ab5-4e7c-ad7b-e8f99733ac44.jpg",
+        role: "ROLE_MARKETER",
+        active: true,
+      },
+      _class: {
+        id: 1,
+        code: "IS202210273202",
+        dateFrom: "2022-12-24T07:00:00.000+00:00",
+        dateTo: "2022-12-17T07:00:00.000+00:00",
+        status: false,
+        packages: "1234",
+        trainer: {
+          id: 7,
+          username: "expert1",
+          email: "expert1@gmail.com",
+          fullname: "Expert1",
+          phoneNumber: "",
+          avatar: "http://localhost:8080/api/account/downloadFile/null",
+          role: "ROLE_EXPERT",
+          active: true,
+        },
+      },
+    },
+  ],
+  totalPages: 0,
+  currentPage: 0,
+};
+
+export default Class;
