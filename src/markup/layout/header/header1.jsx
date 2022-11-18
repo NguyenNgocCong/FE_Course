@@ -153,34 +153,44 @@ function Header() {
                       >
                         {role === "ROLE_ADMIN" ? (
                           <Link to="/admin/dashboard">
-                            <li>Dashboard</li>
+                            <li className="text-left">
+                              Dashboard
+                            </li>
                           </Link>
                         ) : role === "ROLE_SUPPORTER" ? (
                           <Link to="/admin/contacts">
-                            <li>Admin</li>
+                            <li className="text-left">
+                              Admin
+                            </li>
                           </Link>
                         ) : role === "ROLE_MANAGER" ? (
                           <Link to="/admin/subjects">
-                            <li>Admin</li>
-                          </Link>
+                            <li className="text-left">
+                              Admin
+                            </li>
+                         </Link>
                         ) : (
                           ""
                         )}
                         <Link to="/profile">
-                          <li>User Profile</li>
+ <li className="text-left">
+                            User Profile
+                          </li>
                         </Link>
-                        <Link to="/profile">
-                          <li>Change Password</li>
+                        <Link to="/profile" >
+                          <li className="text-left">
+                            Change Password
+                          </li>
                         </Link>
-                        <li onClick={handleLogout}>Logout</li>
+                        <li className="text-left" onClick={handleLogout}>Logout</li>
                       </ul>
                     </li>
                   ) : (
                     <div>
-                      <li>
-                        <Link to="/login">Login</Link>
+                      <li className="text-left">
+                        <Link to="/login" >Login</Link>
                       </li>
-                      <li>
+                      <li className="text-left">
                         <Link to="/register">Register</Link>
                       </li>
                     </div>
@@ -191,7 +201,7 @@ function Header() {
           </div>
         </div>
         <Sticky enabled={true} className="sticky-header navbar-expand-lg">
-          <div className="menu-bar clearfix">
+          <div className="menu-bar clearfix" style={{background:'#fff'}}>
             <div className="container clearfix">
               {/* <!-- Header Logo ==== --> */}
               <div className="menu-logo">

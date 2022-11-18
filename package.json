@@ -1,6 +1,6 @@
 {
     "name": "educhamp",
-    "homepage": "http://educhamp.themetrades.com/react",
+    "homepage": "http://43.239.223.156:3000",
     "version": "0.1.0",
     "private": true,
     "dependencies": {

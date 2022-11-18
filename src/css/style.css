@@ -271,9 +271,9 @@
 	2. HEADER TOPBAR
 =================================*/
 .top-bar {
-    background-color: #ffffff;
+    background-color: orange;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    color: #000;
+    color: #ffffff;
     padding: 11px 0;
 }
 .topbar-left {
@@ -331,7 +331,7 @@
 .topbar-left ul li a,
 .topbar-right ul li a {
     text-decoration: none;
-    color: #000;
+    color: #4c1864;
 }
 .topbar-left ul,
 .topbar-right ul {
@@ -507,8 +507,8 @@
 /*=================================
 	4. MENU BAR
 =================================*/
+
 .menu-bar {
-    background: #ffffff;
     width: 100%;
     position: relative;
 }
@@ -634,6 +634,7 @@
     -moz-transition: all 0.15s linear;
     -o-transition: all 0.15s linear;
     font-weight: 400;
+    text-decoration: none;
 }
 .menu-links .nav > li .sub-menu li a:hover {
     background-color: #f2f2f2;
@@ -2312,6 +2313,8 @@ footer .pt-social-link ul li {
     margin-bottom: 0;
 }
 .cours-bx .action-box .btn {
+    color: #000000;
+    font-weight: bold;
     border-radius: 0;
     position: absolute;
     bottom: 0;
@@ -2321,8 +2324,10 @@ footer .pt-social-link ul li {
     -ms-transition: all 0.5s;
     -o-transition: all 0.5s;
     -webkit-transition: all 0.5s;
+    border: none;
 }
 .cours-bx:hover .action-box .btn {
+    border: none;
     left: 0;
 }
 .cours-bx {

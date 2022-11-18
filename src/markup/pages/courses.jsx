@@ -30,7 +30,7 @@ function Products() {
       adminApi.getAllPackageView(page - 1).then((res) => setRes(res));
     } catch (responseError) {
       toast.error(responseError?.data.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };

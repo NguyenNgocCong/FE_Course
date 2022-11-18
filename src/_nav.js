@@ -52,8 +52,8 @@ const _nav = [
     },
     {
         component: CNavItem,
-        name: "Products",
-        to: "/admin/products",
+        name: "Packages",
+        to: "/admin/Packages",
         icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
     },{
         component: CNavItem,

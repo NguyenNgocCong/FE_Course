@@ -887,7 +887,7 @@
 .btn-link.yellow:hover,
 .btn-link.yellow:active,
 .btn-link.yellow:focus {
-    color: ##d4af19;
+    color: #d4af19;
 }
 /* purple */
 
@@ -903,8 +903,19 @@
 .dropdown-menu > li > a{
 	padding:10px 20px;
 }
+.dropdown-menu > li > a > a{
+	text-decoration: none;
+    color: #4f5d73;
+}
 /* Box Shadow */
-
+.breadcrumb-item > a{
+    text-decoration: none;
+    color: #8a93a2;
+}
+.breadcrumb-item > a:hover{
+    text-decoration: none;
+    color: #000000;
+}
 /* black */
 .btn.box-shadow.black {
 	box-shadow:0 5px 10px 2px rgba(0, 0, 0, 0.19);

@@ -16,9 +16,9 @@ import { Col, Row } from "react-bootstrap";
 function Class() {
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row.id,
+      name: "STT",
       width: '50px',
+      selector: (row, rowIndex) => rowIndex + 1,
       sortable: true,
     },
     {
@@ -108,7 +108,7 @@ function Class() {
       setTotalRows(response.totalItems)
     } catch (responseError) {
       toast.error(responseError?.data.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };
@@ -119,7 +119,7 @@ function Class() {
       setListTrainer(response.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };
@@ -131,7 +131,7 @@ function Class() {
   useEffect(() => {
     getAllClass();
     // eslint-disable-next-line
-  },[isModify, keywordSearch, status, traner, itemsPerPage, page]);
+  }, [isModify, keywordSearch, status, traner, itemsPerPage, page]);
 
   useEffect(() => {
     getListTrainer();

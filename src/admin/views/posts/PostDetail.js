@@ -52,7 +52,7 @@ function PostDetail(props) {
             console.log(response)
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -63,7 +63,7 @@ function PostDetail(props) {
             setListCategory(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -92,7 +92,7 @@ function PostDetail(props) {
             history.push("/admin/posts");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };

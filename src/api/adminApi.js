@@ -187,11 +187,11 @@ export const adminApi = {
   },
 
   //product
-  getAllProduct: (page = 0, size, keyword, category, status) => {
+  getAllProduct: (page, size, keyword, category, status) => {
     const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
-  getAllPackageView: (page = 0) => {
+  getAllPackageView: (page) => {
     const url = `/api/package?page=${page}`;
     return axiosApi.get(url);
   },

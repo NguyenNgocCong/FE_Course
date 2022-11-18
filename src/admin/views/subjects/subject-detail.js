@@ -49,7 +49,7 @@ function SubjectDetail(props) {
             setListCategory(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -62,7 +62,7 @@ function SubjectDetail(props) {
             setStatus(response.status);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -73,7 +73,7 @@ function SubjectDetail(props) {
             setListManager(response.data);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -84,7 +84,7 @@ function SubjectDetail(props) {
             setListExpert(response.data);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -127,7 +127,7 @@ function SubjectDetail(props) {
             history.push("/admin/subjects");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };

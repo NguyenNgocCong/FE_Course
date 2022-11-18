@@ -50,7 +50,7 @@ function UserDetail(props) {
             setUser(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -80,7 +80,7 @@ function UserDetail(props) {
             history.push("/admin/users");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
             console.log(responseError);
         }

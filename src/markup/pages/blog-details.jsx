@@ -35,11 +35,8 @@ function BlogDetails(prop) {
 
 	return (
 		<>
-
 			<Header />
-
 			<div className="page-content">
-
 				<div className="page-banner ovbl-dark" style={{ backgroundImage: "url(" + bannerImg + ")" }}>
 					<div className="container">
 						<div className="page-banner-entry">

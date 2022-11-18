@@ -14,27 +14,20 @@ import Testimonial1 from "../elements/testimonial1";
 
 function Index2() {
     return (
-        <>
+        <div>
             <Header />
-
-            <div className="page-content bg-white">
+            <div className="page-content" >
                 <div className="content-block" id="content-area">
                     <OnlineCourses />
-
                     <PopularCoursesSlider />
-
                     <JoinBx />
-
                     <FeatureContent3 />
-
                     <Counter2 />
-
                     <Testimonial1 />
                 </div>
             </div>
-
             <Footer />
-        </>
+        </div>
     );
 }
 

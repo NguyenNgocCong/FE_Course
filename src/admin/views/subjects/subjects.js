@@ -18,9 +18,9 @@ import { Row, Col } from "react-bootstrap";
 function Subjects() {
   const columns = [
     {
-      name: "ID",
-      width: "50px",
-      selector: (row) => row.id,
+      name: "STT",
+      width: '50px',
+      selector: (row, rowIndex) => rowIndex + 1,
       sortable: true,
     },
     {
@@ -144,7 +144,7 @@ function Subjects() {
       setTotalRows(response.totalItems);
     } catch (responseError) {
       toast.error(responseError?.data?.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };
@@ -178,7 +178,7 @@ function Subjects() {
       setIsModify(!isModify);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };
@@ -189,7 +189,7 @@ function Subjects() {
       setListCategory(response);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
-        duration: 7000,
+        duration: 2000,
       });
     }
   };

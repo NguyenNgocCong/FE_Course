@@ -26,10 +26,9 @@ const Settings = () => {
 
     const columns = [
         {
-            name: "ID",
-            selector: (row) => row?.setting_id,
-            minWidth: '10px',
-            maxWidth: '40px',
+            name: "STT",
+            width: '50px',
+            selector: (row, rowIndex) => rowIndex + 1,
             sortable: true,
         },
         {
@@ -86,7 +85,7 @@ const Settings = () => {
             setTotalRows(response.totalItems)
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -102,7 +101,7 @@ const Settings = () => {
             console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };

@@ -59,7 +59,7 @@ const Contact = () => {
             setIsModify(!isModify);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
-                duration: 7000,
+                duration: 2000,
             });
         }
     };
@@ -92,9 +92,9 @@ const Contact = () => {
 
     const columns = [
         {
-            name: "ID",
+            name: "STT",
             width: '50px',
-            selector: (row) => row?.id,
+            selector: (row, rowIndex) => rowIndex + 1,
             sortable: true,
         },
         {
