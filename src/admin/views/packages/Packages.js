@@ -139,7 +139,7 @@ const Packages = () => {
             const params = {
                 status: !row?.status,
             };
-            const response = await adminApi.updateProduct(row?.id, params);
+            const response = await adminApi.updatePackage(row?.id, params);
             setIsModify(!isModify);
             toast.success(response?.message, {
                 duration: 2000,
@@ -265,7 +265,7 @@ const Packages = () => {
                                     style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
                                     onClick={() =>
                                         history.push(
-                                            "/admin/products/create"
+                                            "/admin/packages/create"
                                         )
                                     }
                                 >

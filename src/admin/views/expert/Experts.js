@@ -17,7 +17,7 @@ const Experts = () => {
 
     const columns = [
         {
-             name: "STT",
+            name: "STT",
             width: '50px',
             selector: (row, rowIndex) => rowIndex + 1,
             sortable: true,
@@ -108,24 +108,14 @@ const Experts = () => {
         }
     };
 
-    const handleUpdateStatus = async (row, type) => {
+    const handleUpdateStatus = async (row) => {
         let id = row.id;
         let status = row.status;
         let statusChange = -1;
-        if (status === 0) {
+        if (Number(status) === 0) {
             statusChange = 1;
-        } else if (status === 1) {
-            if (type === 0) {
-                statusChange = 2;
-            } else {
-                statusChange = 4;
-            }
-        } else if (status === 2) {
-            statusChange = 3;
-        } else if (status === 3) {
-            statusChange = 2;
-        } else if (status === 4) {
-            statusChange = 1;
+        } else {
+            statusChange = 0;
         }
         try {
             const params = {

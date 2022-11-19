@@ -21,7 +21,6 @@ const Lecturers = () => {
 	const getListPost = async () => {
 		try {
 			const response = await userApi.getAllExpert();
-			console.log(response);
 			setListPost(response.data.filter(res => res.user?.fullname.toLowerCase().includes(searchLecturers.toLowerCase())));
 		} catch (responseError) {
 			console.log(responseError);
@@ -40,7 +39,7 @@ const Lecturers = () => {
 				<div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
 					<div className="container">
 						<div className="page-banner-entry">
-							<h1 className="text-white">Lecturers Classic Sidebar</h1>
+							<h1 className="text-white">Lecturers</h1>
 						</div>
 					</div>
 				</div>
@@ -48,7 +47,7 @@ const Lecturers = () => {
 					<div className="container">
 						<ul className="list-inline">
 							<li><Link to="/">Home</Link></li>
-							<li>Lecturers Classic Sidebar</li>
+							<li>Lecturers</li>
 						</ul>
 					</div>
 				</div>
@@ -69,9 +68,10 @@ const Lecturers = () => {
 													</CCol>
 													<CCol md={9}>
 														<CCardTitle >
-															<Link to={`/blog/${item?.id}`}>{item?.user?.fullname}</Link>
+															<Link to={`/lecturers/${item?.id}`}>{item?.user?.fullname}</Link>
 														</CCardTitle>
 														<CCardText >{item?.jobTitle}</CCardText>
+														<CCardText >{item?.company}</CCardText>
 														<CButton><Link to={`/lecturers/${item?.id}`}>Read more</Link></CButton>
 													</CCol>
 													<hr />

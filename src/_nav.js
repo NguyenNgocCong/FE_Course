@@ -40,6 +40,12 @@ const _nav = [
     },
     {
         component: CNavItem,
+        name: "New class",
+        to: "/admin/new-class",
+        icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
+    },
+    {
+        component: CNavItem,
         name: "Posts",
         to: "/admin/posts",
         icon: <CIcon icon={cilTextSquare} customClassName="nav-icon" />,
@@ -53,9 +59,9 @@ const _nav = [
     {
         component: CNavItem,
         name: "Packages",
-        to: "/admin/Packages",
+        to: "/admin/packages",
         icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
-    },{
+    }, {
         component: CNavItem,
         name: "Expert",
         to: "/admin/experts",

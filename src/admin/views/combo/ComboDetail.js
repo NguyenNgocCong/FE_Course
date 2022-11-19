@@ -124,20 +124,32 @@ function ComboDetail(props) {
         }
     };
 
+
     const handleUpdateSlider = async () => {
         try {
-            const params = {
-                title: title,
-                description: description,
-            };
-            const response =
-                type === 1
-                    ? await adminApi.updateCombo(id, params)
-                    : await adminApi.createCombo(params);
-            toast.success(response?.message, {
-                duration: 2000,
-            });
-            history.push("/admin/combos");
+            if (listPackagesSale?.length > 0) {
+                const params = {
+                    title: title,
+                    description: description,
+                    packages: new Map()
+                };
+                listPackagesSale.map((element) => {
+                    params.packages.set(element?._package?.id, Number(element?.salePrice))
+                })
+                console.log(params)
+                const response =
+                    type === 1
+                        ? await adminApi.updateCombo(id, params)
+                        : await adminApi.createCombo(params);
+                toast.success(response?.message, {
+                    duration: 2000,
+                });
+                history.push("/admin/combos");
+            } else {
+                toast.error("Please import package", {
+                    duration: 2000,
+                });
+            }
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -314,7 +326,7 @@ function ComboDetail(props) {
                                 <CButton
                                     onClick={() => handleUpdateSlider()}
                                 >
-                                    Add
+                                    {type === 1 ? "Update" : "Add"}
                                 </CButton>
                             </div>
                         </CCardBody>

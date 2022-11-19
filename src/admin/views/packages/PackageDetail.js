@@ -34,7 +34,7 @@ function PackagesDetail(props) {
     const location = useLocation();
     const history = useHistory();
     const id = location.pathname.substring(
-        "/admin/packagess/".length,
+        "/admin/packages/".length,
         location.pathname.length
     );
     const type = id !== "create" ? 1 : 0;
