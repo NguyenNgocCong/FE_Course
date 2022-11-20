@@ -46,6 +46,8 @@ import Users from "../admin/views/users/Users";
 import Cookies from "js-cookie";
 import Class from "../admin/views/class/class";
 import ClassDetail from "../admin/views/class/class-detail";
+import NewClass from "../admin/views/new-class/new-class";
+import NewClassDetail from "../admin/views/new-class/new-class-detail";
 import Combo from "../admin/views/combo/Combo";
 import ComboDetail from "../admin/views/combo/ComboDetail";
 import Contact from "../admin/views/contact/contact";
@@ -172,6 +174,14 @@ class Markup extends Component {
             </PrivateRoute>
             <PrivateRoute path="/admin/class/:id" exact>
               <ClassDetail />
+            </PrivateRoute>
+
+            {/* New class */}
+            <PrivateRoute path="/admin/new-class" exact>
+              <NewClass />
+            </PrivateRoute>
+            <PrivateRoute path="/admin/new-class/:id" exact>
+              <NewClassDetail />
             </PrivateRoute>
 
             {/* Expert */}

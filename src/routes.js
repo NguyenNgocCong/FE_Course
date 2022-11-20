@@ -12,6 +12,7 @@ const Packages = React.lazy(() => import("./admin/views/packages/Packages"));
 const Experts = React.lazy(() => import("./admin/views/expert/Experts"));
 const Combo = React.lazy(() => import("./admin/views/combo/Combo"));
 const Settings = React.lazy(() => import("./admin/views/settings/Settings"));
+const NewClass = React.lazy(() => import("./admin/views/new-class/new-class"));
 
 const routes = [
     { path: "/", exact: true, name: "Home" },
@@ -22,10 +23,11 @@ const routes = [
     { path: "/admin/class", name: "Class", element: Class },
     { path: "/admin/posts", name: "Posts", element: Posts },
     { path: "/admin/sliders", name: "Sliders", element: Sliders },
-    { path: "/admin/products", name: "Packages", element: Packages },
+    { path: "/admin/packages", name: "Packages", element: Packages },
     { path: "/admin/experts", name: "Experts", element: Experts },
     { path: "/admin/combos", name: "Combo", element: Combo },
     { path: "/admin/settings", name: "Settings", element: Settings },
+    { path: "/admin/new-class", name: "NewClass", element: NewClass }
 ];
 
 export default routes;

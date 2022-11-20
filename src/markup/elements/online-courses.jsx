@@ -11,7 +11,7 @@ class OnlineCourses extends Component {
 			<>
 				<CContainer xxl>
 					<CRow>
-						<CCol sm={3}>
+						<CCol sm={3} style={{padding: "0px"}}>
 							<div className="menu-links navbar-collapse justify-content-start"
 								id="menuDropdown">
 								<CListGroup className='nav navbar-nav'>
@@ -46,7 +46,7 @@ class OnlineCourses extends Component {
 								</CListGroup>
 							</div>
 						</CCol>
-						<CCol sm={9}>
+						<CCol sm={9} style={{padding: "0px"}}>
 							<Slider1 />
 						</CCol>
 					</CRow>
