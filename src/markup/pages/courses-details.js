@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Link as ScrollTo } from "react-scroll";
+import { Markup } from "interweave";
 
 // Layout
 import Header from "../layout/header/header1";
@@ -13,6 +14,7 @@ import testiPic2 from "../../images/testimonials/pic2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import { adminApi } from "../../api/adminApi";
 import toast from "react-hot-toast";
+import { NavItem } from "react-bootstrap";
 
 function CoursesDetails(props) {
   const [product, setProduct] = useState(couresDetailExample);
@@ -73,7 +75,7 @@ function CoursesDetails(props) {
                   <div className="course-detail-bx">
                     <div className="course-price">
                       <del>${product.listPrice}</del>
-                      <h4 className="price">${product.sale_price}</h4>
+                      <h6 className="price">${product.salePrice}</h6>
                     </div>
                     <div className="course-buy-now text-center">
                       <Link to="#" className="btn radius-xl">
@@ -83,11 +85,14 @@ function CoursesDetails(props) {
                     <div className="teacher-bx">
                       <div className="teacher-info">
                         <div className="teacher-thumb">
-                          <img src={testiPic1} alt="" />
+                          <img
+                            src={product.sucjectCode.expert.avatar || testiPic1}
+                            alt=""
+                          />
                         </div>
                         <div className="teacher-name">
-                          <h5>Hinata Hyuga</h5>
-                          <span>Science Teacher</span>
+                          <h5>{product.sucjectCode.expert.fullname}</h5>
+                          <span>Expert</span>
                         </div>
                       </div>
                     </div>
@@ -182,7 +187,7 @@ function CoursesDetails(props) {
                         <h2 className="post-title">{product.title}</h2>
                       </div>
                       <div className="ttr-post-text">
-                        <p>{product.description}</p>
+                        <p>{product.excerpt}</p>
                       </div>
                     </div>
                   </div>
@@ -229,59 +234,9 @@ function CoursesDetails(props) {
                         </ul>
                       </div>
                       <div className="col-md-12 col-lg-8">
-                        <h5 className="m-b10">Course Description</h5>
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry’s standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book. It has
-                          survived not only five centuries, but also the leap
-                          into electronic typesetting, remaining essentially
-                          unchanged.
-                        </p>
-                        <h5 className="m-b10">Certification</h5>
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry’s standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book. It has
-                          survived not only five centuries, but also the leap
-                          into electronic typesetting, remaining essentially
-                          unchanged.
-                        </p>
-                        <h5 className="m-b10">Learning Outcomes</h5>
-                        <ul className="list-checked primary">
-                          <li>Over 37 lectures and 55.5 hours of content!</li>
-                          <li>
-                            LIVE PROJECT End to End Software Testing Training
-                            Included.
-                          </li>
-                          <li>
-                            Learn Software Testing and Automation basics from a
-                            professional trainer from your own desk.
-                          </li>
-                          <li>
-                            Information packed practical training starting from
-                            basics to advanced testing techniques.
-                          </li>
-                          <li>
-                            Best suitable for beginners to advanced level users
-                            and who learn faster when demonstrated.
-                          </li>
-                          <li>
-                            Course content designed by considering current
-                            software testing technology and the job market.
-                          </li>
-                          <li>
-                            Practical assignments at the end of every session.
-                          </li>
-                          <li>
-                            Practical learning experience with live project work
-                            and examples.cv
-                          </li>
-                        </ul>
+                        <div className="p-2">
+                          <Markup content={product.description} />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -556,17 +511,44 @@ function CoursesDetails(props) {
 }
 
 const couresDetailExample = {
-  id: 2,
-  createdDate: "2022-11-04 17:59:57.51",
-  updatedDate: "2022-11-04 17:59:57.51",
-  title: "Product 1",
-  excerpt: "asdasdasd",
-  duration: "Duration1",
-  description: "test123",
-  combo: true,
-  status: false,
-  listPrice: 500.0,
-  sale_price: 12300.0,
+  id: 1,
+  title: "khóa học spring MVC cơ bản",
+  excerpt: "",
+  duration: "60",
+  description: "",
+  status: true,
+  listPrice: 3000000.0,
+  salePrice: 1800000.0,
+  sucjectCode: {
+    id: 1,
+    code: "Java0001",
+    name: "Lập trình java spring",
+    status: true,
+    note: "khóa học lập trình java spring",
+    manager: {
+      id: 3,
+      username: "manager1",
+      email: "manage1@gmail.com",
+      fullname: "Manager1",
+      phoneNumber: "0358283749",
+      avatar: "http://localhost:8080/api/account/downloadFile/null",
+      role: "ROLE_MANAGER",
+      active: true,
+    },
+    expert: {
+      id: 10,
+      username: "Hungnv",
+      email: "expert4@gmail.com",
+      fullname: "Nguyễn Việt Hùng",
+      phoneNumber: "01238423753",
+      avatar:
+        "http://localhost:8080/api/account/downloadFile/d521c918-a7b5-4157-9a29-9b50f567256e.jpg",
+      role: "ROLE_EXPERT",
+      active: true,
+    },
+    image: null,
+    categoryId: 12,
+  },
 };
 
 export default CoursesDetails;

@@ -58,7 +58,7 @@ export const adminApi = {
   },
   // expert
   getListExperts: (page, size, keyword) => {
-    console.log()
+    console.log();
     const url = `/api/expert?page=${page}&size=${size}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
@@ -71,7 +71,7 @@ export const adminApi = {
     var formData = new FormData();
     formData.append("id", id);
     formData.append("data", JSON.stringify(params));
-    console.log(JSON.stringify(params))
+    console.log(JSON.stringify(params));
     formData.append("image", image);
     return axiosApi.put(url, formData, {
       headers: {
@@ -192,11 +192,11 @@ export const adminApi = {
     return axiosApi.get(url);
   },
   getAllPackageView: (page) => {
-    const url = `/api/package?page=${page}`;
+    const url = `/api/package/views/?page=${page}`;
     return axiosApi.get(url);
   },
   getProductById: (id) => {
-    const url = `/api/package/${id}`;
+    const url = `/api/package/views/${id}`;
     return axiosApi.get(url);
   },
   createProduct: (params) => {
@@ -210,7 +210,7 @@ export const adminApi = {
 
   //combo
   getAllCombo: (page, size, keyword) => {
-      const url = `/api/combo?page=${page}&size=${size}&keyword=${keyword}`;
+    const url = `/api/combo?page=${page}&size=${size}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
   getComboById: (id) => {
