@@ -221,7 +221,7 @@ export const adminApi = {
     const url = `/api/package?page=${page}`;
     return axiosApi.get(url);
   },
-  getProductById: (id) => {
+  getPackageById: (id) => {
     const url = `/api/package/${id}`;
     return axiosApi.get(url);
   },
