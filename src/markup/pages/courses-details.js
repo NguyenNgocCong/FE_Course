@@ -88,6 +88,9 @@ function CoursesDetails(props) {
                           <img
                             src={product.sucjectCode.expert.avatar || testiPic1}
                             alt=""
+                            onError={({ currentTarget }) => {
+                              currentTarget.src = testiPic1;
+                            }}
                           />
                         </div>
                         <div className="teacher-name">
@@ -96,34 +99,7 @@ function CoursesDetails(props) {
                         </div>
                       </div>
                     </div>
-                    <div className="cours-more-info">
-                      <div className="review">
-                        <span>3 Review</span>
-                        <ul className="cours-star">
-                          <li className="active">
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li className="active">
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li className="active">
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li>
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li>
-                            <i className="fa fa-star"></i>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="price categories">
-                        <span>Categories</span>
-                        <h5 className="text-primary">
-                          {product?.subject?.category?.type?.title}
-                        </h5>
-                      </div>
-                    </div>
+
                     <div className="course-info-list scroll-page">
                       <ul className="navbar">
                         <li>
@@ -135,39 +111,6 @@ function CoursesDetails(props) {
                             to={"overview"}
                           >
                             <i className="ti-zip"></i> Overview
-                          </ScrollTo>
-                        </li>
-                        <li>
-                          <ScrollTo
-                            smooth={true}
-                            activeClass="active"
-                            spy={true}
-                            className="nav-link"
-                            to={"curriculum"}
-                          >
-                            <i className="ti-bookmark-alt"></i> Curriculum
-                          </ScrollTo>
-                        </li>
-                        <li>
-                          <ScrollTo
-                            smooth={true}
-                            activeClass="active"
-                            spy={true}
-                            className="nav-link"
-                            to={"instructor"}
-                          >
-                            <i className="ti-user"></i> Instructor
-                          </ScrollTo>
-                        </li>
-                        <li>
-                          <ScrollTo
-                            smooth={true}
-                            activeClass="active"
-                            spy={true}
-                            className="nav-link"
-                            to={"reviews"}
-                          >
-                            <i className="ti-comments"></i> Reviews
                           </ScrollTo>
                         </li>
                       </ul>
@@ -198,38 +141,50 @@ function CoursesDetails(props) {
                         <ul className="course-features">
                           <li>
                             <i className="ti-book"></i>{" "}
-                            <span className="label">Lectures</span>{" "}
-                            <span className="value">8</span>
+                            <span className="label">manager</span>{" "}
+                            <span className="value">
+                              {product.sucjectCode.manager.username}
+                            </span>
                           </li>
                           <li>
                             <i className="ti-help-alt"></i>{" "}
-                            <span className="label">Quizzes</span>{" "}
-                            <span className="value">1</span>
+                            <span className="label">Manager Phone</span>{" "}
+                            <span className="value">
+                              {product.sucjectCode.manager.phoneNumber}
+                            </span>
                           </li>
                           <li>
                             <i className="ti-time"></i>{" "}
                             <span className="label">Duration</span>{" "}
-                            <span className="value">60 hours</span>
+                            <span className="value">{product.duration}</span>
                           </li>
                           <li>
                             <i className="ti-stats-up"></i>{" "}
-                            <span className="label">Skill level</span>{" "}
-                            <span className="value">Beginner</span>
+                            <span className="label">expert</span>{" "}
+                            <span className="value">
+                              {product.sucjectCode.expert.fullname}
+                            </span>
                           </li>
                           <li>
                             <i className="ti-smallcap"></i>{" "}
-                            <span className="label">Language</span>{" "}
-                            <span className="value">English</span>
+                            <span className="label">Phone</span>{" "}
+                            <span className="value">
+                              {product.sucjectCode.expert.phoneNumber}
+                            </span>
                           </li>
                           <li>
                             <i className="ti-user"></i>{" "}
-                            <span className="label">Students</span>{" "}
-                            <span className="value">32</span>
+                            <span className="label">CategoriId</span>{" "}
+                            <span className="value">
+                              {product.sucjectCode.categoryId}
+                            </span>
                           </li>
                           <li>
                             <i className="ti-check-box"></i>{" "}
-                            <span className="label">Assessments</span>{" "}
-                            <span className="value">Yes</span>
+                            <span className="label">status</span>{" "}
+                            <span className="value">
+                              {product.status ? "yes" : "NO"}
+                            </span>
                           </li>
                         </ul>
                       </div>
