@@ -18,12 +18,7 @@ function Products() {
   const location = useLocation();
   const page = location.search.split("=")[1] || 1;
 
-  const [res, setRes] = useState({
-    currentPage: 0,
-    data: [productSimple],
-    totalItems: 0,
-    totalPages: 0,
-  });
+  const [res, setRes] = useState(productSimple);
 
   const getListProduct = async () => {
     try {
@@ -169,13 +164,24 @@ function Products() {
                       >
                         <div className="cours-bx">
                           <div className="action-box">
-                            <img src={item?.subject?.image} alt="" />
+                            <img
+                              src={
+                                item.sucjectCode.image ||
+                                "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
+                              }
+                              alt=""
+                              onError={({ currentTarget }) => {
+                                console.log(12312);
+                                currentTarget.src =
+                                  "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                              }}
+                            />
                             <Link
                               onClick={() => {
                                 window.location.href =
                                   "/react/courses-details/" + item.id;
                               }}
-                              className="btn"
+                              className="btn btn-warning m-2"
                             >
                               Read More
                             </Link>
@@ -195,7 +201,7 @@ function Products() {
                           </div>
                           <div className="cours-more-info">
                             <div className="review">
-                              <span> Description</span>
+                              <span> manager</span>
                               {/* <ul className="cours-star">
 																<li className="active"><i className="fa fa-star"></i></li>
 																<li className="active"><i className="fa fa-star"></i></li>
@@ -203,11 +209,11 @@ function Products() {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 															</ul> */}
-                              <div>{item.description}</div>
+                              <div>{item.sucjectCode.manager.username}</div>
                             </div>
                             <div className="price">
                               <del>${item.listPrice}</del>
-                              <h5>${item.sale_price}</h5>
+                              <h5 className="fs-6">${item.salePrice}</h5>
                             </div>
                           </div>
                         </div>
@@ -244,17 +250,51 @@ function Products() {
 }
 
 const productSimple = {
-  combo: true,
-  createdDate: "2022-11-04 17:59:57.51",
-  description: "test123",
-  duration: "Duration1",
-  excerpt: "asdasdasd",
-  id: 2,
-  listPrice: 500,
-  sale_price: 12300,
-  status: false,
-  title: "Product 1",
-  updatedDate: "2022-11-04 17:59:57.51",
+  totalItems: 1,
+  data: [
+    {
+      id: 1,
+      title: "khóa học spring MVC cơ bản",
+      excerpt: "",
+      duration: "60",
+      description: "",
+      status: true,
+      listPrice: 3000000.0,
+      salePrice: 1800000.0,
+      sucjectCode: {
+        id: 1,
+        code: "Java0001",
+        name: "Lập trình java spring",
+        status: true,
+        note: "khóa học lập trình java spring",
+        manager: {
+          id: 3,
+          username: "manager1",
+          email: "manage1@gmail.com",
+          fullname: "Manager1",
+          phoneNumber: "0358283749",
+          avatar: "http://localhost:8080/api/account/downloadFile/null",
+          role: "ROLE_MANAGER",
+          active: true,
+        },
+        expert: {
+          id: 10,
+          username: "Hungnv",
+          email: "expert4@gmail.com",
+          fullname: "Nguyễn Việt Hùng",
+          phoneNumber: "01238423753",
+          avatar:
+            "http://localhost:8080/api/account/downloadFile/d521c918-a7b5-4157-9a29-9b50f567256e.jpg",
+          role: "ROLE_EXPERT",
+          active: true,
+        },
+        image: null,
+        categoryId: 12,
+      },
+    },
+  ],
+  totalPages: 1,
+  currentPage: 0,
 };
 
 export default Products;
