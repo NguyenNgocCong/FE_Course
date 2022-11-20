@@ -18,6 +18,8 @@ import {
     AppHeader,
     AppSidebar,
 } from "../../components";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 function PackagesDetail(props) {
     const [packages, setPackage] = useState();
@@ -27,7 +29,6 @@ function PackagesDetail(props) {
     const [excerpt, setExcerpt] = useState();
     const [duration, setDuration] = useState();
     const [description, setDescription] = useState();
-    const [isCombo, setIsCombo] = useState(0);
     const [listPrice, setListPrice] = useState();
     const [salePrice, setSalePrice] = useState();
     const [subjectId, setSubjectId] = useState();
@@ -41,10 +42,10 @@ function PackagesDetail(props) {
 
     const getPackageById = async () => {
         try {
+            console.log(id)
             const response = await adminApi.getPackageById(id);
             setPackage(response);
             setStatus(response.status);
-            setIsCombo(response.combo);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -71,7 +72,6 @@ function PackagesDetail(props) {
                 excerpt: excerpt,
                 duration: duration,
                 description: description,
-                isCombo: isCombo,
                 listPrice: listPrice,
                 salePrice: salePrice,
                 subjectId: subjectId,
@@ -83,7 +83,7 @@ function PackagesDetail(props) {
             toast.success(response?.message, {
                 duration: 2000,
             });
-            history.push("/admin/packagess");
+            history.push("/admin/packages");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -166,31 +166,13 @@ function PackagesDetail(props) {
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
-                                                type="text"
+                                                type="number"
                                                 id="exampleFormControlInput1"
                                                 defaultValue={
                                                     type === 1 ? packages?.duration : ""
                                                 }
                                                 onChange={(e) =>
                                                     setDuration(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Description (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? packages?.description : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setDescription(e.target.value)
                                                 }
                                             />
                                         </div>
@@ -229,52 +211,6 @@ function PackagesDetail(props) {
                                                     setSalePrice(e.target.value)
                                                 }
                                             />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Is Combo (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                disabled={true}
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setIsCombo(e.target.value)
-                                                }
-                                            >
-                                                {optionIsCombo?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return packages?.combo ===
-                                                            item?.combo ? (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.combo}
-                                                                selected
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.combo}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.combo}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    }
-                                                })}
-                                            </CFormSelect>
                                         </div>
                                     </CCol>
                                     <CCol sm={6}>
@@ -371,6 +307,22 @@ function PackagesDetail(props) {
                                                     }
                                                 })}
                                             </CFormSelect>
+                                        </div>
+                                    </CCol>
+                                    <CCol sm={12}>
+                                        <div className="mb-3">
+                                            <CFormLabel>
+                                                Description (
+                                                <span style={{ color: "red" }}>*</span>)
+                                            </CFormLabel>
+                                            <CKEditor
+                                                editor={ClassicEditor}
+                                                data={packages?.description}
+                                                onChange={(event, editor) => {
+                                                    const data = editor.getData();
+                                                    setDescription(data);
+                                                }}
+                                            />
                                         </div>
                                     </CCol>
                                 </CRow>
