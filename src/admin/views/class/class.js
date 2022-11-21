@@ -63,6 +63,16 @@ function Class() {
       sortable: true,
     },
     {
+      name: "Mode learn",
+      width: '120px',
+      selector: (row) => (
+        <div className={`${row?.online ? Styles.active : Styles.inactive}`}>
+          {row.online ? "Online" : "Offline"}
+        </div>
+      ),
+      sortable: true,
+    },
+    {
       name: "Status",
       width: '120px',
       selector: (row) => (

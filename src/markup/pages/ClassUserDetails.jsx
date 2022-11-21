@@ -32,7 +32,7 @@ function ClassUserDetails(props) {
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
         >
           <div className="container">
             <div className="page-banner-entry">

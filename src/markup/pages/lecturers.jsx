@@ -56,7 +56,7 @@ const Lecturers = () => {
         >
           <div className="container">
             <div className="page-banner-entry">
-              <h1 className="text-white">Lecturers Classic Sidebar</h1>
+              <h1 className="text-white">Lecturers</h1>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@ const Lecturers = () => {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              <li>Lecturers Classic Sidebar</li>
+              <li>Lecturers</li>
             </ul>
           </div>
         </div>

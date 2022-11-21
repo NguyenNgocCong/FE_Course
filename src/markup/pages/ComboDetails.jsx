@@ -28,44 +28,20 @@ function CoursesDetails(props) {
 
   const columns = [
     {
-      name: "ID",
-      width: "50px",
-      selector: (row) => row?._package.id,
-      sortable: true,
-    },
-    {
       name: "Title",
-      minWidth: "140px",
-      width: "160px",
-      maxWidth: "180px",
+      minWidth: "230px",
+      width: "260px",
+      maxWidth: "330px",
       selector: (row) => row?._package.title,
       sortable: true,
     },
     {
-      name: "Excerpt",
-      minWidth: "225px",
-      width: "250px",
-      maxWidth: "275px",
-      selector: (row) => row?._package.excerpt,
-      sortable: true,
-    },
-    {
-      name: "duration",
-      minWidth: "150px",
-      width: "200px",
-      maxWidth: "250px",
-      selector: (row) => row?._package.duration,
-      sortable: true,
-    },
-    {
       name: "Price",
-      left: true,
-      minWidth: "80px",
-      width: "110px",
-      maxWidth: "120px",
-      selector: (row) => row?.salePrice,
+      right: true,
+      width: "100px",
+      selector: (row) => row?.salePrice + "$",
       sortable: true,
-    },
+    }
   ];
   return (
     <>
@@ -74,7 +50,7 @@ function CoursesDetails(props) {
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
         >
           <div className="container">
             <div className="page-banner-entry">
@@ -88,202 +64,162 @@ function CoursesDetails(props) {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              <li>{}</li>
+              <li>{ }</li>
             </ul>
           </div>
         </div>
-
         <div className="content-block">
-          <div className="section-area section-sp1">
+          <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row d-flex flex-row-reverse">
-                <div className="col-xl-3 col-lg-4 col-md-12 col-sm-12 m-b30">
-                  <div className="course-detail-bx">
-                    <div className="course-price">
-                      <del>
-                        ${" "}
-                        {res.comboPackages.reduce(
-                          (total, x) => total + x._package.listPrice,
-                          0
-                        )}
-                      </del>
-                      <h4 className="price">
-                        $
-                        {res.comboPackages.reduce(
-                          (total, x) => total + x._package.sale_price,
-                          0
-                        )}
-                      </h4>
-                    </div>
-                    <div className="course-buy-now text-center">
-                      <Link to="#" className="btn radius-xl btn-primary">
-                        Buy Now
-                      </Link>
-                    </div>
-                    <div className="teacher-bx">
-                      <div className="teacher-info">
-                        <div className="teacher-thumb">
-                          <img src={testiPic1} alt="" />
+                <div className="courses-post">
+                  <div className="row">
+                    <div className="col-md-12 col-lg-4 ">
+                      <div className="ttr-post-media media-effect">
+                        <Link to="#">
+                          <img src={blogDefaultThum1} alt="" />
+                        </Link>
+                      </div>
+                      <div className="course-detail-bx">
+                        <div className="course-price">
+                          <del>
+                            ${" "}
+                            {res.comboPackages.reduce(
+                              (total, x) => total + x._package.listPrice,
+                              0
+                            )}
+                          </del>
+                          <h4 className="price">
+                            $
+                            {res.comboPackages.reduce(
+                              (total, x) => total + x._package.sale_price,
+                              0
+                            )}
+                          </h4>
                         </div>
-                        <div className="teacher-name">
-                          <h5>Hinata Hyuga</h5>
-                          <span>Science Teacher</span>
+                        <div className="course-buy-now text-center">
+                          <Link to="#" className="btn radius-xl btn-primary">
+                            Buy Now
+                          </Link>
                         </div>
+                        <DataTable columns={columns} data={res.comboPackages} />
                       </div>
                     </div>
-                    <div className="cours-more-info">
-                      <div className="review">
-                        <span>3 Review</span>
-                        <ul className="cours-star">
-                          <li className="active">
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li className="active">
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li className="active">
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li>
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li>
-                            <i className="fa fa-star"></i>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="price categories">
-                        <span>Categories</span>
-                        <h5 className="text-primary"></h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-xl-9 col-lg-8 col-md-12 col-sm-12">
-                  <div className="courses-post">
-                    <div className="ttr-post-media media-effect">
-                      <Link to="#">
-                        <img src={blogDefaultThum1} alt="" />
-                      </Link>
-                    </div>
-                    <div className="ttr-post-info m-b30">
+                    <div className="col-md-12 col-lg-8">
                       <div className="ttr-post-title ">
                         <h2 className="post-title">{res.title}</h2>
                       </div>
                       <div className="ttr-post-text">
-                        <Markup content={res.description} />
+                        <div className="p-3">
+                          <Markup content={res.description} />
+                        </div>
                       </div>
                     </div>
                   </div>
-
-                  <DataTable columns={columns} data={res.comboPackages} />
-
-                  <div className="" id="reviews">
-                    <h4>Reviews</h4>
-
-                    <div className="review-bx">
-                      <div className="all-review">
-                        <h2 className="rating-type">3</h2>
-                        <ul className="cours-star">
-                          <li className="active">
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li className="active">
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li className="active">
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li>
-                            <i className="fa fa-star"></i>
-                          </li>
-                          <li>
-                            <i className="fa fa-star"></i>
-                          </li>
-                        </ul>
-                        <span>3 Rating</span>
+                </div>
+                <div className="" id="reviews">
+                  <h4>Reviews</h4>
+                  <div className="review-bx">
+                    <div className="all-review">
+                      <h2 className="rating-type">3</h2>
+                      <ul className="cours-star">
+                        <li className="active">
+                          <i className="fa fa-star"></i>
+                        </li>
+                        <li className="active">
+                          <i className="fa fa-star"></i>
+                        </li>
+                        <li className="active">
+                          <i className="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i className="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i className="fa fa-star"></i>
+                        </li>
+                      </ul>
+                      <span>3 Rating</span>
+                    </div>
+                    <div className="review-bar">
+                      <div className="bar-bx">
+                        <div className="side">
+                          <div>5 star</div>
+                        </div>
+                        <div className="middle">
+                          <div className="bar-container">
+                            <div
+                              className="bar-5"
+                              style={{ width: "90%" }}
+                            ></div>
+                          </div>
+                        </div>
+                        <div className="side right">
+                          <div>150</div>
+                        </div>
                       </div>
-                      <div className="review-bar">
-                        <div className="bar-bx">
-                          <div className="side">
-                            <div>5 star</div>
-                          </div>
-                          <div className="middle">
-                            <div className="bar-container">
-                              <div
-                                className="bar-5"
-                                style={{ width: "90%" }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="side right">
-                            <div>150</div>
+                      <div className="bar-bx">
+                        <div className="side">
+                          <div>4 star</div>
+                        </div>
+                        <div className="middle">
+                          <div className="bar-container">
+                            <div
+                              className="bar-5"
+                              style={{ width: "70%" }}
+                            ></div>
                           </div>
                         </div>
-                        <div className="bar-bx">
-                          <div className="side">
-                            <div>4 star</div>
-                          </div>
-                          <div className="middle">
-                            <div className="bar-container">
-                              <div
-                                className="bar-5"
-                                style={{ width: "70%" }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="side right">
-                            <div>140</div>
+                        <div className="side right">
+                          <div>140</div>
+                        </div>
+                      </div>
+                      <div className="bar-bx">
+                        <div className="side">
+                          <div>3 star</div>
+                        </div>
+                        <div className="middle">
+                          <div className="bar-container">
+                            <div
+                              className="bar-5"
+                              style={{ width: "50%" }}
+                            ></div>
                           </div>
                         </div>
-                        <div className="bar-bx">
-                          <div className="side">
-                            <div>3 star</div>
-                          </div>
-                          <div className="middle">
-                            <div className="bar-container">
-                              <div
-                                className="bar-5"
-                                style={{ width: "50%" }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="side right">
-                            <div>120</div>
+                        <div className="side right">
+                          <div>120</div>
+                        </div>
+                      </div>
+                      <div className="bar-bx">
+                        <div className="side">
+                          <div>2 star</div>
+                        </div>
+                        <div className="middle">
+                          <div className="bar-container">
+                            <div
+                              className="bar-5"
+                              style={{ width: "40%" }}
+                            ></div>
                           </div>
                         </div>
-                        <div className="bar-bx">
-                          <div className="side">
-                            <div>2 star</div>
-                          </div>
-                          <div className="middle">
-                            <div className="bar-container">
-                              <div
-                                className="bar-5"
-                                style={{ width: "40%" }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="side right">
-                            <div>110</div>
+                        <div className="side right">
+                          <div>110</div>
+                        </div>
+                      </div>
+                      <div className="bar-bx">
+                        <div className="side">
+                          <div>1 star</div>
+                        </div>
+                        <div className="middle">
+                          <div className="bar-container">
+                            <div
+                              className="bar-5"
+                              style={{ width: "20%" }}
+                            ></div>
                           </div>
                         </div>
-                        <div className="bar-bx">
-                          <div className="side">
-                            <div>1 star</div>
-                          </div>
-                          <div className="middle">
-                            <div className="bar-container">
-                              <div
-                                className="bar-5"
-                                style={{ width: "20%" }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="side right">
-                            <div>80</div>
-                          </div>
+                        <div className="side right">
+                          <div>80</div>
                         </div>
                       </div>
                     </div>

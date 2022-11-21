@@ -16,12 +16,14 @@ import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 
 function Products() {
   const [pageIndex, setPageIndex] = useState(1);
-
-  const [res, setRes] = useState(productSimple);
+  const [data, setDataTable] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
 
   const getListProduct = async () => {
     try {
-      adminApi.getAllPackageView(pageIndex - 1, 1).then((res) => setRes(res));
+      const response = await adminApi.getAllPackageView(pageIndex - 1, 10);
+      setDataTable(response.data);
+      setTotalPages(response.totalPages)
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -33,7 +35,6 @@ function Products() {
     // eslint-disable-next-line
   }, [pageIndex]);
 
-  const { totalItems, totalPages, data, currentPage } = res;
 
   return (
     <>
@@ -42,7 +43,7 @@ function Products() {
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
         >
           <div className="container">
             <div className="page-banner-entry">
@@ -62,7 +63,7 @@ function Products() {
         </div>
 
         <div className="content-block">
-          <div className="section-area section-sp1">
+          <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row">
                 <div className="col-lg-3 col-md-4 col-sm-12">
@@ -229,9 +230,7 @@ function Products() {
 													<li className="next"><Link to="#">Next <i className="ti-arrow-right"></i></Link></li>
 												</ul> */}
                         <PagingQuestion
-                          currentPage={currentPage}
                           totalPage={totalPages}
-                          totalItem={totalItems}
                           pageIndex={pageIndex}
                           onChange={(e) => {
                             setPageIndex(e);
@@ -251,53 +250,5 @@ function Products() {
     </>
   );
 }
-
-const productSimple = {
-  totalItems: 1,
-  data: [
-    {
-      id: 1,
-      title: "khóa học spring MVC cơ bản",
-      excerpt: "",
-      duration: "60",
-      description: "",
-      status: true,
-      listPrice: 3000000.0,
-      salePrice: 1800000.0,
-      sucjectCode: {
-        id: 1,
-        code: "Java0001",
-        name: "Lập trình java spring",
-        status: true,
-        note: "khóa học lập trình java spring",
-        manager: {
-          id: 3,
-          username: "manager1",
-          email: "manage1@gmail.com",
-          fullname: "Manager1",
-          phoneNumber: "0358283749",
-          avatar: "http://localhost:8080/api/account/downloadFile/null",
-          role: "ROLE_MANAGER",
-          active: true,
-        },
-        expert: {
-          id: 10,
-          username: "Hungnv",
-          email: "expert4@gmail.com",
-          fullname: "Nguyễn Việt Hùng",
-          phoneNumber: "01238423753",
-          avatar:
-            "http://localhost:8080/api/account/downloadFile/d521c918-a7b5-4157-9a29-9b50f567256e.jpg",
-          role: "ROLE_EXPERT",
-          active: true,
-        },
-        image: null,
-        categoryId: 12,
-      },
-    },
-  ],
-  totalPages: 1,
-  currentPage: 0,
-};
 
 export default Products;

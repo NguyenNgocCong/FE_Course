@@ -47,7 +47,7 @@ function CoursesDetails(props) {
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
         >
           <div className="container">
             <div className="page-banner-entry">
@@ -65,9 +65,8 @@ function CoursesDetails(props) {
             </ul>
           </div>
         </div>
-
         <div className="content-block">
-          <div className="section-area section-sp1">
+          <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row d-flex flex-row-reverse">
                 <div className="col-xl-3 col-lg-4 col-md-12 col-sm-12 m-b30">
@@ -119,11 +118,6 @@ function CoursesDetails(props) {
 
                 <div className="col-xl-9 col-lg-8 col-md-12 col-sm-12">
                   <div className="courses-post">
-                    <div className="ttr-post-media media-effect">
-                      <Link to="#">
-                        <img src={blogDefaultThum1} alt="" />
-                      </Link>
-                    </div>
                     <div className="ttr-post-info m-b30">
                       <div className="ttr-post-title ">
                         <h2 className="post-title">{product.title}</h2>
@@ -137,6 +131,11 @@ function CoursesDetails(props) {
                     <h4>Overview</h4>
                     <div className="row">
                       <div className="col-md-12 col-lg-4">
+                        <div className="ttr-post-media media-effect">
+                          <Link to="#">
+                            <img src={blogDefaultThum1} alt="" />
+                          </Link>
+                        </div>
                         <ul className="course-features">
                           <li>
                             <i className="ti-book"></i>{" "}

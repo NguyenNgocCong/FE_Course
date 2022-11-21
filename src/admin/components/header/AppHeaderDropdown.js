@@ -10,6 +10,7 @@ import {
 import avatarProfile from '../../../images/icon/avatar.svg'
 import Cookies from "js-cookie";
 import { Link, useHistory } from 'react-router-dom';
+import { combieImg } from "../../../utils";
 
 const AppHeaderDropdown = () => {
     // eslint-disable-next-line
@@ -35,10 +36,7 @@ const AppHeaderDropdown = () => {
                 caret={false}
             >
                 <CAvatar src={
-                    user?.avatar ?
-                        user?.avatar.substr("http://localhost:8080/api/account/downloadFile/".length) !== "null"
-                            ? user?.avatar
-                            : avatarProfile : avatarProfile}
+                    user?.avatar ? combieImg(user?.avatar) : avatarProfile}
                     size="md"
                 />
             </CDropdownToggle>
