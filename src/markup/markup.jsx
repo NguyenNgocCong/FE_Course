@@ -71,6 +71,7 @@ import ComboDetailHome from "./pages/ComboDetails";
 import ExpertsUser from "./pages/Expert";
 import Error401 from "./pages/error-401";
 import ClassUserDetails from "./pages/ClassUserDetails";
+import LecturerDetails from "./pages/LecturerDetails";
 
 class Markup extends Component {
   render() {
@@ -122,11 +123,7 @@ class Markup extends Component {
             {/* expert */}
             <Route path="/expert" exact component={ExpertsUser} />
             <Route path="/lecturers" exact component={LecturersUser} />
-            <Route
-              path="/courses-details/:id"
-              exact
-              component={CoursesDetails}
-            />
+            <Route path="/lecturers/:id" exact component={LecturerDetails} />
 
             {/* Combos */}
             <Route path="/combo" exact component={ComboHome} />
@@ -219,7 +216,7 @@ class Markup extends Component {
               <Packages />
             </PrivateRoute>
             <PrivateRoute path="/admin/packages/create" exact>
-              <PackageDetail/>
+              <PackageDetail />
             </PrivateRoute>
             <PrivateRoute path="/admin/packages/:id" exact>
               <PackageDetail />
