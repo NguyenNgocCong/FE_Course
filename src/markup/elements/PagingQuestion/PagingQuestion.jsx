@@ -2,7 +2,14 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import "./paging-question.css";
 
-const PagingQuestion = ({ totalPage, currentPage, onChange,totalItem, ...props }) => {
+const PagingQuestion = ({
+  totalPage,
+  currentPage,
+  onChange,
+  totalItem,
+  pageIndex,
+  ...props
+}) => {
   const [selectedPage, setSelectedPage] = useState(1);
 
   useEffect(() => {
@@ -11,31 +18,30 @@ const PagingQuestion = ({ totalPage, currentPage, onChange,totalItem, ...props }
 
   return (
     <div className="d-flex w-100 justify-content-end">
-     
-    <>
-      {[...Array(totalPage)].map((item, key) => {
-        const index = key + 1;
-        return (
-          <li
-            key={key}
-            className={`paging-question-item ${
-              selectedPage === index ? "paging-question-current-selectes" : ""
-            }`}
-            {...props}
-          >
-            <div
-              onClick={() => {
-                setSelectedPage(index);
-                onChange(index);
-              }}
-              className="paging-question-detail"
+      <>
+        {[...Array(totalPage)].map((item, key) => {
+          const index = key + 1;
+          return (
+            <li
+              key={key}
+              className={`paging-question-item ${
+                pageIndex === index ? "paging-question-current-selectes" : ""
+              }`}
+              {...props}
             >
-              {index}
-            </div>
-          </li>
-        );
-      })}
-    </>
+              <div
+                onClick={() => {
+                  setSelectedPage(index);
+                  onChange(index);
+                }}
+                className="paging-question-detail"
+              >
+                {index}
+              </div>
+            </li>
+          );
+        })}
+      </>
     </div>
   );
 };
@@ -43,14 +49,14 @@ const PagingQuestion = ({ totalPage, currentPage, onChange,totalItem, ...props }
 PagingQuestion.propTypes = {
   totalPage: PropTypes.number,
   currentPage: PropTypes.number,
-  totalItem:PropTypes.number,
+  totalItem: PropTypes.number,
   onChange: PropTypes.func,
 };
 
 PagingQuestion.defaultProps = {
   totalPage: 50,
   currentPage: 1,
-  totalItem:3,
+  totalItem: 3,
   onChange: () => {},
 };
 

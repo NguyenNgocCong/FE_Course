@@ -191,8 +191,8 @@ export const adminApi = {
     const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
-  getAllPackageView: (page) => {
-    const url = `/api/package/views/?page=${page}`;
+  getAllPackageView: (page, size) => {
+    const url = `/api/package/views/?page=${page}&size=${size}`;
     return axiosApi.get(url);
   },
   getProductById: (id) => {

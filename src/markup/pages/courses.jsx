@@ -15,14 +15,13 @@ import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 
 function Products() {
-  const location = useLocation();
-  const page = location.search.split("=")[1] || 1;
+  const [pageIndex, setPageIndex] = useState(1);
 
   const [res, setRes] = useState(productSimple);
 
   const getListProduct = async () => {
     try {
-      adminApi.getAllPackageView(page - 1).then((res) => setRes(res));
+      adminApi.getAllPackageView(pageIndex - 1, 1).then((res) => setRes(res));
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -32,7 +31,7 @@ function Products() {
   useEffect(() => {
     getListProduct();
     // eslint-disable-next-line
-  }, []);
+  }, [pageIndex]);
 
   const { totalItems, totalPages, data, currentPage } = res;
 
@@ -171,7 +170,6 @@ function Products() {
                               }
                               alt=""
                               onError={({ currentTarget }) => {
-                                console.log(12312);
                                 currentTarget.src =
                                   "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
                               }}
@@ -201,7 +199,7 @@ function Products() {
                           </div>
                           <div className="cours-more-info">
                             <div className="review">
-                              <span> manager</span>
+                              {/* <span> expert</span> */}
                               {/* <ul className="cours-star">
 																<li className="active"><i className="fa fa-star"></i></li>
 																<li className="active"><i className="fa fa-star"></i></li>
@@ -209,7 +207,9 @@ function Products() {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 															</ul> */}
-                              <div>{item.sucjectCode.manager.username}</div>
+                              <div className="text-center">
+                                {item.sucjectCode.expert.fullname}
+                              </div>
                             </div>
                             <div className="price">
                               <del>${item.listPrice}</del>
@@ -232,7 +232,10 @@ function Products() {
                           currentPage={currentPage}
                           totalPage={totalPages}
                           totalItem={totalItems}
-                          onChange={() => {}}
+                          pageIndex={pageIndex}
+                          onChange={(e) => {
+                            setPageIndex(e);
+                          }}
                         ></PagingQuestion>
                       </div>
                     </div>

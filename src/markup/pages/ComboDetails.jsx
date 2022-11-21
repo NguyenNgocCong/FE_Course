@@ -11,35 +11,12 @@ import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import testiPic1 from "../../images/testimonials/pic1.jpg";
 import DataTable from "react-data-table-component";
+import { Markup } from "interweave";
 
 function CoursesDetails(props) {
   const params = useParams();
 
-  const [res, setRes] = useState({
-    id: 23,
-    createdDate: "2022-11-08 17:04:22.472",
-    updatedDate: "2022-11-08 17:04:22.472",
-    title: "test1",
-    description: "description test1",
-    comboPackages: [
-      {
-        _package: {
-          id: 8,
-          createdDate: "2022-11-07 19:46:29.632",
-          updatedDate: "2022-11-07 19:46:29.632",
-          title: "new",
-          excerpt: "new",
-          duration: "new",
-          description: "123",
-          combo: true,
-          status: true,
-          listPrice: 1.23123213e8,
-          sale_price: 123123.0,
-        },
-        salePrice: 3000000.0,
-      },
-    ],
-  });
+  const [res, setRes] = useState(comboDetailsEx);
 
   const { id } = params;
 
@@ -111,7 +88,7 @@ function CoursesDetails(props) {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              <li>{res.title}</li>
+              <li>{}</li>
             </ul>
           </div>
         </div>
@@ -123,12 +100,24 @@ function CoursesDetails(props) {
                 <div className="col-xl-3 col-lg-4 col-md-12 col-sm-12 m-b30">
                   <div className="course-detail-bx">
                     <div className="course-price">
-                      <del>${3000}</del>
-                      <h4 className="price">${20.0}</h4>
+                      <del>
+                        ${" "}
+                        {res.comboPackages.reduce(
+                          (total, x) => total + x._package.listPrice,
+                          0
+                        )}
+                      </del>
+                      <h4 className="price">
+                        $
+                        {res.comboPackages.reduce(
+                          (total, x) => total + x._package.sale_price,
+                          0
+                        )}
+                      </h4>
                     </div>
                     <div className="course-buy-now text-center">
-                      <Link to="#" className="btn radius-xl">
-                        Buy Now {res.title}
+                      <Link to="#" className="btn radius-xl btn-primary">
+                        Buy Now
                       </Link>
                     </div>
                     <div className="teacher-bx">
@@ -183,7 +172,7 @@ function CoursesDetails(props) {
                         <h2 className="post-title">{res.title}</h2>
                       </div>
                       <div className="ttr-post-text">
-                        <p>{res.description}</p>
+                        <Markup content={res.description} />
                       </div>
                     </div>
                   </div>
@@ -311,4 +300,49 @@ function CoursesDetails(props) {
   );
 }
 
+const comboDetailsEx = {
+  id: 1,
+  createdDate: "2022-11-20 19:49:15.144",
+  updatedDate: "2022-11-20 19:49:15.144",
+  title: "Combo khóa học lập trình Java Spring và reactJS",
+  description: "",
+  comboPackages: [
+    {
+      id: 2,
+      createdDate: "2022-11-20 19:49:15.17",
+      updatedDate: "2022-11-20 19:49:15.17",
+      _package: {
+        id: 2,
+        createdDate: "2022-11-20 19:35:50.669",
+        updatedDate: "2022-11-20 19:35:50.669",
+        title: "khóa học reactjs cơ bản",
+        excerpt: "",
+        duration: "50",
+        description: "",
+        status: true,
+        listPrice: 6000000.0,
+        sale_price: 4500000.0,
+      },
+      salePrice: 4000000.0,
+    },
+    {
+      id: 1,
+      createdDate: "2022-11-20 19:49:15.163",
+      updatedDate: "2022-11-20 19:49:15.163",
+      _package: {
+        id: 1,
+        createdDate: "2022-11-20 19:16:55.948",
+        updatedDate: "2022-11-20 19:16:55.948",
+        title: "khóa học spring MVC cơ bản",
+        excerpt: "",
+        duration: "60",
+        description: "",
+        status: true,
+        listPrice: 3000000.0,
+        sale_price: 1800000.0,
+      },
+      salePrice: 1500000.0,
+    },
+  ],
+};
 export default CoursesDetails;
