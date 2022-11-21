@@ -15,6 +15,7 @@ import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import { adminApi } from "../../api/adminApi";
 import toast from "react-hot-toast";
 import { NavItem } from "react-bootstrap";
+import { combieImg } from "../../utils/index";
 
 function CoursesDetails(props) {
   const [product, setProduct] = useState(couresDetailExample);
@@ -78,15 +79,15 @@ function CoursesDetails(props) {
                       <h6 className="price">${product.salePrice}</h6>
                     </div>
                     <div className="course-buy-now text-center">
-                      <Link to="#" className="btn radius-xl">
-                        Buy Now {product.title}
+                      <Link to="#" className="btn btn-primary radius-xl">
+                        Buy Now
                       </Link>
                     </div>
                     <div className="teacher-bx">
                       <div className="teacher-info">
                         <div className="teacher-thumb">
                           <img
-                            src={product.sucjectCode.expert.avatar || testiPic1}
+                            src={combieImg(product.sucjectCode.expert.avatar)}
                             alt=""
                             onError={({ currentTarget }) => {
                               currentTarget.src = testiPic1;
@@ -172,30 +173,16 @@ function CoursesDetails(props) {
                               {product.sucjectCode.expert.phoneNumber}
                             </span>
                           </li>
-                          <li>
-                            <i className="ti-user"></i>{" "}
-                            <span className="label">CategoriId</span>{" "}
-                            <span className="value">
-                              {product.sucjectCode.categoryId}
-                            </span>
-                          </li>
-                          <li>
-                            <i className="ti-check-box"></i>{" "}
-                            <span className="label">status</span>{" "}
-                            <span className="value">
-                              {product.status ? "yes" : "NO"}
-                            </span>
-                          </li>
                         </ul>
                       </div>
                       <div className="col-md-12 col-lg-8">
-                        <div className="p-2">
+                        <div className="p-3">
                           <Markup content={product.description} />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="m-b30" id="curriculum">
+                  {/* <div className="m-b30" id="curriculum">
                     <h4>Curriculum</h4>
                     <ul className="curriculum-list">
                       <li>
@@ -343,8 +330,8 @@ function CoursesDetails(props) {
                         </p>
                       </div>
                     </div>
-                  </div>
-                  <div className="" id="reviews">
+                  </div> */}
+                  {/* <div className="" id="reviews">
                     <h4>Reviews</h4>
 
                     <div className="review-bx">
@@ -452,7 +439,7 @@ function CoursesDetails(props) {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

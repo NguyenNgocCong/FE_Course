@@ -14,21 +14,7 @@ import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 
 function Combos() {
-  const [res, setRes] = useState({
-    totalItems: 0,
-    data: [
-      {
-        id: 1,
-        createdDate: "2022-10-30 12:45:28.197",
-        updatedDate: "2022-10-30 12:45:28.197",
-        title: "title",
-        description: "test1",
-        comboPackages: [],
-      },
-    ],
-    totalPages: 0,
-    currentPage: 0,
-  });
+  const [res, setRes] = useState(comboEx);
 
   const [page, setPage] = useState(1);
 
@@ -169,20 +155,26 @@ function Combos() {
                       >
                         <div className="cours-bx">
                           <div className="action-box">
-                            <img src={blogRecentPic1} alt="" />
-                            <Link to={`/combo/${item.id}`} className="btn">
+                            <img
+                              src={
+                                "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
+                              }
+                              alt=""
+                            />
+                            <Link
+                              to={`/combo/${item.id}`}
+                              className="btn btn-warning m-3"
+                            >
                               Read More
                             </Link>
                           </div>
                           <div className="info-bx">
                             <span>{item.title}</span>
-                            <h6>
-                              <Link to={"/combo/" + item.id}>{item.title}</Link>
-                            </h6>
+                            <h6></h6>
                           </div>
                           <div className="cours-more-info">
                             <div className="review">
-                              <span> Description</span>
+                              <span> packages</span>
                               {/* <ul className="cours-star">
 																<li className="active"><i className="fa fa-star"></i></li>
 																<li className="active"><i className="fa fa-star"></i></li>
@@ -190,12 +182,24 @@ function Combos() {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 															</ul> */}
-                              <div>{item.description}</div>
+                              <div>{item.comboPackages.length}</div>
                             </div>
-                            {/* <div className="price">
-                              <del>${item}</del>
-                              <h5>${item.sale_price}</h5>
-                            </div> */}
+                            <div className="price">
+                              <del>
+                                $
+                                {item.comboPackages.reduce(
+                                  (total, x) => total + x._package.listPrice,
+                                  0
+                                )}
+                              </del>
+                              <h5>
+                                $
+                                {item.comboPackages.reduce(
+                                  (total, x) => total + x._package.sale_price,
+                                  0
+                                )}
+                              </h5>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -229,5 +233,59 @@ function Combos() {
     </>
   );
 }
+
+const comboEx = {
+  totalItems: 1,
+  data: [
+    {
+      id: 1,
+      createdDate: "2022-11-20 19:49:15.144",
+      updatedDate: "2022-11-20 19:49:15.144",
+      title: "Combo khóa học lập trình Java Spring và reactJS",
+      description: "",
+      comboPackages: [
+        {
+          id: 1,
+          createdDate: "2022-11-20 19:49:15.163",
+          updatedDate: "2022-11-20 19:49:15.163",
+          _package: {
+            id: 1,
+            createdDate: "2022-11-20 19:16:55.948",
+            updatedDate: "2022-11-20 19:16:55.948",
+            title: "khóa học spring MVC cơ bản",
+            excerpt: "",
+            duration: "60",
+            description: "",
+            status: true,
+            listPrice: 3000000.0,
+            sale_price: 1800000.0,
+          },
+          salePrice: 1500000.0,
+        },
+        {
+          id: 2,
+          createdDate: "2022-11-20 19:49:15.17",
+          updatedDate: "2022-11-20 19:49:15.17",
+          _package: {
+            id: 2,
+            createdDate: "2022-11-20 19:35:50.669",
+            updatedDate: "2022-11-20 19:35:50.669",
+            title: "khóa học reactjs cơ bản",
+            excerpt:
+              "Khoá học sử dụng ReactJs căn bản cho các bạn mới bắt đầu làm nền tảng cho khoá học React Native từ FPT education",
+            duration: "50",
+            description: "",
+            status: true,
+            listPrice: 6000000.0,
+            sale_price: 4500000.0,
+          },
+          salePrice: 4000000.0,
+        },
+      ],
+    },
+  ],
+  totalPages: 1,
+  currentPage: 0,
+};
 
 export default Combos;
