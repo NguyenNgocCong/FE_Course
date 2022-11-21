@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Link as ScrollTo } from "react-scroll";
 import { Markup } from "interweave";
 
-// Layout
+// Layout 
 import Header from "../layout/header/header1";
 import Footer from "../layout/footer/footer1";
 
@@ -14,7 +14,6 @@ import testiPic2 from "../../images/testimonials/pic2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import { adminApi } from "../../api/adminApi";
 import toast from "react-hot-toast";
-import { NavItem } from "react-bootstrap";
 
 function CoursesDetails(props) {
   const [product, setProduct] = useState(couresDetailExample);

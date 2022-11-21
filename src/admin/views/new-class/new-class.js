@@ -31,9 +31,9 @@ function Class() {
     },
     {
       name: "Package",
-      minWidth: '140px',
-      width: '160px',
-      maxWidth: '180px',
+      minWidth: '200px',
+      width: '240px',
+      maxWidth: '280px',
       selector: (row) => row._class?.packages?.title,
       sortable: true,
     },

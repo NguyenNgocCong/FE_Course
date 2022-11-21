@@ -25,7 +25,7 @@ function ClassDetail(props) {
     const [dateFrom, setDateFrom] = useState();
     const [dateTo, setDateTo] = useState();
     const [dateStart, setDateStart] = useState();
-    const [trainer, setTrainer] = useState();
+    const [trainer, setTrainer] = useState(0);
     const [isOnline, setIsOnline] = useState(true);
     const [supporter, setSupporter] = useState();
     const [status, setStatus] = useState();
@@ -55,7 +55,7 @@ function ClassDetail(props) {
 
     const getListTrainer = async () => {
         try {
-            const response = await adminApi.getListTrainer();
+            const response = await adminApi.getListExperts(0, 50, "");
             setListTrainer(response.data);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
@@ -294,36 +294,36 @@ function ClassDetail(props) {
                                                 {listTrainer?.map((item, index) => {
                                                     if (type === 1) {
                                                         return detailClass?.trainer
-                                                            ?.username ===
-                                                            item?.username ? (
+                                                            ?.id ===
+                                                            item?.id ? (
                                                             <option
                                                                 key={index}
-                                                                defaultValue={
-                                                                    item?.username
+                                                                value={
+                                                                    item?.id
                                                                 }
                                                                 selected
                                                             >
-                                                                {item?.username}
+                                                                {item?.user?.username}
                                                             </option>
                                                         ) : (
                                                             <option
                                                                 key={index}
-                                                                defaultValue={
-                                                                    item?.username
+                                                                value={
+                                                                    item?.id
                                                                 }
                                                             >
-                                                                {item?.username}
+                                                                {item?.user?.username}
                                                             </option>
                                                         );
                                                     } else {
                                                         return (
                                                             <option
                                                                 key={index}
-                                                                defaultValue={
-                                                                    item?.username
+                                                                value={
+                                                                    item?.id
                                                                 }
                                                             >
-                                                                {item?.username}
+                                                                {item?.user?.username}
                                                             </option>
                                                         );
                                                     }

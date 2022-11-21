@@ -42,8 +42,8 @@ function PackagesDetail(props) {
 
     const getPackageById = async () => {
         try {
-            console.log(id)
             const response = await adminApi.getPackageById(id);
+            console.log(response)
             setPackage(response);
             setStatus(response.status);
         } catch (responseError) {
@@ -90,11 +90,6 @@ function PackagesDetail(props) {
             });
         }
     };
-
-    const optionIsCombo = [
-        { combo: false, label: "False" },
-        { combo: true, label: "True" },
-    ];
 
     const optionStatus = [
         { status: false, label: "Deactivate" },
@@ -205,7 +200,7 @@ function PackagesDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 defaultValue={
-                                                    type === 1 ? packages?.sale_price : ""
+                                                    type === 1 ? packages?.salePrice : ""
                                                 }
                                                 onChange={(e) =>
                                                     setSalePrice(e.target.value)
@@ -273,7 +268,7 @@ function PackagesDetail(props) {
                                                 <option>Select subject</option>
                                                 {listSubject?.map((item, index) => {
                                                     if (type === 1) {
-                                                        return packages?.subjectId === item?.id ? (
+                                                        return packages?.sucjectCode.id === item?.id ? (
                                                             <option
                                                                 key={index}
                                                                 value={
