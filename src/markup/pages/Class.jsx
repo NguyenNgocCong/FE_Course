@@ -13,6 +13,8 @@ import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
 import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 import { classApi } from "../../api/classApi";
+import { combieImg } from "../../utils/index";
+import { Badge } from "react-bootstrap";
 
 function Class() {
   const [res, setRes] = useState(classEx);
@@ -39,7 +41,7 @@ function Class() {
         >
           <div className="container">
             <div className="page-banner-entry">
-              <h1 className="text-white">Our Courses</h1>
+              <h1 className="text-white">Our Class</h1>
             </div>
           </div>
         </div>
@@ -156,21 +158,21 @@ function Class() {
                       >
                         <div className="cours-bx">
                           <div className="action-box">
-                            <img src={blogRecentPic1} alt="" />
+                            <img
+                              src={combieImg(
+                                item._class.packages.sucjectCode.expert.avatar
+                              )}
+                              alt=""
+                            />
                             <Link
                               to={`/class/${item._class.id}`}
-                              className="btn"
+                              className="btn m-3 btn-warning"
                             >
                               Read More
                             </Link>
                           </div>
                           <div className="info-bx">
-                            <span>{item._class.status}</span>
-                            <h6>
-                              <Link to={`/class/${item._class.id}`}>
-                                {item._class.trainer.fullname}
-                              </Link>
-                            </h6>
+                            <span>{item._class.packages.title}</span>
                           </div>
                           <div className="cours-more-info">
                             <div className="review">
@@ -182,12 +184,15 @@ function Class() {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 															</ul> */}
-                              <div>{item._class.status}</div>
+                              {/* <div>{item._class.status}</div> */}
                             </div>
-                            {/* <div className="price">
-                              <del>${item}</del>
-                              <h5>${item.sale_price}</h5>
-                            </div> */}
+                            <div className="price">
+                              {item._class.online ? (
+                                <Badge bg="success">online</Badge>
+                              ) : (
+                                <Badge bg="info">offline</Badge>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -223,56 +228,109 @@ function Class() {
 }
 
 const classEx = {
-  totalItems: 0,
+  totalItems: 3,
   data: [
     {
-      startDate: "2022-11-09T07:00:00.000+00:00",
-      _package: {
-        id: 2,
-        createdDate: "2022-11-04 17:59:57.51",
-        updatedDate: "2022-11-04 17:59:57.51",
-        title: "Product 1",
-        excerpt: "asdasdasd",
-        duration: "Duration1",
-        description: "test123",
-        combo: true,
-        status: false,
-        listPrice: 500.0,
-        sale_price: 12300.0,
-      },
+      startDate: "2022-11-23T00:00:00.000+00:00",
       supporter: {
-        id: 22,
-        username: "Marketer",
-        email: "Marketer@gmail.com",
-        fullname: "Marketer",
+        id: 21,
+        username: "Supporter",
+        email: "Supporter@gmail.com",
+        fullname: "Supporter",
         phoneNumber: "",
-        avatar:
-          "http://localhost:8080/api/account/downloadFile/24659c6a-2ab5-4e7c-ad7b-e8f99733ac44.jpg",
-        role: "ROLE_MARKETER",
+        avatar: "24659c6a-2ab5-4e7c-ad7b-e8f99733ac44.jpg",
+        role: "ROLE_SUPPORTER",
         active: true,
       },
       _class: {
-        id: 1,
-        code: "IS202210273202",
-        dateFrom: "2022-12-24T07:00:00.000+00:00",
-        dateTo: "2022-12-17T07:00:00.000+00:00",
-        status: false,
-        packages: "1234",
-        trainer: {
-          id: 7,
-          username: "expert1",
-          email: "expert1@gmail.com",
-          fullname: "Expert1",
-          phoneNumber: "",
-          avatar: "http://localhost:8080/api/account/downloadFile/null",
-          role: "ROLE_EXPERT",
-          active: true,
+        id: 2,
+        code: "IS202211210457",
+        dateFrom: "2022-11-21T00:00:00.000+00:00",
+        dateTo: "2022-12-04T00:00:00.000+00:00",
+        status: true,
+        packages: {
+          id: 1,
+          title: "khóa học spring MVC cơ bản",
+          excerpt: "",
+          duration: "60",
+          description: "",
+          status: true,
+          listPrice: 3000000.0,
+          salePrice: 1800000.0,
+          sucjectCode: {
+            id: 1,
+            code: "Java0001",
+            name: "Lập trình java spring",
+            status: true,
+            note: "khóa học lập trình java spring",
+            manager: {
+              id: 3,
+              username: "NgVinh",
+              email: "manage1@gmail.com",
+              fullname: "Nguyễn Văn Vinh",
+              phoneNumber: "0358283749",
+              avatar: null,
+              role: "ROLE_MANAGER",
+              active: true,
+            },
+            expert: {
+              id: 10,
+              username: "Hungnv",
+              email: "expert4@gmail.com",
+              fullname: "Nguyễn Việt Hùng",
+              phoneNumber: "01238423753",
+              avatar: "a0222275-f295-4552-8690-8f182ff20bf5.jpg",
+              role: "ROLE_EXPERT",
+              active: true,
+            },
+            image: null,
+            categoryId: 12,
+          },
         },
+        trainer: {
+          id: 4,
+          createdDate: "2022-11-19 13:42:33.564",
+          updatedDate: "2022-11-19 13:42:33.564",
+          company: "FPT",
+          jobTitle: ".NET Developer, Project Manager, Trainer",
+          status: true,
+          description: "",
+          user: {
+            id: 9,
+            createdDate: "2022-10-25 11:07:08.598",
+            updatedDate: "2022-11-19 13:47:45.735",
+            email: "expert3@gmail.com",
+            username: "Tungnh",
+            password:
+              "$2a$10$8E5BJ0YAewy/wBwLB1U9G.R0izWif1dn6VbfmXejhaNFNo7w7EZAe",
+            fullname: "Nguyễn Hoàng Tùng",
+            phoneNumber: "0123812314",
+            avatar: "c9a313ee-5ccd-4175-99f0-404f76f57c41.jpg",
+            note: null,
+            active: true,
+            registerToken: "Ckp8R84MIoJbSW6bgOiPBv076lAu9g",
+            timeRegisterToken: "2022-10-25T11:07:09",
+            resetPasswordToken: null,
+            type_account: null,
+            role: {
+              setting_id: 8,
+              type: {
+                type_id: 1,
+                title: "User Role",
+              },
+              setting_title: "Expert",
+              setting_value: "ROLE_EXPERT",
+              display_order: "role of expert",
+              status: true,
+              desciption: "role of expert",
+            },
+          },
+        },
+        online: false,
       },
     },
   ],
-  totalPages: 0,
+  totalPages: 1,
   currentPage: 0,
 };
-
 export default Class;
