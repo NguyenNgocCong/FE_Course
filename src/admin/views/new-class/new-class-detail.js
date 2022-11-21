@@ -9,43 +9,39 @@ import {
     CFormSelect,
     CRow,
 } from "@coreui/react";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useHistory, useLocation } from "react-router-dom";
 import { adminApi } from "../../../api/adminApi";
-import {
-    AppFooter,
-    AppHeader,
-    AppSidebar,
-} from "../../components";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { AppFooter, AppHeader, AppSidebar } from "../../components";
 
-function PackagesDetail(props) {
-    const [packages, setPackage] = useState();
-    const [listSubject, setListSubject] = useState();
-    const [status, setStatus] = useState(0);
-    const [title, setTitle] = useState();
-    const [excerpt, setExcerpt] = useState();
-    const [duration, setDuration] = useState();
-    const [description, setDescription] = useState();
-    const [listPrice, setListPrice] = useState();
-    const [salePrice, setSalePrice] = useState();
-    const [subjectId, setSubjectId] = useState();
+function ClassDetail(props) {
+    const [listTrainer, setListTrainer] = useState();
+    const [subject, setSubject] = useState();
+    const [packages, setPackages] = useState();
+    const [dateFrom, setDateFrom] = useState();
+    const [dateTo, setDateTo] = useState();
+    const [trainer, setTrainer] = useState();
+    const [status, setStatus] = useState();
+    const role = JSON.parse(Cookies.get("user"))?.role;
+    const isNotAdmin = role !== "ROLE_ADMIN" ? true : false;
     const location = useLocation();
     const history = useHistory();
     const id = location.pathname.substring(
-        "/admin/packages/".length,
+        "/admin/new-class/".length,
         location.pathname.length
     );
     const type = id !== "create" ? 1 : 0;
 
-    const getPackageById = async () => {
+    const getClassById = async () => {
         try {
-            console.log(id)
-            const response = await adminApi.getPackageById(id);
-            setPackage(response);
+            const response = await adminApi.getClassDetail(id);
+            setSubject(response);
+            setDateFrom(response?.dateFrom);
+            setDateTo(response?.dateTo);
             setStatus(response.status);
+            console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -53,10 +49,10 @@ function PackagesDetail(props) {
         }
     };
 
-    const getAllSubject = async () => {
+    const getListTrainer = async () => {
         try {
-            const response = await adminApi.getAllSubject(0, 100, "", 0, true);
-            setListSubject(response.data);
+            const response = await adminApi.getListTrainer();
+            setListTrainer(response.data);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -64,26 +60,26 @@ function PackagesDetail(props) {
         }
     };
 
-    const handleUpdateSlider = async () => {
+    const handleUpdateSubject = async () => {
+        console.log("update");
         try {
             const params = {
+                packages: packages,
+                dateFrom: dateFrom,
+                dateTo: dateTo,
                 status: status,
-                title: title,
-                excerpt: excerpt,
-                duration: duration,
-                description: description,
-                listPrice: listPrice,
-                salePrice: salePrice,
-                subjectId: subjectId,
+                trainer: trainer,
             };
+
             const response =
                 type === 1
-                    ? await adminApi.updatePackage(id, params)
-                    : await adminApi.createPackage(params);
+                    ? await adminApi.updateClass(params, id)
+                    : await adminApi.createClass(params);
+            console.log(response);
             toast.success(response?.message, {
                 duration: 2000,
             });
-            history.push("/admin/packages");
+            history.push("/admin/new-class");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -91,23 +87,20 @@ function PackagesDetail(props) {
         }
     };
 
-    const optionIsCombo = [
-        { combo: false, label: "False" },
-        { combo: true, label: "True" },
-    ];
+    useEffect(() => {
+        if (type === 1) {
+            getClassById();
+        }
+        if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER") getListTrainer();
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => { }, [dateFrom, dateTo]);
 
     const optionStatus = [
         { status: false, label: "Deactivate" },
         { status: true, label: "Active" },
     ];
-
-    useEffect(() => {
-        if (type === 1) {
-            getPackageById(id);
-        }
-        getAllSubject();
-        // eslint-disable-next-line
-    }, []);
 
     return (
         <div>
@@ -119,96 +112,84 @@ function PackagesDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardHeader>
-                                <strong>Package Details</strong>
+                                <strong>
+                                    {type === 1
+                                        ? "Change Class Info"
+                                        : "Create New Class"}
+                                </strong>
                             </CCardHeader>
                             <CCardBody>
                                 <CRow className="g-3 mb-3">
                                     <CCol sm={6}>
                                         <div className="mb-3">
-                                            <CFormLabel>
-                                                Title (
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Package (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
                                                 id="exampleFormControlInput1"
+                                                disabled={isNotAdmin}
+                                                placeholder=""
                                                 defaultValue={
-                                                    type === 1 ? packages?.title : ""
+                                                    type === 1 ? subject?.packages : ""
                                                 }
                                                 onChange={(e) =>
-                                                    setTitle(e.target.value)
+                                                    setPackages(e.target.value)
                                                 }
                                             />
                                         </div>
                                     </CCol>
                                     <CCol sm={6}>
                                         <div className="mb-3">
-                                            <CFormLabel>
-                                                Excerpt (
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Date From (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
-                                                type="text"
+                                                type="date"
                                                 id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? packages?.excerpt : ""
+                                                disabled={isNotAdmin}
+                                                placeholder=""
+                                                value={
+                                                    dateFrom
+                                                        ? new Date(
+                                                            dateFrom
+                                                        ).toLocaleDateString("en-CA")
+                                                        : new Date(
+                                                            ""
+                                                        ).toLocaleDateString("en-CA")
                                                 }
                                                 onChange={(e) =>
-                                                    setExcerpt(e.target.value)
+                                                    setDateFrom(
+                                                        new Date(e.target.value)
+                                                    )
                                                 }
                                             />
                                         </div>
                                     </CCol>
                                     <CCol sm={6}>
                                         <div className="mb-3">
-                                            <CFormLabel>
-                                                Duration (
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Date To (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
-                                                type="number"
+                                                type="date"
                                                 id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? packages?.duration : ""
+                                                disabled={isNotAdmin}
+                                                placeholder=""
+                                                value={
+                                                    dateTo
+                                                        ? new Date(
+                                                            dateTo
+                                                        ).toLocaleDateString("en-CA")
+                                                        : new Date(
+                                                            ""
+                                                        ).toLocaleDateString("en-CA")
                                                 }
                                                 onChange={(e) =>
-                                                    setDuration(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                List Price (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? packages?.listPrice : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setListPrice(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Sale Price (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? packages?.sale_price : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setSalePrice(e.target.value)
+                                                    setDateTo(new Date(e.target.value))
                                                 }
                                             />
                                         </div>
@@ -227,7 +208,7 @@ function PackagesDetail(props) {
                                             >
                                                 {optionStatus?.map((item, index) => {
                                                     if (type === 1) {
-                                                        return packages?.status ===
+                                                        return subject?.status ===
                                                             item?.status ? (
                                                             <option
                                                                 key={index}
@@ -261,47 +242,49 @@ function PackagesDetail(props) {
                                     <CCol sm={6}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="formFile">
-                                                Subject (
-                                                <span style={{ color: "red" }}>*</span>)
+                                                Manager
                                             </CFormLabel>
                                             <CFormSelect
                                                 aria-label="Default select example"
+                                                disabled={isNotAdmin}
                                                 onChange={(e) =>
-                                                    setSubjectId(e.target.value)
+                                                    setTrainer(e.target.value)
                                                 }
                                             >
-                                                <option>Select subject</option>
-                                                {listSubject?.map((item, index) => {
+                                                <option>Select trainer</option>
+                                                {listTrainer?.map((item, index) => {
                                                     if (type === 1) {
-                                                        return packages?.subjectId === item?.id ? (
+                                                        return subject?.trainer
+                                                            ?.username ===
+                                                            item?.username ? (
                                                             <option
                                                                 key={index}
-                                                                value={
-                                                                    item?.id
+                                                                defaultValue={
+                                                                    item?.username
                                                                 }
                                                                 selected
                                                             >
-                                                                {item?.name}
+                                                                {item?.username}
                                                             </option>
                                                         ) : (
                                                             <option
                                                                 key={index}
-                                                                value={
-                                                                    item?.id
+                                                                defaultValue={
+                                                                    item?.username
                                                                 }
                                                             >
-                                                                {item?.name}
+                                                                {item?.username}
                                                             </option>
                                                         );
                                                     } else {
                                                         return (
                                                             <option
                                                                 key={index}
-                                                                value={
-                                                                    item?.id
+                                                                defaultValue={
+                                                                    item?.username
                                                                 }
                                                             >
-                                                                {item?.name}
+                                                                {item?.username}
                                                             </option>
                                                         );
                                                     }
@@ -309,28 +292,12 @@ function PackagesDetail(props) {
                                             </CFormSelect>
                                         </div>
                                     </CCol>
-                                    <CCol sm={12}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Description (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CKEditor
-                                                editor={ClassicEditor}
-                                                data={packages?.description}
-                                                onChange={(event, editor) => {
-                                                    const data = editor.getData();
-                                                    setDescription(data);
-                                                }}
-                                            />
-                                        </div>
-                                    </CCol>
                                 </CRow>
                                 <div className="mb-3">
                                     <CButton
-                                        onClick={() => handleUpdateSlider()}
+                                        onClick={() => handleUpdateSubject()}
                                     >
-                                        Submit
+                                        Save
                                     </CButton>
                                 </div>
                             </CCardBody>
@@ -343,4 +310,4 @@ function PackagesDetail(props) {
     );
 }
 
-export default PackagesDetail;
+export default ClassDetail;

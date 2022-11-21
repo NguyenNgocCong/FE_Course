@@ -32,20 +32,17 @@ const BlogClassicSidebar = () => {
 
 	useEffect(() => {
 		getListPost();
-		 // eslint-disable-next-line
+		// eslint-disable-next-line
 	}, [searchBlog]);
 
 	return (
 		<>
-
 			<Header />
-
 			<div className="page-content">
-
-				<div className="page-banner ovbl-dark" style={{ backgroundImage: "url(" + bannerImg + ")" }}>
+				<div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
 					<div className="container">
 						<div className="page-banner-entry">
-							<h1 className="text-white">Blog Classic Sidebar</h1>
+							<h1 className="text-white">Blog</h1>
 						</div>
 					</div>
 				</div>
@@ -53,14 +50,12 @@ const BlogClassicSidebar = () => {
 					<div className="container">
 						<ul className="list-inline">
 							<li><Link to="/">Home</Link></li>
-							<li>Blog Classic Sidebar</li>
+							<li>Blog</li>
 						</ul>
 					</div>
 				</div>
-
 				<div className="content-block">
-
-					<div className="section-area section-sp1">
+					<div className="section-area" style={{ marginTop: "20px" }}>
 						<div className="container">
 							<div className="row">
 								<div className="col-lg-3 col-xl-3 col-md-5 sticky-top">
@@ -70,7 +65,7 @@ const BlogClassicSidebar = () => {
 									<CRow className="g-0">
 										{
 											listPost.map((item) => (
-												<>
+												<CRow key={item?.id}>
 													<CCol md={3}>
 														<CCardImage src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + item?.thumnailUrl} />
 													</CCol>
@@ -88,7 +83,7 @@ const BlogClassicSidebar = () => {
 														<CButton><Link to={`/blog/${item?.id}`}>Read more</Link></CButton>
 													</CCol>
 													<hr />
-												</>
+												</CRow>
 											))
 										}
 									</CRow>
@@ -103,7 +98,7 @@ const BlogClassicSidebar = () => {
 													<li className="next"><Link to="#">Next <i className="ti-arrow-right"></i></Link></li>
 												</ul>
 											</div></>)
-											: (<h5 style={{marginLeft: '50px'}}>Can't find any blog</h5>)
+											: (<h5 style={{ marginLeft: '50px' }}>Can't find any blog</h5>)
 									}
 
 								</div>

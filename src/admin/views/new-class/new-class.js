@@ -26,7 +26,7 @@ function Class() {
       minWidth: '225px',
       width: '250px',
       maxWidth: '275px',
-      selector: (row) => row.code,
+      selector: (row) => row._class?.code,
       sortable: true,
     },
     {
@@ -34,53 +34,32 @@ function Class() {
       minWidth: '140px',
       width: '160px',
       maxWidth: '180px',
-      selector: (row) => row.packages.title,
+      selector: (row) => row._class?.packages?.title,
       sortable: true,
     },
     {
-      name: "Date From",
+      name: "Opening day",
       minWidth: '140px',
       width: '160px',
       maxWidth: '180px',
-      selector: (row) => new Date(row.dateFrom).toLocaleDateString(),
+      selector: (row) => new Date(row.startDate).toLocaleDateString(),
       sortable: true,
     },
     {
-      name: "Date To",
-      minWidth: '140px',
-      width: '160px',
-      maxWidth: '180px',
-      selector: (row) => new Date(row.dateTo).toLocaleDateString(),
-      sortable: true,
-    },
-    {
-      name: "Trainer",
+      name: "Supporter",
       minWidth: '150px',
       width: '200px',
       maxWidth: '250px',
-      selector: (row) => row.trainer?.username,
-      sortable: true,
-    },
-    {
-      name: "Status",
-      width: '120px',
-      selector: (row) => (
-        <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          {row.status ? "Active" : "Deactivate"}
-        </div>
-      ),
+      selector: (row) => row.supporter?.username,
       sortable: true,
     },
     {
       name: "Action",
       center: true,
       selector: (row) => (
-        // <CButton href={`/react/admin/class/${row?.id}`} color="primary">
-        //   <CIcon icon={cilPen} />
-        // </CButton>
         <div className={Styles.inputSearch}>
           <button
-            onClick={() => { window.location.href = "/react/admin/class/" + row?.id }}
+            onClick={() => { window.location.href = "/react/admin/new-class/" + row?.id }}
             style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
           >
             <CIcon icon={cilPen} />
@@ -94,8 +73,8 @@ function Class() {
   const [keywordSearch, setKeywordSearch] = useState("");
   // eslint-disable-next-line
   const [isModify, setIsModify] = useState(false);
-  const [listTraner, setListTrainer] = useState([]);
-  const [traner, setTrainer] = useState(0);
+  const [listTraner, setListPackage] = useState([]);
+  const [packages, setPackage] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
@@ -103,7 +82,8 @@ function Class() {
 
   const getAllClass = async () => {
     try {
-      const response = await adminApi.getAllClass(page, itemsPerPage, keywordSearch, traner, status);
+      const response = await adminApi.getAllNewClass(page, itemsPerPage, keywordSearch, packages);
+      console.log(response)
       setDataTable(response.data);
       setTotalRows(response.totalItems)
     } catch (responseError) {
@@ -113,10 +93,10 @@ function Class() {
     }
   };
 
-  const getListTrainer = async () => {
+  const getListPackage = async () => {
     try {
-      const response = await adminApi.getListTrainer();
-      setListTrainer(response.data);
+      const response = await adminApi.getListPackage();
+      setListPackage(response.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -131,10 +111,10 @@ function Class() {
   useEffect(() => {
     getAllClass();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, status, traner, itemsPerPage, page]);
+  }, [isModify, keywordSearch, status, packages, itemsPerPage, page]);
 
   useEffect(() => {
-    getListTrainer();
+    getListPackage();
     // eslint-disable-next-line
   }, []);
 
@@ -156,17 +136,17 @@ function Class() {
                   aria-label="Default select example"
                   style={{ margin: "0px 0px", maxWidth: "180px" }}
                   onChange={(e) => {
-                    setTrainer(e.target.value);
+                    setPackage(e.target.value);
                   }}
                 >
-                  <option value={0}>All Trainer</option>
+                  <option value={0}>All Package</option>
                   {listTraner?.map((item, index) => {
                     return (
                       <option
                         key={index}
                         value={item?.id}
                       >
-                        {item?.fullname}
+                        {item?.title}
                       </option>
                     );
                   })}
@@ -199,7 +179,7 @@ function Class() {
                   style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px' }}
                   onClick={() =>
                     history.push(
-                      "/admin/class/create"
+                      "/admin/new-class/create"
                     )
                   }
                 >

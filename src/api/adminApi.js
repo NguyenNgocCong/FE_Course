@@ -38,6 +38,10 @@ export const adminApi = {
     const url = `/api/admin/users/trainer-list`;
     return axiosApi.get(url);
   },
+  getListSupporter: () => {
+    const url = `/api/admin/users/supporter-list`;
+    return axiosApi.get(url);
+  },
 
   // Web Contact
   getAllContact: (page, size, keyword, category, status) => {
@@ -71,7 +75,6 @@ export const adminApi = {
     var formData = new FormData();
     formData.append("id", id);
     formData.append("data", JSON.stringify(params));
-    console.log(JSON.stringify(params));
     formData.append("image", image);
     return axiosApi.put(url, formData, {
       headers: {
@@ -99,6 +102,24 @@ export const adminApi = {
   managerUpdateSubject: (params) => {
     const url = "/api/subjects/manager-update";
     return axiosApi.put(url, params);
+  },
+
+  // class
+  getAllNewClass: (page, size, keyword, category) => {
+    const url = `/api/new-class?page=${page}&size=${size}&category=${category}&keyword=${keyword}`;
+    return axiosApi.get(url);
+  },
+  getNewClassDetail: (id) => {
+    const url = `/api/new-class/${id}`;
+    return axiosApi.get(url);
+  },
+  createNewClass: (params) => {
+    const url = "/api/new-class/create";
+    return axiosApi.post(url, params);
+  },
+  updateNewClass: (params, id) => {
+    const url = `/api/new-class/update?id=${id}`;
+    return axiosApi.post(url, params);
   },
 
   // class
@@ -191,19 +212,25 @@ export const adminApi = {
     const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
+   getListPackage: (page = 0, size = 50, keyword = "", category = 0, status = "") => {
+    const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    return axiosApi.get(url);
+  },
   getAllPackageView: (page, size) => {
     const url = `/api/package/views/?page=${page}&size=${size}`;
     return axiosApi.get(url);
   },
   getProductById: (id) => {
     const url = `/api/package/views/${id}`;
+  getPackageById: (id) => {
+    const url = `/api/package/${id}`;
     return axiosApi.get(url);
   },
-  createProduct: (params) => {
+  createPackage: (params) => {
     const url = "/api/package/create";
     return axiosApi.post(url, params);
   },
-  updateProduct: (id, params) => {
+  updatePackage: (id, params) => {
     const url = `/api/package/update?id=${id}`;
     return axiosApi.put(url, params);
   },

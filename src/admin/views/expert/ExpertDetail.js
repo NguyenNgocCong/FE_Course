@@ -26,7 +26,6 @@ function ExpertDetail(props) {
         // eslint-disable-next-line
     const [status, setStatus] = useState();
     const [username, setUsername] = useState();
-    const [email, setEmail] = useState();
     const [fullname, setFullname] = useState();
     const [phone, setPhone] = useState();
     const [company, setCompany] = useState();
@@ -59,7 +58,6 @@ function ExpertDetail(props) {
             const params = {
                 userId:expert.user?.id,
                 username: username,
-                email: email,
                 fullname: fullname,
                 phone: phone,
                 company: company,
@@ -67,7 +65,6 @@ function ExpertDetail(props) {
                 description: description,
                 status: status
             };
-            console.log(thumbnailUrl);
             const response = await adminApi.updateExpert(id, params, thumbnailUrl)
             // setHasUpdate(!hasUpdate);
             toast.success(response?.message, {
@@ -134,9 +131,6 @@ function ExpertDetail(props) {
                                                 placeholder="Email"
                                                 disabled={true}
                                                 defaultValue={expert?.user?.email}
-                                                onChange={(e) =>
-                                                    setEmail(e.target.value)
-                                                }
                                             />
                                         </div>
                                         <div className="mb-3">

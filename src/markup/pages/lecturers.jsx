@@ -146,5 +146,4 @@ const Lecturers = () => {
     </>
   );
 };
-
 export default Lecturers;
