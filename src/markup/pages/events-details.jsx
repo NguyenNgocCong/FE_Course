@@ -22,9 +22,8 @@ class EventsDetails extends Component{
 				<Header />
 				
 				<div className="page-content">
-					
-					<div className="page-banner ovbl-dark" style={{backgroundImage: "url("+bannerImg+")"}}>
-						<div className="container">
+				<div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
+	<div className="container">
 							<div className="page-banner-entry">
 								<h1 className="text-white">Courses Details</h1>
 							 </div>

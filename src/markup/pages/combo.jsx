@@ -195,7 +195,7 @@ function Combos() {
                               <h5>
                                 $
                                 {item.comboPackages.reduce(
-                                  (total, x) => total + x._package.sale_price,
+                                  (total, x) => total + x._package.salePrice,
                                   0
                                 )}
                               </h5>
@@ -258,7 +258,7 @@ const comboEx = {
             description: "",
             status: true,
             listPrice: 3000000.0,
-            sale_price: 1800000.0,
+            salePrice: 1800000.0,
           },
           salePrice: 1500000.0,
         },
@@ -277,7 +277,7 @@ const comboEx = {
             description: "",
             status: true,
             listPrice: 6000000.0,
-            sale_price: 4500000.0,
+            salePrice: 4500000.0,
           },
           salePrice: 4000000.0,
         },

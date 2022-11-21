@@ -56,7 +56,7 @@ function ClassUserDetails(props) {
         </div>
 
         <div className="content-block">
-          <div className="section-area section-sp1">
+          <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row d-flex flex-row-reverse">
                 <div className="col-xl-3 col-lg-4 col-md-12 col-sm-12 m-b30">

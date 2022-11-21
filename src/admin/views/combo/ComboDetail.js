@@ -37,6 +37,7 @@ function ComboDetail(props) {
     const [salePrice, setSalePrice] = useState(0);
     const [packages, setPackages] = useState({});
 
+
     const columns = [
         {
             name: "STT",
@@ -206,6 +207,7 @@ function ComboDetail(props) {
 
     const handleSelectPackage = async (val) => {
         setPackages(listPackages.find(element => element?.id === parseInt(val)))
+        console.log(packages);
     };
 
 

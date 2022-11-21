@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ModalVideo from 'react-modal-video'
-import {Accordion, Card } from 'react-bootstrap';
+import { Accordion, Card } from 'react-bootstrap';
 
 // Layout
 import Header from "../layout/header/header1";
@@ -15,32 +15,31 @@ import bannerImg from '../../images/banner/banner2.jpg';
 import bg1 from '../../images/background/bg1.jpg';
 import aboutPic1 from '../../images/about/pic1.jpg';
 
-class Membership extends Component{
-	
-	constructor () {
+class Membership extends Component {
+
+	constructor() {
 		super()
 		this.state = {
 			isOpen: false
 		}
 		this.openModal = this.openModal.bind(this)
 	}
-	openModal () {
-		this.setState({isOpen: true})
+	openModal() {
+		this.setState({ isOpen: true })
 	}
-	
-	render(){
+
+	render() {
 		return (
 			<>
-				
+
 				<Header />
-				
+
 				<div className="page-content">
-					
-					<div className="page-banner ovbl-dark" style={{backgroundImage: "url("+bannerImg+")"}}>
+					<div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
 						<div className="container">
 							<div className="page-banner-entry">
 								<h1 className="text-white">Membership</h1>
-							 </div>
+							</div>
 						</div>
 					</div>
 					<div className="breadcrumb-row">
@@ -51,9 +50,9 @@ class Membership extends Component{
 							</ul>
 						</div>
 					</div>
-					
+
 					<div className="content-block">
-						
+
 						<div className="section-area section-sp1">
 							<div className="container">
 								<div className="row">
@@ -62,13 +61,13 @@ class Membership extends Component{
 										<p className="m-b0">It is a long established fact that a reader will be distracted by the readable content of a page</p>
 									</div>
 								</div>
-								 <div className="pricingtable-row">
+								<div className="pricingtable-row">
 									<div className="row">
 										<div className="col-sm-12 col-md-4 col-lg-4 m-b40">
 											<div className="pricingtable-wrapper">
 												<div className="pricingtable-inner">
-													<div className="pricingtable-main"> 
-														<div className="pricingtable-price"> 
+													<div className="pricingtable-main">
+														<div className="pricingtable-price">
 															<span className="priceing-doller">$</span>
 															<span className="pricingtable-bx">10</span>
 															<span className="pricingtable-type">3 Month</span>
@@ -87,7 +86,7 @@ class Membership extends Component{
 														<li>24/7 Support</li>
 														<li>Select</li>
 													</ul>
-													<div className="pricingtable-footer"> 
+													<div className="pricingtable-footer">
 														<Link to="#" className="btn radius-xl">Get It Now</Link>
 													</div>
 												</div>
@@ -96,8 +95,8 @@ class Membership extends Component{
 										<div className="col-sm-12 col-md-4 col-lg-4 m-b40">
 											<div className="pricingtable-wrapper">
 												<div className="pricingtable-inner pricingtable-highlight">
-													<div className="pricingtable-main"> 
-														<div className="pricingtable-price"> 
+													<div className="pricingtable-main">
+														<div className="pricingtable-price">
 															<span className="priceing-doller">$</span>
 															<span className="pricingtable-bx">15</span>
 															<span className="pricingtable-type">6 Month</span>
@@ -116,7 +115,7 @@ class Membership extends Component{
 														<li>24/7 Support</li>
 														<li>Select</li>
 													</ul>
-													<div className="pricingtable-footer"> 
+													<div className="pricingtable-footer">
 														<Link to="#" className="btn radius-xl">Get It Now</Link>
 													</div>
 												</div>
@@ -125,8 +124,8 @@ class Membership extends Component{
 										<div className="col-sm-12 col-md-4 col-lg-4 m-b40">
 											<div className="pricingtable-wrapper">
 												<div className="pricingtable-inner">
-													<div className="pricingtable-main"> 
-														<div className="pricingtable-price"> 
+													<div className="pricingtable-main">
+														<div className="pricingtable-price">
 															<span className="priceing-doller">$</span>
 															<span className="pricingtable-bx">20</span>
 															<span className="pricingtable-type">12 Month</span>
@@ -145,7 +144,7 @@ class Membership extends Component{
 														<li>24/7 Support</li>
 														<li>Select</li>
 													</ul>
-													<div className="pricingtable-footer"> 
+													<div className="pricingtable-footer">
 														<Link to="#" className="btn radius-xl">Get It Now</Link>
 													</div>
 												</div>
@@ -155,15 +154,15 @@ class Membership extends Component{
 								</div>
 							</div>
 						</div>
-						
-						<div className="section-area section-sp1 bg-fix ovbl-dark" style={{backgroundImage:"url("+bg1+")"}}>
+
+						<div className="section-area section-sp1 bg-fix ovbl-dark" style={{ backgroundImage: "url(" + bg1 + ")" }}>
 							<div className="container">
 								<div className="text-center heading-bx text-white">
 									<h2 className="title-head m-b0">Why Choose <span>Us</span></h2>
 									<p className="m-b0">It is a long established fact that a reader will be distracted by the readable content of a page</p>
 								</div>
 								<div className="row align-items-center">
-									<div className="col-lg-6">	
+									<div className="col-lg-6">
 										<Accordion className="ttr-accordion m-b30 faq-bx">
 											<Card>
 												<Accordion.Toggle as={Card.Header} eventKey="0">
@@ -217,16 +216,16 @@ class Membership extends Component{
 											</Card>
 										</Accordion>
 									</div>
-									<div className="col-lg-6 m-b30">	
+									<div className="col-lg-6 m-b30">
 										<div className="video-bx">
-											<img src={aboutPic1} alt=""/>
+											<img src={aboutPic1} alt="" />
 											<Link to="#" onClick={this.openModal} className="popup-youtube video"><i className="fa fa-play"></i></Link>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						
+
 						<div className="section-area content-inner section-sp1">
 							<div className="container">
 								<div className="section-content">
@@ -234,15 +233,15 @@ class Membership extends Component{
 								</div>
 							</div>
 						</div>
-						
+
 					</div>
-					
+
 				</div>
-				
-				<Footer/>
-				
-				<ModalVideo channel='youtube' isOpen={this.state.isOpen} videoId='x_sJzVe9P_8' onClose={() => this.setState({isOpen: false})} />
-				
+
+				<Footer />
+
+				<ModalVideo channel='youtube' isOpen={this.state.isOpen} videoId='x_sJzVe9P_8' onClose={() => this.setState({ isOpen: false })} />
+
 			</>
 		);
 	}

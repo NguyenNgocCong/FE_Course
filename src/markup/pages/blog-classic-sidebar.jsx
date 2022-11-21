@@ -23,7 +23,6 @@ const BlogClassicSidebar = () => {
 	const getListPost = async () => {
 		try {
 			const response = await userApi.getAllPost();
-			console.log(response);
 			setListPost(response.data.filter(res => res.title.toLowerCase().includes(searchBlog.toLowerCase())));
 		} catch (responseError) {
 			console.log(responseError);
@@ -33,6 +32,7 @@ const BlogClassicSidebar = () => {
 	useEffect(() => {
 		getListPost();
 		// eslint-disable-next-line
+		console.log(searchBlog)
 	}, [searchBlog]);
 
 	return (

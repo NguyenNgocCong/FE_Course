@@ -48,10 +48,7 @@ function CoursesDetails(props) {
       <Header />
 
       <div className="page-content">
-        <div
-          className="page-banner ovbl-dark"
-          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
-        >
+        <div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
           <div className="container">
             <div className="page-banner-entry">
               <h1 className="text-white">{res.title}</h1>
@@ -92,7 +89,7 @@ function CoursesDetails(props) {
                           <h4 className="price">
                             $
                             {res.comboPackages.reduce(
-                              (total, x) => total + x._package.sale_price,
+                              (total, x) => total + x._package.salePrice,
                               0
                             )}
                           </h4>
@@ -257,7 +254,7 @@ const comboDetailsEx = {
         description: "",
         status: true,
         listPrice: 6000000.0,
-        sale_price: 4500000.0,
+        salePrice: 4500000.0,
       },
       salePrice: 4000000.0,
     },
@@ -275,7 +272,7 @@ const comboDetailsEx = {
         description: "",
         status: true,
         listPrice: 3000000.0,
-        sale_price: 1800000.0,
+        salePrice: 1800000.0,
       },
       salePrice: 1500000.0,
     },
