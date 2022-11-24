@@ -73,8 +73,9 @@ const BlogClassicSidebar = () => {
 														<CCardTitle><Link to={`/blog/${item?.id}`}>{item?.title}</Link></CCardTitle>
 														<CCardText>
 															<ul className="media-post">
-																<li><i className="fa fa-calendar"></i>{" " + new Date(item?.createdDate).toLocaleDateString()}</li>
+																<li><i className="fa fa-calendar"></i>{" " + new Date(item?.createDate).toLocaleDateString()}</li>
 																<li><i className="fa fa-user"></i> By {item?.author.fullname}</li>
+																<li><i className="fa fa-eye"></i> {item?.views}</li>
 															</ul>
 														</CCardText>
 														<CCardText>

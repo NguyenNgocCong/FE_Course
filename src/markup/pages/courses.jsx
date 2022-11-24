@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
 // Layout
 import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
-
 // Images
 import toast from "react-hot-toast";
 import { adminApi } from "../../api/adminApi";
-import adv from "../../images/adv/adv.jpg";
 import bannerImg from "../../images/banner/banner3.jpg";
-import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
-import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 import { combieImg } from "../../utils";
+import ProductAside from "../elements/product-aside";
 
 function Products() {
   const [pageIndex, setPageIndex] = useState(1);
@@ -68,93 +64,7 @@ function Products() {
             <div className="container">
               <div className="row">
                 <div className="col-lg-3 col-md-4 col-sm-12">
-                  <div className="widget widget_archive">
-                    <h5 className="widget-title style-1">All Courses</h5>
-                    <ul>
-                      <li className="active">
-                        <Link to="#">General</Link>
-                      </li>
-                      <li>
-                        <Link to="/courses-details">IT & Software</Link>
-                      </li>
-                      <li>
-                        <Link to="/courses-details">Photography</Link>
-                      </li>
-                      <li>
-                        <Link to="/courses-details">Programming Language</Link>
-                      </li>
-                      <li>
-                        <Link to="/courses-details">Technology</Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="widget recent-posts-entry widget-courses">
-                    <h5 className="widget-title style-1">Recent Courses</h5>
-                    <div className="widget-post-bx">
-                      <div className="widget-post clearfix">
-                        <div className="ttr-post-media">
-                          {" "}
-                          <img
-                            src={blogRecentPic1}
-                            width="200"
-                            height="143"
-                            alt=""
-                          />{" "}
-                        </div>
-                        <div className="ttr-post-info">
-                          <div className="ttr-post-header">
-                            <h6 className="post-title">
-                              <Link to="/courses-details">
-                                Introduction EduChamp
-                              </Link>
-                            </h6>
-                          </div>
-                          <div className="ttr-post-meta">
-                            <ul>
-                              <li className="price">
-                                <del>$190</del>
-                                <h5>$120</h5>
-                              </li>
-                              <li className="review">03 Review</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="widget-post clearfix">
-                        <div className="ttr-post-media">
-                          {" "}
-                          <img
-                            src={blogRecentPic3}
-                            width="200"
-                            height="160"
-                            alt=""
-                          />{" "}
-                        </div>
-                        <div className="ttr-post-info">
-                          <div className="ttr-post-header">
-                            <h6 className="post-title">
-                              <Link to="/courses-details">
-                                English For Tommorow
-                              </Link>
-                            </h6>
-                          </div>
-                          <div className="ttr-post-meta">
-                            <ul>
-                              <li className="price">
-                                <h5 className="free">Free</h5>
-                              </li>
-                              <li className="review">07 Review</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="widget">
-                    <Link to="/membership">
-                      <img src={adv} alt="" />
-                    </Link>
-                  </div>
+                  <ProductAside></ProductAside>
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
                   <div className="row">
@@ -186,8 +96,7 @@ function Products() {
                             </Link>
                           </div>
                           <div className="info-bx">
-                            <span>{item?.subject?.name}</span>
-                            <h6>
+                            <h5>
                               <Link
                                 onClick={() => {
                                   window.location.href =
@@ -196,9 +105,15 @@ function Products() {
                               >
                                 {item.title}
                               </Link>
-                            </h6>
+                            </h5>
+                            <div><i className="fa fa-user"></i> {item?.sucjectCode?.expert?.fullname}</div>
+                            <div><i className="fa fa-eye"></i> {item?.views}</div>
                           </div>
                           <div className="cours-more-info">
+                            <div className="price">
+                              <del>${item.listPrice}</del>
+                              <h5 className="fs-6">${item.salePrice}</h5>
+                            </div>
                             <div className="review">
                               {/* <span> expert</span> */}
                               {/* <ul className="cours-star">
@@ -208,13 +123,9 @@ function Products() {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 															</ul> */}
-                              <div className="text-center">
-                                {item.sucjectCode.expert.fullname}
+                              <div className="btn btn-warning">
+                                <i className="fa fa-cart-plus"></i> Add to cart
                               </div>
-                            </div>
-                            <div className="price">
-                              <del>${item.listPrice}</del>
-                              <h5 className="fs-6">${item.salePrice}</h5>
                             </div>
                           </div>
                         </div>

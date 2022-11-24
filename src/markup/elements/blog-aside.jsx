@@ -28,18 +28,18 @@ function BlogAside() {
     };
 
     const getListPost = async () => {
-		try {
-			const response = await userApi.getAllPost();
+        try {
+            const response = await userApi.getAllPost();
             const reversed = response.data.slice().reverse();
             let recent = [];
-            for(let i=0; i <=2; i++){
+            for (let i = 0; i <= 2; i++) {
                 recent.push(reversed[i]);
             }
-            setRecentBlog(recent.filter(rec=>rec!==undefined));
-		} catch (responseError) {
-			console.log(responseError);
-		}
-	};
+            setRecentBlog(recent.filter(rec => rec !== undefined));
+        } catch (responseError) {
+            console.log(responseError);
+        }
+    };
 
     useEffect(() => {
         getListCategory();
@@ -88,13 +88,11 @@ function BlogAside() {
                     <div className="widget-post-bx">
                         {recentBlog.map(blog => {
                             return (
-                                <div className="widget-post clearfix"  key={blog?.id}>
+                                <div className="widget-post clearfix" key={blog?.id}>
                                     <div className="ttr-post-media">
                                         {" "}
-                                        <img
-                                            src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  blog?.thumnailUrl}
-                                            width="200"
-                                            height="143"
+                                        <img style={{ height: "auto" }}
+                                            src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + blog?.thumnailUrl}
                                             alt=""
                                         />{" "}
                                     </div>

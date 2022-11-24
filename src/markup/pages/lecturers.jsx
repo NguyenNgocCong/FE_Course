@@ -6,7 +6,7 @@ import Header from "../layout/header/header1";
 import Footer from "../layout/footer/footer1";
 
 // Elements
-import LecturersAside from "../elements/blog-aside";
+import BlogAside from "../elements/blog-aside";
 
 // Images
 import bannerImg from "../../images/banner/banner1.jpg";
@@ -75,7 +75,7 @@ const Lecturers = () => {
             <div className="container">
               <div className="row">
                 <div className="col-lg-3 col-xl-3 col-md-5 sticky-top">
-                  <LecturersAside />
+                  <BlogAside />
                 </div>
                 <div className="col-lg-9 col-xl-9 col-md-7">
                   <CRow className="g-0">
