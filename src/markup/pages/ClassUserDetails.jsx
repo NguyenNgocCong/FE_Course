@@ -6,14 +6,10 @@ import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
 
 // Images
-import { comboApi } from "../../api/comboApi";
+import { Markup } from "interweave";
+import { classApi } from "../../api/classApi";
 import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
-import testiPic1 from "../../images/testimonials/pic1.jpg";
-import DataTable from "react-data-table-component";
-import { userApi } from "../../api/userApi";
-import { classApi } from "../../api/classApi";
-import { Markup } from "interweave";
 import { combieImg } from "../../utils/index";
 
 function ClassUserDetails(props) {
