@@ -54,7 +54,6 @@ function SliderDetail(props) {
                 validTo: validTo,
                 status: status,
             };
-            console.log(image, params);
             const response =
                 type === 1
                     ? await adminApi.updateSlider(id, image, params)
