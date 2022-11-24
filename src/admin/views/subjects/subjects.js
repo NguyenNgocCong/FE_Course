@@ -58,7 +58,7 @@ function Subjects() {
       minWidth: "180px",
       width: "200px",
       maxWidth: "220px",
-      selector: (row) => row.expert?.username,
+      selector: (row) => row.expert?.user?.username,
       sortable: true,
     },
     {

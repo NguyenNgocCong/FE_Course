@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import {Accordion, Card} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Accordion, Card } from 'react-bootstrap';
 
 // Layout
 import Header from "../layout/header/header1";
@@ -14,21 +14,20 @@ import ContactInfoCard from '../elements/contact-info-card';
 // Images
 import bannerImg from '../../images/banner/banner3.jpg';
 
-class Faq2 extends Component{
-	
-	render(){
+class Faq2 extends Component {
+
+	render() {
 		return (
 			<>
-				
+
 				<Header />
-				
+
 				<div className="page-content">
-					
-					<div className="page-banner ovbl-dark" style={{backgroundImage: "url("+bannerImg+")"}}>
+					<div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
 						<div className="container">
 							<div className="page-banner-entry">
 								<h1 className="text-white">Frequently Asked Questions</h1>
-							 </div>
+							</div>
 						</div>
 					</div>
 					<div className="breadcrumb-row">
@@ -39,15 +38,15 @@ class Faq2 extends Component{
 							</ul>
 						</div>
 					</div>
-					
+
 					<div className="content-block">
-						
+
 						<div className="section-area section-sp1 bg-gray">
 							<div className="container">
 								<FeatureContent1 />
 							</div>
 						</div>
-						
+
 						<div className="section-area section-sp1">
 							<div className="container">
 								<div className="row">
@@ -129,10 +128,10 @@ class Faq2 extends Component{
 										</div>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
-			
+
 						<div className="section-area content-inner section-sp1 bg-gray">
 							<div className="container">
 								<div className="section-content">
@@ -140,13 +139,13 @@ class Faq2 extends Component{
 								</div>
 							</div>
 						</div>
-					
+
 					</div>
-					
+
 				</div>
-				
-				<Footer/>
-				
+
+				<Footer />
+
 			</>
 		);
 	}

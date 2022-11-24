@@ -16,6 +16,7 @@ import ChangePassword from "../elements/profile-content/change-password";
 import bannerImg from "../../images/banner/banner1.jpg";
 import avatarProfile from '../../images/icon/avatar.svg'
 import { userApi } from "../../api/userApi";
+import { combieImg } from "../../utils";
 
 function Profile(props) {
     const [user, setUser] = useState({});
@@ -71,10 +72,7 @@ function Profile(props) {
                                                 <div className="user-profile-thumb ">
                                                     <img
                                                         src={
-                                                            user?.avatar ?
-                                                                user?.avatar.substr("http://localhost:8080/api/account/downloadFile/".length) !== "null"
-                                                                    ? user?.avatar
-                                                                    : avatarProfile : avatarProfile
+                                                            user?.avatar ? combieImg(user?.avatar) : avatarProfile
                                                         }
                                                         className="w-100 h-100"
                                                         alt=""

@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { setEditAvatar } from "../../../redux/reducers/user";
 
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { combieImg } from "../../../utils/index";
 
 function Header() {
   const [id, setId] = useState(Cookies.get("id"));
@@ -129,7 +128,18 @@ function Header() {
                         onClick={() => setIsExpand(!isExpand)}
                         className="mb-0"
                       >
-                        <CAvatar src={combieImg(data.avatar)} />
+                        <CAvatar
+                          src={
+                            user?.avatar
+                              ? user?.avatar.substr(
+                                  "http://localhost:8080/api/account/downloadFile/"
+                                    .length
+                                ) !== "null"
+                                ? user?.avatar
+                                : avatarProfile
+                              : avatarProfile
+                          }
+                        />
                       </div>
                       <ul
                         className="sub-menu"

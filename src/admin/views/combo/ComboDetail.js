@@ -22,6 +22,9 @@ import {
     AppHeader,
     AppSidebar,
 } from "../../components";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 
 function ComboDetail(props) {
     const [combo, setCombo] = useState();
@@ -33,6 +36,7 @@ function ComboDetail(props) {
     const [listPackagesSale, setListPackagesSale] = useState([]);
     const [salePrice, setSalePrice] = useState(0);
     const [packages, setPackages] = useState({});
+
 
     const columns = [
         {
@@ -99,6 +103,8 @@ function ComboDetail(props) {
         try {
             const response = await adminApi.getComboById(id);
             setCombo(response);
+            const listData = response.comboPackages.filter(item => item)
+            setListPackagesSale(listData)
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -113,10 +119,15 @@ function ComboDetail(props) {
         listpackage.push(row?._package)
         setListPackages(listpackage)
     };
+
     const getListPackage = async () => {
         try {
             const response = await adminApi.getAllProduct(0, 50, "", 0, "");
-            setListPackages(response.data);
+            let listpackage = response.data.filter(item => item)
+            listPackagesSale.map((element) => {
+                listpackage = listpackage.filter(item => item.id !== element._package?.id)
+            })
+            setListPackages(listpackage);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -124,20 +135,33 @@ function ComboDetail(props) {
         }
     };
 
+
     const handleUpdateSlider = async () => {
         try {
-            const params = {
-                title: title,
-                description: description,
-            };
-            const response =
-                type === 1
-                    ? await adminApi.updateCombo(id, params)
-                    : await adminApi.createCombo(params);
-            toast.success(response?.message, {
-                duration: 2000,
-            });
-            history.push("/admin/combos");
+            if (listPackagesSale?.length > 0) {
+                const params = {
+                    title: title,
+                    description: description,
+                    packages: []
+                };
+                listPackagesSale.map((element) => {
+                    const pack = { packageId: element?._package?.id, salePrice: Number(element?.salePrice) }
+                    params.packages.push(pack)
+                })
+                console.log(params)
+                const response =
+                    type === 1
+                        ? await adminApi.updateCombo(id, params)
+                        : await adminApi.createCombo(params);
+                toast.success(response?.message, {
+                    duration: 2000,
+                });
+                history.push("/admin/combos");
+            } else {
+                toast.error("Please import package", {
+                    duration: 2000,
+                });
+            }
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -173,12 +197,17 @@ function ComboDetail(props) {
         if (type === 1) {
             getComboById(id);
         }
-        getListPackage();
-        // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if (listPackages.length === 0) {
+            getListPackage();
+        }
+    }, [listPackagesSale]);
 
     const handleSelectPackage = async (val) => {
         setPackages(listPackages.find(element => element?.id === parseInt(val)))
+        console.log(packages);
     };
 
 
@@ -195,7 +224,7 @@ function ComboDetail(props) {
                         </CCardHeader>
                         <CCardBody>
                             <CRow className="g-3 mb-3">
-                                <CCol sm={6}>
+                                <CCol sm={12}>
                                     <div className="mb-3">
                                         <CFormLabel>
                                             Title (
@@ -213,20 +242,19 @@ function ComboDetail(props) {
                                         />
                                     </div>
                                 </CCol>
-                                <CCol sm={6}>
+                                <CCol sm={12}>
                                     <div className="mb-3">
                                         <CFormLabel>
-                                            Description
+                                            Description (
+                                            <span style={{ color: "red" }}>*</span>)
                                         </CFormLabel>
-                                        <CFormInput
-                                            type="text"
-                                            id="exampleFormControlInput1"
-                                            defaultValue={
-                                                type === 1 ? combo?.description : ""
-                                            }
-                                            onChange={(e) =>
-                                                setDescription(e.target.value)
-                                            }
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            data={combo?.description}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                setDescription(data);
+                                            }}
                                         />
                                     </div>
                                 </CCol>
@@ -314,7 +342,7 @@ function ComboDetail(props) {
                                 <CButton
                                     onClick={() => handleUpdateSlider()}
                                 >
-                                    Add
+                                    {type === 1 ? "Update" : "Add"}
                                 </CButton>
                             </div>
                         </CCardBody>

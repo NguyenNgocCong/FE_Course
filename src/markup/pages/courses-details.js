@@ -3,22 +3,20 @@ import { Link, useLocation } from "react-router-dom";
 import { Link as ScrollTo } from "react-scroll";
 import { Markup } from "interweave";
 
-// Layout
+// Layout 
 import Header from "../layout/header/header1";
 import Footer from "../layout/footer/footer1";
 
 // Images
 import bannerImg from "../../images/banner/banner2.jpg";
 import testiPic1 from "../../images/testimonials/pic1.jpg";
-import testiPic2 from "../../images/testimonials/pic2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import { adminApi } from "../../api/adminApi";
 import toast from "react-hot-toast";
-import { NavItem } from "react-bootstrap";
 import { combieImg } from "../../utils/index";
 
 function CoursesDetails(props) {
-  const [product, setProduct] = useState(couresDetailExample);
+  const [product, setProduct] = useState({});
   const location = useLocation();
   const id = location.pathname.substring(
     "/courses-details/".length,
@@ -29,7 +27,6 @@ function CoursesDetails(props) {
     try {
       const response = await adminApi.getProductById(id);
       setProduct(response);
-      console.log("res", response);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -45,15 +42,14 @@ function CoursesDetails(props) {
   return (
     <>
       <Header />
-
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
         >
           <div className="container">
             <div className="page-banner-entry">
-              <h1 className="text-white">{product.title}</h1>
+              <h1 className="text-white">{product?.title}</h1>
             </div>
           </div>
         </div>
@@ -63,20 +59,19 @@ function CoursesDetails(props) {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              <li>{product.title}</li>
+              <li>{product?.title}</li>
             </ul>
           </div>
         </div>
-
         <div className="content-block">
-          <div className="section-area section-sp1">
+          <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row d-flex flex-row-reverse">
                 <div className="col-xl-3 col-lg-4 col-md-12 col-sm-12 m-b30">
                   <div className="course-detail-bx">
                     <div className="course-price">
-                      <del>${product.listPrice}</del>
-                      <h6 className="price">${product.salePrice}</h6>
+                      <del>${product?.listPrice}</del>
+                      <h6 className="price">${product?.salePrice}</h6>
                     </div>
                     <div className="course-buy-now text-center">
                       <Link to="#" className="btn btn-primary radius-xl">
@@ -87,7 +82,7 @@ function CoursesDetails(props) {
                       <div className="teacher-info">
                         <div className="teacher-thumb">
                           <img
-                            src={combieImg(product.sucjectCode.expert.avatar)}
+                            src={combieImg(product?.sucjectCode?.expert?.user?.avatar)}
                             alt=""
                             onError={({ currentTarget }) => {
                               currentTarget.src = testiPic1;
@@ -95,8 +90,8 @@ function CoursesDetails(props) {
                           />
                         </div>
                         <div className="teacher-name">
-                          <h5>{product.sucjectCode.expert.fullname}</h5>
-                          <span>Expert</span>
+                          <h5>{product?.sucjectCode?.expert?.user?.fullname}</h5>
+                          <span>{product?.sucjectCode?.expert?.company}</span>
                         </div>
                       </div>
                     </div>
@@ -121,17 +116,12 @@ function CoursesDetails(props) {
 
                 <div className="col-xl-9 col-lg-8 col-md-12 col-sm-12">
                   <div className="courses-post">
-                    <div className="ttr-post-media media-effect">
-                      <Link to="#">
-                        <img src={blogDefaultThum1} alt="" />
-                      </Link>
-                    </div>
                     <div className="ttr-post-info m-b30">
                       <div className="ttr-post-title ">
-                        <h2 className="post-title">{product.title}</h2>
+                        <h2 className="post-title">{product?.title}</h2>
                       </div>
                       <div className="ttr-post-text">
-                        <p>{product.excerpt}</p>
+                        <p>{product?.excerpt}</p>
                       </div>
                     </div>
                   </div>
@@ -139,45 +129,50 @@ function CoursesDetails(props) {
                     <h4>Overview</h4>
                     <div className="row">
                       <div className="col-md-12 col-lg-4">
+                        <div className="ttr-post-media media-effect">
+                          <Link to="#">
+                            <img src={blogDefaultThum1} alt="" />
+                          </Link>
+                        </div>
                         <ul className="course-features">
                           <li>
                             <i className="ti-book"></i>{" "}
                             <span className="label">manager</span>{" "}
                             <span className="value">
-                              {product.sucjectCode.manager.username}
+                              {product?.sucjectCode?.manager?.username}
                             </span>
                           </li>
                           <li>
                             <i className="ti-help-alt"></i>{" "}
                             <span className="label">Manager Phone</span>{" "}
                             <span className="value">
-                              {product.sucjectCode.manager.phoneNumber}
+                              {product?.sucjectCode?.manager?.phoneNumber}
                             </span>
                           </li>
                           <li>
                             <i className="ti-time"></i>{" "}
                             <span className="label">Duration</span>{" "}
-                            <span className="value">{product.duration}</span>
+                            <span className="value">{product?.duration}</span>
                           </li>
                           <li>
                             <i className="ti-stats-up"></i>{" "}
                             <span className="label">expert</span>{" "}
                             <span className="value">
-                              {product.sucjectCode.expert.fullname}
+                              {product?.sucjectCode?.expert?.user?.fullname}
                             </span>
                           </li>
                           <li>
                             <i className="ti-smallcap"></i>{" "}
                             <span className="label">Phone</span>{" "}
                             <span className="value">
-                              {product.sucjectCode.expert.phoneNumber}
+                              {product?.sucjectCode?.expert?.user?.phoneNumber}
                             </span>
                           </li>
                         </ul>
                       </div>
                       <div className="col-md-12 col-lg-8">
                         <div className="p-3">
-                          <Markup content={product.description} />
+                          <Markup content={product?.description} />
                         </div>
                       </div>
                     </div>
@@ -451,46 +446,5 @@ function CoursesDetails(props) {
     </>
   );
 }
-
-const couresDetailExample = {
-  id: 1,
-  title: "khóa học spring MVC cơ bản",
-  excerpt: "",
-  duration: "60",
-  description: "",
-  status: true,
-  listPrice: 3000000.0,
-  salePrice: 1800000.0,
-  sucjectCode: {
-    id: 1,
-    code: "Java0001",
-    name: "Lập trình java spring",
-    status: true,
-    note: "khóa học lập trình java spring",
-    manager: {
-      id: 3,
-      username: "manager1",
-      email: "manage1@gmail.com",
-      fullname: "Manager1",
-      phoneNumber: "0358283749",
-      avatar: "http://localhost:8080/api/account/downloadFile/null",
-      role: "ROLE_MANAGER",
-      active: true,
-    },
-    expert: {
-      id: 10,
-      username: "Hungnv",
-      email: "expert4@gmail.com",
-      fullname: "Nguyễn Việt Hùng",
-      phoneNumber: "01238423753",
-      avatar:
-        "http://localhost:8080/api/account/downloadFile/d521c918-a7b5-4157-9a29-9b50f567256e.jpg",
-      role: "ROLE_EXPERT",
-      active: true,
-    },
-    image: null,
-    categoryId: 12,
-  },
-};
 
 export default CoursesDetails;

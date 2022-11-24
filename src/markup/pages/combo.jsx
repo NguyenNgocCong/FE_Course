@@ -7,11 +7,10 @@ import Header from "../layout/header/header1";
 
 // Images
 import { comboApi } from "../../api/comboApi";
-import adv from "../../images/adv/adv.jpg";
 import bannerImg from "../../images/banner/banner3.jpg";
-import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
-import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
+import { combieImg } from "../../utils";
+import ProductAside from "../elements/product-aside";
 
 function Combos() {
   const [res, setRes] = useState(comboEx);
@@ -34,7 +33,7 @@ function Combos() {
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
         >
           <div className="container">
             <div className="page-banner-entry">
@@ -54,97 +53,11 @@ function Combos() {
         </div>
 
         <div className="content-block">
-          <div className="section-area section-sp1">
+          <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row">
                 <div className="col-lg-3 col-md-4 col-sm-12">
-                  <div className="widget widget_archive">
-                    <h5 className="widget-title style-1">All Courses</h5>
-                    <ul>
-                      <li className="active">
-                        <Link to="#">General</Link>
-                      </li>
-                      <li>
-                        <Link to="/courses-details">IT & Software</Link>
-                      </li>
-                      <li>
-                        <Link to="/courses-details">Photography</Link>
-                      </li>
-                      <li>
-                        <Link to="/courses-details">Programming Language</Link>
-                      </li>
-                      <li>
-                        <Link to="/courses-details">Technology</Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="widget recent-posts-entry widget-courses">
-                    <h5 className="widget-title style-1">Recent Courses</h5>
-                    <div className="widget-post-bx">
-                      <div className="widget-post clearfix">
-                        <div className="ttr-post-media">
-                          {" "}
-                          <img
-                            src={blogRecentPic1}
-                            width="200"
-                            height="143"
-                            alt=""
-                          />{" "}
-                        </div>
-                        <div className="ttr-post-info">
-                          <div className="ttr-post-header">
-                            <h6 className="post-title">
-                              <Link to="/courses-details">
-                                Introduction EduChamp
-                              </Link>
-                            </h6>
-                          </div>
-                          <div className="ttr-post-meta">
-                            <ul>
-                              <li className="price">
-                                <del>$190</del>
-                                <h5>$120</h5>
-                              </li>
-                              <li className="review">03 Review</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="widget-post clearfix">
-                        <div className="ttr-post-media">
-                          {" "}
-                          <img
-                            src={blogRecentPic3}
-                            width="200"
-                            height="160"
-                            alt=""
-                          />{" "}
-                        </div>
-                        <div className="ttr-post-info">
-                          <div className="ttr-post-header">
-                            <h6 className="post-title">
-                              <Link to="/courses-details">
-                                English For Tommorow
-                              </Link>
-                            </h6>
-                          </div>
-                          <div className="ttr-post-meta">
-                            <ul>
-                              <li className="price">
-                                <h5 className="free">Free</h5>
-                              </li>
-                              <li className="review">07 Review</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="widget">
-                    <Link to="/membership">
-                      <img src={adv} alt="" />
-                    </Link>
-                  </div>
+                  <ProductAside></ProductAside>
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
                   <div className="row">
@@ -156,10 +69,14 @@ function Combos() {
                         <div className="cours-bx">
                           <div className="action-box">
                             <img
-                              src={
-                                "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
-                              }
-                              alt=""
+                              src={combieImg(
+                                item.comboPackages[0]?._package.image
+                              )}
+                              alt={item.title}
+                              onError={({ currentTarget }) => {
+                                currentTarget.src =
+                                  "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                              }}
                             />
                             <Link
                               to={`/combo/${item.id}`}
@@ -169,21 +86,10 @@ function Combos() {
                             </Link>
                           </div>
                           <div className="info-bx">
-                            <span>{item.title}</span>
-                            <h6></h6>
+                            <h5>{item.title}</h5>
+                            <div ><i className="fa fa-dropbox"></i> {item?.comboPackages?.length}</div>
                           </div>
                           <div className="cours-more-info">
-                            <div className="review">
-                              <span> packages</span>
-                              {/* <ul className="cours-star">
-																<li className="active"><i className="fa fa-star"></i></li>
-																<li className="active"><i className="fa fa-star"></i></li>
-																<li className="active"><i className="fa fa-star"></i></li>
-																<li><i className="fa fa-star"></i></li>
-																<li><i className="fa fa-star"></i></li>
-															</ul> */}
-                              <div>{item.comboPackages.length}</div>
-                            </div>
                             <div className="price">
                               <del>
                                 $
@@ -195,11 +101,22 @@ function Combos() {
                               <h5>
                                 $
                                 {item.comboPackages.reduce(
-                                  (total, x) => total + x._package.sale_price,
+                                  (total, x) => total + x._package.salePrice,
                                   0
                                 )}
                               </h5>
                             </div>
+                            <div className="review">
+                              {/* <ul className="cours-star">
+																<li className="active"><i className="fa fa-star"></i></li>
+																<li className="active"><i className="fa fa-star"></i></li>
+																<li className="active"><i className="fa fa-star"></i></li>
+																<li><i className="fa fa-star"></i></li>
+																<li><i className="fa fa-star"></i></li>
+															</ul> */}
+                              <div className="btn btn-warning">
+                                <i className="fa fa-cart-plus"></i> Add to cart
+                              </div></div>
                           </div>
                         </div>
                       </div>
@@ -217,7 +134,7 @@ function Combos() {
                           currentPage={currentPage}
                           totalPage={totalPages}
                           totalItem={totalItems}
-                          onChange={() => {}}
+                          onChange={() => { }}
                         ></PagingQuestion>
                       </div>
                     </div>
@@ -258,7 +175,7 @@ const comboEx = {
             description: "",
             status: true,
             listPrice: 3000000.0,
-            sale_price: 1800000.0,
+            salePrice: 1800000.0,
           },
           salePrice: 1500000.0,
         },
@@ -277,7 +194,7 @@ const comboEx = {
             description: "",
             status: true,
             listPrice: 6000000.0,
-            sale_price: 4500000.0,
+            salePrice: 4500000.0,
           },
           salePrice: 4000000.0,
         },

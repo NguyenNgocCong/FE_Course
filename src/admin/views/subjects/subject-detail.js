@@ -29,10 +29,6 @@ function SubjectDetail(props) {
     const [note, setNote] = useState();
     const [manager, setManager] = useState();
     const [expert, setExpert] = useState();
-    // eslint-disable-next-line
-    const [image, setImage] = useState();
-    // eslint-disable-next-line
-    const [price, setPrice] = useState();
     const role = JSON.parse(Cookies.get("user"))?.role;
     const isNotAdmin = role !== "ROLE_ADMIN" ? true : false;
     const location = useLocation();
@@ -58,7 +54,6 @@ function SubjectDetail(props) {
         try {
             const response = await adminApi.getSubjectDetail(id);
             setSubject(response);
-            console.log(response)
             setStatus(response.status);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
@@ -111,8 +106,7 @@ function SubjectDetail(props) {
                     status: status,
                     note: note,
                     manager: manager,
-                    expert: expert,
-                    price: price,
+                    expert: expert
                 };
 
                 const response =
@@ -361,25 +355,25 @@ function SubjectDetail(props) {
                                                 {listExpert?.map((item, index) => {
                                                     if (type === 1) {
                                                         return subject?.expert
-                                                            ?.username ===
-                                                            item?.username ? (
+                                                            ?.id ===
+                                                            item?.id ? (
                                                             <option
                                                                 key={index}
                                                                 value={
-                                                                    item?.username
+                                                                    item?.id
                                                                 }
                                                                 selected
                                                             >
-                                                                {item?.username}
+                                                                {item?.user?.fullname}
                                                             </option>
                                                         ) : (
                                                             <option
                                                                 key={index}
                                                                 value={
-                                                                    item?.username
+                                                                    item?.id
                                                                 }
                                                             >
-                                                                {item?.username}
+                                                                {item?.user?.fullname}
                                                             </option>
                                                         );
                                                     } else {
@@ -387,47 +381,15 @@ function SubjectDetail(props) {
                                                             <option
                                                                 key={index}
                                                                 value={
-                                                                    item?.username
+                                                                    item?.id
                                                                 }
                                                             >
-                                                                {item?.username}
+                                                                {item?.user?.fullname}
                                                             </option>
                                                         );
                                                     }
                                                 })}
                                             </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="formFile">
-                                                Upload Image Subject
-                                            </CFormLabel>
-                                            {subject?.image ? (
-                                                <div className="mb-3">
-                                                    <img
-                                                        style={{
-                                                            width: "100px",
-                                                            height: "100px",
-                                                        }}
-                                                        src={subject?.image}
-                                                        alt=""
-                                                    />
-                                                </div>
-                                            ) : (
-                                                ""
-                                            )}
-
-                                            <input
-                                                className="form-control"
-                                                disabled={isNotAdmin}
-                                                type="file"
-                                                accept=".jpg, .png"
-                                                defaultValue={subject?.image}
-                                                onChange={(e) =>
-                                                    setImage(e.target.files[0])
-                                                }
-                                            />
                                         </div>
                                     </CCol>
                                 </CRow>

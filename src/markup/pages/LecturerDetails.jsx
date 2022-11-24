@@ -37,10 +37,7 @@ function LecturerDetails(prop) {
     <>
       <Header />
       <div className="page-content">
-        <div
-          className="page-banner ovbl-dark"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
-        >
+        <div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
           <div className="container">
             <div className="page-banner-entry">
               <h1 className="text-white">{expert.title}</h1>
@@ -59,16 +56,42 @@ function LecturerDetails(prop) {
         </div>
 
         <div className="content-block">
-          <div className="section-area section-sp1">
+          <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row">
                 <div className="col-lg-3 col-xl-3 col-md-5 sticky-top">
                   <BlogAside />
                 </div>
                 <div className="col-lg-9 col-xl-9 col-md-7">
-                  <div className="recent-news blog-lg">
-                    <div className="action-box blog-lg">
-                      <img src={combieImg(expert.user.avatar)} alt="" />
+                  <div className="row">
+                    <div className="col-lg-6 col-xl-6 col-md-6">
+                      <div className="action-box blog-lg">
+                        <img  style={{height:"100%"}} src={combieImg(expert.user.avatar)} alt="" />
+                      </div>
+                    </div>
+                    <div className="col-lg-6 col-xl-6 col-md-6">
+                      <h3 className="post-title">{expert.jobTitle}</h3>
+                      <div style={{ margin: "5px 0px" }}>
+                        <span className="post-title">Company: </span>
+                        <span>{expert.company}</span>
+                      </div>
+                      <div style={{ margin: "5px 0px" }}>
+                        <span className="post-title">job: </span>
+                        <span>{expert.jobTitle}</span>
+                      </div>
+                      <div style={{ margin: "5px 0px" }}>
+                        <span className="post-title">fullName: </span>
+                        <span>{expert.user.fullname}</span>
+                      </div>
+                      <div style={{ margin: "5px 0px" }}>
+                        <span className="post-title">phone: </span>
+                        <span>{expert.user.phoneNumber}</span>
+                      </div>
+                      <div style={{ margin: "5px 0px" }}>
+                        <span className="post-title">email: </span>
+                        <span>{expert.user.email}</span>
+                      </div>
+                      <p>{ReactHtmlParser(expert?.description)}</p>
                     </div>
                     <div className="info-bx">
                       <ul className="media-post">
@@ -76,28 +99,6 @@ function LecturerDetails(prop) {
                           <i className="fa fa-comments-o"></i>10 Comment
                         </li>
                       </ul>
-                      <h3 className="post-title">{expert.jobTitle}</h3>
-                      <p>{ReactHtmlParser(expert?.description)}</p>
-                      <div className="m-3">
-                        <span className="post-title">Company: </span>
-                        <span>{expert.company}</span>
-                      </div>
-                      <div className="m-3">
-                        <span className="post-title">job: </span>
-                        <span>{expert.jobTitle}</span>
-                      </div>
-                      <div className="m-3">
-                        <span className="post-title">fullName: </span>
-                        <span>{expert.user.fullname}</span>
-                      </div>
-                      <div className="m-3">
-                        <span className="post-title">phone: </span>
-                        <span>{expert.user.phoneNumber}</span>
-                      </div>
-                      <div className="m-3">
-                        <span className="post-title">email: </span>
-                        <span>{expert.user.email}</span>
-                      </div>
                       <div className="ttr-divider bg-gray">
                         <i className="icon-dot c-square"></i>
                       </div>

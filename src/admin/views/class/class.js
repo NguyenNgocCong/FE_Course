@@ -23,18 +23,19 @@ function Class() {
     },
     {
       name: "Class Code",
-      minWidth: '225px',
-      width: '250px',
-      maxWidth: '275px',
+      minWidth: '140px',
+      width: '160px',
+      maxWidth: '180px',
       selector: (row) => row.code,
       sortable: true,
     },
     {
       name: "Package",
-      minWidth: '140px',
-      width: '160px',
-      maxWidth: '180px',
-      selector: (row) => row.packages,
+
+      minWidth: '225px',
+      width: '250px',
+      maxWidth: '275px',
+      selector: (row) => row.packages.title,
       sortable: true,
     },
     {
@@ -58,7 +59,17 @@ function Class() {
       minWidth: '150px',
       width: '200px',
       maxWidth: '250px',
-      selector: (row) => row.trainer?.username,
+      selector: (row) => row.trainer?.user?.fullname,
+      sortable: true,
+    },
+    {
+      name: "Branch",
+      width: '120px',
+      selector: (row) => (
+        <div className={`${row?.branch ? Styles.inactive : Styles.active}`}>
+          {row.branch ? row?.branch.setting_title : "Online"}
+        </div>
+      ),
       sortable: true,
     },
     {

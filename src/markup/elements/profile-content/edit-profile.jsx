@@ -3,27 +3,27 @@ import toast from "react-hot-toast";
 import { userApi } from "../../../api/userApi";
 import avatarProfile from '../../../images/icon/avatar.svg'
 import Cookies from "js-cookie";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { setEditAvatar } from "../../../redux/reducers/user";
+import { combieImg } from "../../../utils";
 
 function EditProfile({ stateChanger, state, user }) {
     const [fullname, setFullname] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
     const [username, setUsername] = useState();
     const [avatar, setAvatar] = useState();
+    const [avatarPreview, setAvatarPreview] = useState();
     const [alertMessage, setAlertMessage] = useState();
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertType, setPopupAlertType] = useState("primary");
     const acceptedFileType = ["image/jpg", "image/png", "image/jpeg"];
     const dispatch = useDispatch();
-    const editAvatar = useSelector((state) => state.userReducers.editAvatar);
 
     const handleChangeProfile = async () => {
         try {
             //upload avatar
             if (avatar !== undefined)
                 if (!acceptedFileType.includes(avatar?.type)) {
-                    console.log(avatar);
                     setAlertMessage("file type not accept");
                     setAlertVisible(true);
                     setPopupAlertType("error");
@@ -43,7 +43,6 @@ function EditProfile({ stateChanger, state, user }) {
                 fullname: fullname,
                 phoneNumber: phoneNumber,
             };
-            console.log(param);
             const response = await userApi.updateInfo(param, user?.id);
             const getNewInfo = await userApi.getUserDetail();
             Cookies.set("user", JSON.stringify(getNewInfo));
@@ -62,9 +61,13 @@ function EditProfile({ stateChanger, state, user }) {
         }
     };
 
-    useEffect(() => {
-        console.log(editAvatar);
-    })
+    const handleAvatar = (e) => {
+        const fileDropped = e.target.files[0];
+        setAvatar(fileDropped)
+        const previewUrl = URL.createObjectURL(fileDropped);
+        setAvatarPreview(previewUrl);
+    }
+
 
     return (
         <>
@@ -142,12 +145,8 @@ function EditProfile({ stateChanger, state, user }) {
                         <div className="col-12 col-sm-8 col-md-8 col-lg-7">
                             <img
                                 style={{ width: "100px", height: "100px" }}
-                                src={
-                                    user?.avatar ?
-                                        user?.avatar.substr("http://localhost:8080/api/account/downloadFile/".length) !== "null"
-                                            ? user?.avatar
-                                            : avatarProfile : avatarProfile}
-                                alt=""
+                                src={ avatarPreview ? avatarPreview : (user?.avatar ? combieImg(user?.avatar):  avatarProfile)}
+                                alt="avatar user"
                             />
                         </div>
                     </div>
@@ -159,8 +158,8 @@ function EditProfile({ stateChanger, state, user }) {
                             <input
                                 className="form-control"
                                 type="file"
-                                accept=".jpg, .png"
-                                onChange={(e) => setAvatar(e.target.files[0])}
+                                accept=".jpg, .png, .jpeg"
+                                onChange={(e) => handleAvatar(e)}
                             />
                         </div>
                     </div>

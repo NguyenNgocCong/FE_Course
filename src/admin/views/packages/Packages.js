@@ -79,18 +79,6 @@ const Packages = () => {
             sortable: true,
         },
         {
-            name: "IsCombo",
-            minWidth: "100px",
-            width: "120px",
-            maxWidth: "140px",
-            selector: (row) => (
-                <div className={`${row?.combo ? Styles.active : Styles.inactive}`}>
-                    <strong>{row.combo ? "True" : "False"}</strong>
-                </div>
-            ),
-            sortable: true,
-        },
-        {
             name: "Status",
             minWidth: "100px",
             width: "120px",
@@ -139,7 +127,7 @@ const Packages = () => {
             const params = {
                 status: !row?.status,
             };
-            const response = await adminApi.updateProduct(row?.id, params);
+            const response = await adminApi.updatePackage(row?.id, params);
             setIsModify(!isModify);
             toast.success(response?.message, {
                 duration: 2000,
@@ -184,6 +172,7 @@ const Packages = () => {
         try {
             const response = await adminApi.getAllProduct(page, itemsPerPage, keywordSearch, category, status);
             setDataTable(response.data);
+            console.log(response.data)
             setTotalRows(response.totalItems);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
@@ -265,7 +254,7 @@ const Packages = () => {
                                     style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
                                     onClick={() =>
                                         history.push(
-                                            "/admin/products/create"
+                                            "/admin/packages/create"
                                         )
                                     }
                                 >

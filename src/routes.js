@@ -22,10 +22,10 @@ const routes = [
     { path: "/admin/class", name: "Class", element: Class },
     { path: "/admin/posts", name: "Posts", element: Posts },
     { path: "/admin/sliders", name: "Sliders", element: Sliders },
-    { path: "/admin/products", name: "Packages", element: Packages },
+    { path: "/admin/packages", name: "Packages", element: Packages },
     { path: "/admin/experts", name: "Experts", element: Experts },
     { path: "/admin/combos", name: "Combo", element: Combo },
-    { path: "/admin/settings", name: "Settings", element: Settings },
+    { path: "/admin/settings", name: "Settings", element: Settings }
 ];
 
 export default routes;

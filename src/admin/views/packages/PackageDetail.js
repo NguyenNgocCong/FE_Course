@@ -7,6 +7,7 @@ import {
     CFormInput,
     CFormLabel,
     CFormSelect,
+    CImage,
     CRow,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
@@ -18,6 +19,8 @@ import {
     AppHeader,
     AppSidebar,
 } from "../../components";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 function PackagesDetail(props) {
     const [packages, setPackage] = useState();
@@ -27,14 +30,15 @@ function PackagesDetail(props) {
     const [excerpt, setExcerpt] = useState();
     const [duration, setDuration] = useState();
     const [description, setDescription] = useState();
-    const [isCombo, setIsCombo] = useState(0);
     const [listPrice, setListPrice] = useState();
     const [salePrice, setSalePrice] = useState();
     const [subjectId, setSubjectId] = useState();
+    const [preview, setPreview] = useState();
+    const [image, setImage] = useState();
     const location = useLocation();
     const history = useHistory();
     const id = location.pathname.substring(
-        "/admin/packagess/".length,
+        "/admin/packages/".length,
         location.pathname.length
     );
     const type = id !== "create" ? 1 : 0;
@@ -42,9 +46,9 @@ function PackagesDetail(props) {
     const getPackageById = async () => {
         try {
             const response = await adminApi.getPackageById(id);
+            console.log(response)
             setPackage(response);
             setStatus(response.status);
-            setIsCombo(response.combo);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -63,6 +67,13 @@ function PackagesDetail(props) {
         }
     };
 
+    const handleThumbnail = (e) => {
+        const fileDropped = e.target.files[0];
+        setImage(fileDropped)
+        const previewUrl = URL.createObjectURL(fileDropped);
+        setPreview(previewUrl);
+    }
+    const img = "https://i.fbcd.co/products/resized/resized-750-500/563d0201e4359c2e890569e254ea14790eb370b71d08b6de5052511cc0352313.jpg";
     const handleUpdateSlider = async () => {
         try {
             const params = {
@@ -71,30 +82,24 @@ function PackagesDetail(props) {
                 excerpt: excerpt,
                 duration: duration,
                 description: description,
-                isCombo: isCombo,
                 listPrice: listPrice,
                 salePrice: salePrice,
                 subjectId: subjectId,
             };
             const response =
                 type === 1
-                    ? await adminApi.updatePackage(id, params)
-                    : await adminApi.createPackage(params);
+                    ? await adminApi.updatePackage(id, image, params)
+                    : await adminApi.createPackage(image, params);
             toast.success(response?.message, {
                 duration: 2000,
             });
-            history.push("/admin/packagess");
+            history.push("/admin/packages");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
             });
         }
     };
-
-    const optionIsCombo = [
-        { combo: false, label: "False" },
-        { combo: true, label: "True" },
-    ];
 
     const optionStatus = [
         { status: false, label: "Deactivate" },
@@ -160,13 +165,15 @@ function PackagesDetail(props) {
                                         </div>
                                     </CCol>
                                     <CCol sm={6}>
+                                        <CRow>
+                                        <CCol sm={12}>
                                         <div className="mb-3">
                                             <CFormLabel>
                                                 Duration (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
-                                                type="text"
+                                                type="number"
                                                 id="exampleFormControlInput1"
                                                 defaultValue={
                                                     type === 1 ? packages?.duration : ""
@@ -177,25 +184,7 @@ function PackagesDetail(props) {
                                             />
                                         </div>
                                     </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Description (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? packages?.description : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setDescription(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
+                                    <CCol sm={12}>
                                         <div className="mb-3">
                                             <CFormLabel>
                                                 List Price (
@@ -213,164 +202,159 @@ function PackagesDetail(props) {
                                             />
                                         </div>
                                     </CCol>
+                                            <CCol sm={12}>
+                                                <div className="mb-3">
+                                                    <CFormLabel>
+                                                        Sale Price (
+                                                        <span style={{ color: "red" }}>*</span>)
+                                                    </CFormLabel>
+                                                    <CFormInput
+                                                        type="text"
+                                                        id="exampleFormControlInput1"
+                                                        defaultValue={
+                                                            type === 1 ? packages?.salePrice : ""
+                                                        }
+                                                        onChange={(e) =>
+                                                            setSalePrice(e.target.value)
+                                                        }
+                                                    />
+                                                </div>
+                                            </CCol>
+                                            <CCol sm={12}>
+                                                <div className="mb-3">
+                                                    <CFormLabel htmlFor="exampleFormControlInput1">
+                                                        Status (
+                                                        <span style={{ color: "red" }}>*</span>)
+                                                    </CFormLabel>
+                                                    <CFormSelect
+                                                        aria-label="Default select example"
+                                                        onChange={(e) =>
+                                                            setStatus(e.target.value)
+                                                        }
+                                                    >
+                                                        {optionStatus?.map((item, index) => {
+                                                            if (type === 1) {
+                                                                return packages?.status ===
+                                                                    item?.status ? (
+                                                                    <option
+                                                                        key={index}
+                                                                        value={item?.status}
+                                                                        selected
+                                                                    >
+                                                                        {item?.label}
+                                                                    </option>
+                                                                ) : (
+                                                                    <option
+                                                                        key={index}
+                                                                        value={item?.status}
+                                                                    >
+                                                                        {item?.label}
+                                                                    </option>
+                                                                );
+                                                            } else {
+                                                                return (
+                                                                    <option
+                                                                        key={index}
+                                                                        value={item?.status}
+                                                                    >
+                                                                        {item?.label}
+                                                                    </option>
+                                                                );
+                                                            }
+                                                        })}
+                                                    </CFormSelect>
+                                                </div>
+                                            </CCol>
+                                            <CCol sm={12}>
+                                                <div className="mb-3">
+                                                    <CFormLabel htmlFor="formFile">
+                                                        Subject (
+                                                        <span style={{ color: "red" }}>*</span>)
+                                                    </CFormLabel>
+                                                    <CFormSelect
+                                                        aria-label="Default select example"
+                                                        onChange={(e) =>
+                                                            setSubjectId(e.target.value)
+                                                        }
+                                                    >
+                                                        <option>Select subject</option>
+                                                        {listSubject?.map((item, index) => {
+                                                            if (type === 1) {
+                                                                return packages?.sucjectCode.id === item?.id ? (
+                                                                    <option
+                                                                        key={index}
+                                                                        value={
+                                                                            item?.id
+                                                                        }
+                                                                        selected
+                                                                    >
+                                                                        {item?.name}
+                                                                    </option>
+                                                                ) : (
+                                                                    <option
+                                                                        key={index}
+                                                                        value={
+                                                                            item?.id
+                                                                        }
+                                                                    >
+                                                                        {item?.name}
+                                                                    </option>
+                                                                );
+                                                            } else {
+                                                                return (
+                                                                    <option
+                                                                        key={index}
+                                                                        value={
+                                                                            item?.id
+                                                                        }
+                                                                    >
+                                                                        {item?.name}
+                                                                    </option>
+                                                                );
+                                                            }
+                                                        })}
+                                                    </CFormSelect>
+                                                </div>
+                                            </CCol>
+                                        </CRow>
+                                    </CCol>
                                     <CCol sm={6}>
                                         <div className="mb-3">
-                                            <CFormLabel>
-                                                Sale Price (
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Image (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
+                                            <br />
+                                            <CImage
+                                                rounded
+                                                thumbnail
+                                                src={!preview ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + packages?.image ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + packages?.image : img : preview}
+                                                width={1200}
+                                                style={{ maxHeight: '450px', display: 'block', margin: 'auto' }}
+                                                onLoad={() => URL.revokeObjectURL(preview)}
+                                            />
                                             <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? packages?.sale_price : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setSalePrice(e.target.value)
-                                                }
+                                                className="form-control"
+                                                type="file"
+                                                accept=".jpg, .png, .jpeg"
+                                                onChange={(e) => handleThumbnail(e)}
                                             />
                                         </div>
                                     </CCol>
-                                    <CCol sm={6}>
+                                    <CCol sm={12}>
                                         <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Is Combo (
+                                            <CFormLabel>
+                                                Description (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
-                                            <CFormSelect
-                                                disabled={true}
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setIsCombo(e.target.value)
-                                                }
-                                            >
-                                                {optionIsCombo?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return packages?.combo ===
-                                                            item?.combo ? (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.combo}
-                                                                selected
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.combo}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.combo}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Status (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setStatus(e.target.value)
-                                                }
-                                            >
-                                                {optionStatus?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return packages?.status ===
-                                                            item?.status ? (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                                selected
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="formFile">
-                                                Subject (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setSubjectId(e.target.value)
-                                                }
-                                            >
-                                                <option>Select subject</option>
-                                                {listSubject?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return packages?.subjectId === item?.id ? (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                                selected
-                                                            >
-                                                                {item?.name}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                            >
-                                                                {item?.name}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                            >
-                                                                {item?.name}
-                                                            </option>
-                                                        );
-                                                    }
-                                                })}
-                                            </CFormSelect>
+                                            <CKEditor
+                                                editor={ClassicEditor}
+                                                data={packages?.description}
+                                                onChange={(event, editor) => {
+                                                    const data = editor.getData();
+                                                    setDescription(data);
+                                                }}
+                                            />
                                         </div>
                                     </CCol>
                                 </CRow>

@@ -38,6 +38,10 @@ export const adminApi = {
     const url = `/api/admin/users/trainer-list`;
     return axiosApi.get(url);
   },
+  getListSupporter: () => {
+    const url = `/api/admin/users/supporter-list`;
+    return axiosApi.get(url);
+  },
 
   // Web Contact
   getAllContact: (page, size, keyword, category, status) => {
@@ -58,7 +62,6 @@ export const adminApi = {
   },
   // expert
   getListExperts: (page, size, keyword) => {
-    console.log();
     const url = `/api/expert?page=${page}&size=${size}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
@@ -71,7 +74,6 @@ export const adminApi = {
     var formData = new FormData();
     formData.append("id", id);
     formData.append("data", JSON.stringify(params));
-    console.log(JSON.stringify(params));
     formData.append("image", image);
     return axiosApi.put(url, formData, {
       headers: {
@@ -191,6 +193,10 @@ export const adminApi = {
     const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
+   getListPackage: (page = 0, size = 50, keyword = "", category = 0, status = "") => {
+    const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    return axiosApi.get(url);
+  },
   getAllPackageView: (page, size) => {
     const url = `/api/package/views/?page=${page}&size=${size}`;
     return axiosApi.get(url);
@@ -199,13 +205,33 @@ export const adminApi = {
     const url = `/api/package/views/${id}`;
     return axiosApi.get(url);
   },
-  createProduct: (params) => {
-    const url = "/api/package/create";
-    return axiosApi.post(url, params);
+  getPackageById: (id) => {
+    const url = `/api/package/${id}`;
+    return axiosApi.get(url);
   },
-  updateProduct: (id, params) => {
-    const url = `/api/package/update?id=${id}`;
-    return axiosApi.put(url, params);
+  createPackage: (image, params) => {
+    const url = `/api/package/create`;
+    var formData = new FormData();
+    formData.append("image", image);
+    console.log(image, params);
+    formData.append("data", JSON.stringify(params));
+    return axiosApi.post(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+  updatePackage: (id, image, params) => {
+    const url = `/api/package/update`;
+    var formData = new FormData();
+    formData.append("id", id);
+    formData.append("image", image);
+    formData.append("data", JSON.stringify(params));
+    return axiosApi.put(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
 
   //combo
@@ -250,6 +276,10 @@ export const adminApi = {
   //List Category
   getListCategoryPost: () => {
     const url = `/api/admin/setting/list-category-post`;
+    return axiosApi.get(url);
+  },
+  getListCategoryBranch: () => {
+    const url = `/api/admin/setting/list-category-branch`;
     return axiosApi.get(url);
   },
   getListCategorySubject: () => {

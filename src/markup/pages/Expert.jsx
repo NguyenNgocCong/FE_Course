@@ -39,7 +39,7 @@ const Expert = () => {
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
         >
           <div className="container">
             <div className="page-banner-entry">
@@ -59,7 +59,7 @@ const Expert = () => {
         </div>
 
         <div className="content-block">
-          <div className="section-area section-sp1">
+          <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row">
                 <div className="col-lg-3 col-md-4 col-sm-12">
@@ -183,7 +183,7 @@ const Expert = () => {
                           currentPage={currentPage}
                           totalPage={totalPages}
                           totalItem={totalItems}
-                          onChange={() => {}}
+                          onChange={() => { }}
                         ></PagingQuestion>
                       </div>
                     </div>

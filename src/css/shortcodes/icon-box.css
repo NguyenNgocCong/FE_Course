@@ -325,8 +325,9 @@
 .action-box img,
 .ttr-post-media img {
     width: 100%;
-    height: auto;
+    height: 150px;
 }
+
 /* Box Background */
 .ttr-box-bg{
 	overflow:hidden;

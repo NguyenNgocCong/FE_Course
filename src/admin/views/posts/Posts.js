@@ -37,17 +37,19 @@ const Posts = () => {
         },
         {
             name: "Title",
+            maxWidth: '300px',
             selector: (row) => row.title,
             sortable: true,
         },
         {
             name: "Brief info",
+            maxWidth: '300px',
             selector: (row) => row.brefInfo,
             sortable: true,
         },
         {
             name: "Category",
-            maxWidth: '200px',
+            maxWidth: '150px',
             selector: (row) => (
                 <>
                     <div>
@@ -64,7 +66,7 @@ const Posts = () => {
         },
         {
             name: "Status",
-            maxWidth: '140px',
+            maxWidth: '100px',
             selector: (row) => (
                 <>
                     <div className={` ${row?.status !== 4 ? Styles.active : Styles.inactive}`} style={{ textAlign: 'center' }}>
@@ -91,6 +93,7 @@ const Posts = () => {
         {
             name: "Action",
             maxWidth: '180px',
+            center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     {(() => {
