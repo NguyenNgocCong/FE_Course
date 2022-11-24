@@ -18,6 +18,7 @@ import { AppFooter, AppHeader, AppSidebar } from "../../components";
 
 function ClassDetail(props) {
     const [listTrainer, setListTrainer] = useState();
+    const [listBranch, setListBranch] = useState();
     const [listSupporter, setListSupporter] = useState();
     const [detailClass, setDetailClass] = useState();
     const [packageId, setPackageId] = useState(0);
@@ -26,6 +27,7 @@ function ClassDetail(props) {
     const [dateTo, setDateTo] = useState();
     const [dateStart, setDateStart] = useState();
     const [trainer, setTrainer] = useState(0);
+    const [branch, setBranch] = useState(0);
     const [isOnline, setIsOnline] = useState(true);
     const [supporter, setSupporter] = useState();
     const [status, setStatus] = useState();
@@ -57,6 +59,17 @@ function ClassDetail(props) {
         try {
             const response = await adminApi.getListExperts(0, 50, "");
             setListTrainer(response.data);
+        } catch (responseError) {
+            toast.error(responseError?.data.message, {
+                duration: 2000,
+            });
+        }
+    };
+
+    const getListBranch = async () => {
+        try {
+            const response = await adminApi.getListCategoryBranch();
+            setListBranch(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -96,6 +109,7 @@ function ClassDetail(props) {
                 trainer: trainer,
                 online: isOnline,
                 supporterId: supporter,
+                branch: branch,
                 startDate: dateStart
             };
             console.log(params);
@@ -122,6 +136,7 @@ function ClassDetail(props) {
         if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER") getListTrainer();
         getListPackage();
         getListSupporter();
+        getListBranch();
     }, []);
 
     useEffect(() => { }, [dateFrom, dateTo]);
@@ -376,7 +391,7 @@ function ClassDetail(props) {
                                             </CFormSelect>
                                         </div>
                                     </CCol>
-                                    {isOnline === false ? <CCol sm={3}>
+                                    <CCol sm={3}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
                                                 Opening day(
@@ -403,8 +418,8 @@ function ClassDetail(props) {
                                                 }
                                             />
                                         </div>
-                                    </CCol> : <></>}
-                                    {isOnline === false ? <CCol sm={6}>
+                                    </CCol>
+                                    <CCol sm={6}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="formFile">
                                                 Supporter
@@ -449,6 +464,58 @@ function ClassDetail(props) {
                                                                     item?.id
                                                                 }>
                                                                 {item?.username}
+                                                            </option>
+                                                        );
+                                                    }
+                                                })}
+                                            </CFormSelect>
+                                        </div>
+                                    </CCol>
+                                    {isOnline === false ? <CCol sm={12}>
+                                    <div className="mb-3">
+                                            <CFormLabel htmlFor="formFile">
+                                                Branch
+                                            </CFormLabel>
+                                            <CFormSelect
+                                                aria-label="Default select example"
+                                                disabled={isNotAdmin}
+                                                onChange={(e) =>
+                                                    setBranch(e.target.value)
+                                                }
+                                            >
+                                                <option>Select Branch</option>
+                                                {listBranch?.map((item, index) => {
+                                                    if (type === 1) {
+                                                        return detailClass?.branch
+                                                            ?.id ===
+                                                            item?.id ? (
+                                                            <option
+                                                                key={index}
+                                                                value={
+                                                                    item?.setting_value
+                                                                }
+                                                                selected
+                                                            >
+                                                                {item?.setting_title}
+                                                            </option>
+                                                        ) : (
+                                                            <option
+                                                                key={index}
+                                                                value={
+                                                                    item?.setting_value
+                                                                }
+                                                            >
+                                                                {item?.setting_title}
+                                                            </option>
+                                                        );
+                                                    } else {
+                                                        return (
+                                                            <option
+                                                                key={index}
+                                                                value={
+                                                                    item?.setting_value
+                                                                }>
+                                                                {item?.setting_title}
                                                             </option>
                                                         );
                                                     }

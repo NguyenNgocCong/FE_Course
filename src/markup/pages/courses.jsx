@@ -13,6 +13,7 @@ import bannerImg from "../../images/banner/banner3.jpg";
 import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
 import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
+import { combieImg } from "../../utils";
 
 function Products() {
   const [pageIndex, setPageIndex] = useState(1);
@@ -165,10 +166,9 @@ function Products() {
                         <div className="cours-bx">
                           <div className="action-box">
                             <img
-                              src={
-                                item.sucjectCode.image ||
-                                "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
-                              }
+                              src={combieImg(
+                                item.image
+                              )}
                               alt=""
                               onError={({ currentTarget }) => {
                                 currentTarget.src =

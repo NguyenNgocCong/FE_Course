@@ -63,11 +63,11 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Mode learn",
+      name: "Branch",
       width: '120px',
       selector: (row) => (
-        <div className={`${row?.online ? Styles.active : Styles.inactive}`}>
-          {row.online ? "Online" : "Offline"}
+        <div className={`${row?.branch ? Styles.inactive : Styles.active}`}>
+          {row.branch ? row?.branch.setting_title : "Online"}
         </div>
       ),
       sortable: true,
