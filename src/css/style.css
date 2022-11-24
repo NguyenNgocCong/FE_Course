@@ -1631,6 +1631,7 @@
     width: 350px;
     border-radius: 4px;
 }
+
 .blog-md .ttr-post-info {
     border: none;
     padding-left: 30px;
@@ -2684,7 +2685,7 @@ footer .pt-social-link ul li {
 
 .cours-bx .info-bx h5 {
     margin-bottom: 5px;
-    min-height: 50px!important;
+    min-height: 50px !important;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     display: -webkit-box;
@@ -2751,9 +2752,10 @@ footer .pt-social-link ul li {
     padding: 5px 0px;
 }
 
-.cours-more-info .price{
+.cours-more-info .price {
     width: 40%;
 }
+
 .cours-more-info .review {
     width: 60%;
 }
@@ -3689,6 +3691,11 @@ footer .pt-social-link ul li {
 
 .course-detail-bx .cours-more-info .price h5 {
     font-size: 16px;
+}
+
+.course-detail-bx img {
+    margin: 5px auto;
+    width: 100%;
 }
 
 .course-detail-bx .cours-more-info {

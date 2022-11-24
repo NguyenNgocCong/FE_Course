@@ -32,7 +32,6 @@ function ClassUserDetails(props) {
   return (
     <>
       <Header />
-
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
@@ -61,25 +60,36 @@ function ClassUserDetails(props) {
               <div className="row d-flex flex-row-reverse">
                 <div className="col-xl-3 col-lg-4 col-md-12 col-sm-12 m-b30">
                   <div className="course-detail-bx">
+                    <img
+                      src={combieImg(
+                        res.packages?.image
+                      )}
+                      alt={res.packages?.title}
+                      onError={({ currentTarget }) => {
+                        currentTarget.src =
+                          "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                      }}
+                    />
                     <div className="course-price">
                       <del>${res.packages.listPrice}</del>
                       <h4 className="price">
                         ${res.packages.salePrice}
                       </h4>
                     </div>
+                    <div className="text-center"><i className="fa fa-calendar"></i> {new Date(res?.dateStart).toLocaleDateString()}</div>
+                    <div className="course-pricetext-center"><i className="fa fa-clock-o"></i> {new Date(res?.dateFrom).toLocaleDateString()} - {new Date(res?.dateTo).toLocaleDateString()}</div>
+                    <div className="course-price"><i className="fa fa-location-arrow"></i> {res?.branch?.setting_title ? res?.branch?.setting_title : "Online"}</div>
                     <div className="course-buy-now text-center">
-                      <Link to="#" className="btn radius-xl btn-primary">
-                        Buy Now
-                      </Link>
+                      <Link to="#" className="btn radius-xl btn-primary"> Advise </Link>
                     </div>
                     <div className="teacher-bx">
                       <div className="teacher-info">
                         <div className="teacher-thumb">
-                          <img src={combieImg(res.supporter.avatar)} alt="" />
+                          <img src={combieImg(res.trainer?.user?.avatar)} alt="" />
                         </div>
                         <div className="teacher-name">
-                          <h5>{res.supporter.fullname}</h5>
-                          <span>Supporter</span>
+                          <h5>{res.trainer?.user?.fullname}</h5>
+                          <span>{res.trainer?.company}</span>
                         </div>
                       </div>
                     </div>
@@ -104,35 +114,31 @@ function ClassUserDetails(props) {
                           </li>
                         </ul>
                       </div>
-                      <div className="price categories">
-                        <span>Categories</span>
-                        <h5 className="text-primary"></h5>
-                      </div>
                     </div>
                   </div>
                 </div>
-
                 <div className="col-xl-9 col-lg-8 col-md-12 col-sm-12">
                   <div className="courses-post">
-                    <div className="ttr-post-media media-effect">
-                      <Link to="#">
-                        <img src={blogDefaultThum1} alt="" />
-                      </Link>
-                    </div>
                     <div className="ttr-post-info m-b30">
                       <div className="ttr-post-title ">
-                        <h2 className="post-title">{res.supporter.fullname}</h2>
+                        <h2 className="post-title">{res.packages?.title}</h2>
                       </div>
                       <div className="ttr-post-text">
-                        <Markup content={res.packages.description} />
-                        <Markup content={res.trainer.description} />
+                        <Markup content={res.packages?.excerpt} />
+                      </div>
+                      <div className="ttr-post-text">
+                        <Markup content={res.packages?.description} />
+                      </div>
+                      <div className="review-bx">
+                        <div className="ttr-post-text">
+                          <h5>Trainer informaiton: {res.trainer?.user?.fullname}</h5>
+                          <Markup content={res.trainer?.description} />
+                        </div>
                       </div>
                     </div>
                   </div>
-
                   <div className="" id="reviews">
                     <h4>Reviews</h4>
-
                     <div className="review-bx">
                       <div className="all-review">
                         <h2 className="rating-type">3</h2>

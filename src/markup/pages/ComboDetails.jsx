@@ -29,9 +29,9 @@ function CoursesDetails(props) {
   const columns = [
     {
       name: "Title",
-      minWidth: "230px",
-      width: "260px",
-      maxWidth: "330px",
+      minWidth: "200px",
+      width: "225px",
+      maxWidth: "250",
       selector: (row) => row?._package.title,
       sortable: true,
     },

@@ -66,7 +66,7 @@ function LecturerDetails(prop) {
                   <div className="row">
                     <div className="col-lg-6 col-xl-6 col-md-6">
                       <div className="action-box blog-lg">
-                        <img src={combieImg(expert.user.avatar)} alt="" />
+                        <img  style={{height:"100%"}} src={combieImg(expert.user.avatar)} alt="" />
                       </div>
                     </div>
                     <div className="col-lg-6 col-xl-6 col-md-6">

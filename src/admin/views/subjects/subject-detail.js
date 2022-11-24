@@ -355,25 +355,25 @@ function SubjectDetail(props) {
                                                 {listExpert?.map((item, index) => {
                                                     if (type === 1) {
                                                         return subject?.expert
-                                                            ?.username ===
-                                                            item?.username ? (
+                                                            ?.id ===
+                                                            item?.id ? (
                                                             <option
                                                                 key={index}
                                                                 value={
-                                                                    item?.username
+                                                                    item?.id
                                                                 }
                                                                 selected
                                                             >
-                                                                {item?.username}
+                                                                {item?.user?.fullname}
                                                             </option>
                                                         ) : (
                                                             <option
                                                                 key={index}
                                                                 value={
-                                                                    item?.username
+                                                                    item?.id
                                                                 }
                                                             >
-                                                                {item?.username}
+                                                                {item?.user?.fullname}
                                                             </option>
                                                         );
                                                     } else {
@@ -381,10 +381,10 @@ function SubjectDetail(props) {
                                                             <option
                                                                 key={index}
                                                                 value={
-                                                                    item?.username
+                                                                    item?.id
                                                                 }
                                                             >
-                                                                {item?.username}
+                                                                {item?.user?.fullname}
                                                             </option>
                                                         );
                                                     }

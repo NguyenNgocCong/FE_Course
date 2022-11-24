@@ -106,7 +106,7 @@ function Products() {
                                 {item.title}
                               </Link>
                             </h5>
-                            <div><i className="fa fa-user"></i> {item?.sucjectCode?.expert?.fullname}</div>
+                            <div><i className="fa fa-user"></i> {item?.sucjectCode?.expert?.user?.fullname}</div>
                             <div><i className="fa fa-eye"></i> {item?.views}</div>
                           </div>
                           <div className="cours-more-info">
