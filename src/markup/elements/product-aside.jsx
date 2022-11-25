@@ -82,7 +82,12 @@ function ProductAside() {
           <h5 className="widget-title style-1">All Courses</h5>
           <ul>
             <li className="active">
-              <Link to="#">General</Link>
+              <h6 role={"button"}
+                onClick={(e) => {
+                  history.push("/products", {
+                    category: 0,
+                  });
+                }} >General</h6>
             </li>
             {listCategory.map((category) => {
               return (
@@ -111,7 +116,7 @@ function ProductAside() {
                   {" "}
                   <img
                     src={combieImg(x.image)}
-                    style={{ objectFit: "contain" }}
+                    style={{ height: "100%" }}
                     alt=""
                     onError={({ currentTarget }) => {
                       currentTarget.src =
@@ -138,11 +143,6 @@ function ProductAside() {
               </div>
             ))}
           </div>
-        </div>
-        <div className="widget">
-          <Link to="/membership">
-            <img src={adv} alt="" />
-          </Link>
         </div>
       </aside>
     </>

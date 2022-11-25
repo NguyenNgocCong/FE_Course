@@ -112,10 +112,12 @@ function BlogAside() {
                     {" "}
                     <img
                       src={
+                        
                         process.env.REACT_APP_BASE_URL +
                         "/api/account/downloadFile/" +
                         blog?.thumnailUrl
                       }
+                      style={{ height: "100%"}}
                       width="200"
                       alt=""
                     />{" "}
