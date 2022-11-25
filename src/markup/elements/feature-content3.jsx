@@ -35,7 +35,7 @@ function FeatureContent3(props) {
       <div className="section-area section-sp1">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-6 m-b50">
+            <div className="col-lg-4 m-b50">
               <div className="heading-bx left mb-3">
                 <h2 className="title-head m-b0">
                   Learn A New <span>Skill online</span>
@@ -58,7 +58,7 @@ function FeatureContent3(props) {
                 Join Now
               </Link>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-8">
               <div className="row">
                 {listPost.map((item, index) => (
                   <div key={index} className="col-lg-6 col-md-6 col-sm-6 m-b40">
