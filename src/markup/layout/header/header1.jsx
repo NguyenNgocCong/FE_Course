@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setEditAvatar } from "../../../redux/reducers/user";
 
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { combieImg } from "../../../utils";
 
 function Header() {
   const [id, setId] = useState(Cookies.get("id"));
@@ -129,16 +130,12 @@ function Header() {
                         className="mb-0"
                       >
                         <CAvatar
-                          src={
-                            user?.avatar
-                              ? user?.avatar.substr(
-                                  "http://localhost:8080/api/account/downloadFile/"
-                                    .length
-                                ) !== "null"
-                                ? user?.avatar
-                                : avatarProfile
-                              : avatarProfile
-                          }
+                        src={combieImg(user?.avatar)}
+                        alt=""
+                        width={100}
+                        onError={({ currentTarget }) => {
+                          currentTarget.src =avatarProfile;
+                        }}
                         />
                       </div>
                       <ul

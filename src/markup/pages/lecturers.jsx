@@ -25,7 +25,7 @@ import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 const Lecturers = () => {
   const [listPost, setListPost] = useState([]);
   const searchLecturers = useSelector((state) => state.blogReducers.search);
-  const [pageIndex, setPageIndex] = useState(1);
+  const [pageIndex, setPageIndex] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   const getListPost = async () => {
