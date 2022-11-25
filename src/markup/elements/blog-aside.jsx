@@ -106,7 +106,7 @@ function BlogAside() {
         <div className="widget">
           <h6 className="widget-title">Recent Posts</h6>
           <div className="widget-post-bx">
-            {recentBlog.map((blog) => {
+            {topviews.map((blog) => {
               return (
                 <div
                   className="p-1 d-flex gap-1 round-2 widget-post mb-2 shadow"
