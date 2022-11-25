@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { userApi } from "../../api/userApi";
 import useDebounce from "../../hooks/useDebounce";
+import { combieImg } from "../../utils";
 
 function BlogAside() {
   const history = useHistory();
@@ -102,24 +103,24 @@ function BlogAside() {
             })}
           </ul>
         </div>
-        <div className="widget recent-posts-entry">
+        <div className="widget">
           <h6 className="widget-title">Recent Posts</h6>
           <div className="widget-post-bx">
             {recentBlog.map((blog) => {
               return (
-                <div className="widget-post clearfix" key={blog?.id}>
-                  <div className="ttr-post-media">
-                    {" "}
-                    <img
-                      src={
-                        process.env.REACT_APP_BASE_URL +
-                        "/api/account/downloadFile/" +
-                        blog?.thumnailUrl
-                      }
-                      width="200"
-                      alt=""
-                    />{" "}
-                  </div>
+                <div
+                  className="p-1 d-flex gap-1 round-2 widget-post mb-2 shadow"
+                  key={blog?.id}
+                >
+                  <img
+                    src={combieImg(blog.thumnailUrl)}
+                    alt=""
+                    width={100}
+                    onError={({ currentTarget }) => {
+                      currentTarget.src =
+                        "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                    }}
+                  />{" "}
                   <div className="ttr-post-info">
                     <div className="ttr-post-header">
                       <h6 className="post-title">
@@ -143,11 +144,34 @@ function BlogAside() {
         <div className="widget widget_tag_cloud">
           <h6 className="widget-title">Tags</h6>
           <div className="tagcloud">
-            {topviews.map((x) => (
-              <Link to={"/blog/" + x.id} key={x.id}>
-                {x.title}
-              </Link>
-            ))}
+            <Link
+              to={"#"}
+              role="button"
+              onClick={() => setParams({ keyword: "net" })}
+            >
+              Asp.Net core
+            </Link>
+            <Link
+              to={"#"}
+              role="button"
+              onClick={() => setParams({ keyword: "python" })}
+            >
+              Python PIP
+            </Link>
+            <Link
+              to={"#"}
+              role="button"
+              onClick={() => setParams({ keyword: "nodejs" })}
+            >
+              NodeJs
+            </Link>
+            <Link
+              to={"#"}
+              role="button"
+              onClick={() => setParams({ keyword: "react" })}
+            >
+              ReactJs
+            </Link>
           </div>
         </div>
       </aside>
