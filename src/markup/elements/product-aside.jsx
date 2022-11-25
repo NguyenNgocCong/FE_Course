@@ -52,6 +52,9 @@ function ProductAside() {
   useEffect(() => {
     getListCategory();
     getListProduct();
+    userApi.getListTopViewPackage().then((res) => {
+      setListTopViews(res);
+    });
   }, []);
 
   return (
@@ -107,23 +110,24 @@ function ProductAside() {
             })}
           </ul>
         </div>
-        <div className="widget recent-posts-entry widget-courses">
-          <h5 className="widget-title style-1">Recent Courses</h5>
+        <div className="widget  widget-courses">
+          <h5 className="widget-title style-1">Top Courses</h5>
           <div className="widget-post-bx">
-            {data.slice(0, 4).map((x) => (
-              <div className="widget-post clearfix" key={x.id}>
-                <div className="ttr-post-media">
-                  {" "}
-                  <img
-                    src={combieImg(x.image)}
-                    style={{ height: "100%" }}
-                    alt=""
-                    onError={({ currentTarget }) => {
-                      currentTarget.src =
-                        "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
-                    }}
-                  />{" "}
-                </div>
+            {topviews.map((x) => (
+              <div
+                className="d-flex gap-1 round-2 widget-post mb-2 shadow"
+                key={x.id}
+              >
+                {" "}
+                <img
+                  src={combieImg(x.image)}
+                  alt=""
+                  width={100}
+                  onError={({ currentTarget }) => {
+                    currentTarget.src =
+                      "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                  }}
+                />{" "}
                 <div className="ttr-post-info">
                   <div className="ttr-post-header">
                     <h6 className="post-title">

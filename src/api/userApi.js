@@ -88,4 +88,8 @@ export const userApi = {
     const url = `/api/post/top-views`;
     return axiosApi.get(url);
   },
+  getListTopViewPackage: () => {
+    const url = `/api/package/top-views`;
+    return axiosApi.get(url);
+  },
 };
