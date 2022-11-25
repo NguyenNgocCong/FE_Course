@@ -46,9 +46,9 @@ export const userApi = {
   },
 
   //expert
-  getAllExpert: () => {
+  getAllExpert: (params) => {
     const url = `/api/expert/views`;
-    return axiosApi.get(url);
+    return axiosApi.get(url, { params });
   },
   getAllExpertId: (id) => {
     const url = `/api/expert/views/${id}`;

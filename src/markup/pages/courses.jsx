@@ -13,8 +13,8 @@ import ProductAside from "../elements/product-aside";
 
 function Products() {
   const loaction = useLocation();
-  const [pageIndex, setPageIndex] = useState(1);
   const [data, setDataTable] = useState([]);
+  const [pageIndex, setPageIndex] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
   const getListProduct = async () => {

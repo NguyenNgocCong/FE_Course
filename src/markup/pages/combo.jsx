@@ -87,7 +87,10 @@ function Combos() {
                           </div>
                           <div className="info-bx">
                             <h5>{item.title}</h5>
-                            <div ><i className="fa fa-dropbox"></i> {item?.comboPackages?.length}</div>
+                            <div>
+                              <i className="fa fa-dropbox"></i>{" "}
+                              {item?.comboPackages?.length}
+                            </div>
                           </div>
                           <div className="cours-more-info">
                             <div className="price">
@@ -116,7 +119,8 @@ function Combos() {
 															</ul> */}
                               <div className="btn btn-warning">
                                 <i className="fa fa-cart-plus"></i> Add to cart
-                              </div></div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -134,7 +138,9 @@ function Combos() {
                           currentPage={currentPage}
                           totalPage={totalPages}
                           totalItem={totalItems}
-                          onChange={() => { }}
+                          onChange={(e) => {
+                            setPage(e);
+                          }}
                         ></PagingQuestion>
                       </div>
                     </div>
