@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 // Elements
@@ -70,180 +70,181 @@ import ExpertsUser from "./pages/Expert";
 import Error401 from "./pages/error-401";
 import ClassUserDetails from "./pages/ClassUserDetails";
 import LecturerDetails from "./pages/LecturerDetails";
+import { useDispatch } from "react-redux";
+import { getUserInfoReduce } from "../redux/reducers/auth";
 
-class Markup extends Component {
-  render() {
-    return (
-      <>
-        <BrowserRouter basename={"/react/"}>
-          <Switch>
-            {/* Home Pages */}
-            <Route path="/" exact component={Index2} />
+function Markup(props) {
+  const dispatch = useDispatch();
 
-            {/* About Us */}
-            <Route path="/about" exact component={About2} />
+  useEffect(() => {
+    dispatch(getUserInfoReduce());
+  }, []);
+  return (
+    <>
+      <BrowserRouter basename={"/react/"}>
+        <Switch>
+          {/* Home Pages */}
+          <Route path="/" exact component={Index2} />
 
-            {/* Events */}
-            {/* <Route path="/events" exact component={Events} />
+          {/* About Us */}
+          <Route path="/about" exact component={About2} />
+
+          {/* Events */}
+          {/* <Route path="/events" exact component={Events} />
                         <Route
                             path="/events-details"
                             exact
                             component={EventsDetails}
                         /> */}
 
-            {/* Faq */}
-            <Route path="/faq" exact component={Faq2} />
+          {/* Faq */}
+          <Route path="/faq" exact component={Faq2} />
 
-            {/* Other Pages */}
-            <Route path="/portfolio" exact component={Portfolio} />
-            <Route path="/profile" exact component={Profile} />
-            <Route path="/membership" exact component={Membership} />
-            <Route path="/error-404" exact component={Error404} />
-            <Route path="/register" exact component={Register} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/forget-password" exact component={ForgetPassword} />
-            <Route
-              path="/reset-password/:token"
-              exact
-              component={ForgetPasswordInput}
-            />
-            <Route path="/profile" exact component={Profile} />
+          {/* Other Pages */}
+          <Route path="/portfolio" exact component={Portfolio} />
+          <Route path="/profile" exact component={Profile} />
+          <Route path="/membership" exact component={Membership} />
+          <Route path="/error-404" exact component={Error404} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/forget-password" exact component={ForgetPassword} />
+          <Route
+            path="/reset-password/:token"
+            exact
+            component={ForgetPasswordInput}
+          />
+          <Route path="/profile" exact component={Profile} />
 
-            {/* Courses */}
-            <Route path="/products" exact component={ProductsUser} />
-            <Route path="/lecturers" exact component={LecturersUser} />
-            <Route
-              path="/courses-details/:id"
-              exact
-              component={CoursesDetails}
-            />
+          {/* Courses */}
+          <Route path="/products" exact component={ProductsUser} />
+          <Route path="/lecturers" exact component={LecturersUser} />
+          <Route path="/courses-details/:id" exact component={CoursesDetails} />
 
-            {/* expert */}
-            <Route path="/expert" exact component={ExpertsUser} />
-            <Route path="/lecturers" exact component={LecturersUser} />
-            <Route path="/lecturers/:id" exact component={LecturerDetails} />
+          {/* expert */}
+          <Route path="/expert" exact component={ExpertsUser} />
+          <Route path="/lecturers" exact component={LecturersUser} />
+          <Route path="/lecturers/:id" exact component={LecturerDetails} />
 
-            {/* Combos */}
-            <Route path="/combo" exact component={ComboHome} />
-            <Route path="/combo/:id" exact component={ComboDetailHome} />
+          {/* Combos */}
+          <Route path="/combo" exact component={ComboHome} />
+          <Route path="/combo/:id" exact component={ComboDetailHome} />
 
-            {/* class */}
-            <Route path="/class" exact component={ClassUser} />
-            <Route path="/class/:id" exact component={ClassUserDetails} />
+          {/* class */}
+          <Route path="/class" exact component={ClassUser} />
+          <Route path="/class/:id" exact component={ClassUserDetails} />
 
-            {/* Blog Pages */}
-            <Route path="/blog" exact component={BlogClassicSidebar} />
-            <Route path="/blog/:id" exact component={BlogDetails} />
+          {/* Blog Pages */}
+          <Route path="/blog" exact component={BlogClassicSidebar} />
+          <Route path="/blog/:id" exact component={BlogDetails} />
 
-            {/* Contact Us */}
-            <Route path="/contact-us" exact component={Contact1} />
+          {/* Contact Us */}
+          <Route path="/contact-us" exact component={Contact1} />
 
-            {/* admin  */}
-            <PrivateRoute path="/admin/dashboard" exact>
-              <Dashboard />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/users" exact>
-              <Users />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/users/:username" exact>
-              <UserDetail />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/contacts" exact>
-              <Contact />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/contacts/:username" exact>
-              <ContactDetail />
-            </PrivateRoute>
+          {/* admin  */}
+          <PrivateRoute path="/admin/dashboard" exact>
+            <Dashboard />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/users" exact>
+            <Users />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/users/:username" exact>
+            <UserDetail />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/contacts" exact>
+            <Contact />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/contacts/:username" exact>
+            <ContactDetail />
+          </PrivateRoute>
 
-            {/* Subject */}
-            <PrivateRoute path="/admin/subjects" exact>
-              <Subjects />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/subjects/:id" exact>
-              <SubjectDetail />
-            </PrivateRoute>
+          {/* Subject */}
+          <PrivateRoute path="/admin/subjects" exact>
+            <Subjects />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/subjects/:id" exact>
+            <SubjectDetail />
+          </PrivateRoute>
 
-            {/* Class */}
-            <PrivateRoute path="/admin/class" exact>
-              <Class />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/class/:id" exact>
-              <ClassDetail />
-            </PrivateRoute>
+          {/* Class */}
+          <PrivateRoute path="/admin/class" exact>
+            <Class />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/class/:id" exact>
+            <ClassDetail />
+          </PrivateRoute>
 
-            {/* Expert */}
-            <PrivateRoute path="/admin/experts" exact>
-              <Experts />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/experts/:id" exact>
-              <ExpertDetail />
-            </PrivateRoute>
+          {/* Expert */}
+          <PrivateRoute path="/admin/experts" exact>
+            <Experts />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/experts/:id" exact>
+            <ExpertDetail />
+          </PrivateRoute>
 
-            {/* Post */}
-            <PrivateRoute path="/admin/posts" exact>
-              <Posts />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/posts/create" exact>
-              <PostDetail />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/posts/:id" exact>
-              <PostDetail />
-            </PrivateRoute>
+          {/* Post */}
+          <PrivateRoute path="/admin/posts" exact>
+            <Posts />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/posts/create" exact>
+            <PostDetail />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/posts/:id" exact>
+            <PostDetail />
+          </PrivateRoute>
 
-            {/* Slider */}
-            <PrivateRoute path="/admin/sliders" exact>
-              <Sliders />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/sliders/create" exact>
-              <SliderDetail />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/sliders/:id" exact>
-              <SliderDetail />
-            </PrivateRoute>
+          {/* Slider */}
+          <PrivateRoute path="/admin/sliders" exact>
+            <Sliders />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/sliders/create" exact>
+            <SliderDetail />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/sliders/:id" exact>
+            <SliderDetail />
+          </PrivateRoute>
 
-            {/* Product */}
-            <PrivateRoute path="/admin/packages" exact>
-              <Packages />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/packages/create" exact>
-              <PackageDetail />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/packages/:id" exact>
-              <PackageDetail />
-            </PrivateRoute>
+          {/* Product */}
+          <PrivateRoute path="/admin/packages" exact>
+            <Packages />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/packages/create" exact>
+            <PackageDetail />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/packages/:id" exact>
+            <PackageDetail />
+          </PrivateRoute>
 
-            {/* Combo */}
-            <PrivateRoute path="/admin/combos" exact>
-              <Combo />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/combos/create" exact>
-              <ComboDetail />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/combos/:id" exact>
-              <ComboDetail />
-            </PrivateRoute>
+          {/* Combo */}
+          <PrivateRoute path="/admin/combos" exact>
+            <Combo />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/combos/create" exact>
+            <ComboDetail />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/combos/:id" exact>
+            <ComboDetail />
+          </PrivateRoute>
 
-            {/* Settings */}
-            <PrivateRoute path="/admin/settings" exact>
-              <Settings />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/settings/create" exact>
-              <SettingDetail />
-            </PrivateRoute>
-            <PrivateRoute path="/admin/settings/:id" exact>
-              <SettingDetail />
-            </PrivateRoute>
+          {/* Settings */}
+          <PrivateRoute path="/admin/settings" exact>
+            <Settings />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/settings/create" exact>
+            <SettingDetail />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/settings/:id" exact>
+            <SettingDetail />
+          </PrivateRoute>
 
-            <Route path="/error-401" exact component={Error401} />
-          </Switch>
+          <Route path="/error-401" exact component={Error401} />
+        </Switch>
 
-          <PageScrollTop />
-        </BrowserRouter>
+        <PageScrollTop />
+      </BrowserRouter>
 
-        <BackToTop />
-      </>
-    );
-  }
+      <BackToTop />
+    </>
+  );
 }
 
 function PrivateRoute({ children, ...rest }) {

@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { setEditAvatar } from "../../../redux/reducers/user";
 
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { combieImg } from "../../../utils";
 
 function Header() {
   const [id, setId] = useState(Cookies.get("id"));
@@ -94,6 +93,11 @@ function Header() {
     setId(undefined);
   };
 
+  const auth = useSelector((state) => state.auth);
+  const { data } = auth;
+
+  console.log(data);
+
   return (
     <>
       <header className="header1 rs-nav header-transp arent">
@@ -126,7 +130,14 @@ function Header() {
                       >
                         <CAvatar
                           src={
-                            user?.avatar ? combieImg(user?.avatar) : avatarProfile
+                            user?.avatar
+                              ? user?.avatar.substr(
+                                  "http://localhost:8080/api/account/downloadFile/"
+                                    .length
+                                ) !== "null"
+                                ? user?.avatar
+                                : avatarProfile
+                              : avatarProfile
                           }
                         />
                       </div>
@@ -147,42 +158,34 @@ function Header() {
                       >
                         {role === "ROLE_ADMIN" ? (
                           <Link to="/admin/dashboard">
-                            <li className="text-left">
-                              Dashboard
-                            </li>
+                            <li className="text-left">Dashboard</li>
                           </Link>
                         ) : role === "ROLE_SUPPORTER" ? (
                           <Link to="/admin/contacts">
-                            <li className="text-left">
-                              Admin
-                            </li>
+                            <li className="text-left">Admin</li>
                           </Link>
                         ) : role === "ROLE_MANAGER" ? (
                           <Link to="/admin/subjects">
-                            <li className="text-left">
-                              Admin
-                            </li>
-                         </Link>
+                            <li className="text-left">Admin</li>
+                          </Link>
                         ) : (
                           ""
                         )}
                         <Link to="/profile">
- <li className="text-left">
-                            User Profile
-                          </li>
+                          <li className="text-left">User Profile</li>
                         </Link>
-                        <Link to="/profile" >
-                          <li className="text-left">
-                            Change Password
-                          </li>
+                        <Link to="/profile">
+                          <li className="text-left">Change Password</li>
                         </Link>
-                        <li className="text-left" onClick={handleLogout}>Logout</li>
+                        <li className="text-left" onClick={handleLogout}>
+                          Logout
+                        </li>
                       </ul>
                     </li>
                   ) : (
                     <div>
                       <li className="text-left">
-                        <Link to="/login" >Login</Link>
+                        <Link to="/login">Login</Link>
                       </li>
                       <li className="text-left">
                         <Link to="/register">Register</Link>
@@ -195,7 +198,7 @@ function Header() {
           </div>
         </div>
         <Sticky enabled={true} className="sticky-header navbar-expand-lg">
-          <div className="menu-bar clearfix" style={{background:'#fff'}}>
+          <div className="menu-bar clearfix" style={{ background: "#fff" }}>
             <div className="container clearfix">
               {/* <!-- Header Logo ==== --> */}
               <div className="menu-logo">
