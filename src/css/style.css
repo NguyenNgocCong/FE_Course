@@ -2664,6 +2664,13 @@ footer .pt-social-link ul li {
 }
 
 .post-title a {
+    margin-bottom: 5px;
+    min-height: 45px !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: #061538;
 }
 

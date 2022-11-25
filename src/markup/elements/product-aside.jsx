@@ -115,7 +115,8 @@ function ProductAside() {
           <div className="widget-post-bx">
             {topviews.map((x) => (
               <div
-                className="d-flex gap-1 round-2 widget-post mb-2 shadow"
+                style={{ margin: "15px 0px", boxShadow: "0px 5px 20px rgb(0 0 0 / 5%)" }}
+                className="d-flex gap-1 round-2 widget-post "
                 key={x.id}
               >
                 {" "}
