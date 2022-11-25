@@ -193,13 +193,19 @@ export const adminApi = {
     const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
-   getListPackage: (page = 0, size = 50, keyword = "", category = 0, status = "") => {
+  getListPackage: (
+    page = 0,
+    size = 50,
+    keyword = "",
+    category = 0,
+    status = ""
+  ) => {
     const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
-  getAllPackageView: (page, size) => {
-    const url = `/api/package/views/?page=${page}&size=${size}`;
-    return axiosApi.get(url);
+  getAllPackageView: (params) => {
+    const url = `/api/package/views`;
+    return axiosApi.get(url, { params: params || {} });
   },
   getProductById: (id) => {
     const url = `/api/package/views/${id}`;

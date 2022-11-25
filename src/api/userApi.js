@@ -56,9 +56,9 @@ export const userApi = {
   },
 
   //Blog
-  getAllPost: () => {
+  getAllPost: (params) => {
     const url = `/api/post/views`;
-    return axiosApi.get(url);
+    return axiosApi.get(url, { params: params });
   },
 
   getPostById: (id) => {
@@ -77,6 +77,15 @@ export const userApi = {
   },
   getListCategoryPost: () => {
     const url = `/api/admin/setting/list-category-post`;
+    return axiosApi.get(url);
+  },
+  getListCategorySubject: () => {
+    const url = `/api/subjects/viewsActive`;
+    return axiosApi.get(url);
+  },
+
+  getListTopViewPost: () => {
+    const url = `/api/post/top-views`;
     return axiosApi.get(url);
   },
 };

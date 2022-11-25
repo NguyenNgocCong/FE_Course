@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setSearch } from "../../redux/reducers/blog";
-import { useEffect } from "react";
 import { userApi } from "../../api/userApi";
+import useDebounce from "../../hooks/useDebounce";
 
 function BlogAside() {
-  const dispatch = useDispatch();
   const history = useHistory();
   const [listCategory, setListCategory] = useState([]);
   const [recentBlog, setRecentBlog] = useState([]);
-  const [searchBlog, setSearchBlog] = useState("");
+  const [topviews, setListTopViews] = useState([]);
+  const [params, setParams] = useState({ keyword: "", category: "" });
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    dispatch(setSearch(searchBlog));
-    history.push("/blog");
-  };
+  const debouncedSearchTerm = useDebounce(params.keyword, 500);
 
   const getListCategory = async () => {
     try {
@@ -44,8 +38,21 @@ function BlogAside() {
   useEffect(() => {
     getListCategory();
     getListPost();
+    userApi.getListTopViewPost().then((res) => {
+      setListTopViews(res);
+    });
   }, []);
 
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      history.push("/blog", { keyword: debouncedSearchTerm });
+    }
+  }, [debouncedSearchTerm, history]);
+
+  const handleSearch = (e) => {
+    setParams({ ...params, keyword: e.target.value });
+    if (!e.target.value) history.push("/blog");
+  };
   return (
     <>
       <aside className="side-bar sticky-top">
@@ -59,14 +66,13 @@ function BlogAside() {
                   className="form-control"
                   placeholder="Enter your keywords..."
                   type="text"
-                  onChange={(e) => setSearchBlog(e.target.value)}
+                  value={params.keyword}
+                  onChange={(e) => {
+                    handleSearch(e);
+                  }}
                 />
                 <span className="input-group-btn">
-                  <button
-                    type="submit"
-                    className="btn"
-                    onClick={(e) => handleSearch(e)}
-                  >
+                  <button type="submit" className="btn">
                     <i className="fa fa-search"></i>
                   </button>
                 </span>
@@ -83,7 +89,14 @@ function BlogAside() {
             {listCategory.map((category) => {
               return (
                 <li key={category?.setting_id}>
-                  <Link to="/courses-details">{category.setting_title}</Link>
+                  <h6
+                    role={"button"}
+                    onClick={(e) => {
+                      history.push("/blog", { category: category.setting_id });
+                    }}
+                  >
+                    {category.setting_title}
+                  </h6>
                 </li>
               );
             })}
@@ -104,7 +117,6 @@ function BlogAside() {
                         blog?.thumnailUrl
                       }
                       width="200"
-                      height="143"
                       alt=""
                     />{" "}
                   </div>
@@ -131,24 +143,11 @@ function BlogAside() {
         <div className="widget widget_tag_cloud">
           <h6 className="widget-title">Tags</h6>
           <div className="tagcloud">
-            <Link to="#">Design</Link>
-            <Link to="#">User interface</Link>
-            <Link to="#">SEO</Link>
-            <Link to="#">WordPress</Link>
-            <Link to="#">Development</Link>
-            <Link to="#">Joomla</Link>
-            <Link to="#">Design</Link>
-            <Link to="#">User interface</Link>
-            <Link to="#">SEO</Link>
-            <Link to="#">WordPress</Link>
-            <Link to="#">Development</Link>
-            <Link to="#">Joomla</Link>
-            <Link to="#">Design</Link>
-            <Link to="#">User interface</Link>
-            <Link to="#">SEO</Link>
-            <Link to="#">WordPress</Link>
-            <Link to="#">Development</Link>
-            <Link to="#">Joomla</Link>
+            {topviews.map((x) => (
+              <Link to={"/blog/" + x.id} key={x.id}>
+                {x.title}
+              </Link>
+            ))}
           </div>
         </div>
       </aside>
