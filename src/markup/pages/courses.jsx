@@ -10,8 +10,12 @@ import bannerImg from "../../images/banner/banner3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 import { combieImg } from "../../utils";
 import ProductAside from "../elements/product-aside";
+import { useDispatch, useSelector } from "react-redux";
+import { addPackageLocal } from "../../redux/reducers/order";
 
 function Products() {
+  const { isLogin } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const loaction = useLocation();
   const [data, setDataTable] = useState([]);
   const [pageIndex, setPageIndex] = useState(1);
@@ -30,6 +34,12 @@ function Products() {
       toast.error(responseError?.data.message, {
         duration: 2000,
       });
+    }
+  };
+
+  const handleAddToCart = (data) => {
+    if (!isLogin) {
+      dispatch(addPackageLocal(data));
     }
   };
 
@@ -131,7 +141,10 @@ function Products() {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 															</ul> */}
-                              <div className="btn btn-warning">
+                              <div
+                                className="btn btn-warning"
+                                onClick={() => handleAddToCart(item)}
+                              >
                                 <i className="fa fa-cart-plus"></i> Add to cart
                               </div>
                             </div>

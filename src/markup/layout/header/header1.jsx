@@ -14,6 +14,8 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { combieImg } from "../../../utils";
 
 function Header() {
+  const { packages, combos } = useSelector((state) => state.order.data);
+  const totalCart = packages.length + combos.length;
   const [id, setId] = useState(Cookies.get("id"));
   const [user, setUser] = useState(
     Cookies.get("user") === undefined
@@ -140,14 +142,14 @@ function Header() {
                         style={
                           isExpand
                             ? {
-                              visibility: "visible",
-                              opacity: "1",
-                              width: "200px",
-                            }
+                                visibility: "visible",
+                                opacity: "1",
+                                width: "200px",
+                              }
                             : {
-                              visibility: "hidden",
-                              opacity: "0",
-                            }
+                                visibility: "hidden",
+                                opacity: "0",
+                              }
                         }
                       >
                         {role === "ROLE_ADMIN" ? (
@@ -235,13 +237,14 @@ function Header() {
                     </li>
                     {/* <!-- Search Button ==== --> */}
                     <li className="search-btn">
-                      <button
+                      <Link
+                        to={"/cart"}
                         id="quik-search-btn"
                         type="button"
-                        className="btn-link"
+                        className="btn-link fs-3 link__card"
                       >
-                        <i className="fa fa-search"></i>
-                      </button>
+                        <i class="bi bi-bag-check"></i> <span>{totalCart}</span>
+                      </Link>
                     </li>
                   </ul>
                 </div>
