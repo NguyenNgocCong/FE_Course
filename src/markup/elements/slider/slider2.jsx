@@ -5,6 +5,7 @@ import Slider from "react-slick";
 // Images
 import Image1 from "../../../images/slider/slide3.jpg"
 import pic1 from "../../../images/slider/pic1.png"
+import { combieImg } from '../../../utils';
 
 class Slider2 extends Component {
 
@@ -23,7 +24,7 @@ class Slider2 extends Component {
 				<Slider {...settings} className="tt-slider slider-two slider-sp0 owl-none">
 					<div className="slider-item">
 						<div className="slider-thumb">
-							<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + Image1} alt="" />
+							<img src={combieImg(Image1)} alt="" />
 						</div>
 						<div className="slider-content">
 							<div className="container">
@@ -48,7 +49,7 @@ class Slider2 extends Component {
 					</div>
 					<div className="slider-item">
 						<div className="slider-thumb">
-							<img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + Image1} alt="" />
+							<img src={combieImg(Image1)} alt="" />
 						</div>
 						<div className="slider-content">
 							<div className="container">

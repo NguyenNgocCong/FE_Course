@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 import { userApi } from '../../api/userApi';
 import { combieImg } from '../../utils';
@@ -74,7 +73,7 @@ const RecentNewsSlider = () => {
 					</div>
 					<Slider {...settings} className="recent-news-carousel slick-slider owl-btn-1">
 						{listPost.map((item) => (
-							<div className="slider-item">
+							<div className="slider-item" key={item?.id}>
 								<div className="recent-news">
 									<div className="action-box">
 										<img
@@ -88,7 +87,7 @@ const RecentNewsSlider = () => {
 										/>
 									</div>
 									<div className="info-bx">
-										<h5 className="post-title"><Link to={`/blog/${item?.id}`}>{item.title}</Link></h5>
+										<h5 className="post-title"><div to={`/blog/${item?.id}`}>{item.title}</div></h5>
 										<ul className="media-post">
 											<li>
 												<i className="fa fa-calendar"></i>
@@ -106,7 +105,7 @@ const RecentNewsSlider = () => {
 											</li>
 										</ul>
 										<p>{item.brefInfo}</p>
-										<Link
+										<div
 											onClick={() => {
 												window.location.href =
 													"/react/blog/" + item?.id;
@@ -114,7 +113,7 @@ const RecentNewsSlider = () => {
 											className="btn btn-warning m-2"
 										>
 											Read More
-										</Link>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -127,7 +126,7 @@ const RecentNewsSlider = () => {
 					</div>
 					<Slider {...settings} className="recent-news-carousel slick-slider owl-btn-1">
 						{recentBlog.map((item) => (
-							<div className="slider-item">
+							<div className="slider-item" key={item?.id}>
 								<div className="recent-news">
 									<div className="action-box">
 										<img
@@ -141,7 +140,7 @@ const RecentNewsSlider = () => {
 										/>
 									</div>
 									<div className="info-bx">
-										<h5 className="post-title"><Link to={`/blog/${item?.id}`}>{item.title}</Link></h5>
+										<h5 className="post-title"><div to={`/blog/${item?.id}`}>{item.title}</div></h5>
 										<ul className="media-post">
 											<li>
 												<i className="fa fa-calendar"></i>
@@ -159,7 +158,7 @@ const RecentNewsSlider = () => {
 											</li>
 										</ul>
 										<p>{item.brefInfo}</p>
-										<Link
+										<div
 											onClick={() => {
 												window.location.href =
 													"/react/blog/" + item?.id;
@@ -167,7 +166,7 @@ const RecentNewsSlider = () => {
 											className="btn btn-warning m-2"
 										>
 											Read More
-										</Link>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -1,6 +1,6 @@
 import { CCol, CListGroup, CListGroupItem, CRow } from "@coreui/react";
 import { React, useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Slider1 from "./slider/slider1";
 import { userApi } from "../../api/userApi";

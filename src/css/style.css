@@ -2696,7 +2696,7 @@ footer .pt-social-link ul li {
     display: block;
 }
 
-.cours-bx .info-bx h5{
+.info-bx h5 {
     margin-bottom: 5px;
     min-height: 50px !important;
     -webkit-line-clamp: 2;
@@ -2706,9 +2706,9 @@ footer .pt-social-link ul li {
     text-overflow: ellipsis;
 }
 
-
-.cours-bx .info-bx div {
+.info-bx div {
     margin-top: 7px;
+    height: 45px !important;
 }
 
 .cours-bx .action-box .btn {

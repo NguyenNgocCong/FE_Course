@@ -9,7 +9,6 @@ import Header from "../layout/header/header1";
 import { comboApi } from "../../api/comboApi";
 import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
-import testiPic1 from "../../images/testimonials/pic1.jpg";
 import DataTable from "react-data-table-component";
 import { Markup } from "interweave";
 

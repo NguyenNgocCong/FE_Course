@@ -9,7 +9,6 @@ import Header from "../layout/header/header1";
 import { Markup } from "interweave";
 import { classApi } from "../../api/classApi";
 import bannerImg from "../../images/banner/banner2.jpg";
-import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import { combieImg } from "../../utils/index";
 
 function ClassUserDetails(props) {

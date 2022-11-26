@@ -13,6 +13,7 @@ import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Col, Row } from "react-bootstrap";
+import { combieImg } from "../../../utils";
 
 const Sliders = () => {
     const [data, setDataTable] = useState([]);
@@ -33,7 +34,7 @@ const Sliders = () => {
             name: "ImageUrl",
             selector: (row) => (
                 <img
-                    src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + row?.imageUrl}
+                    src={(row?.imageUrl != null && row?.imageUrl) ? combieImg(row?.imageUrl) : ""}
                     width={120}
                     alt='thumbnail'
                 />

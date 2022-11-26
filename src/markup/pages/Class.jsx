@@ -55,7 +55,7 @@ function Class() {
             <div className="container">
               <div className="row">
                 <div className="col-lg-3 col-md-4 col-sm-12">
-                 <ProductAside></ProductAside>
+                  <ProductAside></ProductAside>
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
                   <div className="row">
@@ -67,9 +67,7 @@ function Class() {
                         <div className="cours-bx">
                           <div className="action-box">
                             <img
-                              src={combieImg(
-                                item.packages.image
-                              )}
+                              src={(item?.packages?.image != null && item?.packages?.image) ? combieImg(item?.packages?.image) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
                               alt=""
                               onError={({ currentTarget }) => {
                                 currentTarget.src =
@@ -125,7 +123,7 @@ function Class() {
                           currentPage={currentPage}
                           totalPage={totalPages}
                           totalItem={totalItems}
-                          onChange={() => { }}
+                          onChange={(e) => { setPage(e) }}
                         ></PagingQuestion>
                       </div>
                     </div>

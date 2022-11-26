@@ -43,7 +43,7 @@ function BlogDetails(prop) {
         >
           <div className="container">
             <div className="page-banner-entry">
-              <h1 className="text-white">{blogDetailsEx.title}</h1>
+              <h1 className="text-white">{post?.title}</h1>
             </div>
           </div>
         </div>

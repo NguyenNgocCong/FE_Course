@@ -21,7 +21,7 @@ function Products() {
     try {
       const response = await adminApi.getAllPackageView({
         page: pageIndex - 1,
-        size: 8,
+        size: 9,
         ...loaction.state,
       });
       setDataTable(response.data);
@@ -81,14 +81,14 @@ function Products() {
                         <div className="cours-bx">
                           <div className="action-box">
                             <img
-                              src={combieImg(item.image)}
+                              src={(item?.image != null && item?.image) ? combieImg(item.image) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
                               alt=""
                               onError={({ currentTarget }) => {
                                 currentTarget.src =
                                   "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
                               }}
                             />
-                            <Link
+                            <div
                               onClick={() => {
                                 window.location.href =
                                   "/react/courses-details/" + item.id;
@@ -96,18 +96,18 @@ function Products() {
                               className="btn btn-warning m-2"
                             >
                               Read More
-                            </Link>
+                            </div>
                           </div>
                           <div className="info-bx">
                             <h5>
-                              <Link
+                              <div
                                 onClick={() => {
                                   window.location.href =
                                     "/react/courses-details/" + item.id;
                                 }}
                               >
                                 {item.title}
-                              </Link>
+                              </div>
                             </h5>
                             <div>
                               <i className="fa fa-user"></i>{" "}

@@ -125,7 +125,7 @@ function ComboDetail(props) {
             const response = await adminApi.getAllProduct(0, 50, "", 0, "");
             let listpackage = response.data.filter(item => item)
             listPackagesSale.map((element) => {
-                listpackage = listpackage.filter(item => item.id !== element._package?.id)
+                return listpackage = listpackage.filter(item => item.id !== element._package?.id)
             })
             setListPackages(listpackage);
         } catch (responseError) {
@@ -146,7 +146,7 @@ function ComboDetail(props) {
                 };
                 listPackagesSale.map((element) => {
                     const pack = { packageId: element?._package?.id, salePrice: Number(element?.salePrice) }
-                    params.packages.push(pack)
+                    return params.packages.push(pack)
                 })
                 console.log(params)
                 const response =
@@ -197,12 +197,14 @@ function ComboDetail(props) {
         if (type === 1) {
             getComboById(id);
         }
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
         if (listPackages.length === 0) {
             getListPackage();
         }
+        // eslint-disable-next-line
     }, [listPackagesSale]);
 
     const handleSelectPackage = async (val) => {

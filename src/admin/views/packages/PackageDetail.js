@@ -21,6 +21,7 @@ import {
 } from "../../components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { combieImg } from "../../../utils";
 
 function PackagesDetail(props) {
     const [packages, setPackage] = useState();
@@ -166,42 +167,42 @@ function PackagesDetail(props) {
                                     </CCol>
                                     <CCol sm={6}>
                                         <CRow>
-                                        <CCol sm={12}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Duration (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="number"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? packages?.duration : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setDuration(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={12}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                List Price (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? packages?.listPrice : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setListPrice(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
+                                            <CCol sm={12}>
+                                                <div className="mb-3">
+                                                    <CFormLabel>
+                                                        Duration (
+                                                        <span style={{ color: "red" }}>*</span>)
+                                                    </CFormLabel>
+                                                    <CFormInput
+                                                        type="number"
+                                                        id="exampleFormControlInput1"
+                                                        defaultValue={
+                                                            type === 1 ? packages?.duration : ""
+                                                        }
+                                                        onChange={(e) =>
+                                                            setDuration(e.target.value)
+                                                        }
+                                                    />
+                                                </div>
+                                            </CCol>
+                                            <CCol sm={12}>
+                                                <div className="mb-3">
+                                                    <CFormLabel>
+                                                        List Price (
+                                                        <span style={{ color: "red" }}>*</span>)
+                                                    </CFormLabel>
+                                                    <CFormInput
+                                                        type="text"
+                                                        id="exampleFormControlInput1"
+                                                        defaultValue={
+                                                            type === 1 ? packages?.listPrice : ""
+                                                        }
+                                                        onChange={(e) =>
+                                                            setListPrice(e.target.value)
+                                                        }
+                                                    />
+                                                </div>
+                                            </CCol>
                                             <CCol sm={12}>
                                                 <div className="mb-3">
                                                     <CFormLabel>
@@ -328,7 +329,7 @@ function PackagesDetail(props) {
                                             <CImage
                                                 rounded
                                                 thumbnail
-                                                src={!preview ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + packages?.image ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + packages?.image : img : preview}
+                                                src={!preview ? (packages?.image != null &&  packages?.image) ? combieImg(packages?.image) : img : preview}
                                                 width={1200}
                                                 style={{ maxHeight: '450px', display: 'block', margin: 'auto' }}
                                                 onLoad={() => URL.revokeObjectURL(preview)}

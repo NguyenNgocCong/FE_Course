@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
-// Layout
 import Header from "../layout/header/header1";
 import Footer from "../layout/footer/footer1";
-
-// Elements
-import OurStory1 from '../elements/our-story/our-story1';
-import Counter1 from '../elements/counter/counter1';
-import ServicesContent2 from '../elements/services-content-3';
-import FeatureContent3 from '../elements/feature-content3';
-import Testimonial1 from '../elements/testimonial1';
-
-// Images
 import bannerImg from '../../images/banner/banner3.jpg';
 
 class About2 extends Component {

@@ -95,7 +95,7 @@ function Header() {
 
   const auth = useSelector((state) => state.auth);
   const { data } = auth;
-
+  console.log(data)
   return (
     <>
       <header className="header1 rs-nav header-transp arent">

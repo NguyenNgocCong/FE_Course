@@ -1,20 +1,8 @@
-import React, { Component, useState } from "react";
-import { Link } from "react-router-dom";
-
-// Elements
+import React, { useState } from "react";
 import Count from "../elements/counter/counter-sensor";
-
-// Images
-import icon1 from "../../images/icon/icon1.png";
-import icon2 from "../../images/icon/icon2.png";
-import icon3 from "../../images/icon/icon3.png";
-import icon4 from "../../images/icon/icon4.png";
 import { useEffect } from "react";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
-import { CButton, CCardImage, CCardText, CCardTitle, CCol, CRow } from "@coreui/react";
-
-const icons = [icon1, icon2, icon3, icon4];
 
 function FeatureContent3(props) {
   const [listPost, setListPost] = useState([]);

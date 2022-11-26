@@ -69,9 +69,7 @@ function Combos() {
                         <div className="cours-bx">
                           <div className="action-box">
                             <img
-                              src={combieImg(
-                                item.comboPackages[0]?._package.image
-                              )}
+                              src={(item.comboPackages[0]?._package.image != null && item.comboPackages[0]?._package.image) ? combieImg(item.comboPackages[0]?._package.image) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
                               alt={item.title}
                               onError={({ currentTarget }) => {
                                 currentTarget.src =

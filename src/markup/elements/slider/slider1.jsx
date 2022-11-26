@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { userApi } from "../../../api/userApi";
+import { combieImg } from "../../../utils";
 
 function Slider1() {
   const [listSlider, setListSlider] = useState([]);
@@ -33,10 +34,11 @@ function Slider1() {
       {listSlider.map(slider => (
         <div key={slider?.id} className="slider-item" style={{ position: "absolute" }}>
           <div width="100%" style={{ position: "absolute" }}>
+            {/* eslint-disable-next-line */}
             <marquee loop="1" behavior="scroll" scrolldelay="1" direction="down">{slider?.imageUrl}</marquee >
           </div>
           <div className="slider-thumb">
-            <img src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + slider?.imageUrl} alt="" />
+            <img src={combieImg(slider?.imageUrl)} alt="" />
           </div>
         </div>
       ))}
