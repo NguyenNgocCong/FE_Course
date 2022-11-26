@@ -12,26 +12,31 @@ import { combieImg } from "../../utils";
 import ProductAside from "../elements/product-aside";
 
 function Products() {
-  const [pageIndex, setPageIndex] = useState(1);
+  const loaction = useLocation();
   const [data, setDataTable] = useState([]);
+  const [pageIndex, setPageIndex] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
   const getListProduct = async () => {
     try {
-      const response = await adminApi.getAllPackageView(pageIndex - 1, 10);
+      const response = await adminApi.getAllPackageView({
+        page: pageIndex - 1,
+        size: 8,
+        ...loaction.state,
+      });
       setDataTable(response.data);
-      setTotalPages(response.totalPages)
+      setTotalPages(response.totalPages);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
       });
     }
   };
+
   useEffect(() => {
     getListProduct();
     // eslint-disable-next-line
-  }, [pageIndex]);
-
+  }, [pageIndex, loaction.state]);
 
   return (
     <>
@@ -76,9 +81,7 @@ function Products() {
                         <div className="cours-bx">
                           <div className="action-box">
                             <img
-                              src={combieImg(
-                                item.image
-                              )}
+                              src={combieImg(item.image)}
                               alt=""
                               onError={({ currentTarget }) => {
                                 currentTarget.src =
@@ -106,8 +109,13 @@ function Products() {
                                 {item.title}
                               </Link>
                             </h5>
-                            <div><i className="fa fa-user"></i> {item?.sucjectCode?.expert?.user?.fullname}</div>
-                            <div><i className="fa fa-eye"></i> {item?.views}</div>
+                            <div>
+                              <i className="fa fa-user"></i>{" "}
+                              {item?.sucjectCode?.expert?.user?.fullname}
+                            </div>
+                            <div>
+                              <i className="fa fa-eye"></i> {item?.views}
+                            </div>
                           </div>
                           <div className="cours-more-info">
                             <div className="price">

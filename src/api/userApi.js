@@ -46,9 +46,9 @@ export const userApi = {
   },
 
   //expert
-  getAllExpert: () => {
+  getAllExpert: (params) => {
     const url = `/api/expert/views`;
-    return axiosApi.get(url);
+    return axiosApi.get(url, { params });
   },
   getAllExpertId: (id) => {
     const url = `/api/expert/views/${id}`;
@@ -56,9 +56,9 @@ export const userApi = {
   },
 
   //Blog
-  getAllPost: () => {
+  getAllPost: (params) => {
     const url = `/api/post/views`;
-    return axiosApi.get(url);
+    return axiosApi.get(url, { params: params });
   },
 
   getPostById: (id) => {
@@ -77,6 +77,25 @@ export const userApi = {
   },
   getListCategoryPost: () => {
     const url = `/api/admin/setting/list-category-post`;
+    return axiosApi.get(url);
+  },
+  getListAllSubject: () => {
+    const url = `/api/subjects/viewsActive`;
+    return axiosApi.get(url);
+  },
+
+  getListTopViewPost: (top) => {
+    const url = `/api/post/top-views?top=${top}`;
+    return axiosApi.get(url);
+  },
+
+  getListRecentPost: (top) => {
+    const url = `/api/post/top-recent?top=${top}`;
+    return axiosApi.get(url);
+  },
+
+  getListTopViewPackage:  (top) => {
+    const url = `/api/package/top-views?top=${top}`;
     return axiosApi.get(url);
   },
 };

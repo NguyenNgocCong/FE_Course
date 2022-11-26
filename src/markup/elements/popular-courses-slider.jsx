@@ -1,183 +1,221 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import { userApi } from "../../api/userApi";
+import { combieImg } from "../../utils";
 
-// Images
-import coursesPic1 from "../../images/courses/pic1.jpg";
-import coursesPic2 from "../../images/courses/pic2.jpg";
-import coursesPic3 from "../../images/courses/pic3.jpg";
-import coursesPic4 from "../../images/courses/pic4.jpg";
+function PopularCoursesSlider() {
+  const [listPackage, setListPackage] = useState([]);
 
-// Content
-const content = [
-    {
-        thumb: coursesPic1,
-        title: "Introduction EduChamp – LMS plugin",
-        tag: "Programming",
-        review: 3,
-        priceDel: 120,
-        price: 190,
-    },
-    {
-        thumb: coursesPic2,
-        title: "Learn PHP Programming From Scratch",
-        tag: "Developing",
-        review: 4,
-        priceDel: 180,
-        price: 150,
-    },
-    {
-        thumb: coursesPic3,
-        title: "Master Microservices with Spring",
-        tag: "Coding",
-        review: 2,
-        priceDel: 520,
-        price: 234,
-    },
-    {
-        thumb: coursesPic4,
-        title: "Build A Full Web Chat App From Scratch",
-        tag: "Marketing",
-        review: 3,
-        priceDel: 320,
-        price: 260,
-    },
-    {
-        thumb: coursesPic1,
-        title: "Strategy Law And Organization",
-        tag: "Lerning",
-        review: 4,
-        priceDel: 120,
-        price: 260,
-    },
-    {
-        thumb: coursesPic2,
-        title: "Fundamentals Of Music Theory Learn New",
-        tag: "Programming",
-        review: 1,
-        priceDel: 140,
-        price: 240,
-    },
-];
-
-class PopularCoursesSlider extends Component {
-    render() {
-        const settings = {
-            infinite: true,
-            speed: 500,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            responsive: [
-                {
-                    breakpoint: 1200,
-                    settings: {
-                        slidesToShow: 2,
-                    },
-                },
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                    },
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 2,
-                    },
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 2,
-                    },
-                },
-                {
-                    breakpoint: 360,
-                    settings: {
-                        slidesToShow: 1,
-                    },
-                },
-            ],
-        };
-
-        return (
-            <>
-                <div className="section-area section-sp1 bg-gray popular-courses-bx">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12 heading-bx left">
-                                <h2 className="title-head">
-                                    Popular <span>Courses</span>
-                                </h2>
-                                <p>
-                                    It is a long established fact that a reader
-                                    will be distracted by the readable content
-                                    of a page
-                                </p>
-                            </div>
-                        </div>
-                        <Slider
-                            {...settings}
-                            className="courses-carousel slick-slider owl-btn-1"
-                        >
-                            {content.map((item, index) => (
-                                <div className="slider-item" key={index}>
-                                    <div className="cours-bx">
-                                        <div className="action-box">
-                                            <img src={item.thumb} alt="" />
-                                            <Link
-                                                to="/courses-details"
-                                                className="btn"
-                                            >
-                                                Read More
-                                            </Link>
-                                        </div>
-                                        <div className="info-bx">
-                                            <span>{item.tag}</span>
-                                            <h6>
-                                                <Link to="/courses-details">
-                                                    {item.title}
-                                                </Link>
-                                            </h6>
-                                        </div>
-                                        <div className="cours-more-info">
-                                            <div className="review">
-                                                <span>
-                                                    {item.review} Review
-                                                </span>
-                                                <ul className="cours-star">
-                                                    <li className="active">
-                                                        <i className="fa fa-star"></i>
-                                                    </li>
-                                                    <li className="active">
-                                                        <i className="fa fa-star"></i>
-                                                    </li>
-                                                    <li className="active">
-                                                        <i className="fa fa-star"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i className="fa fa-star"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i className="fa fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div className="price">
-                                                <del>${item.priceDel}</del>
-                                                <h5>${item.price}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </Slider>
-                    </div>
-                </div>
-            </>
-        );
+  const getListPackage = async () => {
+    try {
+      const response = await userApi.getListTopViewPackage(8);
+      setListPackage(response);
+    } catch (responseError) {
+      console.log(responseError);
     }
+  };
+
+  useEffect(() => {
+    getListPackage();
+  }, []);
+
+  return (
+    <>
+      <div className="section-area section-sp1 bg-gray popular-courses-bx">
+        <div className="container">
+          <div className="heading-bx left">
+            <h2 className="title-head">
+              Top Buys <span>Courses</span>
+            </h2>
+          </div>
+          <Slider
+            {...settings}
+            className="courses-carousel slick-slider owl-btn-1"
+          >
+            {listPackage.map((item, index) => (
+              <div className="slider-item" key={item.id} >
+                <div className="cours-bx">
+                  <div className="action-box">
+                    <img
+                      src={combieImg(item.image)}
+                      alt=""
+                      style={{ objectFit: "cover" }}
+                      onError={({ currentTarget }) => {
+                        currentTarget.src =
+                          "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                      }}
+                    />
+                    <Link
+                      onClick={() => {
+                        window.location.href =
+                          "/react/courses-details/" + item.id;
+                      }}
+                      className="btn btn-warning m-2"
+                    >
+                      Read More
+                    </Link>
+                  </div>
+                  <div className="info-bx">
+                    <h5>
+                      <Link
+                        onClick={() => {
+                          window.location.href =
+                            "/react/courses-details/" + item.id;
+                        }}
+                      >
+                        {item.title}
+                      </Link>
+                    </h5>
+                    <div>
+                      <i className="fa fa-user"></i>{" "}
+                      {item?.sucjectCode?.expert?.user?.fullname}
+                    </div>
+                    <div>
+                      <i className="fa fa-eye"></i> {item?.views}
+                    </div>
+                  </div>
+                  <div className="cours-more-info">
+                    <div className="price">
+                      <del>${item.listPrice}</del>
+                      <h5 className="fs-6">${item.salePrice}</h5>
+                    </div>
+                    <div className="review">
+                      {/* <span> expert</span> */}
+                      {/* <ul className="cours-star">
+                      <li className="active"><i className="fa fa-star"></i></li>
+                      <li className="active"><i className="fa fa-star"></i></li>
+                      <li className="active"><i className="fa fa-star"></i></li>
+                      <li><i className="fa fa-star"></i></li>
+                      <li><i className="fa fa-star"></i></li>
+                    </ul> */}
+                      <div className="btn btn-warning">
+                        <i className="fa fa-cart-plus"></i> Add to cart
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+        <div className="container">
+          <div className="heading-bx left">
+            <h2 className="title-head">
+              Top Views <span>Courses</span>
+            </h2>
+          </div>
+          <Slider
+            {...settings}
+            className="courses-carousel slick-slider owl-btn-1"
+          >
+            {listPackage.map((item, index) => (
+              <div className="slider-item" key={item.id} >
+                <div className="cours-bx">
+                  <div className="action-box">
+                    <img
+                      src={combieImg(item.image)}
+                      alt=""
+                      style={{ objectFit: "cover" }}
+                      onError={({ currentTarget }) => {
+                        currentTarget.src =
+                          "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                      }}
+                    />
+                    <Link
+                      onClick={() => {
+                        window.location.href =
+                          "/react/courses-details/" + item.id;
+                      }}
+                      className="btn btn-warning m-2"
+                    >
+                      Read More
+                    </Link>
+                  </div>
+                  <div className="info-bx">
+                    <h5>
+                      <Link
+                        onClick={() => {
+                          window.location.href =
+                            "/react/courses-details/" + item.id;
+                        }}
+                      >
+                        {item.title}
+                      </Link>
+                    </h5>
+                    <div>
+                      <i className="fa fa-user"></i>{" "}
+                      {item?.sucjectCode?.expert?.user?.fullname}
+                    </div>
+                    <div>
+                      <i className="fa fa-eye"></i> {item?.views}
+                    </div>
+                  </div>
+                  <div className="cours-more-info">
+                    <div className="price">
+                      <del>${item.listPrice}</del>
+                      <h5 className="fs-6">${item.salePrice}</h5>
+                    </div>
+                    <div className="review">
+                      {/* <span> expert</span> */}
+                      {/* <ul className="cours-star">
+                      <li className="active"><i className="fa fa-star"></i></li>
+                      <li className="active"><i className="fa fa-star"></i></li>
+                      <li className="active"><i className="fa fa-star"></i></li>
+                      <li><i className="fa fa-star"></i></li>
+                      <li><i className="fa fa-star"></i></li>
+                    </ul> */}
+                      <div className="btn btn-warning">
+                        <i className="fa fa-cart-plus"></i> Add to cart
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      </div>
+    </>
+  );
 }
+const settings = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 360,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
+};
 
 export default PopularCoursesSlider;

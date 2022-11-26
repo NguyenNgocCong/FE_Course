@@ -1,5 +1,5 @@
 .widget {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 .widget-title {
     position: relative;
@@ -68,7 +68,7 @@
     padding-bottom: 18px;
     margin-bottom: 13px;
     position: relative;
-    padding: 8px 0px 8px 0px;
+    padding: 4px 0px 4px 0px;
     margin-bottom: 0;
     line-height: 20px;
 	color: #000;
@@ -219,7 +219,7 @@
 .recent-posts-entry .ttr-post-info,
 .recent-posts-entry .ttr-post-media{
 	display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
 }
 .recent-posts-entry .widget-post, 
 .recent-posts-entry .ttr-post-info{

@@ -28,17 +28,16 @@ function Header() {
   const editAvatar = useSelector((state) => state.userReducers.editAvatar);
 
   useEffect(() => {
-    var searchBtn = document.getElementById("quik-search-btn");
-    var searchForm = document.querySelector(".nav-search-bar");
-    var closeBtn = document.getElementById("search-remove");
+    // var searchBtn = document.getElementById("quik-search-btn");
+    // var searchForm = document.querySelector(".nav-search-bar");
+    // var closeBtn = document.getElementById("search-remove");
+    // searchBtn.addEventListener("click", function () {
+    //   searchForm.classList.add("show");
+    // });
 
-    searchBtn.addEventListener("click", function () {
-      searchForm.classList.add("show");
-    });
-
-    closeBtn.addEventListener("click", function () {
-      searchForm.classList.remove("show");
-    });
+    // closeBtn.addEventListener("click", function () {
+    //   searchForm.classList.remove("show");
+    // });
 
     // Mobile Menu sidebar function
     var btn = document.querySelector(".menuicon");
@@ -94,6 +93,9 @@ function Header() {
     setId(undefined);
   };
 
+  const auth = useSelector((state) => state.auth);
+  const { data } = auth;
+
   return (
     <>
       <header className="header1 rs-nav header-transp arent">
@@ -125,9 +127,12 @@ function Header() {
                         className="mb-0"
                       >
                         <CAvatar
-                          src={
-                            user?.avatar ? combieImg(user?.avatar) : avatarProfile
-                          }
+                          src={combieImg(user?.avatar)}
+                          alt=""
+                          width={100}
+                          onError={({ currentTarget }) => {
+                            currentTarget.src = avatarProfile;
+                          }}
                         />
                       </div>
                       <ul
@@ -135,54 +140,46 @@ function Header() {
                         style={
                           isExpand
                             ? {
-                                visibility: "visible",
-                                opacity: "1",
-                                width: "200px",
-                              }
+                              visibility: "visible",
+                              opacity: "1",
+                              width: "200px",
+                            }
                             : {
-                                visibility: "hidden",
-                                opacity: "0",
-                              }
+                              visibility: "hidden",
+                              opacity: "0",
+                            }
                         }
                       >
                         {role === "ROLE_ADMIN" ? (
                           <Link to="/admin/dashboard">
-                            <li className="text-left">
-                              Dashboard
-                            </li>
+                            <li className="text-left">Dashboard</li>
                           </Link>
                         ) : role === "ROLE_SUPPORTER" ? (
                           <Link to="/admin/contacts">
-                            <li className="text-left">
-                              Admin
-                            </li>
+                            <li className="text-left">Admin</li>
                           </Link>
                         ) : role === "ROLE_MANAGER" ? (
                           <Link to="/admin/subjects">
-                            <li className="text-left">
-                              Admin
-                            </li>
-                         </Link>
+                            <li className="text-left">Admin</li>
+                          </Link>
                         ) : (
                           ""
                         )}
                         <Link to="/profile">
- <li className="text-left">
-                            User Profile
-                          </li>
+                          <li className="text-left">User Profile</li>
                         </Link>
-                        <Link to="/profile" >
-                          <li className="text-left">
-                            Change Password
-                          </li>
+                        <Link to="/profile">
+                          <li className="text-left">Change Password</li>
                         </Link>
-                        <li className="text-left" onClick={handleLogout}>Logout</li>
+                        <li className="text-left" onClick={handleLogout}>
+                          Logout
+                        </li>
                       </ul>
                     </li>
                   ) : (
                     <div>
                       <li className="text-left">
-                        <Link to="/login" >Login</Link>
+                        <Link to="/login">Login</Link>
                       </li>
                       <li className="text-left">
                         <Link to="/register">Register</Link>
@@ -195,7 +192,7 @@ function Header() {
           </div>
         </div>
         <Sticky enabled={true} className="sticky-header navbar-expand-lg">
-          <div className="menu-bar clearfix" style={{background:'#fff'}}>
+          <div className="menu-bar clearfix" style={{ background: "#fff" }}>
             <div className="container clearfix">
               {/* <!-- Header Logo ==== --> */}
               <div className="menu-logo">
@@ -263,7 +260,7 @@ function Header() {
                   <li className="active">
                     <Link to="/">Home</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to="#">
                       Pages <i className="fa fa-chevron-down"></i>
                     </Link>
@@ -281,7 +278,7 @@ function Header() {
                         <Link to="/error-404">404 Page</Link>
                       </li>
                     </ul>
-                  </li>
+                  </li> */}
                   <li>
                     <Link to="/lecturers">Lecturers</Link>
                   </li>
@@ -297,8 +294,11 @@ function Header() {
                   <li>
                     <Link to="/blog">Blog</Link>
                   </li>
+                  <li>
+                    <Link to="/about">About</Link>
+                  </li>
                 </ul>
-                <div className="nav-social-link">
+                {/* <div className="nav-social-link">
                   <Link to="#">
                     <i className="fa fa-facebook"></i>
                   </Link>
@@ -308,14 +308,13 @@ function Header() {
                   <Link to="#">
                     <i className="fa fa-linkedin"></i>
                   </Link>
-                </div>
+                </div> */}
               </div>
               {/* <!-- Navigation Menu END ==== --> */}
             </div>
           </div>
         </Sticky>
-        {/* <!-- Search Box ==== --> */}
-        <div className="nav-search-bar">
+        {/* <div className="nav-search-bar">
           <form action="#">
             <input
               name="search"
@@ -330,7 +329,7 @@ function Header() {
           <span id="search-remove">
             <i className="ti-close"></i>
           </span>
-        </div>
+        </div> */}
       </header>
     </>
   );

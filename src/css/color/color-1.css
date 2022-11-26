@@ -130,6 +130,11 @@ h6 a:hover,
 	background-color: #121921;
 }
 
+.list-homepage{
+	background:#f9b115 !important;
+	height: 45px;
+}
+
 .ovbl-middle::after,
 .ovbl-light::after,
 .ovbl-dark::after {

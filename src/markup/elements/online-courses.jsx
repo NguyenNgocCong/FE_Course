@@ -1,59 +1,98 @@
-import { CCol, CListGroup, CListGroupItem, CRow } from '@coreui/react';
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { CCol, CListGroup, CListGroupItem, CRow } from "@coreui/react";
+import { React, useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 
-import Slider1 from './slider/slider1';
-import { CContainer } from '@coreui/react';
+import Slider1 from "./slider/slider1";
+import { userApi } from "../../api/userApi";
+import toast from "react-hot-toast";
 
-class OnlineCourses extends Component {
-	render() {
-		return (
-			<>
-				<CContainer xxl>
-					<CRow>
-						<CCol sm={3} style={{padding: "0px"}}>
-							<div className="menu-links navbar-collapse justify-content-start"
-								id="menuDropdown">
-								<CListGroup className='nav navbar-nav'>
-									<CListGroupItem className='ovbl-middle font-weight-bold list-homepage'>
-										<span className='d-flex justify-content-between'>
-											<span>Kiến thức</span>
-											<span><i className="fa fa-chevron-right"></i></span>
-										</span>
-										<ul className="sub-menu right">
-											<li>
-												<Link to="/about">About</Link>
-											</li>
-											<li>
-												<Link to="/faq">FAQ's</Link>
-											</li>
-											<li>
-												<Link to="/portfolio">Portfolio</Link>
-											</li>
-											<li>
-												<Link to="/error-404">404 Page</Link>
-											</li>
-											
-										</ul>
-									</CListGroupItem>
-									<CListGroupItem className='ovbl-middle font-weight-bold list-homepage'>Tất cả khoá học</CListGroupItem>
-									<CListGroupItem className='ovbl-middle font-weight-bold list-homepage'>Học lập trình web</CListGroupItem>
-									<CListGroupItem className='ovbl-middle font-weight-bold list-homepage'>Học lập trình ứng dụng Android</CListGroupItem>
-									<CListGroupItem className='ovbl-middle font-weight-bold list-homepage'>ABC</CListGroupItem>
-									<CListGroupItem className='ovbl-middle font-weight-bold list-homepage'>ABC</CListGroupItem>
-									<CListGroupItem className='ovbl-middle font-weight-bold list-homepage'>ABC</CListGroupItem>
-									<CListGroupItem className='ovbl-middle font-weight-bold list-homepage'>ABC</CListGroupItem>
-								</CListGroup>
-							</div>
-						</CCol>
-						<CCol sm={9} style={{padding: "0px"}}>
-							<Slider1 />
-						</CCol>
-					</CRow>
-				</CContainer>
-			</>
-		);
-	}
+function OnlineCourses() {
+  const history = useHistory();
+  const [listCategory, setListCategory] = useState([]);
+  const [listSubject, setListSubject] = useState([]);
+  const getListCategory = async () => {
+    try {
+      const response = await userApi.getListCategoryPost();
+      setListCategory(response);
+    } catch (responseError) {
+      toast.error(responseError?.data.message, {
+        duration: 2000,
+      });
+    }
+  };
+
+  const getAllSubject = async () => {
+    try {
+      const response = await userApi.getListAllSubject();
+      setListSubject(response);
+    } catch (responseError) {
+      toast.error(responseError?.data.message, {
+        duration: 2000,
+      });
+    }
+  };
+
+  useEffect(() => {
+    getListCategory();
+    getAllSubject();
+  }, []);
+  return (
+    <div>
+      <CRow>
+        <CCol sm={3} style={{ padding: "0px" }}>
+          <div
+            className="menu-links navbar-collapse justify-content-start"
+            id="menuDropdown"
+          >
+            <CListGroup className="nav navbar-nav d-flex justify-content-end">
+              <CListGroupItem className="font-weight-bold list-homepage float-none">
+                <span className="d-flex justify-content-between">
+                  <span>Knowledge</span>
+                  <span>
+                    <i className="fa fa-chevron-right"></i>
+                  </span>
+                </span>
+                <ul className="sub-menu right">
+                  {listCategory.map((category) => {
+                    return (
+                      <li key={category?.setting_id}>
+                        <div
+                          onClick={() => {
+                            history.push("/blog", {
+                              category: category.setting_id,
+                            });
+                          }}
+                        >
+                          {" "}
+                          {category.setting_title}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </CListGroupItem>
+              <CListGroupItem className='font-weight-bold list-homepage' onClick={() => { window.location.href = "/react/products" }}>All Product</CListGroupItem>
+              <CListGroupItem className='font-weight-bold list-homepage' onClick={() => { window.location.href = "/react/combos" }}>Combos</CListGroupItem>
+              <CListGroupItem className='font-weight-bold list-homepage' onClick={() => { window.location.href = "/react/lecturers" }}>Lecturers</CListGroupItem>
+              {listSubject.splice(0, 6).map((elment) => {
+                return (<CListGroupItem key={elment?.id} className='font-weight-bold list-homepage'
+                  onClick={() => {
+                    history.push("/products", {
+                      category: elment?.id,
+                    });
+                  }}>
+                  {elment?.name}
+                </CListGroupItem>)
+              })}
+            </CListGroup>
+          </div>
+        </CCol>
+        <CCol sm={9} style={{ padding: "0px" }}>
+          <Slider1 />
+        </CCol>
+      </CRow>
+    </div>
+  );
 }
 
 export default OnlineCourses;

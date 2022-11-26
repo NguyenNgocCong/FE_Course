@@ -8,8 +8,7 @@ import Footer from "../layout/footer/footer1";
 import OnlineCourses from "../elements/online-courses";
 import PopularCoursesSlider from "../elements/popular-courses-slider";
 import JoinBx from "../elements/join-bx";
-import FeatureContent3 from "../elements/feature-content3";
-import Counter2 from "../elements/counter/counter2";
+import TopBlogPage from "../elements/recent-news-slider";
 import Testimonial1 from "../elements/testimonial1";
 
 function Index2() {
@@ -21,8 +20,7 @@ function Index2() {
                     <OnlineCourses />
                     <PopularCoursesSlider />
                     <JoinBx />
-                    <FeatureContent3 />
-                    <Counter2 />
+                    <TopBlogPage />
                     <Testimonial1 />
                 </div>
             </div>
