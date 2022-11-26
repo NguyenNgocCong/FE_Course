@@ -79,17 +79,23 @@ export const userApi = {
     const url = `/api/admin/setting/list-category-post`;
     return axiosApi.get(url);
   },
-  getListCategorySubject: () => {
+  getListAllSubject: () => {
     const url = `/api/subjects/viewsActive`;
     return axiosApi.get(url);
   },
 
-  getListTopViewPost: () => {
-    const url = `/api/post/top-views`;
+  getListTopViewPost: (top) => {
+    const url = `/api/post/top-views?top=${top}`;
     return axiosApi.get(url);
   },
-  getListTopViewPackage: () => {
-    const url = `/api/package/top-views`;
+
+  getListRecentPost: (top) => {
+    const url = `/api/post/top-recent?top=${top}`;
+    return axiosApi.get(url);
+  },
+
+  getListTopViewPackage:  (top) => {
+    const url = `/api/package/top-views?top=${top}`;
     return axiosApi.get(url);
   },
 };

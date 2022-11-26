@@ -14,8 +14,6 @@ import { CRow, CCol, CCardImage, CCardTitle, CCardText } from "@coreui/react";
 import { CButton } from "@coreui/react";
 import { userApi } from "./../../api/userApi";
 import ReactHtmlParser from "react-html-parser";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 
 const BlogClassicSidebar = () => {

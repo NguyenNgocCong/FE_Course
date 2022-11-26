@@ -442,6 +442,11 @@ dl dd { margin-bottom: 10px; }
 	padding-top: 10px;
     font-size: 18px;
 }
+
+.heading-bx div {
+	padding-top: 10px;
+    font-size: 18px;
+}
 .text-center.heading-bx p {
     margin-left: auto;
     margin-right: auto;

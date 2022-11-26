@@ -22,7 +22,7 @@ function ProductAside() {
 
   const getListCategory = async () => {
     try {
-      const response = await userApi.getListCategorySubject();
+      const response = await userApi.getListAllSubject();
       setListCategory(response);
     } catch (responseError) {
       console.log(responseError);
@@ -52,7 +52,7 @@ function ProductAside() {
   useEffect(() => {
     getListCategory();
     getListProduct();
-    userApi.getListTopViewPackage().then((res) => {
+    userApi.getListTopViewPackage(4).then((res) => {
       setListTopViews(res);
     });
   }, []);
@@ -61,7 +61,7 @@ function ProductAside() {
     <>
       <aside className="side-bar sticky-top">
         <div className="widget">
-          <h6 className="widget-title">Search </h6>
+          <h5 className="widget-title">Search </h5>
           <div className="search-bx style-1">
             <form role="search">
               <div className="input-group">
@@ -112,17 +112,18 @@ function ProductAside() {
         </div>
         <div className="widget  widget-courses">
           <h5 className="widget-title style-1">Top Courses</h5>
-          <div className="widget-post-bx">
+          <div>
             {topviews.map((x) => (
               <div
                 style={{ margin: "15px 0px", boxShadow: "0px 5px 20px rgb(0 0 0 / 5%)" }}
-                className="d-flex gap-1 round-2 widget-post "
+                className="d-flex gap-1 round-2 widget-post"
                 key={x.id}
               >
                 {" "}
                 <img
                   src={combieImg(x.image)}
                   alt=""
+                  style={{objectFit:"cover"}}
                   width={100}
                   onError={({ currentTarget }) => {
                     currentTarget.src =
@@ -141,7 +142,7 @@ function ProductAside() {
                         <del>${x.listPrice}</del>
                         <h5>${x.salePrice}</h5>
                       </li>
-                      <li className="review">{x.views} Review</li>
+                      <li className="review">{x.views} View</li>
                     </ul>
                   </div>
                 </div>

@@ -15,11 +15,11 @@ class JoinBx extends Component {
           <div className="container">
             <div className="row join-content-bx text-white">
               <div className="col-md-8">
-                <h2>Read new blogs</h2>
+                <h2>See all our courses</h2>
               </div>
               <div className="col-md-4 text-right">
-                <Link to="/blog" className="btn btn-warning button-md">
-                  Read Now
+                <Link to="/products" className="btn btn-warning button-md">
+                  See Now
                 </Link>
               </div>
             </div>

@@ -22,15 +22,10 @@ function BlogAside() {
     }
   };
 
-  const getListPost = async () => {
+  const getListRecentPost = async () => {
     try {
-      const response = await userApi.getAllPost();
-      const reversed = response.data.slice().reverse();
-      let recent = [];
-      for (let i = 0; i <= 2; i++) {
-        recent.push(reversed[i]);
-      }
-      setRecentBlog(recent.filter((rec) => rec !== undefined));
+      const response = await userApi.getListRecentPost(4);
+      setRecentBlog(response);
     } catch (responseError) {
       console.log(responseError);
     }
@@ -38,8 +33,8 @@ function BlogAside() {
 
   useEffect(() => {
     getListCategory();
-    getListPost();
-    userApi.getListTopViewPost().then((res) => {
+    getListRecentPost();
+    userApi.getListTopViewPost(4).then((res) => {
       setListTopViews(res);
     });
   }, []);
@@ -119,6 +114,7 @@ function BlogAside() {
                   <img
                     src={combieImg(blog.thumnailUrl)}
                     alt=""
+                    style={{ objectFit: "cover" }}
                     width={100}
                     onError={({ currentTarget }) => {
                       currentTarget.src =
@@ -134,8 +130,8 @@ function BlogAside() {
                     <ul className="media-post" style={{ marginBottom: "10px" }}>
                       <li>
                         <Link to={`/blog/${blog?.id}`}>
-                          <i className="fa fa-calendar"></i>
-                          {new Date(blog?.createDate).toLocaleDateString()}
+                          <i className="fa fa-eye"></i>
+                          {blog?.views}
                         </Link>
                       </li>
                     </ul>
@@ -158,6 +154,7 @@ function BlogAside() {
                   <img
                     src={combieImg(blog.thumnailUrl)}
                     alt=""
+                    style={{ objectFit: "cover" }}
                     width={100}
                     onError={({ currentTarget }) => {
                       currentTarget.src =
