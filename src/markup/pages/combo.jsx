@@ -13,6 +13,8 @@ import { combieImg } from "../../utils";
 import ProductAside from "../elements/product-aside";
 import { useDispatch, useSelector } from "react-redux";
 import { addComboLocal } from "../../redux/reducers/order";
+import { userApi } from "../../api/userApi";
+import { ToastContainer, toast } from "react-toastify";
 
 function Combos() {
   const { isLogin } = useSelector((state) => state.auth);
@@ -21,6 +23,12 @@ function Combos() {
   const handleAddToCart = (data) => {
     if (!isLogin) {
       dispatch(addComboLocal(data));
+    } else {
+      userApi.addToCard({ comboId: data.id }).then((res) => {
+        toast.success("Add To Cart Success !", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
     }
   };
   const [page, setPage] = useState(1);
@@ -37,6 +45,7 @@ function Combos() {
   return (
     <>
       <Header />
+      <ToastContainer />
 
       <div className="page-content">
         <div
@@ -77,7 +86,14 @@ function Combos() {
                         <div className="cours-bx">
                           <div className="action-box">
                             <img
-                              src={(item.comboPackages[0]?._package.image != null && item.comboPackages[0]?._package.image) ? combieImg(item.comboPackages[0]?._package.image) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
+                              src={
+                                item.comboPackages[0]?._package.image != null &&
+                                item.comboPackages[0]?._package.image
+                                  ? combieImg(
+                                      item.comboPackages[0]?._package.image
+                                    )
+                                  : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
+                              }
                               alt={item.title}
                               onError={({ currentTarget }) => {
                                 currentTarget.src =

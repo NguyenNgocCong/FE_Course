@@ -1,198 +1,136 @@
-import React,{Component,useState, useEffect} from 'react'; 
-import { Link } from 'react-router-dom';
-import Masonry from 'react-masonry-component';
+import React, { Component, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Masonry from "react-masonry-component";
+import { userApi } from "../../../api/userApi";
+import { combieImg } from "../../../utils/index";
+import PagingQuestion from "../PagingQuestion/PagingQuestion";
 
-// Images
-import coursesPic1 from '../../../images/courses/pic1.jpg';
-import coursesPic2 from '../../../images/courses/pic2.jpg';
-import coursesPic3 from '../../../images/courses/pic3.jpg';
-import coursesPic4 from '../../../images/courses/pic4.jpg';
-import coursesPic5 from '../../../images/courses/pic5.jpg';
-import coursesPic6 from '../../../images/courses/pic6.jpg';
-import coursesPic7 from '../../../images/courses/pic7.jpg';
-import coursesPic8 from '../../../images/courses/pic8.jpg';
-import coursesPic9 from '../../../images/courses/pic9.jpg';
+function CoursesContent() {
+  const [res, setRes] = useState({
+    currentPage: 0,
+    data: [],
+    totalItems: 0,
+    totalPages: 0,
+  });
+  const [pageIndex, setPageIndex] = useState(1);
+  const { totalPages } = res;
 
-// Portfolio Content
-const content = [
-	{ 
-		thumb: coursesPic1, 
-		tag: ['Publish',],
-		title: "Introduction EduChamp – LMS plugin",
-		exetitle: "Programming",
-		Review: 4,
-		PriceDel: 120,
-		Price: 260,
-	},
-	{ 
-		thumb: coursesPic2, 
-		tag: ['Pending',],
-		title: "Learn PHP Programming From Scratch",
-		exetitle: "Developing",
-		Review: 4,
-		PriceDel: 120,
-		Price: 260,
-	},
-	{ 
-		thumb: coursesPic3, 
-		tag: ['Pending',],
-		title: "Strategy Law And Organization Foundation",
-		exetitle: "Coding",
-		Review: 4,
-		PriceDel: 220,
-		Price: 660,
-	},
-	{ 
-		thumb: coursesPic4, 
-		tag: ['Publish',],
-		title: "Strategy Law And Organization Foundation",
-		exetitle: "Marketing",
-		Review: 3,
-		PriceDel: 120,
-		Price: 260,
-	},
-	{ 
-		thumb: coursesPic5, 
-		tag: ['Pending',],
-		title: "Introduction EduChamp – LMS plugin",
-		exetitle: "Programming",
-		Review: 3,
-		PriceDel: 320,
-		Price: 460,
-	},
-	{ 
-		thumb: coursesPic6, 
-		tag: ['Pending',],
-		title: "Introduction EduChamp – LMS plugin",
-		exetitle: "Programming",
-		Review: 2,
-		PriceDel: 600,
-		Price: 520,
-	},
-	{ 
-		thumb: coursesPic7, 
-		tag: ['Publish',],
-		title: "Learn PHP Programming From Scratch",
-		exetitle: "Programming",
-		Review: 1,
-		PriceDel: 220,
-		Price: 160,
-	},
-	{ 
-		thumb: coursesPic8, 
-		tag: ['Pending',],
-		title: "Introduction EduChamp – LMS plugin",
-		exetitle: "Programming",
-		Review: 3,
-		PriceDel: 120,
-		Price: 260,
-	},
-	{ 
-		thumb: coursesPic9, 
-		tag: ['Pending',],
-		title: "Strategy Law And Organization Foundation",
-		exetitle: "Programming",
-		Review: 5,
-		PriceDel: 542,
-		Price: 180,
-	},
-]
+  useEffect(() => {
+    userApi.getCarts({ page: pageIndex - 1 }).then((res) => setRes(res));
+  }, [pageIndex]);
 
-const FilterList = ({dataFilter, defaultTag, activeFilter}) => {                                                               
-	return (	
-		<li className={`${activeFilter ? 'btn active' : 'btn'}` } onClick={() => defaultTag(dataFilter)} >
-			<Link to={"#"}>{dataFilter}</Link>
-		</li> 
-	);
-};
+  console.log(res);
+  return (
+    <>
+      <div className="profile-head">
+        <h5>My Cart</h5>
+      </div>
 
-function CoursesContent(){
-	const [tag, setTag] = useState('All');
-	const [filteredImages, setFilterdImages] = useState([]);
-	
-	useEffect( () => {
-		tag === 'All' ? setFilterdImages(content) : setFilterdImages(content.filter( image => image.tag.find(element => element === tag)))
-	}, [tag])	
-	
-	return(
-			
-			<>
-			
-			<div className="profile-head">
-				<h5>My Courses</h5>
-				<div className="feature-filters style1 ml-auto">
-					<ul className="filters" data-toggle="buttons">
-						<FilterList 
-							dataFilter="All" 
-							defaultTag={setTag} 
-							activeFilter={ tag === 'All' ? true : false }	
-						/>
-						<FilterList 
-							dataFilter="Publish" 
-							defaultTag={setTag} 
-							activeFilter={ tag === 'Publish' ? true : false }
-						/>
-						<FilterList 
-							dataFilter="Pending" 
-							defaultTag={setTag} 
-							activeFilter={ tag === 'Pending' ? true : false }
-						/>
-					</ul>
-				</div>
-			</div>
-			
-			<div className="courses-filter">
-				<Masonry>
-					<ul className="ttr-gallery-listing magnific-image row">
-						{filteredImages.map((item, index)=>(	
-							<li className="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6" key={index}>
-								<div className="cours-bx">
-									<div className="action-box">
-										<img src={item.thumb} alt=""/>
-										<Link to="/courses-details" className="btn">Read More</Link>
-									</div>
-									<div className="info-bx">
-										<span>{item.exetitle}</span>
-										<h6><Link to="/courses-details">{item.title}</Link></h6>
-									</div>
-									<div className="cours-more-info">
-										<div className="review">
-											<span>{item.Review} Review</span>
-											<ul className="cours-star">
-												<li className="active"><i className="fa fa-star"></i></li>
-												<li className="active"><i className="fa fa-star"></i></li>
-												<li className="active"><i className="fa fa-star"></i></li>
-												<li><i className="fa fa-star"></i></li>
-												<li><i className="fa fa-star"></i></li>
-											</ul>
-										</div>
-										<div className="price">
-											<del>${item.PriceDel}</del>
-											<h5>${item.Price}</h5>
-										</div>
-									</div>
-								</div>
-							</li>
-						))}	
-					</ul>
-				</Masonry>
-			</div>
-			
-		</>
-		
-	);
+      <div className="courses-filter">
+        <Masonry>
+          <ul className="ttr-gallery-listing magnific-image row">
+            {res.data.map((item, index) => (
+              <li
+                className="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6"
+                key={index}
+              >
+                <div className="cours-bx">
+                  <div className="action-box">
+                    <img
+                      src={
+                        item?.image != null && item?.image
+                          ? combieImg(item.image)
+                          : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
+                      }
+                      alt=""
+                      onError={({ currentTarget }) => {
+                        currentTarget.src =
+                          "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                      }}
+                    />
+                    <div
+                      onClick={() => {
+                        window.location.href =
+                          "/react/courses-details/" + item.id;
+                      }}
+                      className="btn btn-warning m-2"
+                    >
+                      Read More
+                    </div>
+                  </div>
+                  <div className="info-bx">
+                    <h5>
+                      <div
+                        onClick={() => {
+                          window.location.href =
+                            "/react/courses-details/" + item.id;
+                        }}
+                      >
+                        {item.title}
+                      </div>
+                    </h5>
+                    <div>
+                      <i className="fa fa-user"></i>{" "}
+                      {item?.sucjectCode?.expert?.user?.fullname}
+                    </div>
+                    <div>
+                      <i className="fa fa-eye"></i> {item?.views}
+                    </div>
+                  </div>
+                  <div className="cours-more-info">
+                    <div className="price">
+                      <del>${item.listPrice}</del>
+                      <h5 className="fs-6">${item.salePrice}</h5>
+                    </div>
+                    <div className="review">
+                      {/* <span> expert</span> */}
+                      {/* <ul className="cours-star">
+																<li className="active"><i className="fa fa-star"></i></li>
+																<li className="active"><i className="fa fa-star"></i></li>
+																<li className="active"><i className="fa fa-star"></i></li>
+																<li><i className="fa fa-star"></i></li>
+																<li><i className="fa fa-star"></i></li>
+															</ul> */}
+                      <div
+                        className="btn btn-warning"
+                        onClick={() => {
+                          window.location.href =
+                            "/react/courses-details/" + item.id;
+                        }}
+                      >
+                        <i className="fa fa-eye"></i>Details
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="d-flex  justify-content-between align-items-center m-2">
+            <PagingQuestion
+              totalPage={totalPages}
+              pageIndex={pageIndex}
+              onChange={(e) => {
+                setPageIndex(e);
+              }}
+            ></PagingQuestion>
+
+            <button className="btn btn-primary">checkout</button>
+          </div>
+        </Masonry>
+      </div>
+    </>
+  );
 }
 
-class Courses extends Component{
-	render(){
-		return(
-			<>
-				
-				<CoursesContent />
-							
-			</>
-		);
-	}
+class Courses extends Component {
+  render() {
+    return (
+      <>
+        <CoursesContent />
+      </>
+    );
+  }
 }
 
 export default Courses;

@@ -97,7 +97,6 @@ function Header() {
 
   const auth = useSelector((state) => state.auth);
   const { data } = auth;
-  console.log(data)
   return (
     <>
       <header className="header1 rs-nav header-transp arent">
@@ -243,7 +242,8 @@ function Header() {
                         type="button"
                         className="btn-link fs-3 link__card"
                       >
-                        <i className="bi bi-bag-check"></i> <span>{totalCart}</span>
+                        <i className="bi bi-bag-check"></i>{" "}
+                        <span>{totalCart}</span>
                       </Link>
                     </li>
                   </ul>
