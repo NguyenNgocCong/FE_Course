@@ -8,7 +8,7 @@ import Footer from "../layout/footer/footer1";
 
 // Elements
 import Courses from "../elements/profile-content/courses";
-import QuizResults from "../elements/profile-content/quiz-results";
+import MyCart from "../elements/profile-content/my-cart";
 import EditProfile from "../elements/profile-content/edit-profile";
 import ChangePassword from "../elements/profile-content/change-password";
 
@@ -110,16 +110,16 @@ function Profile(props) {
                                                     <Nav className="nav-tabs">
                                                         <Nav.Item>
                                                             <Nav.Link eventKey="tabOne">
-                                                                <i className="ti-book"></i>
-                                                                Courses
+                                                                <i className="ti-bookmark-alt"></i>
+                                                                My cart
                                                             </Nav.Link>
                                                         </Nav.Item>
-                                                        {/* <Nav.Item>
+                                                        <Nav.Item>
                                                             <Nav.Link eventKey="tabTwo">
-                                                                <i className="ti-bookmark-alt"></i>
-                                                                Quiz Results
+                                                                <i className="ti-book"></i>
+                                                                My courses
                                                             </Nav.Link>
-                                                        </Nav.Item> */}
+                                                        </Nav.Item>
                                                         <Nav.Item>
                                                             <Nav.Link eventKey="tabThree">
                                                                 <i className="ti-pencil-alt"></i>
@@ -138,12 +138,12 @@ function Profile(props) {
                                         </div>
                                         <div className="col-lg-8 col-md-7 col-sm-12 m-b30">
                                             <div className="profile-content-bx">
-                                                <div className="tab-content">
+                                                <div className= "tab-content">
                                                     <Tab.Pane eventKey="tabOne">
-                                                        <Courses />
+                                                        <MyCart />
                                                     </Tab.Pane>
                                                     <Tab.Pane eventKey="tabTwo">
-                                                        <QuizResults />
+                                                        <Courses />
                                                     </Tab.Pane>
                                                     <Tab.Pane eventKey="tabThree">
                                                         <EditProfile
