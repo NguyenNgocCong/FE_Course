@@ -153,19 +153,19 @@ function Profile(props) {
                       <div className="profile-content-bx">
                         <div className="tab-content">
                           <Tab.Pane eventKey="tabOne">
-                            <Courses />
-                          </Tab.Pane>
-                          <Tab.Pane eventKey="tabTwo">
                             <MyCart />
                           </Tab.Pane>
-                          <Tab.Pane eventKey="tabThree">
+                          <Tab.Pane eventKey="tabTwo">
+                            <Courses />
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="tabFive">
                             <EditProfile
                               user={user}
                               stateChanger={setState}
                               state={state}
                             />
                           </Tab.Pane>
-                          <Tab.Pane eventKey="tabFour">
+                          <Tab.Pane eventKey="tabSix">
                             <ChangePassword />
                           </Tab.Pane>
 
