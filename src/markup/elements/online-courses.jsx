@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import Slider1 from "./slider/slider1";
 import { userApi } from "../../api/userApi";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 function OnlineCourses() {
   const history = useHistory();

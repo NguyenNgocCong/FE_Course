@@ -22,7 +22,7 @@ function CheckOut(prop) {
   return (
     <>
       <Header />
-
+    
       <section className="component">
         <div className="total">
           <h3>TOTAL</h3>
