@@ -116,7 +116,6 @@ function Cart(prop) {
                       </td>
                     </tr>
                   ))}
-
                   {[...combos].map((x) => (
                     <tr>
                       <td className="p-4">

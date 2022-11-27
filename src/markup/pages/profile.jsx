@@ -8,7 +8,7 @@ import Footer from "../layout/footer/footer1";
 
 // Elements
 import Courses from "../elements/profile-content/courses";
-import QuizResults from "../elements/profile-content/quiz-results";
+import MyCart from "../elements/profile-content/my-cart";
 import EditProfile from "../elements/profile-content/edit-profile";
 import ChangePassword from "../elements/profile-content/change-password";
 
@@ -112,7 +112,7 @@ function Profile(props) {
                             <Nav.Item>
                               <Nav.Link eventKey="tabOne">
                                 <i className="ti-book"></i>
-                                Cart
+                                 Cart
                               </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
@@ -135,8 +135,8 @@ function Profile(props) {
                             </Nav.Item>
                             {/* <Nav.Item>
                                                             <Nav.Link eventKey="tabTwo">
-                                                                <i className="ti-bookmark-alt"></i>
-                                                                Quiz Results
+                                                                <i className="ti-book"></i>
+                                                                My courses
                                                             </Nav.Link>
                                                         </Nav.Item> */}
                             <Nav.Item>
@@ -174,6 +174,7 @@ function Profile(props) {
                           <Tab.Pane eventKey="tabFour">
                             <ChangePassword />
                           </Tab.Pane>
+
                         </div>
                       </div>
                     </div>
