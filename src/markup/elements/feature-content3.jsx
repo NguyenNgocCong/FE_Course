@@ -1,18 +1,16 @@
-import React, { Component, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
 // Elements
 import Count from "../elements/counter/counter-sensor";
 
 // Images
+import { useEffect } from "react";
+import { userApi } from "../../api/userApi";
 import icon1 from "../../images/icon/icon1.png";
 import icon2 from "../../images/icon/icon2.png";
 import icon3 from "../../images/icon/icon3.png";
 import icon4 from "../../images/icon/icon4.png";
-import { useEffect } from "react";
-import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
-import { CButton, CCardImage, CCardText, CCardTitle, CCol, CRow } from "@coreui/react";
 
 const icons = [icon1, icon2, icon3, icon4];
 
@@ -73,38 +71,37 @@ function FeatureContent3(props) {
                         />
                       </div>
                       <div className="col-lg-9 blog-home">
-                        <h5 onClick={() => {
-                          window.location.href =
-                            "/react/blog/" + item?.id;
-                        }}>
-                        {item?.title}
-                      </h5>
-                      <ul className="media-post">
-                        <li>
-                          <i className="fa fa-calendar"></i>
-                          {" " +
-                            new Date(
-                              item?.createDate
-                            ).toLocaleDateString()}
-                        </li>
-                        <li>
-                          <i className="fa fa-user"></i> By{" "}
-                          {item?.author.fullname}
-                        </li>
-                        <li>
-                          <i className="fa fa-eye"></i> {item?.views}
-                        </li>
-                      </ul>
+                        <h5
+                          onClick={() => {
+                            window.location.href = "/react/blog/" + item?.id;
+                          }}
+                        >
+                          {item?.title}
+                        </h5>
+                        <ul className="media-post">
+                          <li>
+                            <i className="fa fa-calendar"></i>
+                            {" " +
+                              new Date(item?.createDate).toLocaleDateString()}
+                          </li>
+                          <li>
+                            <i className="fa fa-user"></i> By{" "}
+                            {item?.author.fullname}
+                          </li>
+                          <li>
+                            <i className="fa fa-eye"></i> {item?.views}
+                          </li>
+                        </ul>
+                      </div>
+                      <hr />
                     </div>
-                    <hr />
-                  </div>
                   </div>
                 ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

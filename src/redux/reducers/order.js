@@ -24,12 +24,23 @@ const orderSlice = createSlice({
       state.data.packages.unshift(action.payload);
       CartSotre.setCartLocal(state.data);
     },
+    addComboToCart: (state, action) => {
+      state.data.combos.unshift(action.payload);
+      CartSotre.setCartLocal(state.data);
+    },
     removeCartPackage: (state, action) => {
       state.data.packages = state.data.packages.filter(
         (x) => x.id !== action.payload
       );
       CartSotre.setCartLocal(state.data);
     },
+    removeCartCombo: (state, action) => {
+      state.data.combos = state.data.combos.filter(
+        (x) => x.id !== action.payload
+      );
+      CartSotre.setCartLocal(state.data);
+    },
+
     requestFail: (state, action) => {
       state.error = action.payload;
     },
@@ -78,6 +89,20 @@ export const addPackageLocal = createAsyncThunk(
   }
 );
 
+export const addComboLocal = createAsyncThunk(
+  "addComboLocal",
+  async (data, { dispatch, getState }) => {
+    try {
+      const { id } = data;
+      const combos = getState().order?.data?.combos;
+      if (combos && !combos.some((x) => x.id === id))
+        dispatch(addComboToCart(data));
+    } catch (error) {
+      dispatch(requestFail(error.message));
+    }
+  }
+);
+
 export const {
   sendRequest,
   requestSuccess,
@@ -85,5 +110,7 @@ export const {
   resetState,
   addToCart,
   removeCartPackage,
+  addComboToCart,
+  removeCartCombo,
 } = orderSlice.actions;
 export default orderSlice;

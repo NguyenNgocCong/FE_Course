@@ -6,12 +6,11 @@ import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
 
 // Images
+import { Markup } from "interweave";
+import DataTable from "react-data-table-component";
 import { comboApi } from "../../api/comboApi";
 import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
-import testiPic1 from "../../images/testimonials/pic1.jpg";
-import DataTable from "react-data-table-component";
-import { Markup } from "interweave";
 
 function CoursesDetails(props) {
   const params = useParams();
@@ -41,14 +40,17 @@ function CoursesDetails(props) {
       width: "100px",
       selector: (row) => row?.salePrice + "$",
       sortable: true,
-    }
+    },
   ];
   return (
     <>
       <Header />
 
       <div className="page-content">
-        <div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
+        <div
+          className="page-banner ovbl-dark"
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
+        >
           <div className="container">
             <div className="page-banner-entry">
               <h1 className="text-white">{res.title}</h1>
@@ -61,7 +63,7 @@ function CoursesDetails(props) {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              <li>{ }</li>
+              <li>{}</li>
             </ul>
           </div>
         </div>

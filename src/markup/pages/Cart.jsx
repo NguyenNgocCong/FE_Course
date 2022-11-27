@@ -1,15 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 // Layout
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { removeCartCombo, removeCartPackage } from "../../redux/reducers/order";
+import { combieImg } from "../../utils/index";
 import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllCartReduce,
-  removeCartPackage,
-} from "../../redux/reducers/order";
-import { combieImg } from "../../utils/index";
-import { Link } from "react-router-dom";
 
 // Elements
 
@@ -21,7 +18,10 @@ function Cart(prop) {
 
   const dispatch = useDispatch();
   const totalPackage = [...packages].reduce((pre, x) => pre + x.salePrice, 0);
-  const totalCombo = [...combos].reduce((pre, x) => pre + x.salePrice, 0);
+  const totalCombo = [...combos].reduce(
+    (pre, x) => pre + x.comboPackages.reduce((pre, x) => pre + x.salePrice, 0),
+    0
+  );
 
   return (
     <>
@@ -110,6 +110,61 @@ function Cart(prop) {
                           title=""
                           data-original-title="Remove"
                           onClick={() => dispatch(removeCartPackage(x.id))}
+                        >
+                          ×
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+
+                  {[...combos].map((x) => (
+                    <tr>
+                      <td className="p-4">
+                        <div className="media align-items-center">
+                          <img
+                            src={combieImg(x.image)}
+                            className="d-block ui-w-40 ui-bordered mr-4"
+                            alt=""
+                            width={200}
+                            onError={({ currentTarget }) => {
+                              currentTarget.src =
+                                "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                            }}
+                          />
+                          <div className="media-body">
+                            <a href="#/" className="d-block text-dark">
+                              {x.title}
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="text-right font-weight-semibold align-middle p-4">
+                        $
+                        {x.comboPackages.reduce(
+                          (pre, x) => pre + x.salePrice,
+                          0
+                        )}
+                      </td>
+                      <td className="align-middle p-4">
+                        $
+                        {x.comboPackages.reduce(
+                          (pre, x) => pre + x.salePrice,
+                          0
+                        )}
+                      </td>
+                      <td className="text-right font-weight-semibold align-middle p-4">
+                        $
+                        {x.comboPackages.reduce(
+                          (pre, x) => pre + x.salePrice,
+                          0
+                        )}
+                      </td>
+                      <td className="text-center align-middle px-0">
+                        <button
+                          className="shop-tooltip close float-none text-danger"
+                          title=""
+                          data-original-title="Remove"
+                          onClick={() => dispatch(removeCartCombo(x.id))}
                         >
                           ×
                         </button>

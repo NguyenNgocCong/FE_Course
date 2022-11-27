@@ -1,20 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 // Layout
-import Header from "../layout/header/header1";
 import Footer from "../layout/footer/footer1";
+import Header from "../layout/header/header1";
 
 // Elements
 import BlogAside from "../elements/blog-aside";
 
 // Images
-import bannerImg from "../../images/banner/banner1.jpg";
-import { CRow, CCol, CCardImage, CCardTitle, CCardText } from "@coreui/react";
-import { CButton } from "@coreui/react";
-import { userApi } from "./../../api/userApi";
+import {
+  CButton,
+  CCardImage,
+  CCardText,
+  CCardTitle,
+  CCol,
+  CRow,
+} from "@coreui/react";
 import ReactHtmlParser from "react-html-parser";
+import bannerImg from "../../images/banner/banner1.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
+import { userApi } from "./../../api/userApi";
 
 const BlogClassicSidebar = () => {
   const location = useLocation();
