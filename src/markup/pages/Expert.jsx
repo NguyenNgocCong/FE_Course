@@ -2,13 +2,6 @@ import React, { useEffect, useState } from "react";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 import Header from "../layout/header/header1";
 
-import { Link } from "react-router-dom";
-import { expert } from "../../api/expertApi";
-import adv from "../../images/adv/adv.jpg";
-import bannerImg from "../../images/banner/banner3.jpg";
-import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
-import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
-import Footer1 from "../layout/footer/footer1";
 import {
   CCard,
   CCardBody,
@@ -18,6 +11,13 @@ import {
   CCol,
   CRow,
 } from "@coreui/react";
+import { Link } from "react-router-dom";
+import { expert } from "../../api/expertApi";
+import adv from "../../images/adv/adv.jpg";
+import bannerImg from "../../images/banner/banner3.jpg";
+import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
+import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
+import Footer1 from "../layout/footer/footer1";
 const Expert = () => {
   const [res, setRes] = useState(ExpertExample);
 

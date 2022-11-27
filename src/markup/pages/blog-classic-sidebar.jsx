@@ -8,6 +8,7 @@ import { CRow, CCol, CCardImage, CCardTitle, CCardText } from "@coreui/react";
 import { CButton } from "@coreui/react";
 import { userApi } from "./../../api/userApi";
 import ReactHtmlParser from "react-html-parser";
+import bannerImg from "../../images/banner/banner1.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 import { combieImg } from "../../utils";
 
