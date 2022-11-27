@@ -9,8 +9,8 @@ import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 import { classApi } from "../../api/classApi";
 import { combieImg } from "../../utils/index";
 import ProductAside from "../elements/product-aside";
-
 function Class() {
+  const [showModalLogin, setShowModalLogin] = useState(false);
   const [res, setRes] = useState(classEx);
 
   const [page, setPage] = useState(1);
@@ -67,7 +67,12 @@ function Class() {
                         <div className="cours-bx">
                           <div className="action-box">
                             <img
-                              src={(item?.packages?.image != null && item?.packages?.image) ? combieImg(item?.packages?.image) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
+                              src={
+                                item?.packages?.image != null &&
+                                item?.packages?.image
+                                  ? combieImg(item?.packages?.image)
+                                  : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
+                              }
                               alt=""
                               onError={({ currentTarget }) => {
                                 currentTarget.src =
@@ -138,7 +143,9 @@ function Class() {
                           currentPage={currentPage}
                           totalPage={totalPages}
                           totalItem={totalItems}
-                          onChange={(e) => { setPage(e) }}
+                          onChange={(e) => {
+                            setPage(e);
+                          }}
                         ></PagingQuestion>
                       </div>
                     </div>

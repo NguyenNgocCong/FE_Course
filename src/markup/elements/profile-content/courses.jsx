@@ -19,7 +19,6 @@ function CoursesContent() {
     userApi.getCarts({ page: pageIndex - 1 }).then((res) => setRes(res));
   }, [pageIndex]);
 
-  console.log(res);
   return (
     <>
       <div className="profile-head">
@@ -91,14 +90,8 @@ function CoursesContent() {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 															</ul> */}
-                      <div
-                        className="btn btn-warning"
-                        onClick={() => {
-                          window.location.href =
-                            "/react/courses-details/" + item.id;
-                        }}
-                      >
-                        <i className="fa fa-eye"></i>Details
+                      <div className="btn btn-danger">
+                        <i className="fa fa-trash"></i> delete
                       </div>
                     </div>
                   </div>

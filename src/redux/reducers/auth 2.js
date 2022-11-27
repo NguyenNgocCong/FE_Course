@@ -32,13 +32,12 @@ export const getUserInfoReduce = createAsyncThunk(
   async (params, { dispatch }) => {
     try {
       dispatch(sendRequest());
-      const data = await userApi.getUserDetail();
+      const info = await userApi.getInfo();
 
       dispatch(resetState());
-      dispatch(requestSuccess(data));
+      dispatch(requestSuccess(info));
     } catch (error) {
       dispatch(resetState());
-      console.log({ error });
       dispatch(requestFail(error.message));
     }
   }
