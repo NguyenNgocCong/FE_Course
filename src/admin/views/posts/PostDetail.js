@@ -22,6 +22,7 @@ import {
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Cookies from "js-cookie";
+import { combieImg } from "../../../utils";
 
 function PostDetail(props) {
     const [listCategory, setListCategory] = useState([]);
@@ -269,7 +270,7 @@ function PostDetail(props) {
                                         <CImage
                                             rounded
                                             thumbnail
-                                            src={!preview ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  post?.thumnailUrl ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" +  post?.thumnailUrl : img : preview}
+                                            src={!preview ?( post?.thumnailUrl != null &&  post?.thumnailUrl) ? combieImg(post?.thumnailUrl) : img : preview}
                                             width={400}
                                             style={{ maxHeight: '240px' }}
                                             onLoad={() => URL.revokeObjectURL(preview)}

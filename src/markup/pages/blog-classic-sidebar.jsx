@@ -1,26 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-
-// Layout
-import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
-
-// Elements
+import Footer from "../layout/footer/footer1";
 import BlogAside from "../elements/blog-aside";
-
-// Images
-import {
-  CButton,
-  CCardImage,
-  CCardText,
-  CCardTitle,
-  CCol,
-  CRow,
-} from "@coreui/react";
+import bannerImg from "../../images/banner/banner1.jpg";
+import { CRow, CCol, CCardImage, CCardTitle, CCardText } from "@coreui/react";
+import { CButton } from "@coreui/react";
+import { userApi } from "./../../api/userApi";
 import ReactHtmlParser from "react-html-parser";
 import bannerImg from "../../images/banner/banner1.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
-import { userApi } from "./../../api/userApi";
+import { combieImg } from "../../utils";
 
 const BlogClassicSidebar = () => {
   const location = useLocation();
@@ -84,11 +74,12 @@ const BlogClassicSidebar = () => {
                       <CRow key={item?.id}>
                         <CCol md={3}>
                           <CCardImage
-                            src={
-                              process.env.REACT_APP_BASE_URL +
-                              "/api/account/downloadFile/" +
-                              item?.thumnailUrl
-                            }
+                            src={(item?.thumnailUrl != null && item?.thumnailUrl) ? combieImg(item?.thumnailUrl) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
+                            alt=""
+                            onError={({ currentTarget }) => {
+                              currentTarget.src =
+                                "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                            }}
                           />
                         </CCol>
                         <CCol md={9}>

@@ -14,6 +14,7 @@ import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Col, Row } from "react-bootstrap";
+import { combieImg } from "../../../utils";
 
 const Posts = () => {
     const columns = [
@@ -28,7 +29,7 @@ const Posts = () => {
             maxWidth: '150px',
             selector: (row) => (
                 <img
-                    src={process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + row.thumnailUrl}
+                    src={(row.thumnailUrl != null && row.thumnailUrl) ? combieImg(row.thumnailUrl) : ""}
                     width={120}
                     alt='thumbnail'
                 />

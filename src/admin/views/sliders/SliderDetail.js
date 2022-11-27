@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useHistory, useLocation } from "react-router-dom";
 import { adminApi } from "../../../api/adminApi";
+import { combieImg } from "../../../utils";
 import {
     AppFooter,
     AppHeader,
@@ -111,7 +112,7 @@ function SliderDetail(props) {
                                     <CImage
                                         rounded
                                         thumbnail
-                                        src={!preview ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + slider?.imageUrl ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + slider?.imageUrl : img : preview}
+                                        src={!preview ? (slider?.imageUrl != null && slider?.imageUrl) ? combieImg(slider?.imageUrl) : img : preview}
                                         width={1200}
                                         style={{ maxHeight: '450px', display: 'block', margin: 'auto' }}
                                         onLoad={() => URL.revokeObjectURL(preview)}

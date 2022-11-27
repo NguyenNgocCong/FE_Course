@@ -1,14 +1,8 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-
-// Layout
-import Footer from "../layout/footer/footer1";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from "../layout/header/header1";
-
-// Elements
-
-// Images
-import bannerImg from "../../images/banner/banner3.jpg";
+import Footer from "../layout/footer/footer1";
+import bannerImg from '../../images/banner/banner3.jpg';
 
 class About2 extends Component {
   render() {

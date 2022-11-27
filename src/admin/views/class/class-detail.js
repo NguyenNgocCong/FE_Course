@@ -137,6 +137,7 @@ function ClassDetail(props) {
         getListPackage();
         getListSupporter();
         getListBranch();
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => { }, [dateFrom, dateTo]);

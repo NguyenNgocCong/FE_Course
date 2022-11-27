@@ -11,6 +11,8 @@ import DataTable from "react-data-table-component";
 import { comboApi } from "../../api/comboApi";
 import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
+import DataTable from "react-data-table-component";
+import { Markup } from "interweave";
 
 function CoursesDetails(props) {
   const params = useParams();

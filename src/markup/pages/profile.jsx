@@ -72,7 +72,7 @@ function Profile(props) {
                                                 <div className="user-profile-thumb ">
                                                     <img
                                                         src={
-                                                            user?.avatar ? combieImg(user?.avatar) : avatarProfile
+                                                            (user?.avatar != null && user?.avatar) ? combieImg(user?.avatar) : avatarProfile
                                                         }
                                                         className="w-100 h-100"
                                                         alt=""

@@ -29,7 +29,6 @@ const Expert = () => {
       setRes(res);
     });
   }, [page]);
-  console.log(res);
   const { data, totalItems, totalPages, currentPage } = res;
   return (
     <>
@@ -182,7 +181,9 @@ const Expert = () => {
                           currentPage={currentPage}
                           totalPage={totalPages}
                           totalItem={totalItems}
-                          onChange={() => {}}
+                          onChange={(e) => {
+                            setPage(e);
+                          }}
                         ></PagingQuestion>
                       </div>
                     </div>

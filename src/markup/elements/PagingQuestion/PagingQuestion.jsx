@@ -10,6 +10,7 @@ const PagingQuestion = ({
   pageIndex,
   ...props
 }) => {
+  // eslint-disable-next-line
   const [selectedPage, setSelectedPage] = useState(1);
 
   useEffect(() => {
@@ -24,9 +25,8 @@ const PagingQuestion = ({
           return (
             <li
               key={key}
-              className={`paging-question-item ${
-                pageIndex === index ? "paging-question-current-selectes" : ""
-              }`}
+              className={`paging-question-item ${pageIndex === index ? "paging-question-current-selectes" : ""
+                }`}
               {...props}
             >
               <div
@@ -57,7 +57,7 @@ PagingQuestion.defaultProps = {
   totalPage: 50,
   currentPage: 1,
   totalItem: 3,
-  onChange: () => {},
+  onChange: () => { },
 };
 
 export default PagingQuestion;

@@ -1,18 +1,9 @@
 import React, { useState } from "react";
 
-// Elements
 import Count from "../elements/counter/counter-sensor";
-
-// Images
 import { useEffect } from "react";
 import { userApi } from "../../api/userApi";
-import icon1 from "../../images/icon/icon1.png";
-import icon2 from "../../images/icon/icon2.png";
-import icon3 from "../../images/icon/icon3.png";
-import icon4 from "../../images/icon/icon4.png";
 import { combieImg } from "../../utils";
-
-const icons = [icon1, icon2, icon3, icon4];
 
 function FeatureContent3(props) {
   const [listPost, setListPost] = useState([]);

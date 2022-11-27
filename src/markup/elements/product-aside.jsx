@@ -1,22 +1,15 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 import { Link, useHistory } from "react-router-dom";
-import { adminApi } from "../../api/adminApi";
 import { userApi } from "../../api/userApi";
 import useDebounce from "../../hooks/useDebounce";
-import adv from "../../images/adv/adv.jpg";
-import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
-import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
 import { combieImg } from "../../utils/index";
 
 function ProductAside() {
   const history = useHistory();
   const [listCategory, setListCategory] = useState([]);
-  const [recents, setRecents] = useState([]);
   const [topviews, setListTopViews] = useState([]);
   const [params, setParams] = useState({ keyword: "", category: "" });
-  const [data, setDataTable] = useState([]);
 
   const debouncedSearchTerm = useDebounce(params.keyword, 500);
 
@@ -26,16 +19,6 @@ function ProductAside() {
       setListCategory(response);
     } catch (responseError) {
       console.log(responseError);
-    }
-  };
-  const getListProduct = async () => {
-    try {
-      const response = await adminApi.getAllPackageView();
-      setDataTable(response.data);
-    } catch (responseError) {
-      toast.error(responseError?.data.message, {
-        duration: 2000,
-      });
     }
   };
 
@@ -51,7 +34,6 @@ function ProductAside() {
   };
   useEffect(() => {
     getListCategory();
-    getListProduct();
     userApi.getListTopViewPackage(4).then((res) => {
       setListTopViews(res);
     });
@@ -121,7 +103,7 @@ function ProductAside() {
               >
                 {" "}
                 <img
-                  src={combieImg(x.image)}
+                  src={(x?.image != null && x?.image) ? combieImg(x.image) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
                   alt=""
                   style={{objectFit:"cover"}}
                   width={100}

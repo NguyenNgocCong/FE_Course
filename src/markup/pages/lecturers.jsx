@@ -21,6 +21,7 @@ import {
 import { userApi } from "./../../api/userApi";
 import { useSelector } from "react-redux";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
+import { combieImg } from "../../utils";
 
 const Lecturers = () => {
   const [listPost, setListPost] = useState([]);
@@ -87,11 +88,12 @@ const Lecturers = () => {
                       <CRow key={item?.id}>
                         <CCol md={3}>
                           <CCardImage
-                            src={
-                              process.env.REACT_APP_BASE_URL +
-                              "/api/account/downloadFile/" +
-                              item?.user.avatar
-                            }
+                           src={(item?.user?.avatar != null && item?.user?.avatar) ? combieImg(item?.user?.avatar) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
+                           alt=""
+                           onError={({ currentTarget }) => {
+                             currentTarget.src =
+                               "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                           }}
                           />
                         </CCol>
                         <CCol md={9}>

@@ -20,6 +20,7 @@ import {
 } from "../../components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { combieImg } from "../../../utils";
 
 function ExpertDetail(props) {
     const [expert, setExpert] = useState();
@@ -172,7 +173,7 @@ function ExpertDetail(props) {
                                         <CImage
                                             rounded
                                             thumbnail
-                                            src={!preview ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + expert?.user.avatar ? process.env.REACT_APP_BASE_URL + "/api/account/downloadFile/" + expert?.user.avatar : img : preview}
+                                            src={!preview ? (expert?.user.avatar != null && expert?.user.avatar) ? combieImg(expert?.user.avatar) : img : preview}
                                             width={400}
                                             style={{ maxHeight: '240px' }}
                                             onLoad={() => URL.revokeObjectURL(preview)}

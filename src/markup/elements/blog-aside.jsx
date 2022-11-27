@@ -112,7 +112,7 @@ function BlogAside() {
                   key={blog?.id}
                 >
                   <img
-                    src={combieImg(blog.thumnailUrl)}
+                    src={(blog.thumnailUrl != null && blog.thumnailUrl) ? combieImg(blog.thumnailUrl) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
                     alt=""
                     style={{ objectFit: "cover" }}
                     width={100}
@@ -152,7 +152,7 @@ function BlogAside() {
                   key={blog?.id}
                 >
                   <img
-                    src={combieImg(blog.thumnailUrl)}
+                    src={(blog.thumnailUrl != null && blog.thumnailUrl) ? combieImg(blog.thumnailUrl) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
                     alt=""
                     style={{ objectFit: "cover" }}
                     width={100}

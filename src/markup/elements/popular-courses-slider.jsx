@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
@@ -38,7 +37,7 @@ function PopularCoursesSlider() {
                 <div className="cours-bx">
                   <div className="action-box">
                     <img
-                      src={combieImg(item.image)}
+                      src={(item.image != null && item.image) ? combieImg(item.image) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
                       alt=""
                       style={{ objectFit: "cover" }}
                       onError={({ currentTarget }) => {
@@ -46,7 +45,7 @@ function PopularCoursesSlider() {
                           "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
                       }}
                     />
-                    <Link
+                    <div
                       onClick={() => {
                         window.location.href =
                           "/react/courses-details/" + item.id;
@@ -54,18 +53,18 @@ function PopularCoursesSlider() {
                       className="btn btn-warning m-2"
                     >
                       Read More
-                    </Link>
+                    </div>
                   </div>
                   <div className="info-bx">
                     <h5>
-                      <Link
+                      <div
                         onClick={() => {
                           window.location.href =
                             "/react/courses-details/" + item.id;
                         }}
                       >
                         {item.title}
-                      </Link>
+                      </div>
                     </h5>
                     <div>
                       <i className="fa fa-user"></i>{" "}
@@ -122,7 +121,7 @@ function PopularCoursesSlider() {
                           "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
                       }}
                     />
-                    <Link
+                    <div
                       onClick={() => {
                         window.location.href =
                           "/react/courses-details/" + item.id;
@@ -130,18 +129,18 @@ function PopularCoursesSlider() {
                       className="btn btn-warning m-2"
                     >
                       Read More
-                    </Link>
+                    </div>
                   </div>
                   <div className="info-bx">
                     <h5>
-                      <Link
+                      <div
                         onClick={() => {
                           window.location.href =
                             "/react/courses-details/" + item.id;
                         }}
                       >
                         {item.title}
-                      </Link>
+                      </div>
                     </h5>
                     <div>
                       <i className="fa fa-user"></i>{" "}

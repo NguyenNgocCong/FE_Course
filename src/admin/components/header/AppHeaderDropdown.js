@@ -36,7 +36,7 @@ const AppHeaderDropdown = () => {
                 caret={false}
             >
                 <CAvatar src={
-                    user?.avatar ? combieImg(user?.avatar) : avatarProfile}
+                    (user?.avatar != null && user?.avatar) ? combieImg(user?.avatar) : avatarProfile}
                     size="md"
                 />
             </CDropdownToggle>

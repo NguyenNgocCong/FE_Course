@@ -1,22 +1,10 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-
-// Elements
 import BackToTop from "./elements/back-top";
 import PageScrollTop from "./elements/page-scroll-top";
-
-// Home Pages
 import Index2 from "./pages/index-2";
-
-// About Us
 import About2 from "./pages/about-2";
-
-// Events
-
-// Faq
 import Faq2 from "./pages/faq-2";
-
-// Other Pages
 import Error404 from "./pages/error-404";
 import ForgetPassword from "./pages/forget-password";
 import Login from "./pages/login";
@@ -24,25 +12,16 @@ import Membership from "./pages/membership";
 import Portfolio from "./pages/portfolio";
 import Profile from "./pages/profile";
 import Register from "./pages/register";
-
-// Courses
 import ProductsUser from "./pages/courses";
 import CoursesDetails from "./pages/courses-details";
 import LecturersUser from "./pages/lecturers";
-
-// Blog Pages
 import BlogClassicSidebar from "./pages/blog-classic-sidebar";
 import BlogDetails from "./pages/blog-details";
-
-// Contact Us
 import Contact1 from "./pages/contact-1";
-
 import ForgetPasswordInput from "./pages/forget-password-input";
-
 import Dashboard from "../admin/views/dashboard/Dashboard";
 import UserDetail from "../admin/views/users/UserDetail";
 import Users from "../admin/views/users/Users";
-// eslint-disable-next-line
 import Cookies from "js-cookie";
 import Class from "../admin/views/class/class";
 import ClassDetail from "../admin/views/class/class-detail";
@@ -64,7 +43,6 @@ import Packages from "./../admin/views/packages/Packages";
 import SliderDetail from "./../admin/views/sliders/SliderDetail";
 import ComboHome from "./pages/combo";
 import ClassUser from "./pages/Class";
-
 import ComboDetailHome from "./pages/ComboDetails";
 import ExpertsUser from "./pages/Expert";
 import Error401 from "./pages/error-401";
@@ -87,7 +65,9 @@ function Markup(props) {
     if (!isLogin) {
       dispatch(getAllCartLocal());
     }
+    // eslint-disable-next-line
   }, [isLogin, dispatch]);
+  
   return (
     <>
       <BrowserRouter basename={"/react/"}>
