@@ -169,12 +169,12 @@ const Contact = () => {
             center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
-                    <button
+                    {/* <button
                         onClick={() => { window.location.href = "/admin/contact/" + row?.id }}
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
                         <CIcon icon={cilPen} />
-                    </button>
+                    </button> */}
                     <button
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
                         onClick={() => submit(row)}
