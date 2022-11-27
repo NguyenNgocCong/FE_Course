@@ -81,6 +81,24 @@ export const adminApi = {
       },
     });
   },
+
+  //order
+  getAllRegistration: (page, size, keyword, category, status) => {
+    const url = `/api/order/admin?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    return axiosApi.get(url);
+  },
+  getAllOrder: (page, size, keyword, category, status) => {
+    const url = `/api/order/admin?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    return axiosApi.get(url);
+  },
+  getAllOrdered: (page, size, keyword, category, status) => {
+    const url = `/api/order/admin?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    return axiosApi.get(url);
+  },
+  updateOrder: (status, id) => {
+    const url = `/api/order/update-status?id=${id}&status=${status}`;
+    return axiosApi.put(url);
+  },
   // subject
   getAllSubject: (page, size, keyword, category, status) => {
     const url = `/api/subjects?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;

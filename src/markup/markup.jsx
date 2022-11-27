@@ -25,6 +25,10 @@ import Users from "../admin/views/users/Users";
 import Cookies from "js-cookie";
 import Class from "../admin/views/class/class";
 import ClassDetail from "../admin/views/class/class-detail";
+import Coupon from "../admin/views/coupon/coupon";
+import CouponDetail from "../admin/views/coupon/coupon-detail";
+import Trainee from "../admin/views/trainee/trainee";
+import TraineeDetail from "../admin/views/trainee/trainee-detail";
 import Combo from "../admin/views/combo/Combo";
 import ComboDetail from "../admin/views/combo/ComboDetail";
 import Contact from "../admin/views/contact/contact";
@@ -39,6 +43,12 @@ import Settings from "../admin/views/settings/Settings";
 import Sliders from "../admin/views/sliders/Sliders";
 import SubjectDetail from "../admin/views/subjects/subject-detail";
 import Subjects from "../admin/views/subjects/subjects";
+import RegistrationDetail from "../admin/views/registration/registration-detail";
+import Registration from "../admin/views/registration/registration";
+import OrderedDetail from "../admin/views/ordered/ordered-detail";
+import Ordered from "../admin/views/ordered/ordered";
+import OrdersDetail from "../admin/views/orders/orders-detail";
+import Orders from "../admin/views/orders/orders";
 import Packages from "./../admin/views/packages/Packages";
 import SliderDetail from "./../admin/views/sliders/SliderDetail";
 import ComboHome from "./pages/combo";
@@ -67,7 +77,7 @@ function Markup(props) {
     }
     // eslint-disable-next-line
   }, [isLogin, dispatch]);
-  
+
   return (
     <>
       <BrowserRouter basename={"/react/"}>
@@ -157,12 +167,52 @@ function Markup(props) {
             <SubjectDetail />
           </PrivateRoute>
 
+          {/* Registration */}
+          <PrivateRoute path="/admin/registration" exact>
+            <Registration />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/registration/:id" exact>
+            <RegistrationDetail />
+          </PrivateRoute>
+
+          {/* Orders */}
+          <PrivateRoute path="/admin/orders" exact>
+            <Orders />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/orders/:id" exact>
+            <OrdersDetail />
+          </PrivateRoute>
+
+          {/* Ordered */}
+          <PrivateRoute path="/admin/ordered" exact>
+            <Ordered />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/ordered/:id" exact>
+            <OrderedDetail />
+          </PrivateRoute>
+
           {/* Class */}
           <PrivateRoute path="/admin/class" exact>
             <Class />
           </PrivateRoute>
           <PrivateRoute path="/admin/class/:id" exact>
             <ClassDetail />
+          </PrivateRoute>
+
+          {/* Trainee */}
+          <PrivateRoute path="/admin/trainee" exact>
+            <Trainee />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/trainee/:id" exact>
+            <TraineeDetail />
+          </PrivateRoute>
+
+          {/* Coupon */}
+          <PrivateRoute path="/admin/coupon" exact>
+            <Coupon />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/coupon/:id" exact>
+            <CouponDetail />
           </PrivateRoute>
 
           {/* Expert */}

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
+import { addPackageLocal } from "../../redux/reducers/order";
 
 function PopularCoursesSlider() {
   const [listPackage, setListPackage] = useState([]);
+  const { isLogin } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const getListPackage = async () => {
     try {
@@ -12,6 +16,12 @@ function PopularCoursesSlider() {
       setListPackage(response);
     } catch (responseError) {
       console.log(responseError);
+    }
+  };
+
+  const handleAddToCart = (data) => {
+    if (!isLogin) {
+      dispatch(addPackageLocal(data));
     }
   };
 
@@ -88,7 +98,9 @@ function PopularCoursesSlider() {
                       <li><i className="fa fa-star"></i></li>
                       <li><i className="fa fa-star"></i></li>
                     </ul> */}
-                      <div className="btn btn-warning">
+                      <div className="btn btn-warning"
+                        onClick={() => handleAddToCart(item)}
+                      >
                         <i className="fa fa-cart-plus"></i> Add to cart
                       </div>
                     </div>
@@ -164,7 +176,9 @@ function PopularCoursesSlider() {
                       <li><i className="fa fa-star"></i></li>
                       <li><i className="fa fa-star"></i></li>
                     </ul> */}
-                      <div className="btn btn-warning">
+                      <div className="btn btn-warning"
+                        onClick={() => handleAddToCart(item)}
+                      >
                         <i className="fa fa-cart-plus"></i> Add to cart
                       </div>
                     </div>
