@@ -23,12 +23,12 @@ function CheckOut(prop) {
     <>
       <Header />
 
-      <section class="component">
-        <div class="total">
+      <section className="component">
+        <div className="total">
           <h3>TOTAL</h3>
           <p>${totalPackage + totalCombo}</p>
         </div>
-        <div class="credit-card">
+        <div className="credit-card">
           <h2>Credit card</h2>
           <form>
             <input className="input__checkout" type="text" placeholder="NAME" />
@@ -48,7 +48,7 @@ function CheckOut(prop) {
               placeholder="COUPON"
             />
 
-            <button type="submit" class="valid-button">
+            <button type="submit" className="valid-button">
               PROCEED TO CHECKOUT
             </button>
           </form>

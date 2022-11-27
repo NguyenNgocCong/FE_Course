@@ -243,7 +243,7 @@ function Header() {
                         type="button"
                         className="btn-link fs-3 link__card"
                       >
-                        <i class="bi bi-bag-check"></i> <span>{totalCart}</span>
+                        <i className="bi bi-bag-check"></i> <span>{totalCart}</span>
                       </Link>
                     </li>
                   </ul>

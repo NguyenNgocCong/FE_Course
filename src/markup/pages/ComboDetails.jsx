@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
-// Layout
 import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
-
-// Images
 import { Markup } from "interweave";
 import DataTable from "react-data-table-component";
 import { comboApi } from "../../api/comboApi";
 import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
-import DataTable from "react-data-table-component";
-import { Markup } from "interweave";
 
 function CoursesDetails(props) {
   const params = useParams();
