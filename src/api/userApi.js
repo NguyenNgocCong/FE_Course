@@ -94,6 +94,11 @@ export const userApi = {
     return axiosApi.get(url);
   },
 
+  getInfo: () => {
+    const url = `/api/account/info`;
+    return axiosApi.get(url);
+  },
+
   getListTopViewPackage: (top) => {
     const url = `/api/package/top-views?top=${top}`;
     return axiosApi.get(url);

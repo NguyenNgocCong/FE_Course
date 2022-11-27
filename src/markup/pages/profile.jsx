@@ -14,163 +14,180 @@ import ChangePassword from "../elements/profile-content/change-password";
 
 // Images
 import bannerImg from "../../images/banner/banner1.jpg";
-import avatarProfile from '../../images/icon/avatar.svg'
+import avatarProfile from "../../images/icon/avatar.svg";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
 
 function Profile(props) {
-    const [user, setUser] = useState({});
-    const [state, setState] = useState(false);
+  const [user, setUser] = useState({});
+  const [state, setState] = useState(false);
 
-    const getUsetProfile = async () => {
-        try {
-            const response = await userApi.getUserDetail();
-            setUser(response);
+  const getUsetProfile = async () => {
+    try {
+      const response = await userApi.getUserDetail();
+      setUser(response);
+    } catch (responseError) {
+      console.log(responseError);
+    }
+  };
 
-        } catch (responseError) {
-            console.log(responseError);
-        }
-    };
+  useEffect(() => {
+    getUsetProfile();
+  }, [state]);
 
-    useEffect(() => {
-        getUsetProfile();
-    }, [state]);
+  return (
+    <>
+      <Header />
+      <div className="page-content">
+        <div
+          className="page-banner ovbl-dark"
+          style={{ backgroundImage: "url(" + bannerImg + ")" }}
+        >
+          <div className="container">
+            <div className="page-banner-entry">
+              <h1 className="text-white">Profile</h1>
+            </div>
+          </div>
+        </div>
+        <div className="breadcrumb-row">
+          <div className="container">
+            <ul className="list-inline">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>Profile</li>
+            </ul>
+          </div>
+        </div>
 
-    return (
-        <>
-            <Header />
-            <div className="page-content">
-                <div
-                    className="page-banner ovbl-dark"
-                    style={{ backgroundImage: "url(" + bannerImg + ")" }}
-                >
-                    <div className="container">
-                        <div className="page-banner-entry">
-                            <h1 className="text-white">Profile</h1>
+        <div className="content-block">
+          <div className="section-area section-sp1">
+            <div className="container">
+              <Tab.Container defaultActiveKey="tabOne">
+                <Tab.Content>
+                  <div className="row">
+                    <div className="col-lg-4 col-md-5 col-sm-12 m-b30">
+                      <div className="profile-bx text-center">
+                        <div className="user-profile-thumb ">
+                          <img
+                            src={
+                              user?.avatar != null && user?.avatar
+                                ? combieImg(user?.avatar)
+                                : avatarProfile
+                            }
+                            className="w-100 h-100"
+                            alt=""
+                          />
                         </div>
-                    </div>
-                </div>
-                <div className="breadcrumb-row">
-                    <div className="container">
-                        <ul className="list-inline">
+                        <div className="profile-info">
+                          <h4>{user?.fullname}</h4>
+                          <span>{user?.email}</span>
+                        </div>
+                        <div className="profile-social">
+                          <ul className="list-inline m-a0">
                             <li>
-                                <Link to="/">Home</Link>
+                              <Link to="#">
+                                <i className="fa fa-facebook"></i>
+                              </Link>
                             </li>
-                            <li>Profile</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div className="content-block">
-                    <div className="section-area section-sp1">
-                        <div className="container">
-                            <Tab.Container defaultActiveKey="tabOne">
-                                <Tab.Content>
-                                    <div className="row">
-                                        <div className="col-lg-4 col-md-5 col-sm-12 m-b30">
-                                            <div className="profile-bx text-center">
-                                                <div className="user-profile-thumb ">
-                                                    <img
-                                                        src={
-                                                            (user?.avatar != null && user?.avatar) ? combieImg(user?.avatar) : avatarProfile
-                                                        }
-                                                        className="w-100 h-100"
-                                                        alt=""
-                                                    />
-                                                </div>
-                                                <div className="profile-info">
-                                                    <h4>{user?.fullname}</h4>
-                                                    <span>{user?.email}</span>
-                                                </div>
-                                                <div className="profile-social">
-                                                    <ul className="list-inline m-a0">
-                                                        <li>
-                                                            <Link to="#">
-                                                                <i className="fa fa-facebook"></i>
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="#">
-                                                                <i className="fa fa-twitter"></i>
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="#">
-                                                                <i className="fa fa-linkedin"></i>
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="#">
-                                                                <i className="fa fa-google-plus"></i>
-                                                            </Link>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="profile-tabnav">
-                                                    <Nav className="nav-tabs">
-                                                        <Nav.Item>
-                                                            <Nav.Link eventKey="tabOne">
-                                                                <i className="ti-book"></i>
-                                                                Courses
-                                                            </Nav.Link>
-                                                        </Nav.Item>
-                                                        {/* <Nav.Item>
+                            <li>
+                              <Link to="#">
+                                <i className="fa fa-twitter"></i>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="#">
+                                <i className="fa fa-linkedin"></i>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="#">
+                                <i className="fa fa-google-plus"></i>
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="profile-tabnav">
+                          <Nav className="nav-tabs">
+                            <Nav.Item>
+                              <Nav.Link eventKey="tabOne">
+                                <i className="ti-book"></i>
+                                Cart
+                              </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                              <Nav.Link eventKey="tabTwo">
+                                <i className="ti-book"></i>
+                                Order
+                              </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                              <Nav.Link eventKey="tabThree">
+                                <i className="ti-book"></i>
+                                Class
+                              </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                              <Nav.Link eventKey="tabFour">
+                                <i className="ti-book"></i>
+                                Courses
+                              </Nav.Link>
+                            </Nav.Item>
+                            {/* <Nav.Item>
                                                             <Nav.Link eventKey="tabTwo">
                                                                 <i className="ti-bookmark-alt"></i>
                                                                 Quiz Results
                                                             </Nav.Link>
                                                         </Nav.Item> */}
-                                                        <Nav.Item>
-                                                            <Nav.Link eventKey="tabThree">
-                                                                <i className="ti-pencil-alt"></i>
-                                                                Edit Profile
-                                                            </Nav.Link>
-                                                        </Nav.Item>
-                                                        <Nav.Item>
-                                                            <Nav.Link eventKey="tabFour">
-                                                                <i className="ti-lock"></i>
-                                                                Change Password
-                                                            </Nav.Link>
-                                                        </Nav.Item>
-                                                    </Nav>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-8 col-md-7 col-sm-12 m-b30">
-                                            <div className="profile-content-bx">
-                                                <div className="tab-content">
-                                                    <Tab.Pane eventKey="tabOne">
-                                                        <Courses />
-                                                    </Tab.Pane>
-                                                    <Tab.Pane eventKey="tabTwo">
-                                                        <QuizResults />
-                                                    </Tab.Pane>
-                                                    <Tab.Pane eventKey="tabThree">
-                                                        <EditProfile
-                                                            user={user}
-                                                            stateChanger={
-                                                                setState
-                                                            }
-                                                            state={state}
-                                                        />
-                                                    </Tab.Pane>
-                                                    <Tab.Pane eventKey="tabFour">
-                                                        <ChangePassword />
-                                                    </Tab.Pane>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Tab.Content>
-                            </Tab.Container>
+                            <Nav.Item>
+                              <Nav.Link eventKey="tabFive">
+                                <i className="ti-pencil-alt"></i>
+                                Edit Profile
+                              </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                              <Nav.Link eventKey="tabSix">
+                                <i className="ti-lock"></i>
+                                Change Password
+                              </Nav.Link>
+                            </Nav.Item>
+                          </Nav>
                         </div>
+                      </div>
                     </div>
-                </div>
+                    <div className="col-lg-8 col-md-7 col-sm-12 m-b30">
+                      <div className="profile-content-bx">
+                        <div className="tab-content">
+                          <Tab.Pane eventKey="tabOne">
+                            <Courses />
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="tabTwo">
+                            <QuizResults />
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="tabThree">
+                            <EditProfile
+                              user={user}
+                              stateChanger={setState}
+                              state={state}
+                            />
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="tabFour">
+                            <ChangePassword />
+                          </Tab.Pane>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Tab.Content>
+              </Tab.Container>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <Footer />
-        </>
-    );
+      <Footer />
+    </>
+  );
 }
 
 export default Profile;

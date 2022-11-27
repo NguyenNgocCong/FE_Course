@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
 import { addPackageLocal } from "../../redux/reducers/order";
+import { toast } from "react-toastify";
 
 function PopularCoursesSlider() {
   const [listPackage, setListPackage] = useState([]);
@@ -22,6 +23,13 @@ function PopularCoursesSlider() {
   const handleAddToCart = (data) => {
     if (!isLogin) {
       dispatch(addPackageLocal(data));
+    } else {
+      userApi.addToCard({ packageId: data.id }).then((res) => {
+        console.log(res);
+        toast.success("Add To Cart Success !", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
     }
   };
 
@@ -43,11 +51,15 @@ function PopularCoursesSlider() {
             className="courses-carousel slick-slider owl-btn-1"
           >
             {listPackage.map((item, index) => (
-              <div className="slider-item" key={item.id} >
+              <div className="slider-item" key={item.id}>
                 <div className="cours-bx">
                   <div className="action-box">
                     <img
-                      src={(item.image != null && item.image) ? combieImg(item.image) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
+                      src={
+                        item.image != null && item.image
+                          ? combieImg(item.image)
+                          : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
+                      }
                       alt=""
                       style={{ objectFit: "cover" }}
                       onError={({ currentTarget }) => {
@@ -98,7 +110,8 @@ function PopularCoursesSlider() {
                       <li><i className="fa fa-star"></i></li>
                       <li><i className="fa fa-star"></i></li>
                     </ul> */}
-                      <div className="btn btn-warning"
+                      <div
+                        className="btn btn-warning"
                         onClick={() => handleAddToCart(item)}
                       >
                         <i className="fa fa-cart-plus"></i> Add to cart
@@ -121,7 +134,7 @@ function PopularCoursesSlider() {
             className="courses-carousel slick-slider owl-btn-1"
           >
             {listPackage.map((item, index) => (
-              <div className="slider-item" key={item.id} >
+              <div className="slider-item" key={item.id}>
                 <div className="cours-bx">
                   <div className="action-box">
                     <img
@@ -176,7 +189,8 @@ function PopularCoursesSlider() {
                       <li><i className="fa fa-star"></i></li>
                       <li><i className="fa fa-star"></i></li>
                     </ul> */}
-                      <div className="btn btn-warning"
+                      <div
+                        className="btn btn-warning"
                         onClick={() => handleAddToCart(item)}
                       >
                         <i className="fa fa-cart-plus"></i> Add to cart

@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
 // Images
-import toast from "react-hot-toast";
 import { adminApi } from "../../api/adminApi";
 import bannerImg from "../../images/banner/banner3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
@@ -12,6 +11,8 @@ import { combieImg } from "../../utils";
 import ProductAside from "../elements/product-aside";
 import { useDispatch, useSelector } from "react-redux";
 import { addPackageLocal } from "../../redux/reducers/order";
+import { ToastContainer, toast } from "react-toastify";
+import { userApi } from "../../api/userApi";
 
 function Products() {
   const { isLogin } = useSelector((state) => state.auth);
@@ -40,6 +41,13 @@ function Products() {
   const handleAddToCart = (data) => {
     if (!isLogin) {
       dispatch(addPackageLocal(data));
+    } else {
+      userApi.addToCard({ packageId: data.id }).then((res) => {
+        console.log(res);
+        toast.success("Add To Cart Success !", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
     }
   };
 
@@ -91,7 +99,11 @@ function Products() {
                         <div className="cours-bx">
                           <div className="action-box">
                             <img
-                              src={(item?.image != null && item?.image) ? combieImg(item.image) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
+                              src={
+                                item?.image != null && item?.image
+                                  ? combieImg(item.image)
+                                  : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
+                              }
                               alt=""
                               onError={({ currentTarget }) => {
                                 currentTarget.src =

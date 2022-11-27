@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { userApi } from "../../api/userApi";
 
 const initState = {
   isLoading: false,
@@ -31,7 +32,10 @@ export const getUserInfoReduce = createAsyncThunk(
   async (params, { dispatch }) => {
     try {
       dispatch(sendRequest());
+      const info = await userApi.getInfo();
+
       dispatch(resetState());
+      dispatch(requestSuccess(info));
     } catch (error) {
       dispatch(resetState());
       dispatch(requestFail(error.message));
