@@ -30,6 +30,7 @@ function CartContent() {
         <ModalCheckOut
           show={showCheckout}
           handleClose={() => setShowCheckOut(false)}
+          setRes={setRes}
         />
         <h5>My Cart</h5>
         <div className="feature-filters style1 ml-auto">
@@ -146,13 +147,14 @@ function CartContent() {
   );
 }
 
-const ModalCheckOut = ({ show, handleClose }) => {
+const ModalCheckOut = ({ show, handleClose, setRes }) => {
   const [code, setCode] = useState("");
   const handleCheckOut = () => {
     userApi
       .payCarts({ couponCode: code })
       .then((res) => {
         toast.success("checkout success");
+        setRes((pre) => ({ ...pre, data: [] }));
         handleClose();
       })
       .catch((e) => toast.error(e?.data?.message));
