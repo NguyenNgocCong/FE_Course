@@ -94,8 +94,19 @@ export const userApi = {
     return axiosApi.get(url);
   },
 
-  getListTopViewPackage:  (top) => {
+  getListTopViewPackage: (top) => {
     const url = `/api/package/top-views?top=${top}`;
     return axiosApi.get(url);
+  },
+
+  // cart
+
+  addToCard: (ProductToOrderRequest) => {
+    const url = `/api/order/add-to-cart`;
+    return axiosApi.post(url, ProductToOrderRequest);
+  },
+  getCarts: (params) => {
+    const url = `/api/order/cart`;
+    return axiosApi.get(url, { params });
   },
 };

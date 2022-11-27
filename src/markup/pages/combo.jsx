@@ -11,10 +11,18 @@ import bannerImg from "../../images/banner/banner3.jpg";
 import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 import { combieImg } from "../../utils";
 import ProductAside from "../elements/product-aside";
+import { useDispatch, useSelector } from "react-redux";
+import { addComboLocal } from "../../redux/reducers/order";
 
 function Combos() {
+  const { isLogin } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [res, setRes] = useState(comboEx);
-
+  const handleAddToCart = (data) => {
+    if (!isLogin) {
+      dispatch(addComboLocal(data));
+    }
+  };
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -115,7 +123,10 @@ function Combos() {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 															</ul> */}
-                              <div className="btn btn-warning">
+                              <div
+                                className="btn btn-warning"
+                                onClick={() => handleAddToCart(item)}
+                              >
                                 <i className="fa fa-cart-plus"></i> Add to cart
                               </div>
                             </div>

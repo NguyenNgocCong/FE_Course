@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import Count from "../elements/counter/counter-sensor";
 import { useEffect } from "react";
 import { userApi } from "../../api/userApi";
@@ -61,38 +62,37 @@ function FeatureContent3(props) {
                         />
                       </div>
                       <div className="col-lg-9 blog-home">
-                        <h5 onClick={() => {
-                          window.location.href =
-                            "/react/blog/" + item?.id;
-                        }}>
-                        {item?.title}
-                      </h5>
-                      <ul className="media-post">
-                        <li>
-                          <i className="fa fa-calendar"></i>
-                          {" " +
-                            new Date(
-                              item?.createDate
-                            ).toLocaleDateString()}
-                        </li>
-                        <li>
-                          <i className="fa fa-user"></i> By{" "}
-                          {item?.author.fullname}
-                        </li>
-                        <li>
-                          <i className="fa fa-eye"></i> {item?.views}
-                        </li>
-                      </ul>
+                        <h5
+                          onClick={() => {
+                            window.location.href = "/react/blog/" + item?.id;
+                          }}
+                        >
+                          {item?.title}
+                        </h5>
+                        <ul className="media-post">
+                          <li>
+                            <i className="fa fa-calendar"></i>
+                            {" " +
+                              new Date(item?.createDate).toLocaleDateString()}
+                          </li>
+                          <li>
+                            <i className="fa fa-user"></i> By{" "}
+                            {item?.author.fullname}
+                          </li>
+                          <li>
+                            <i className="fa fa-eye"></i> {item?.views}
+                          </li>
+                        </ul>
+                      </div>
+                      <hr />
                     </div>
-                    <hr />
-                  </div>
                   </div>
                 ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 }
