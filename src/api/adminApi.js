@@ -84,15 +84,15 @@ export const adminApi = {
 
   //order
   getAllRegistration: (page, size, keyword, category, status) => {
-    const url = `/api/order/admin?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    const url = `/api/order/list-off?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
   getAllOrder: (page, size, keyword, category, status) => {
-    const url = `/api/order/admin?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    const url = `/api/order/list-onli?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
   getAllOrdered: (page, size, keyword, category, status) => {
-    const url = `/api/order/admin?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    const url = `/api/order/list-confirm?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
   updateOrder: (status, id) => {

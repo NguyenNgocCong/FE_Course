@@ -37,7 +37,7 @@ function Ordered() {
       minWidth: "100px",
       width: "120px",
       maxWidth: "140px",
-      selector: (row) => row.user?.username,
+      selector: (row) => row.user ? row.user?.username : row.customer?.username,
       sortable: true,
     },
     {
