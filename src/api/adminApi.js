@@ -318,4 +318,22 @@ export const adminApi = {
     const url = `/api/admin/setting/list-category-WebContact`;
     return axiosApi.get(url);
   },
+
+  //coupon 
+  getAllCoupon: (page,size) =>{
+    const url = `/api/coupon?page=${page}&size=${size}`;
+    return axiosApi.get(url);
+  },
+  getCouponDetail: (id) => {
+    const url = `/api/coupon/${id}`;
+    return axiosApi.get(url);
+  },
+  updateCoupon: (params,id) =>{
+    const url = `api/coupon/update?id=${id}`;
+    return axiosApi.post(url,params);
+  },
+  createCoupon: (params) =>{
+    const url = `api/coupon/create`;
+    return axiosApi.post(url,params);
+  }
 };

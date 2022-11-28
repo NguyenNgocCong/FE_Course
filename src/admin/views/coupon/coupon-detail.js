@@ -16,71 +16,43 @@ import { useHistory, useLocation } from "react-router-dom";
 import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 
-function ClassDetail(props) {
-    const [listTrainer, setListTrainer] = useState();
-    const [listBranch, setListBranch] = useState();
-    const [listSupporter, setListSupporter] = useState();
-    const [detailClass, setDetailClass] = useState();
+function CouponDetail(props) {
+
+    const [detailCoupon, setDetailCoupon] = useState();
     const [packageId, setPackageId] = useState(0);
+    const [validFrom, setValidFrom] = useState();
+    const [validTo, setValidTo] = useState();
+    const [code,setCode] = useState();
     const [listPackages, setListPackages] = useState([]);
-    const [dateFrom, setDateFrom] = useState();
-    const [dateTo, setDateTo] = useState();
-    const [dateStart, setDateStart] = useState();
-    const [trainer, setTrainer] = useState(0);
-    const [branch, setBranch] = useState(0);
-    const [isOnline, setIsOnline] = useState(true);
-    const [supporter, setSupporter] = useState();
+    const [minRevenue, setMinRevenue] = useState();
+    const [minQuantity, setMinQuantity] = useState();
+    const [maxQuantity, setMaxQuantity] = useState();
+    const [discountRate, setDiscountRate] = useState();
     const [status, setStatus] = useState();
     const role = JSON.parse(Cookies.get("user"))?.role;
     const isNotAdmin = role !== "ROLE_ADMIN" ? true : false;
     const location = useLocation();
     const history = useHistory();
     const id = location.pathname.substring(
-        "/admin/class/".length,
+        "/admin/coupon/".length,
         location.pathname.length
     );
     const type = id !== "create" ? 1 : 0;
 
-    const getClassById = async () => {
+    const getCouponById = async () => {
         try {
-            const response = await adminApi.getClassDetail(id);
-            setDetailClass(response);
-            setDateFrom(response?.dateFrom);
-            setDateTo(response?.dateTo);
+            const response = await adminApi.getCouponDetail(id);
+            console.log(response);
+            console.log(id);
+            setDetailCoupon(response);
+            setValidFrom(response?.validFrom);
+            setValidTo(response?.validTo);
             setStatus(response.status);
-        } catch (responseError) {
-            toast.error(responseError?.data.message, {
-                duration: 2000,
-            });
-        }
-    };
-
-    const getListTrainer = async () => {
-        try {
-            const response = await adminApi.getListExperts(0, 50, "");
-            setListTrainer(response.data);
-        } catch (responseError) {
-            toast.error(responseError?.data.message, {
-                duration: 2000,
-            });
-        }
-    };
-
-    const getListBranch = async () => {
-        try {
-            const response = await adminApi.getListCategoryBranch();
-            setListBranch(response);
-        } catch (responseError) {
-            toast.error(responseError?.data.message, {
-                duration: 2000,
-            });
-        }
-    };
-
-    const getListSupporter = async () => {
-        try {
-            const response = await adminApi.getListSupporter();
-            setListSupporter(response.data);
+            setCode(response?.code);
+            setMinRevenue(response?.minRevenue);
+            setMinQuantity(response?.minQuantity);
+            setMaxQuantity(response?.maxQuantity);
+            setDiscountRate(response?.discountRate);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -102,26 +74,26 @@ function ClassDetail(props) {
     const handleUpdateClass = async () => {
         try {
             const params = {
+                code: code,
+                discountRate: discountRate,
+                maxQuantity: maxQuantity,
+                minQuantity: minQuantity,
+                minRevenue: minRevenue,
                 packages: packageId,
-                dateFrom: dateFrom,
-                dateTo: dateTo,
                 status: status,
-                trainer: trainer,
-                online: isOnline,
-                supporterId: supporter,
-                branch: branch,
-                startDate: dateStart
+                validFrom: validFrom,
+                validTo: validTo,
             };
             console.log(params);
 
             const response =
                 type === 1
-                    ? await adminApi.updateClass(params, id)
-                    : await adminApi.createClass(params);
+                    ? await adminApi.updateCoupon(params, id)
+                    : await adminApi.createCoupon(params);
             toast.success(response?.message, {
                 duration: 2000,
             });
-            history.push("/admin/class");
+            history.push("/admin/coupon");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -131,26 +103,20 @@ function ClassDetail(props) {
 
     useEffect(() => {
         if (type === 1) {
-            getClassById();
+            getCouponById();
         }
-        if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER") getListTrainer();
+        if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER") 
         getListPackage();
-        getListSupporter();
-        getListBranch();
         // eslint-disable-next-line
     }, []);
 
-    useEffect(() => { }, [dateFrom, dateTo]);
+    useEffect(() => { }, [validFrom, validTo]);
 
     const optionStatus = [
         { status: false, label: "Deactivate" },
         { status: true, label: "Active" },
     ];
 
-    const optionIsOnline = [
-        { status: true, label: "Online" },
-        { status: false, label: "Offline" }
-    ];
 
     return (
         <div>
@@ -165,7 +131,7 @@ function ClassDetail(props) {
                                 <strong>
                                     {type === 1
                                         ? "Change Class Info"
-                                        : "Create New Class"}
+                                        : "Create New Coupon"}
                                 </strong>
                             </CCardHeader>
                             <CCardBody>
@@ -198,7 +164,7 @@ function ClassDetail(props) {
                                     <CCol sm={3}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Date From (
+                                                Valid From (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -207,16 +173,16 @@ function ClassDetail(props) {
                                                 disabled={isNotAdmin}
                                                 placeholder=""
                                                 value={
-                                                    dateFrom
+                                                    validFrom
                                                         ? new Date(
-                                                            dateFrom
+                                                            validFrom
                                                         ).toLocaleDateString("en-CA")
                                                         : new Date(
                                                             ""
                                                         ).toLocaleDateString("en-CA")
                                                 }
                                                 onChange={(e) =>
-                                                    setDateFrom(
+                                                    setValidFrom(
                                                         new Date(e.target.value)
                                                     )
                                                 }
@@ -226,7 +192,7 @@ function ClassDetail(props) {
                                     <CCol sm={3}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Date To (
+                                                Valid To (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -235,16 +201,16 @@ function ClassDetail(props) {
                                                 disabled={isNotAdmin}
                                                 placeholder=""
                                                 value={
-                                                    dateTo
+                                                    validTo
                                                         ? new Date(
-                                                            dateTo
+                                                            validTo
                                                         ).toLocaleDateString("en-CA")
                                                         : new Date(
                                                             ""
                                                         ).toLocaleDateString("en-CA")
                                                 }
                                                 onChange={(e) =>
-                                                    setDateTo(new Date(e.target.value))
+                                                    setValidTo(new Date(e.target.value))
                                                 }
                                             />
                                         </div>
@@ -263,7 +229,7 @@ function ClassDetail(props) {
                                             >
                                                 {optionStatus?.map((item, index) => {
                                                     if (type === 1) {
-                                                        return detailClass?.status ===
+                                                        return detailCoupon?.status ===
                                                             item?.status ? (
                                                             <option
                                                                 key={index}
@@ -297,233 +263,88 @@ function ClassDetail(props) {
                                     <CCol sm={6}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="formFile">
-                                                Trainer
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                disabled={isNotAdmin}
-                                                onChange={(e) =>
-                                                    setTrainer(e.target.value)
-                                                }
-                                            >
-                                                <option>Select trainer</option>
-                                                {listTrainer?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return detailClass?.trainer
-                                                            ?.id ===
-                                                            item?.id ? (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                                selected
-                                                            >
-                                                                {item?.user?.username}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                            >
-                                                                {item?.user?.username}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                            >
-                                                                {item?.user?.username}
-                                                            </option>
-                                                        );
-                                                    }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={3}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Mode of learning (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setIsOnline(e.target.value === "true")
-                                                }
-                                            >
-                                                {optionIsOnline?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return detailClass?.isOnline ===
-                                                            item?.isOnline ? (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                                selected
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={3}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Opening day(
+                                                Min Revenue(
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
-                                                type="date"
+                                                type="minRevenue"
                                                 id="exampleFormControlInput1"
-                                                disabled={isNotAdmin}
-                                                placeholder=""
-                                                value={
-                                                    dateStart
-                                                        ? new Date(
-                                                            dateStart
-                                                        ).toLocaleDateString("en-CA")
-                                                        : new Date(
-                                                            ""
-                                                        ).toLocaleDateString("en-CA")
-                                                }
+                                                placeholder="Min Revenue"
+                                                defaultValue={minRevenue}
                                                 onChange={(e) =>
-                                                    setDateStart(
-                                                        new Date(e.target.value)
-                                                    )
+                                                    setMinRevenue(e.target.value)
+                                                }
+                                            />
+                                        </div>
+                                    </CCol>
+                                    <CCol sm={3}>
+                                        <div className="mb-3">
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Min Quantity (
+                                                <span style={{ color: "red" }}>*</span>)
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="minQuantity"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Min Quantity"
+                                                defaultValue={minQuantity}
+                                                onChange={(e) =>
+                                                    setMinQuantity(e.target.value)
+                                                }
+                                            />
+                                        </div>
+                                    </CCol>
+                                    <CCol sm={3}>
+                                        <div className="mb-3">
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Max Quantity(
+                                                <span style={{ color: "red" }}>*</span>)
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="maxQuantity"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Max Quantity"
+                                                defaultValue={maxQuantity}
+                                                onChange={(e) =>
+                                                    setMaxQuantity(e.target.value)
                                                 }
                                             />
                                         </div>
                                     </CCol>
                                     <CCol sm={6}>
                                         <div className="mb-3">
-                                            <CFormLabel htmlFor="formFile">
-                                                Supporter
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Discount Rate(
+                                                <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                disabled={isNotAdmin}
+                                            <CFormInput
+                                                type="discountRate"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Discount Rate"
+                                                defaultValue={discountRate}
                                                 onChange={(e) =>
-                                                    setSupporter(e.target.value)
+                                                    setDiscountRate(e.target.value)
                                                 }
-                                            >
-                                                <option>Select Supporter</option>
-                                                {listSupporter?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return detailClass?.supporter
-                                                            ?.id ===
-                                                            item?.id ? (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                                selected
-                                                            >
-                                                                {item?.username}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                            >
-                                                                {item?.username}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }>
-                                                                {item?.username}
-                                                            </option>
-                                                        );
-                                                    }
-                                                })}
-                                            </CFormSelect>
+                                            />
                                         </div>
                                     </CCol>
-                                    {isOnline === false ? <CCol sm={12}>
-                                    <div className="mb-3">
-                                            <CFormLabel htmlFor="formFile">
-                                                Branch
+                                    <CCol sm={12}>
+                                        <div className="mb-3">
+                                        <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Code(
+                                                <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                disabled={isNotAdmin}
+                                            <CFormInput
+                                                type="code"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Code"
+                                                defaultValue={code}
                                                 onChange={(e) =>
-                                                    setBranch(e.target.value)
+                                                    setCode(e.target.value)
                                                 }
-                                            >
-                                                <option>Select Branch</option>
-                                                {listBranch?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return detailClass?.branch
-                                                            ?.id ===
-                                                            item?.id ? (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.setting_value
-                                                                }
-                                                                selected
-                                                            >
-                                                                {item?.setting_title}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.setting_value
-                                                                }
-                                                            >
-                                                                {item?.setting_title}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.setting_value
-                                                                }>
-                                                                {item?.setting_title}
-                                                            </option>
-                                                        );
-                                                    }
-                                                })}
-                                            </CFormSelect>
+                                            />
                                         </div>
-                                    </CCol> : <></>}
+                                    </CCol>
                                 </CRow>
                                 <div className="mb-3">
                                     <CButton
@@ -542,4 +363,4 @@ function ClassDetail(props) {
     );
 }
 
-export default ClassDetail;
+export default CouponDetail;
