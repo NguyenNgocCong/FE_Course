@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Link as ScrollTo } from "react-scroll";
 import { Markup } from "interweave";
 
-// Layout 
+// Layout
 import Header from "../layout/header/header1";
 import Footer from "../layout/footer/footer1";
 
@@ -14,6 +14,8 @@ import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import { adminApi } from "../../api/adminApi";
 import toast from "react-hot-toast";
 import { combieImg } from "../../utils/index";
+import testiPic2 from "../../images/testimonials/pic2.jpg";
+import testiPic3 from "../../images/testimonials/pic3.jpg";
 
 function CoursesDetails(props) {
   const [product, setProduct] = useState({});
@@ -82,7 +84,9 @@ function CoursesDetails(props) {
                       <div className="teacher-info">
                         <div className="teacher-thumb">
                           <img
-                            src={combieImg(product?.sucjectCode?.expert?.user?.avatar)}
+                            src={combieImg(
+                              product?.sucjectCode?.expert?.user?.avatar
+                            )}
                             alt=""
                             onError={({ currentTarget }) => {
                               currentTarget.src = testiPic1;
@@ -90,7 +94,9 @@ function CoursesDetails(props) {
                           />
                         </div>
                         <div className="teacher-name">
-                          <h5>{product?.sucjectCode?.expert?.user?.fullname}</h5>
+                          <h5>
+                            {product?.sucjectCode?.expert?.user?.fullname}
+                          </h5>
                           <span>{product?.sucjectCode?.expert?.company}</span>
                         </div>
                       </div>
@@ -177,156 +183,8 @@ function CoursesDetails(props) {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="m-b30" id="curriculum">
-                    <h4>Curriculum</h4>
-                    <ul className="curriculum-list">
-                      <li>
-                        <h5>First Level</h5>
-                        <ul>
-                          <li>
-                            <div className="curriculum-list-box">
-                              <span>Lesson 1.</span> Introduction to UI Design
-                            </div>
-                            <span>120 minutes</span>
-                          </li>
-                          <li>
-                            <div className="curriculum-list-box">
-                              <span>Lesson 2.</span> User Research and Design
-                            </div>
-                            <span>60 minutes</span>
-                          </li>
-                          <li>
-                            <div className="curriculum-list-box">
-                              <span>Lesson 3.</span> Evaluating User Interfaces
-                              Part 1
-                            </div>
-                            <span>85 minutes</span>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <h5>Second Level</h5>
-                        <ul>
-                          <li>
-                            <div className="curriculum-list-box">
-                              <span>Lesson 1.</span> Prototyping and Design
-                            </div>
-                            <span>110 minutes</span>
-                          </li>
-                          <li>
-                            <div className="curriculum-list-box">
-                              <span>Lesson 2.</span> UI Design Capstone
-                            </div>
-                            <span>120 minutes</span>
-                          </li>
-                          <li>
-                            <div className="curriculum-list-box">
-                              <span>Lesson 3.</span> Evaluating User Interfaces
-                              Part 2
-                            </div>
-                            <span>120 minutes</span>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <h5>Final</h5>
-                        <ul>
-                          <li>
-                            <div className="curriculum-list-box">
-                              <span>Part 1.</span> Final Test
-                            </div>
-                            <span>120 minutes</span>
-                          </li>
-                          <li>
-                            <div className="curriculum-list-box">
-                              <span>Part 2.</span> Online Test
-                            </div>
-                            <span>120 minutes</span>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="" id="instructor">
-                    <h4>Instructor</h4>
-                    <div className="instructor-bx">
-                      <div className="instructor-author">
-                        <img src={testiPic1} alt="" />
-                      </div>
-                      <div className="instructor-info">
-                        <h6>Keny White </h6>
-                        <span>Professor</span>
-                        <ul className="list-inline m-tb10">
-                          <li>
-                            <Link to="#" className="btn sharp-sm facebook">
-                              <i className="fa fa-facebook"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="#" className="btn sharp-sm twitter">
-                              <i className="fa fa-twitter"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="#" className="btn sharp-sm linkedin">
-                              <i className="fa fa-linkedin"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="#" className="btn sharp-sm google-plus">
-                              <i className="fa fa-google-plus"></i>
-                            </Link>
-                          </li>
-                        </ul>
-                        <p className="m-b0">
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="instructor-bx">
-                      <div className="instructor-author">
-                        <img src={testiPic2} alt="" />
-                      </div>
-                      <div className="instructor-info">
-                        <h6>Keny White </h6>
-                        <span>Professor</span>
-                        <ul className="list-inline m-tb10">
-                          <li>
-                            <Link to="#" className="btn sharp-sm facebook">
-                              <i className="fa fa-facebook"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="#" className="btn sharp-sm twitter">
-                              <i className="fa fa-twitter"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="#" className="btn sharp-sm linkedin">
-                              <i className="fa fa-linkedin"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="#" className="btn sharp-sm google-plus">
-                              <i className="fa fa-google-plus"></i>
-                            </Link>
-                          </li>
-                        </ul>
-                        <p className="m-b0">
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book.
-                        </p>
-                      </div>
-                    </div>
-                  </div> */}
-                  {/* <div className="" id="reviews">
+
+                  <div className="" id="reviews">
                     <h4>Reviews</h4>
 
                     <div className="review-bx">
@@ -434,7 +292,178 @@ function CoursesDetails(props) {
                         </div>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
+                  <div className="clear" id="comment-list">
+                    <div className="comments-area" id="comments">
+                      <h4 className="comments-title">8 Comments</h4>
+                      <div className="clearfix m-b20">
+                        <ol className="comment-list">
+                          <li className="comment">
+                            <div className="comment-body">
+                              <div className="comment-author vcard">
+                                <img
+                                  className="avatar photo"
+                                  src={testiPic1}
+                                  alt=""
+                                />
+                                <cite className="fn">John Doe</cite>
+                                <span className="says">says:</span>
+                              </div>
+                              <div className="comment-meta">
+                                <Link to="#">
+                                  December 02, 2019 at 10:45 am
+                                </Link>
+                              </div>
+                              <p>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Nam vitae neque vitae sapien
+                                malesuada aliquet. In viverra dictum justo in
+                                vehicula. Fusce et massa eu ante ornare
+                                molestie. Sed vestibulum sem felis, ac elementum
+                                ligula blandit ac.
+                              </p>
+                              <div className="reply">
+                                <Link to="#" className="comment-reply-link">
+                                  Reply
+                                </Link>
+                              </div>
+                            </div>
+                          </li>
+                          <li className="comment">
+                            <div className="comment-body">
+                              <div className="comment-author vcard">
+                                <img
+                                  className="avatar photo"
+                                  src={testiPic2}
+                                  alt=""
+                                />
+                                <cite className="fn">John Doe</cite>
+                                <span className="says">says:</span>
+                              </div>
+                              <div className="comment-meta">
+                                <Link to="#">
+                                  December 02, 2019 at 10:45 am
+                                </Link>
+                              </div>
+                              <p>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Nam vitae neque vitae sapien
+                                malesuada aliquet. In viverra dictum justo in
+                                vehicula. Fusce et massa eu ante ornare
+                                molestie. Sed vestibulum sem felis, ac elementum
+                                ligula blandit ac.
+                              </p>
+                              <div className="reply">
+                                <Link to="#" className="comment-reply-link">
+                                  Reply
+                                </Link>
+                              </div>
+                            </div>
+                          </li>
+                          <li className="comment">
+                            <div className="comment-body">
+                              <div className="comment-author vcard">
+                                <img
+                                  className="avatar photo"
+                                  src={testiPic3}
+                                  alt=""
+                                />
+                                <cite className="fn">John Doe</cite>
+                                <span className="says">says:</span>
+                              </div>
+                              <div className="comment-meta">
+                                <Link to="#">
+                                  December 02, 2019 at 10:45 am
+                                </Link>
+                              </div>
+                              <p>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Nam vitae neque vitae sapien
+                                malesuada aliquet. In viverra dictum justo in
+                                vehicula. Fusce et massa eu ante ornare
+                                molestie. Sed vestibulum sem felis ac elementum
+                                ligula blandit ac.
+                              </p>
+                              <div className="reply">
+                                <Link to="#" className="comment-reply-link">
+                                  Reply
+                                </Link>
+                              </div>
+                            </div>
+                          </li>
+                        </ol>
+                        <div className="comment-respond" id="respond">
+                          <h4 className="comment-reply-title" id="reply-title">
+                            Leave a Reply{" "}
+                            <small>
+                              {" "}
+                              <Link
+                                style={{ display: "none" }}
+                                to="#"
+                                id="cancel-comment-reply-link"
+                                rel="nofollow"
+                              >
+                                Cancel reply
+                              </Link>{" "}
+                            </small>{" "}
+                          </h4>
+                          <form className="comment-form">
+                            <p className="comment-form-author">
+                              <label htmlFor="author">
+                                Name <span className="required">*</span>
+                              </label>
+                              <input
+                                type="text"
+                                value=""
+                                name="Author"
+                                placeholder="Author"
+                                id="author"
+                              />
+                            </p>
+                            <p className="comment-form-email">
+                              <label htmlFor="email">
+                                Email <span className="required">*</span>
+                              </label>
+                              <input
+                                type="text"
+                                value=""
+                                placeholder="Email"
+                                name="email"
+                                id="email"
+                              />
+                            </p>
+                            <p className="comment-form-url">
+                              <label htmlFor="url">Website</label>
+                              <input
+                                type="text"
+                                value=""
+                                placeholder="Website"
+                                name="url"
+                                id="url"
+                              />
+                            </p>
+                            <p className="comment-form-comment">
+                              <label htmlFor="comment">Comment</label>
+                              <textarea
+                                rows="8"
+                                name="comment"
+                                placeholder="Comment"
+                                id="comment"
+                              ></textarea>
+                            </p>
+                            <p className="form-submit">
+                              <input
+                                type="submit"
+                                value="Submit Comment"
+                                className="submit"
+                                name="submit"
+                              />
+                            </p>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

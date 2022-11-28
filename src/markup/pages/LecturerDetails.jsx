@@ -37,7 +37,10 @@ function LecturerDetails(prop) {
     <>
       <Header />
       <div className="page-content">
-        <div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
+        <div
+          className="page-banner ovbl-dark"
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
+        >
           <div className="container">
             <div className="page-banner-entry">
               <h1 className="text-white">{expert.title}</h1>
@@ -59,14 +62,18 @@ function LecturerDetails(prop) {
           <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-3 col-xl-3 col-md-5 sticky-top">
+                <div className="col-lg-3 col-xl-3 col-md-5 ">
                   <BlogAside />
                 </div>
                 <div className="col-lg-9 col-xl-9 col-md-7">
                   <div className="row">
                     <div className="col-lg-6 col-xl-6 col-md-6">
                       <div className="action-box blog-lg">
-                        <img  style={{height:"100%"}} src={combieImg(expert.user.avatar)} alt="" />
+                        <img
+                          style={{ height: "100%" }}
+                          src={combieImg(expert.user.avatar)}
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="col-lg-6 col-xl-6 col-md-6">
@@ -102,29 +109,7 @@ function LecturerDetails(prop) {
                       <div className="ttr-divider bg-gray">
                         <i className="icon-dot c-square"></i>
                       </div>
-                      <div className="widget_tag_cloud">
-                        <h6>TAGS</h6>
-                        <div className="tagcloud">
-                          <Link to="#">Design</Link>
-                          <Link to="#">User interface</Link>
-                          <Link to="#">SEO</Link>
-                          <Link to="#">WordPress</Link>
-                          <Link to="#">Development</Link>
-                          <Link to="#">Joomla</Link>
-                          <Link to="#">Design</Link>
-                          <Link to="#">User interface</Link>
-                          <Link to="#">SEO</Link>
-                          <Link to="#">WordPress</Link>
-                          <Link to="#">Development</Link>
-                          <Link to="#">Joomla</Link>
-                          <Link to="#">Design</Link>
-                          <Link to="#">User interface</Link>
-                          <Link to="#">SEO</Link>
-                          <Link to="#">WordPress</Link>
-                          <Link to="#">Development</Link>
-                          <Link to="#">Joomla</Link>
-                        </div>
-                      </div>
+
                       <div className="ttr-divider bg-gray">
                         <i className="icon-dot c-square"></i>
                       </div>
@@ -135,106 +120,6 @@ function LecturerDetails(prop) {
                       <h4 className="comments-title">8 Comments</h4>
                       <div className="clearfix m-b20">
                         <ol className="comment-list">
-                          <li className="comment">
-                            <div className="comment-body">
-                              <div className="comment-author vcard">
-                                <img
-                                  className="avatar photo"
-                                  src={testiPic1}
-                                  alt=""
-                                />
-                                <cite className="fn">John Doe</cite>
-                                <span className="says">says:</span>
-                              </div>
-                              <div className="comment-meta">
-                                <Link to="#">
-                                  December 02, 2019 at 10:45 am
-                                </Link>
-                              </div>
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nam vitae neqnsectetur
-                                adipiscing elit. Nam viae neqnsectetur
-                                adipiscing elit. Nam vitae neque vitae sapien
-                                malesuada aliquet.{" "}
-                              </p>
-                              <div className="reply">
-                                <Link to="#" className="comment-reply-link">
-                                  Reply
-                                </Link>
-                              </div>
-                            </div>
-                            <ol className="children">
-                              <li className="comment odd parent">
-                                <div className="comment-body">
-                                  <div className="comment-author vcard">
-                                    <img
-                                      className="avatar photo"
-                                      src={testiPic2}
-                                      alt=""
-                                    />
-                                    <cite className="fn">John Doe</cite>
-                                    <span className="says">says:</span>
-                                  </div>
-                                  <div className="comment-meta">
-                                    <Link to="#">
-                                      December 02, 2019 at 10:45 am
-                                    </Link>
-                                  </div>
-                                  <p>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Nam vitae neque vitae
-                                    sapien malesuada aliquet. In viverra dictum
-                                    justo in vehicula. Fusce et massa eu ante
-                                    ornare molestie. Sed vestibulum sem felis,
-                                    ac elementum ligula blandit ac.
-                                  </p>
-                                  <div className="reply">
-                                    <Link to="#" className="comment-reply-link">
-                                      Reply
-                                    </Link>
-                                  </div>
-                                </div>
-                                <ol className="children">
-                                  <li className="comment odd parent">
-                                    <div className="comment-body">
-                                      <div className="comment-author vcard">
-                                        <img
-                                          className="avatar photo"
-                                          src={testiPic3}
-                                          alt=""
-                                        />
-                                        <cite className="fn">John Doe</cite>
-                                        <span className="says">says:</span>
-                                      </div>
-                                      <div className="comment-meta">
-                                        <Link to="#">
-                                          December 02, 2019 at 10:45 am
-                                        </Link>
-                                      </div>
-                                      <p>
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit. Nam vitae neque vitae
-                                        sapien malesuada aliquet. In viverra
-                                        dictum justo in vehicula. Fusce et massa
-                                        eu ante ornare molestie. Sed vestibulum
-                                        sem felis, ac elementum ligula blandit
-                                        ac.
-                                      </p>
-                                      <div className="reply">
-                                        <Link
-                                          to="#"
-                                          className="comment-reply-link"
-                                        >
-                                          Reply
-                                        </Link>
-                                      </div>
-                                    </div>
-                                  </li>
-                                </ol>
-                              </li>
-                            </ol>
-                          </li>
                           <li className="comment">
                             <div className="comment-body">
                               <div className="comment-author vcard">
