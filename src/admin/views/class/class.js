@@ -92,7 +92,7 @@ function Class() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/react/admin/class/" + row?.id;
+              window.location.href = "/lrs/admin/class/" + row?.id;
             }}
             style={{
               backgroundColor: "#7367f0",

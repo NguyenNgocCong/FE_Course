@@ -75,7 +75,7 @@ const Sliders = () => {
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
-                        onClick={() => { window.location.href = "/react/admin/sliders/" + row?.id }}
+                        onClick={() => { window.location.href = "/lrs/admin/sliders/" + row?.id }}
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
                         <CIcon icon={cilPen} />

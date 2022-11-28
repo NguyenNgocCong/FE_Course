@@ -64,7 +64,7 @@ function FeatureContent3(props) {
                       <div className="col-lg-9 blog-home">
                         <h5
                           onClick={() => {
-                            window.location.href = "/react/blog/" + item?.id;
+                            window.location.href = "/lrs/blog/" + item?.id;
                           }}
                         >
                           {item?.title}

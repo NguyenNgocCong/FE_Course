@@ -53,7 +53,7 @@ function MyOrderProfile() {
                       <div
                         onClick={() => {
                           window.location.href =
-                            "/react/courses-details/" + item.id;
+                            "/lrs/courses-details/" + item.id;
                         }}
                         className="btn btn-warning m-2"
                       >
@@ -65,7 +65,7 @@ function MyOrderProfile() {
                         <div
                           onClick={() => {
                             window.location.href =
-                              "/react/courses-details/" + x._package.id;
+                              "/lrs/courses-details/" + x._package.id;
                           }}
                         >
                           {x._package.title}

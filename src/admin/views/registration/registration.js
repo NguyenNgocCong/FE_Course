@@ -96,7 +96,7 @@ function Ordered() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/react/admin/subjects/" + row?.id;
+              window.location.href = "/lrs/admin/subjects/" + row?.id;
             }}
             color="primary"
             style={{

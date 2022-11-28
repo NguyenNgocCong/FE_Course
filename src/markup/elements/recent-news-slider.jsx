@@ -132,7 +132,7 @@ const RecentNewsSlider = () => {
                     <p>{item.brefInfo}</p>
                     <div
                       onClick={() => {
-                        window.location.href = "/react/blog/" + item?.id;
+                        window.location.href = "/lrs/blog/" + item?.id;
                       }}
                       className="btn btn-warning m-2"
                     >
@@ -188,7 +188,7 @@ const RecentNewsSlider = () => {
                     <p>{item.brefInfo}</p>
                     <div
                       onClick={() => {
-                        window.location.href = "/react/blog/" + item?.id;
+                        window.location.href = "/lrs/blog/" + item?.id;
                       }}
                       className="btn btn-warning m-2"
                     >

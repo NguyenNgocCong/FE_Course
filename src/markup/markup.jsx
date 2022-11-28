@@ -80,7 +80,7 @@ function Markup(props) {
 
   return (
     <>
-      <BrowserRouter basename={"/react/"}>
+      <BrowserRouter basename={"/lrs/"}>
         <Switch>
           {/* Home Pages */}
           <Route path="/" exact component={Index2} />

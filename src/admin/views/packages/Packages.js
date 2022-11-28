@@ -96,7 +96,7 @@ const Packages = () => {
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
-                        onClick={() => { window.location.href = "/react/admin/packages/" + row?.id }}
+                        onClick={() => { window.location.href = "/lrs/admin/packages/" + row?.id }}
                         color="primary"
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
