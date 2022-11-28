@@ -41,6 +41,9 @@ function Products() {
   const handleAddToCart = (data) => {
     if (!isLogin) {
       dispatch(addPackageLocal(data));
+      toast.success("Add To Cart Success !", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     } else {
       userApi.addToCard({ packageId: data.id }).then((res) => {
         console.log(res);
