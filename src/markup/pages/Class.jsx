@@ -15,8 +15,8 @@ import { userApi } from "../../api/userApi";
 import { toast } from "react-toastify";
 function Class() {
   const [showModal, setShowModal] = useState(false);
-  const { isLogin, data: userInfo } = useSelector((state) => state.auth);
   const [code, setCode] = useState("");
+  const { isLogin, data: userInfo } = useSelector((state) => state.auth);
   const [res, setRes] = useState(classEx);
   const [classId, setClassId] = useState(0);
 
@@ -30,10 +30,6 @@ function Class() {
         .orderClass({
           codeCoupon: code,
           classId: classId,
-          mobile: "0192302139",
-          fullName: "is login",
-          email: "roltest@mail.com",
-          ...userInfo,
         })
         .then((res) => {
           toast.success("checkout success");
@@ -208,7 +204,7 @@ const ModalClass = ({ show, handleClose, handleCheckOut, setCode }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Title>Order class</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Label htmlFor="inputPassword5">coupon-Code</Form.Label>

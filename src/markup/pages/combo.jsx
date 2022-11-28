@@ -23,11 +23,15 @@ function Combos() {
   const handleAddToCart = (data) => {
     if (!isLogin) {
       dispatch(addComboLocal(data));
+      toast.success("Add To Cart Success !", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     } else {
       userApi.addToCard({ comboId: data.id }).then((res) => {
         toast.success("Add To Cart Success !", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        dispatch(addComboLocal(data));
       });
     }
   };

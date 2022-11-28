@@ -12,6 +12,11 @@ import { setEditAvatar } from "../../../redux/reducers/user";
 
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { combieImg } from "../../../utils";
+import { getUserInfoReduce, resetState } from "../../../redux/reducers/auth";
+import {
+  getAllCartReduce,
+  getAllCartServer,
+} from "../../../redux/reducers/order";
 
 function Header() {
   const { isLogin } = useSelector((state) => state.auth);
@@ -23,13 +28,21 @@ function Header() {
       ? Cookies.get("user")
       : JSON.parse(Cookies.get("user"))
   );
+
   // eslint-disable-next-line
   const [role, setRole] = useState(Cookies.get("roles"));
   const [isExpand, setIsExpand] = useState(false);
 
   const dispatch = useDispatch();
   const editAvatar = useSelector((state) => state.userReducers.editAvatar);
-
+  useEffect(() => {
+    dispatch(getUserInfoReduce());
+  }, [dispatch]);
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(getAllCartServer());
+    }
+  }, [isLogin, dispatch]);
   useEffect(() => {
     // var searchBtn = document.getElementById("quik-search-btn");
     // var searchForm = document.querySelector(".nav-search-bar");
@@ -94,10 +107,9 @@ function Header() {
     Cookies.remove("roles");
     Cookies.remove("user");
     setId(undefined);
+    dispatch(resetState());
   };
 
-  const auth = useSelector((state) => state.auth);
-  const { data } = auth;
   return (
     <>
       <header className="header1 rs-nav header-transp arent">
@@ -237,17 +249,15 @@ function Header() {
                     </li>
                     {/* <!-- Search Button ==== --> */}
                     <li className="search-btn">
-                      {!isLogin && (
-                        <Link
-                          to={"/cart"}
-                          id="quik-search-btn"
-                          type="button"
-                          className="btn-link fs-3 link__card"
-                        >
-                          <i className="bi bi-bag-check"></i>{" "}
-                          <span>{totalCart}</span>
-                        </Link>
-                      )}
+                      <Link
+                        to={"/profile"}
+                        id="quik-search-btn"
+                        type="button"
+                        className="btn-link fs-3 link__card"
+                      >
+                        <i className="bi bi-bag-check"></i>{" "}
+                        <span>{totalCart}</span>
+                      </Link>
                     </li>
                   </ul>
                 </div>

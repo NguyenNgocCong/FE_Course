@@ -16,8 +16,12 @@ import avatarProfile from "../../images/icon/avatar.svg";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
 import MyOrderProfile from "../elements/profile-content/MyOrderProfile";
+import MyClass from "../elements/profile-content/MyClass";
+import MyCourses from "../elements/profile-content/MyCoures";
+import { useSelector } from "react-redux";
 
 function Profile(props) {
+  const { isLogin } = useSelector((state) => state.auth);
   const [user, setUser] = useState({});
   const [state, setState] = useState(false);
 
@@ -67,21 +71,29 @@ function Profile(props) {
                   <div className="row">
                     <div className="col-lg-4 col-md-5 col-sm-12 m-b30">
                       <div className="profile-bx text-center">
-                        <div className="user-profile-thumb ">
-                          <img
-                            src={
-                              user?.avatar != null && user?.avatar
-                                ? combieImg(user?.avatar)
-                                : avatarProfile
-                            }
-                            className="w-100 h-100"
-                            alt=""
-                          />
-                        </div>
-                        <div className="profile-info">
-                          <h4>{user?.fullname}</h4>
-                          <span>{user?.email}</span>
-                        </div>
+                        {isLogin ? (
+                          <>
+                            <div className="user-profile-thumb ">
+                              <img
+                                src={
+                                  user?.avatar != null && user?.avatar
+                                    ? combieImg(user?.avatar)
+                                    : avatarProfile
+                                }
+                                className="w-100 h-100"
+                                alt=""
+                              />
+                            </div>
+                            <div className="profile-info">
+                              <h4>{user?.fullname}</h4>
+                              <span>{user?.email}</span>
+                            </div>
+                          </>
+                        ) : (
+                          <Link to={"/login"} className="btn btn-warning m-5 ">
+                            Login
+                          </Link>
+                        )}
                         <div className="profile-social">
                           <ul className="list-inline m-a0">
                             <li>
@@ -156,6 +168,12 @@ function Profile(props) {
                           </Tab.Pane>
                           <Tab.Pane eventKey="tabTwo">
                             <MyOrderProfile />
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="tabThree">
+                            <MyClass />
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="tabFour">
+                            <MyCourses />
                           </Tab.Pane>
                           <Tab.Pane eventKey="tabFive">
                             <EditProfile

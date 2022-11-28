@@ -67,9 +67,6 @@ import { getAllCartLocal } from "../redux/reducers/order";
 function Markup(props) {
   const dispatch = useDispatch();
   const { isLogin } = useSelector((state) => state.auth);
-  useEffect(() => {
-    dispatch(getUserInfoReduce());
-  }, [dispatch]);
 
   useEffect(() => {
     if (!isLogin) {

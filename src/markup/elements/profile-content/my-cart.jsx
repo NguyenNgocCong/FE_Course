@@ -6,14 +6,12 @@ import { toast } from "react-toastify";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
 import PagingQuestion from "../PagingQuestion/PagingQuestion";
+import { useSelector } from "react-redux";
+import { BodyCartLoacl } from "../../pages/Cart";
 
 function CartContent() {
-  const [res, setRes] = useState({
-    currentPage: 0,
-    data: [],
-    totalItems: 0,
-    totalPages: 0,
-  });
+  const { isLogin } = useSelector((state) => state.auth);
+  const [res, setRes] = useState([]);
   const [showCheckout, setShowCheckOut] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
   const { totalPages } = res;
@@ -22,7 +20,9 @@ function CartContent() {
     userApi.getCarts({ page: pageIndex - 1 }).then((res) => setRes(res));
   }, [pageIndex]);
 
-  const totalPrice = res.data.reduce((pre, x) => pre + x.salePrice, 0);
+  const totalPrice = 0;
+
+  console.log(res);
 
   return (
     <>
@@ -80,38 +80,88 @@ function CartContent() {
                 </tr>
               </thead>
               <tbody>
-                {res.data.map((x) => (
-                  <tr>
-                    <td>
-                      <div className="media align-items-center">
-                        <img
-                          style={{ maxHeight: "50px" }}
-                          src={combieImg(x.image)}
-                          className="d-block ui-w-40 ui-bordered mr-4"
-                          alt=""
-                          width={100}
-                          onError={({ currentTarget }) => {
-                            currentTarget.src =
-                              "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
-                          }}
-                        />
-                        <div className="media-body">{x.title}</div>
-                      </div>
-                    </td>
-                    <td className="text-right font-weight-semibold align-middle p-4">
-                      ${x.salePrice}
-                    </td>
-                    <td className="text-center align-middle px-0">
-                      <button
-                        className="shop-tooltip close float-none text-danger"
-                        title=""
-                        data-original-title="Remove"
-                      >
-                        ×
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {isLogin ? (
+                  res.map((x) => {
+                    return (
+                      <React.Fragment key={x.id}>
+                        {x._combo && (
+                          <tr>
+                            <td>
+                              <div className="media align-items-center">
+                                <img
+                                  style={{ maxHeight: "50px" }}
+                                  src={combieImg(x.image)}
+                                  className="d-block ui-w-40 ui-bordered mr-4"
+                                  alt=""
+                                  width={100}
+                                  onError={({ currentTarget }) => {
+                                    currentTarget.src =
+                                      "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                                  }}
+                                />
+                                <div className="media-body">
+                                  {x._combo.title}
+                                </div>
+                              </div>
+                            </td>
+                            <td className="text-right font-weight-semibold align-middle p-4">
+                              $
+                              {x._combo.comboPackages.reduce(
+                                (pre, x) => pre + x.salePrice,
+                                0
+                              )}
+                            </td>
+                            <td className="text-center align-middle px-0">
+                              <button
+                                className="shop-tooltip close float-none text-danger"
+                                title=""
+                                data-original-title="Remove"
+                              >
+                                ×
+                              </button>
+                            </td>
+                          </tr>
+                        )}
+                        {x._package && (
+                          <tr>
+                            <td>
+                              <div className="media align-items-center">
+                                <img
+                                  style={{ maxHeight: "50px" }}
+                                  src={combieImg(x._package.image)}
+                                  className="d-block ui-w-40 ui-bordered mr-4"
+                                  alt=""
+                                  width={100}
+                                  onError={({ currentTarget }) => {
+                                    currentTarget.src =
+                                      "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                                  }}
+                                />
+                                <div className="media-body">
+                                  {x._package.title}
+                                </div>
+                              </div>
+                            </td>
+                            <td className="text-right font-weight-semibold align-middle p-4">
+                              ${x._package.salePrice}
+                            </td>
+                            <td className="text-center align-middle px-0">
+                              <button
+                                className="shop-tooltip close float-none text-danger"
+                                title=""
+                                data-original-title="Remove"
+                              >
+                                ×
+                              </button>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    );
+                  })
+                ) : (
+                  <BodyCartLoacl />
+                )}
               </tbody>
             </table>
             <div
@@ -133,13 +183,6 @@ function CartContent() {
                 Checkout
               </button>
             </div>
-            <PagingQuestion
-              totalPage={totalPages}
-              pageIndex={pageIndex}
-              onChange={(e) => {
-                setPageIndex(e);
-              }}
-            ></PagingQuestion>
           </div>
         </Masonry>
       </div>

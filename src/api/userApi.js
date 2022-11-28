@@ -126,4 +126,16 @@ export const userApi = {
     const url = `/api/order/list-detail/`;
     return axiosApi.get(url, { params });
   },
+  getMyClass: (params) => {
+    const url = `/api/account/list-my-class/`;
+    return axiosApi.get(url, { params });
+  },
+  getMyCourese: (params) => {
+    const url = `/api/account/my-courses/`;
+    return axiosApi.get(url, { params });
+  },
+  ActiveMyCourese: (params) => {
+    const url = `/api/account/active-course/`;
+    return axiosApi.post(url, {}, { params });
+  },
 };
