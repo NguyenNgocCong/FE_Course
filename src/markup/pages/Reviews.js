@@ -1,6 +1,6 @@
 import React from "react";
 
-const Reviews = () => {
+const Reviews = ({ onReview }) => {
   return (
     <div className="" id="reviews">
       <h4>Reviews</h4>
