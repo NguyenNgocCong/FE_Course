@@ -91,8 +91,10 @@ function Login(props) {
           className="account-head"
           style={{ backgroundImage: "url(" + bannerImg + ")" }}
         >
-          <Link to="/">
-            <img src={logoWhite2} alt="" />
+          <Link className="text-decoration-none" to="/">
+            {/* <img src={logoWhite2} alt="" /> */}
+            <div><h1 className="text-decoration-none font-weight-bold">LRS</h1>
+            <h4 className="text-decoration-none">Learning Register System</h4></div>
           </Link>
         </div>
         <div className="account-form-inner">

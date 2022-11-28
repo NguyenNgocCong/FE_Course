@@ -172,7 +172,7 @@ const RecentNewsSlider = () => {
                     <h5 className="post-title">
                       <div to={`/blog/${item?.id}`}>{item.title}</div>
                     </h5>
-                    <ul className="media-post">
+                    <ul className="media-post" style={{minHeight:'85px'}}>
                       <li>
                         <i className="fa fa-calendar"></i>
                         {" " + new Date(item?.createDate).toLocaleDateString()}

@@ -211,7 +211,7 @@ function Footer1(props) {
             <div className="row">
               <div className="col-lg-12 col-md-12 col-sm-12 text-center">
                 {" "}
-                © 2021 <span className="text-white">EduChamp</span> All Rights
+                © 2021 <span className="text-white">LRS</span> All Rights
                 Reserved.
               </div>
             </div>

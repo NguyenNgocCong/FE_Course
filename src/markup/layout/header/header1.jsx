@@ -115,7 +115,7 @@ function Header() {
                   <li>
                     <Link to="#">
                       <i className="fa fa-envelope-o"></i>
-                      Support@website.com
+                      Support@lrs.com
                     </Link>
                   </li>
                 </ul>
