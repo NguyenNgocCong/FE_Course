@@ -4,10 +4,8 @@ import { Nav, Tab } from "react-bootstrap";
 
 // Layout
 import Header from "../layout/header/header1";
-import Footer from "../layout/footer/footer1";
 
 // Elements
-import Courses from "../elements/profile-content/courses";
 import MyCart from "../elements/profile-content/my-cart";
 import EditProfile from "../elements/profile-content/edit-profile";
 import ChangePassword from "../elements/profile-content/change-password";
