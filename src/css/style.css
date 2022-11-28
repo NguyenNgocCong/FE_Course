@@ -126,7 +126,7 @@
 
 .header1 {
     position: relative;
-    z-index: 99999;
+    z-index: 10;
 }
 
 .header1 ul,

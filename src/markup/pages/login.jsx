@@ -3,7 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
 // Images
-import logoWhite2 from "../../images/logo-white-2.png";
 import bannerImg from "../../images/background/bg2.jpg";
 import { userApi } from "../../api/userApi";
 import { useScript } from "../../hooks/useScript";
@@ -64,7 +63,7 @@ function Login(props) {
       Cookies.set("roles", response?.roles);
       const responseAvatar = await userApi.getUserDetail();
       Cookies.set("user", JSON.stringify(responseAvatar));
-      toast.success("Login sucessfully", {
+      toast.success("Login Successfully", {
         duration: 1500,
       });
       setTimeout(() => {
@@ -91,8 +90,9 @@ function Login(props) {
           className="account-head"
           style={{ backgroundImage: "url(" + bannerImg + ")" }}
         >
-          <Link to="/">
-            <img src={logoWhite2} alt="" />
+          <Link className="text-decoration-none" to="/">
+            <div><h1 className="text-decoration-none font-weight-bold">LRS</h1>
+            <h4 className="text-decoration-none">Learning Register System</h4></div>
           </Link>
         </div>
         <div className="account-form-inner">

@@ -114,4 +114,16 @@ export const userApi = {
     const url = `/api/order/cart`;
     return axiosApi.get(url, { params });
   },
+  payCarts: (params) => {
+    const url = `/api/order/pay`;
+    return axiosApi.post(url, { params });
+  },
+  orderClass: (body) => {
+    const url = `/api/order/create`;
+    return axiosApi.post(url, body);
+  },
+  getMyOrder: (params) => {
+    const url = `/api/order/list-detail/`;
+    return axiosApi.get(url, { params });
+  },
 };

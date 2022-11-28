@@ -4,10 +4,8 @@ import { Nav, Tab } from "react-bootstrap";
 
 // Layout
 import Header from "../layout/header/header1";
-import Footer from "../layout/footer/footer1";
 
 // Elements
-import Courses from "../elements/profile-content/courses";
 import MyCart from "../elements/profile-content/my-cart";
 import EditProfile from "../elements/profile-content/edit-profile";
 import ChangePassword from "../elements/profile-content/change-password";
@@ -17,6 +15,7 @@ import bannerImg from "../../images/banner/banner1.jpg";
 import avatarProfile from "../../images/icon/avatar.svg";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
+import MyOrderProfile from "../elements/profile-content/MyOrderProfile";
 
 function Profile(props) {
   const [user, setUser] = useState({});
@@ -112,7 +111,7 @@ function Profile(props) {
                             <Nav.Item>
                               <Nav.Link eventKey="tabOne">
                                 <i className="ti-book"></i>
-                                 Cart
+                                Cart
                               </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
@@ -156,7 +155,7 @@ function Profile(props) {
                             <MyCart />
                           </Tab.Pane>
                           <Tab.Pane eventKey="tabTwo">
-                            <Courses />
+                            <MyOrderProfile />
                           </Tab.Pane>
                           <Tab.Pane eventKey="tabFive">
                             <EditProfile
@@ -168,7 +167,6 @@ function Profile(props) {
                           <Tab.Pane eventKey="tabSix">
                             <ChangePassword />
                           </Tab.Pane>
-
                         </div>
                       </div>
                     </div>
@@ -179,8 +177,6 @@ function Profile(props) {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }

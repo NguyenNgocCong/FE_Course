@@ -100,14 +100,14 @@ const Posts = () => {
                     {(() => {
                         if (row?.status === 1) {
                             return (<button
-                                onClick={() => { window.location.href = "/react/admin/posts/" + row?.id }}
+                                onClick={() => { window.location.href = "/lrs/admin/posts/" + row?.id }}
                                 style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                             >
                                 Approve
                             </button>)
                         } else {
                             return (<button
-                                onClick={() => { window.location.href = "/react/admin/posts/" + row?.id }}
+                                onClick={() => { window.location.href = "/lrs/admin/posts/" + row?.id }}
                                 style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                             >
                                 <CIcon icon={cilPen} />

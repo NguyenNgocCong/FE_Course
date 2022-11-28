@@ -7,14 +7,13 @@ import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
 import PagingQuestion from "../PagingQuestion/PagingQuestion";
 
-function CartContent() {
+function MyOrder() {
   const [res, setRes] = useState({
     currentPage: 0,
     data: [],
     totalItems: 0,
     totalPages: 0,
   });
-  const [showCheckout, setShowCheckOut] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
   const { totalPages } = res;
 
@@ -24,34 +23,13 @@ function CartContent() {
 
   const totalPrice = res.data.reduce((pre, x) => pre + x.salePrice, 0);
 
+  console.log(res);
+
   return (
     <>
       <div className="profile-head">
-        <ModalCheckOut
-          show={showCheckout}
-          handleClose={() => setShowCheckOut(false)}
-          setRes={setRes}
-        />
-        <h5>My Cart</h5>
-        <div className="feature-filters style1 ml-auto">
-          {/* <ul className="filters" data-toggle="buttons">
-            <FilterList
-              dataFilter="All"
-              defaultTag={setTag}
-              activeFilter={tag === "all" ? true : false}
-            />
-            <FilterList
-              dataFilter="Combo"
-              defaultTag={setTag}
-              activeFilter={tag === "combo" ? true : false}
-            />
-            <FilterList
-              dataFilter="Courses"
-              defaultTag={setTag}
-              activeFilter={tag === "courses" ? true : false}
-            />
-          </ul> */}
-        </div>
+        <h5>My Order</h5>
+        <div className="feature-filters style1 ml-auto"></div>
       </div>
       <div className="courses-filter">
         <Masonry>
@@ -126,12 +104,7 @@ function CartContent() {
                   <strong>${totalPrice}</strong>
                 </div>
               </div>
-              <button
-                className="btn btn-ms btn-warning mt-2"
-                onClick={() => setShowCheckOut(true)}
-              >
-                Checkout
-              </button>
+              <button className="btn btn-ms btn-warning mt-2">Checkout</button>
             </div>
             <PagingQuestion
               totalPage={totalPages}
@@ -147,50 +120,4 @@ function CartContent() {
   );
 }
 
-const ModalCheckOut = ({ show, handleClose, setRes }) => {
-  const [code, setCode] = useState("");
-  const handleCheckOut = () => {
-    userApi
-      .payCarts({ couponCode: code })
-      .then((res) => {
-        toast.success("checkout success");
-        setRes((pre) => ({ ...pre, data: [] }));
-        handleClose();
-      })
-      .catch((e) => toast.error(e?.data?.message));
-  };
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form.Label htmlFor="inputPassword5">coupon-Code</Form.Label>
-        <Form.Control
-          aria-describedby="passwordHelpBlock"
-          onChange={(e) => setCode(e.target.value)}
-        />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleCheckOut}>
-          Save Changes
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-};
-
-class Cart extends Component {
-  render() {
-    return (
-      <>
-        <CartContent />
-      </>
-    );
-  }
-}
-
-export default Cart;
+export default MyOrder;

@@ -14,6 +14,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { combieImg } from "../../../utils";
 
 function Header() {
+  const { isLogin } = useSelector((state) => state.auth);
   const { packages, combos } = useSelector((state) => state.order.data);
   const totalCart = packages.length + combos.length;
   const [id, setId] = useState(Cookies.get("id"));
@@ -114,7 +115,7 @@ function Header() {
                   <li>
                     <Link to="#">
                       <i className="fa fa-envelope-o"></i>
-                      Support@website.com
+                      Support@lrs.com
                     </Link>
                   </li>
                 </ul>
@@ -236,15 +237,17 @@ function Header() {
                     </li>
                     {/* <!-- Search Button ==== --> */}
                     <li className="search-btn">
-                      <Link
-                        to={"/cart"}
-                        id="quik-search-btn"
-                        type="button"
-                        className="btn-link fs-3 link__card"
-                      >
-                        <i className="bi bi-bag-check"></i>{" "}
-                        <span>{totalCart}</span>
-                      </Link>
+                      {!isLogin && (
+                        <Link
+                          to={"/cart"}
+                          id="quik-search-btn"
+                          type="button"
+                          className="btn-link fs-3 link__card"
+                        >
+                          <i className="bi bi-bag-check"></i>{" "}
+                          <span>{totalCart}</span>
+                        </Link>
+                      )}
                     </li>
                   </ul>
                 </div>

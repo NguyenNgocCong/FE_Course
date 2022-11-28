@@ -113,7 +113,7 @@ function Products() {
                             <div
                               onClick={() => {
                                 window.location.href =
-                                  "/react/courses-details/" + item.id;
+                                  "/lrs/courses-details/" + item.id;
                               }}
                               className="btn btn-warning m-2"
                             >
@@ -125,7 +125,7 @@ function Products() {
                               <div
                                 onClick={() => {
                                   window.location.href =
-                                    "/react/courses-details/" + item.id;
+                                    "/lrs/courses-details/" + item.id;
                                 }}
                               >
                                 {item.title}

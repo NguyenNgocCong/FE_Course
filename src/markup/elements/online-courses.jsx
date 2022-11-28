@@ -71,9 +71,9 @@ function OnlineCourses() {
                   })}
                 </ul>
               </CListGroupItem>
-              <CListGroupItem className='font-weight-bold list-homepage' onClick={() => { window.location.href = "/react/products" }}>All Product</CListGroupItem>
-              <CListGroupItem className='font-weight-bold list-homepage' onClick={() => { window.location.href = "/react/combos" }}>Combos</CListGroupItem>
-              <CListGroupItem className='font-weight-bold list-homepage' onClick={() => { window.location.href = "/react/lecturers" }}>Lecturers</CListGroupItem>
+              <CListGroupItem className='font-weight-bold list-homepage' onClick={() => { window.location.href = "/lrs/products" }}>All Product</CListGroupItem>
+              <CListGroupItem className='font-weight-bold list-homepage' onClick={() => { window.location.href = "/lrs/combos" }}>Combos</CListGroupItem>
+              <CListGroupItem className='font-weight-bold list-homepage' onClick={() => { window.location.href = "/lrs/lecturers" }}>Lecturers</CListGroupItem>
               {listSubject.splice(0, 6).map((elment) => {
                 return (<CListGroupItem key={elment?.id} className='font-weight-bold list-homepage'
                   onClick={() => {
