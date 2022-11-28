@@ -9,20 +9,11 @@ import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import { useHistory } from "react-router-dom";
 import CIcon from "@coreui/icons-react";
-import { cilCircle, cilLibraryAdd, cilPen } from "@coreui/icons";
+import { cilLibraryAdd } from "@coreui/icons";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
 
-const packageTemplate = (props) => {
-  return (props?.orderPackages?.map((element, index) => (
-    <div key={index} style={{ margin: "2px" }} className="d-flex align-items-center">
-      <div className={`${Styles.element}`}>
-        <CIcon icon={cilCircle} height={7} /> Title: {element?._package?.title}, Price: {element?.packageCost}đ, Key: {element?.activationKey}
-      </div>
-    </div>
-  )))
-}
 
 function Orders() {
   const columns = [
@@ -34,27 +25,25 @@ function Orders() {
     },
     {
       name: "Order By",
-      minWidth: "100px",
-      width: "120px",
-      maxWidth: "140px",
-      selector: (row) => row.user?.username,
-      sortable: true,
-    },
-    {
-      name: "Packages",
-      left: true,
-      minWidth: '350px',
-      width: '420px',
-      maxWidth: '450px',
-      selector: (row) => packageTemplate(row),
+      minWidth: "175px",
+      width: "200px",
+      maxWidth: "225px",
+      selector: (row) => row.user ? row.user?.username : row.customer?.fullName,
       sortable: true,
     },
     {
       name: "Supporter",
-      minWidth: "100px",
-      width: "120px",
-      maxWidth: "140px",
+      minWidth: "175px",
+      width: "200px",
+      maxWidth: "225px",
       selector: (row) => row.supporter?.username,
+      sortable: true,
+    },
+    {
+      name: "Number product",
+      width: "150px",
+      center: true,
+      selector: (row) => row.orderPackages ? row.orderPackages?.length + " package" : 1 + " package",
       sortable: true,
     },
     {
@@ -75,8 +64,8 @@ function Orders() {
       name: "Status",
       maxWidth: "110px",
       selector: (row) => (
-        <div className={`${row?.status === 1 ? Styles.active : Styles.inactive}`}>
-          <strong>{row?.status === 1 ? "Submitted" : "Verified"}</strong>
+        <div className={`${Number(row?.status) === 1 ? Styles.active : Styles.inactive}`}>
+          <strong>{Number(row?.status) === 1 ? "Submitted" : "Verified"}</strong>
         </div>
       ),
       sortable: true,
@@ -99,7 +88,7 @@ function Orders() {
               float: "right",
             }}
           >
-            <CIcon icon={cilPen} />
+            <i className="fa fa-eye"></i>
           </button>
           <button
             style={{
@@ -111,8 +100,21 @@ function Orders() {
             }}
             onClick={() => submit(row)}
           >
-            {row?.status ? "Deactivate" : "Active"}
+            {Number(row?.status) === 1 ? "Verification" : "Paid"}
           </button>
+          {Number(row?.status) === 1 ? <button
+            style={{
+              backgroundColor: "#7367f0",
+              height: "30px",
+              width: "80px",
+              border: "none",
+              float: "right",
+            }}
+            onClick={() => submit(row, 4)}
+          >
+            Cancel
+          </button>
+            : <></>}
         </div>
       ),
     },
@@ -128,9 +130,9 @@ function Orders() {
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
   const history = useHistory();
 
-  const getAllRegistration = async () => {
+  const getAllOrder = async () => {
     try {
-      const response = await adminApi.getAllRegistration(page, itemsPerPage, keywordSearch, category, status);
+      const response = await adminApi.getAllOrder(page, itemsPerPage, keywordSearch, category, status);
       console.log(response.data)
       setDataTable(response.data);
       setTotalRows(response.totalItems);
@@ -141,14 +143,14 @@ function Orders() {
     }
   };
 
-  const submit = (row) => {
+  const submit = (row, status) => {
     confirmAlert({
       title: "Confirm to change status",
       message: "Are you sure to do this.",
       buttons: [
         {
           label: "Yes",
-          onClick: () => handleUpdateActiveRegistration(row),
+          onClick: () => handleUpdateActiveOrder(row, status),
         },
         {
           label: "No",
@@ -158,18 +160,16 @@ function Orders() {
     });
   };
 
-  const handleUpdateActiveRegistration = async (row) => {
+  const handleUpdateActiveOrder = async (row, newStatus) => {
     try {
-      let newStatus = 0;
-      if (Number(row?.status) === 1) {
-        newStatus = 2;
-      } else {
-        newStatus = 3;
+      if (!newStatus) {
+        if (Number(row?.status) === 1) {
+          newStatus = 2;
+        } else {
+          newStatus = 3;
+        }
       }
-      const params = {
-        status: newStatus,
-      };
-      const response = await adminApi.updateRegistration(params, row?.id);
+      const response = await adminApi.updateOrder(newStatus, row?.id);
       toast.success(response?.message, {
         duration: 2000,
       });
@@ -183,8 +183,8 @@ function Orders() {
 
   const getListCategory = async () => {
     try {
-      const response = await adminApi.getListCategoryRegistration();
-      setListCategory(response);
+      // const response = await adminApi.getListCategoryOrder();
+      // setListCategory(response);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -197,7 +197,7 @@ function Orders() {
   };
 
   useEffect(() => {
-    getAllRegistration();
+    getAllOrder();
     // eslint-disable-next-line
   }, [isModify, keywordSearch, page, status, category]);
 

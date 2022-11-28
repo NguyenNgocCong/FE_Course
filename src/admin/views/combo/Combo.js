@@ -18,7 +18,7 @@ const packageTemplate = (props) => {
     return (props?.comboPackages?.map((element, index) => (
         <div key={index} style={{ margin: "2px" }} className="d-flex align-items-center">
             <div className={`${Styles.element}`}>
-                <CIcon icon={cilCircle} height="7px" /> Title: {element?._package?.title}, Price: {element?.salePrice}đ
+                <CIcon icon={cilCircle} height="7px" /> Title: {element?._package?.title}, Price: ${element?.salePrice}
             </div>
         </div>
     )))
@@ -29,7 +29,7 @@ const priceTemplate = (props) => {
     props?.comboPackages?.map((element) => (
         price += element?.salePrice
     ))
-    return (<div>{price}đ</div>)
+    return (<div>${price}</div>)
 }
 const Combo = () => {
 

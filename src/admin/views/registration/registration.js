@@ -9,22 +9,12 @@ import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import { useHistory } from "react-router-dom";
 import CIcon from "@coreui/icons-react";
-import { cilCircle, cilLibraryAdd, cilPen } from "@coreui/icons";
+import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
 
-const packageTemplate = (props) => {
-  return (props?.orderPackages?.map((element, index) => (
-    <div key={index} style={{ margin: "2px" }} className="d-flex align-items-center">
-      <div className={`${Styles.element}`}>
-        <CIcon icon={cilCircle} height={7} /> Title: {element?._package?.title}, Price: {element?.packageCost}đ, Key: {element?.activationKey}
-      </div>
-    </div>
-  )))
-}
-
-function Ordered() {
+function Registration() {
   const columns = [
     {
       name: "STT",
@@ -34,35 +24,26 @@ function Ordered() {
     },
     {
       name: "Order By",
-      minWidth: "100px",
-      width: "120px",
-      maxWidth: "140px",
-      selector: (row) => row.user ? row.user?.username : row.customer?.username,
+      minWidth: "175px",
+      width: "200px",
+      maxWidth: "225px",
+      selector: (row) => row.user ? row.user?.username : row.customer?.fullName,
       sortable: true,
     },
     {
       name: "Class code",
-      minWidth: "100px",
-      width: "120px",
-      maxWidth: "140px",
-      selector: (row) => row.supporter?.username,
-      sortable: true,
-    },
-    {
-      name: "Packages",
-      left: true,
-      minWidth: '350px',
-      width: '420px',
-      maxWidth: '450px',
-      selector: (row) => packageTemplate(row),
+      minWidth: "125px",
+      width: "150px",
+      maxWidth: "175px",
+      selector: (row) => row.aclass?.code,
       sortable: true,
     },
     {
       name: "Supporter",
-      minWidth: "100px",
-      width: "120px",
-      maxWidth: "140px",
-      selector: (row) => row.aclass?.code,
+      minWidth: "175px",
+      width: "200px",
+      maxWidth: "225px",
+      selector: (row) => row.supporter?.username,
       sortable: true,
     },
     {
@@ -107,7 +88,7 @@ function Ordered() {
               float: "right",
             }}
           >
-            <CIcon icon={cilPen} />
+             <i className="fa fa-eye"></i>
           </button>
           <button
             style={{
@@ -119,7 +100,7 @@ function Ordered() {
             }}
             onClick={() => submit(row)}
           >
-            {Number(row?.status) === 1 ? "Verified" : "Paid"}
+            {Number(row?.status) === 1 ? "Verification" : "Paid"}
           </button>
           {Number(row?.status) === 1 ? <button
             style={{
@@ -318,4 +299,4 @@ function Ordered() {
   );
 }
 
-export default Ordered;
+export default Registration;
