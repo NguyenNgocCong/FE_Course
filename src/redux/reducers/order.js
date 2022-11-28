@@ -79,10 +79,7 @@ export const addPackageLocal = createAsyncThunk(
   "addPackageLocal",
   async (data, { dispatch, getState }) => {
     try {
-      const { id } = data;
-      const packages = getState().order?.data?.packages;
-      if (packages && !packages.some((x) => x.id === id))
-        dispatch(addToCart(data));
+      dispatch(addToCart(data));
     } catch (error) {
       dispatch(requestFail(error.message));
     }
@@ -93,12 +90,25 @@ export const addComboLocal = createAsyncThunk(
   "addComboLocal",
   async (data, { dispatch, getState }) => {
     try {
-      const { id } = data;
-      const combos = getState().order?.data?.combos;
-      if (combos && !combos.some((x) => x.id === id))
-        dispatch(addComboToCart(data));
+      dispatch(addComboToCart(data));
     } catch (error) {
       dispatch(requestFail(error.message));
+    }
+  }
+);
+
+export const getAllCartServer = createAsyncThunk(
+  "addComboLocal",
+  async (data, { dispatch, getState }) => {
+    try {
+      const data = await userApi.getCarts();
+      let combos = data.filter((x) => x._combo).map((x) => x._combo);
+      let packages = data.filter((x) => x._package).map((x) => x._package);
+
+      CartSotre.setCartLocal({ combos, packages });
+      dispatch(getAllCartLocal());
+    } catch (error) {
+      dispatch(getAllCartLocal());
     }
   }
 );

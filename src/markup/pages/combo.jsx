@@ -28,6 +28,7 @@ function Combos() {
         toast.success("Add To Cart Success !", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        dispatch(addComboLocal(data));
       });
     }
   };
