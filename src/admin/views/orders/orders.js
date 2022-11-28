@@ -77,7 +77,7 @@ function Orders() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/subjects/" + row?.id;
+              window.location.href = "/lrs/admin/orders/" + row?.id;
             }}
             color="primary"
             style={{
@@ -261,23 +261,6 @@ function Orders() {
                   placeholder="Search..."
                   onChange={onSearch}
                 />
-              </Col>
-              <Col xs={12} lg={4}>
-                <button
-                  style={{
-                    backgroundColor: "#7367f0",
-                    border: "none",
-                    float: "right",
-                    height: "100%",
-                    width: "100px",
-                    color: "white",
-                    borderRadius: "10px",
-                    marginRight: "inherit",
-                  }}
-                  onClick={() => history.push("/admin/subjects/create")}
-                >
-                  <CIcon icon={cilLibraryAdd} />
-                </button>
               </Col>
             </Row>
           </div>

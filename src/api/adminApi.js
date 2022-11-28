@@ -95,6 +95,10 @@ export const adminApi = {
     const url = `/api/order/list-confirm?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
+  getOrderDetail: (id) => {
+    const url = `/api/order/${id}`;
+    return axiosApi.get(url);
+  },
   updateOrder: (status, id) => {
     const url = `/api/order/update-status?id=${id}&status=${status}`;
     return axiosApi.put(url);

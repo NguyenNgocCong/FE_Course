@@ -77,7 +77,7 @@ function Registration() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/subjects/" + row?.id;
+              window.location.href = "/lrs/admin/registration/" + row?.id;
             }}
             color="primary"
             style={{
@@ -169,7 +169,7 @@ function Registration() {
           newStatus = 3;
         }
       }
-      console.log(newStatus+" " + row?.id)
+      console.log(toast)
       const response = await adminApi.updateOrder(newStatus, row?.id);
       toast.success(response?.message, {
         duration: 2000,
@@ -262,23 +262,6 @@ function Registration() {
                   placeholder="Search..."
                   onChange={onSearch}
                 />
-              </Col>
-              <Col xs={12} lg={4}>
-                <button
-                  style={{
-                    backgroundColor: "#7367f0",
-                    border: "none",
-                    float: "right",
-                    height: "100%",
-                    width: "100px",
-                    color: "white",
-                    borderRadius: "10px",
-                    marginRight: "inherit",
-                  }}
-                  onClick={() => history.push("/admin/subjects/create")}
-                >
-                  <CIcon icon={cilLibraryAdd} />
-                </button>
               </Col>
             </Row>
           </div>
