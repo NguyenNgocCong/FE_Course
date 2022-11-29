@@ -31,11 +31,23 @@ function Slider1() {
 
   return (
     <Slider {...settings} className="tt-slider slider-one slider-sp0">
-      {listSlider.map(slider => (
-        <div key={slider?.id} className="slider-item" style={{ position: "absolute" }}>
-          <div width="100%" style={{ position: "absolute" }}>
+      {listSlider.map((slider) => (
+        <div
+          key={slider?.id}
+          className="slider-item"
+          style={{ position: "absolute" }}
+        >
+          <div width="100%">
             {/* eslint-disable-next-line */}
-            <marquee loop="1" behavior="scroll" scrolldelay="1" direction="down">{slider?.imageUrl}</marquee >
+            <marquee
+              loop="1"
+              behavior="scroll"
+              scrolldelay="1"
+              direction="down"
+              className="titledown"
+            >
+              {slider?.imageUrl}
+            </marquee>
           </div>
           <div className="slider-thumb">
             <img src={combieImg(slider?.imageUrl)} alt="" />

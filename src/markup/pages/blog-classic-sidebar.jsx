@@ -64,7 +64,7 @@ const BlogClassicSidebar = () => {
           <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-3 col-xl-3 col-md-5 sticky-top">
+                <div className="col-lg-3 col-xl-3 col-md-5 ">
                   <BlogAside />
                 </div>
                 <div className="col-lg-9 col-xl-9 col-md-7">
@@ -73,7 +73,11 @@ const BlogClassicSidebar = () => {
                       <CRow key={item?.id}>
                         <CCol md={3}>
                           <CCardImage
-                            src={(item?.thumnailUrl != null && item?.thumnailUrl) ? combieImg(item?.thumnailUrl) : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"}
+                            src={
+                              item?.thumnailUrl != null && item?.thumnailUrl
+                                ? combieImg(item?.thumnailUrl)
+                                : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
+                            }
                             alt=""
                             onError={({ currentTarget }) => {
                               currentTarget.src =

@@ -37,7 +37,10 @@ function LecturerDetails(prop) {
     <>
       <Header />
       <div className="page-content">
-        <div className="page-banner ovbl-dark" style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}>
+        <div
+          className="page-banner ovbl-dark"
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
+        >
           <div className="container">
             <div className="page-banner-entry">
               <h1 className="text-white">{expert.title}</h1>
@@ -59,14 +62,18 @@ function LecturerDetails(prop) {
           <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-3 col-xl-3 col-md-5 sticky-top">
+                <div className="col-lg-3 col-xl-3 col-md-5 ">
                   <BlogAside />
                 </div>
                 <div className="col-lg-9 col-xl-9 col-md-7">
                   <div className="row">
                     <div className="col-lg-6 col-xl-6 col-md-6">
                       <div className="action-box blog-lg">
-                        <img  style={{height:"100%"}} src={combieImg(expert.user.avatar)} alt="" />
+                        <img
+                          style={{ height: "100%" }}
+                          src={combieImg(expert.user.avatar)}
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="col-lg-6 col-xl-6 col-md-6">

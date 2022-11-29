@@ -32,7 +32,7 @@ function Class() {
           classId: classId,
         })
         .then((res) => {
-          toast.success("checkout success");
+          toast.success(res.message);
           setShowModal(false);
         })
         .catch((e) => toast.error(e?.data?.message));

@@ -137,3 +137,23 @@ html:not([dir=rtl]) .wrapper {
 .total p {
   font-size: 1.5rem;
 }
+
+.menu-links .nav>li{
+  height: max-content !important;
+}
+
+.titledown{
+  background-color: rgba(0,0,0,.5);
+  padding: 2rem;
+  position: absolute;
+  width: max-content;
+  left: 1rem;
+  bottom: 1rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+color: #fff;
+border-radius: 10px;
+}
+.side-bar{
+  z-index: 9  !important;
+}
