@@ -56,7 +56,9 @@ function Login(props) {
         password: password,
       };
 
-      const response = await userApi.loginAccount(param);
+      if(email && password){
+        setAlertVisible(false);
+        const response = await userApi.loginAccount(param);
       Cookies.set("id", response?.id);
       Cookies.set("username", response?.username);
       Cookies.set("access_token", response?.accessToken);
@@ -69,6 +71,11 @@ function Login(props) {
       setTimeout(() => {
         history.push("/");
       }, 1500);
+      }else{
+        setAlertMessage("Email and Password is required");
+        setAlertVisible(true);
+        setPopupAlertType("danger");
+      }
     } catch (responseError) {
       if (responseError?.data) {
         setAlertMessage(responseError?.data?.message);
@@ -127,7 +134,7 @@ function Login(props) {
                       <input
                         name="email"
                         type="text"
-                        required=""
+                        required={true}
                         placeholder="Email"
                         className="form-control"
                         onChange={(e) => setEmail(e.target.value)}
@@ -143,7 +150,7 @@ function Login(props) {
                         type="password"
                         className="form-control"
                         placeholder="Your Password"
-                        required=""
+                        required={true}
                         onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
