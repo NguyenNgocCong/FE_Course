@@ -224,7 +224,7 @@ const Users = () => {
               </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
+                  style={{ margin: "0px 5px", maxWidth: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
@@ -239,6 +239,7 @@ const Users = () => {
                   type="text"
                   id="exampleInputPassword1"
                   placeholder="Search..."
+                  style={{ margin: "0px 10px" }}
                   onChange={onSearch}
                 />
               </Col>

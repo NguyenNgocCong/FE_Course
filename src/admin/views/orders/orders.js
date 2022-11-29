@@ -244,7 +244,7 @@ function Orders() {
               </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
+                  style={{ margin: "0px 5px", maxWidth: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
@@ -258,6 +258,7 @@ function Orders() {
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
+                  style={{ margin: "0px 10px" }}
                   placeholder="Search..."
                   onChange={onSearch}
                 />

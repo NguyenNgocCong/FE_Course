@@ -335,5 +335,22 @@ export const adminApi = {
   createCoupon: (params) =>{
     const url = `api/coupon/create`;
     return axiosApi.post(url,params);
-  }
+  },
+  //trainee
+  createTrainee: (params) =>{
+    const url = `api/trainee/create`;
+    return axiosApi.post(url,params);
+  },
+   getAllTrainee: (page,size) =>{
+    const url = `/api/trainee?page=${page}&size=${size}`;
+    return axiosApi.get(url);
+  },
+  getTraineeDetailById: (id) => {
+    const url = `/api/trainee/${id}`;
+    return axiosApi.get(url);
+  },
+  updateTrainee: (params,id) =>{
+    const url = `api/trainee/update?id=${id}`;
+    return axiosApi.put(url,params);
+  },
 };
