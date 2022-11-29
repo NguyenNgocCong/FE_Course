@@ -71,7 +71,7 @@ function UserDetail(props) {
         phoneNumber: phone,
         note: note,
       };
-      if (!alertVisibleFullName && !alertMessagePhone &&!alertMessageUsername ) {
+      if (!alertVisibleFullName && !alertVisibleUsername &&!alertVisiblePhone ) {
         if (option !== user.role && option !== undefined) {
           await adminApi.updateRoleUser(params);
         }
