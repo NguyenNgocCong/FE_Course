@@ -57,7 +57,7 @@ function UserDetail(props) {
     }
   };
 
-  const handleUpdateRoleAndProfile = async (event) => {
+  const handleUpdateRoleAndProfile = async () => {
     try {
       const params = {
         username: user?.username,
@@ -69,11 +69,6 @@ function UserDetail(props) {
         phoneNumber: phone,
         note: note,
       };
-      const form = event.currentTarget;
-      if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
       setValidated(true);
       if (!alertVisible &&validated) {
         if (option !== user.role && option !== undefined) {
@@ -109,7 +104,12 @@ function UserDetail(props) {
       setAlertMessage("Username is Invalid");
       setAlertVisible(true);
       setPopupAlertType("danger");
-    } else {
+    }else if(!usernameInput){
+      setAlertMessage("Username is required");
+      setAlertVisible(true);
+      setPopupAlertType("danger");
+    } 
+    else {
       setAlertVisible(false);
       setUsername(usernameInput);
     }
@@ -127,6 +127,18 @@ function UserDetail(props) {
     }
   };
 
+  const handleUpdateFullName=(e) => {
+    const fullNameInput = e.target.value;
+    if (!fullNameInput) {
+      setAlertMessage("Full Name  is Required");
+      setAlertVisible(true);
+      setPopupAlertType("danger");
+    } else {
+      setAlertVisible(false);
+      setFullname(fullNameInput);
+    }
+  }
+
   return (
     <div>
       <AppSidebar />
@@ -141,11 +153,7 @@ function UserDetail(props) {
               </CCardHeader>
 
               <CCardBody>
-                <CForm
-                  noValidate
-                  validated={validated}
-                  onSubmit={handleUpdateRoleAndProfile}
-                >
+               
                   <CRow className="g-3 mb-3">
                     <CCol sm={6}>
                       <div className="mb-3">
@@ -158,7 +166,6 @@ function UserDetail(props) {
                           id="exampleFormControlInput1"
                           placeholder="name@example.com"
                           defaultValue={user?.email}
-                          feedbackValid=""
                           required
                         />
                       </div>
@@ -187,7 +194,7 @@ function UserDetail(props) {
                           id="exampleFormControlInput1"
                           placeholder=""
                           defaultValue={user?.fullname}
-                          onChange={(e) => setFullname(e.target.value)}
+                          onChange={(e) => handleUpdateFullName(e)}
                           required
                         />
                       </div>
@@ -258,11 +265,11 @@ function UserDetail(props) {
                     {alertMessage}
                   </div>
                   <div className="mb-3">
-                    <CButton type="submit" disabled={alertVisible}>
+                    <CButton onClick={()=>handleUpdateRoleAndProfile()} disabled={alertVisible}>
                       Save
                     </CButton>
                   </div>
-                </CForm>
+             
               </CCardBody>
             </CCard>
           </CCol>
