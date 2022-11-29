@@ -182,7 +182,7 @@ function ClassDetail(props) {
                                                 onChange={(e) => setPackageId(e.target.value)}
                                             >
                                                 <option value="">Select package</option>
-                                                {listPackages?.map((item, index) => {
+                                                {listPackages.map((item, index) => {
                                                     return (
                                                         <option
                                                             key={index}
@@ -261,7 +261,7 @@ function ClassDetail(props) {
                                                     setStatus(e.target.value)
                                                 }
                                             >
-                                                {optionStatus?.map((item, index) => {
+                                                {optionStatus.map((item, index) => {
                                                     if (type === 1) {
                                                         return detailClass?.status ===
                                                             item?.status ? (
@@ -307,7 +307,7 @@ function ClassDetail(props) {
                                                 }
                                             >
                                                 <option>Select trainer</option>
-                                                {listTrainer?.map((item, index) => {
+                                                {listTrainer.map((item, index) => {
                                                     if (type === 1) {
                                                         return detailClass?.trainer
                                                             ?.id ===
@@ -359,7 +359,7 @@ function ClassDetail(props) {
                                                     setIsOnline(e.target.value === "true")
                                                 }
                                             >
-                                                {optionIsOnline?.map((item, index) => {
+                                                {optionIsOnline.map((item, index) => {
                                                     if (type === 1) {
                                                         return detailClass?.isOnline ===
                                                             item?.isOnline ? (
@@ -433,7 +433,7 @@ function ClassDetail(props) {
                                                 }
                                             >
                                                 <option>Select Supporter</option>
-                                                {listSupporter?.map((item, index) => {
+                                                {listSupporter.map((item, index) => {
                                                     if (type === 1) {
                                                         return detailClass?.supporter
                                                             ?.id ===
@@ -485,7 +485,7 @@ function ClassDetail(props) {
                                                 }
                                             >
                                                 <option>Select Branch</option>
-                                                {listBranch?.map((item, index) => {
+                                                {listBranch.map((item, index) => {
                                                     if (type === 1) {
                                                         return detailClass?.branch
                                                             ?.id ===

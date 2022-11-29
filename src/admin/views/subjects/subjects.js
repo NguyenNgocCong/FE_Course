@@ -235,7 +235,7 @@ function Subjects() {
                   }}
                 >
                   <option value={0}>All Category</option>
-                  {listCategory?.map((item, index) => {
+                  {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
                         {item?.setting_title}

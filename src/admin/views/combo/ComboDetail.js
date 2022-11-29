@@ -275,7 +275,7 @@ function ComboDetail(props) {
                                             onChange={(e) => handleSelectPackage(e.target.value)}
                                         >
                                             <option value="">Select package</option>
-                                            {listPackages?.map((item, index) => {
+                                            {listPackages.map((item, index) => {
                                                 return (
                                                     <option
                                                         key={index}

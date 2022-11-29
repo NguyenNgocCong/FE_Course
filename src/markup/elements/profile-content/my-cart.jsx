@@ -1,11 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import Masonry from "react-masonry-component";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
-import PagingQuestion from "../PagingQuestion/PagingQuestion";
 import { useSelector } from "react-redux";
 import { BodyCartLoacl } from "../../pages/Cart";
 
@@ -13,16 +11,13 @@ function CartContent() {
   const { isLogin } = useSelector((state) => state.auth);
   const [res, setRes] = useState([]);
   const [showCheckout, setShowCheckOut] = useState(false);
-  const [pageIndex, setPageIndex] = useState(1);
-  const { totalPages } = res;
-
-  useEffect(() => {
-    userApi.getCarts({ page: pageIndex - 1 }).then((res) => setRes(res));
-  }, [pageIndex]);
-
   const totalPrice = 0;
 
-  console.log(res);
+  useEffect(() => {
+    userApi.getCarts().then((res) => setRes(res));
+  }, []);
+
+  
 
   return (
     <>

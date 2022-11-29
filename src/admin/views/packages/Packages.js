@@ -219,7 +219,7 @@ const Packages = () => {
                                     }}
                                 >
                                     <option value={0}>All Subject</option>
-                                    {listsubject?.map((item, index) => {
+                                    {listsubject.map((item, index) => {
                                         return (
                                             <option key={index} value={item?.id}>
                                                 {item?.name}

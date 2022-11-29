@@ -161,7 +161,7 @@ function PostDetail(props) {
                                                 onChange={(e) => setCategoryId(e.target.value)}
                                             >
                                                 <option value="">Select category</option>
-                                                {listCategory?.map((item, index) => {
+                                                {listCategory.map((item, index) => {
                                                     if (type === 1) {
                                                         return post?.categoryId ===
                                                             item?.setting_id ? (
@@ -217,7 +217,7 @@ function PostDetail(props) {
                                                 onChange={(e) => setStatus(e.target.value)}
                                                 disabled={type !== 1}
                                             >
-                                                {optionStatus?.map((item, index) => {
+                                                {optionStatus.map((item, index) => {
                                                     if (type === 1) {
                                                         return post?.status ===
                                                             item?.status ? (

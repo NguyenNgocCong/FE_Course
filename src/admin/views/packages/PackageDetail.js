@@ -233,7 +233,7 @@ function PackagesDetail(props) {
                                                             setStatus(e.target.value)
                                                         }
                                                     >
-                                                        {optionStatus?.map((item, index) => {
+                                                        {optionStatus.map((item, index) => {
                                                             if (type === 1) {
                                                                 return packages?.status ===
                                                                     item?.status ? (
@@ -279,7 +279,7 @@ function PackagesDetail(props) {
                                                         }
                                                     >
                                                         <option>Select subject</option>
-                                                        {listSubject?.map((item, index) => {
+                                                        {listSubject.map((item, index) => {
                                                             if (type === 1) {
                                                                 return packages?.sucjectCode.id === item?.id ? (
                                                                     <option

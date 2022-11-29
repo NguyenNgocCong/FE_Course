@@ -137,7 +137,7 @@ const Settings = () => {
                                     }}
                                 >
                                     <option value={0}>All Type</option>
-                                    {listType?.map((item, index) => {
+                                    {listType.map((item, index) => {
                                         return (
                                             <option
                                                 key={index}

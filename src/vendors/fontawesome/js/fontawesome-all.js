@@ -44,9 +44,9 @@ var oneToTwenty = oneToTen.concat([11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
 
 
-var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left', 'pull-right', 'spin', 'pulse', 'rotate-90', 'rotate-180', 'rotate-270', 'flip-horizontal', 'flip-vertical', 'stack', 'stack-1x', 'stack-2x', 'inverse', 'layers', 'layers-text', 'layers-counter'].concat(oneToTen.map(function (n) {
+var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left', 'pull-right', 'spin', 'pulse', 'rotate-90', 'rotate-180', 'rotate-270', 'flip-horizontal', 'flip-vertical', 'stack', 'stack-1x', 'stack-2x', 'inverse', 'layers', 'layers-text', 'layers-counter'].concat(oneToTen?.map(function (n) {
   return n + 'x';
-})).concat(oneToTwenty.map(function (n) {
+})).concat(oneToTwenty?.map(function (n) {
   return 'w-' + n;
 }));
 
@@ -493,9 +493,9 @@ var oneToTwenty = oneToTen.concat([11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
 
 
-var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left', 'pull-right', 'spin', 'pulse', 'rotate-90', 'rotate-180', 'rotate-270', 'flip-horizontal', 'flip-vertical', 'stack', 'stack-1x', 'stack-2x', 'inverse', 'layers', 'layers-text', 'layers-counter'].concat(oneToTen.map(function (n) {
+var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left', 'pull-right', 'spin', 'pulse', 'rotate-90', 'rotate-180', 'rotate-270', 'flip-horizontal', 'flip-vertical', 'stack', 'stack-1x', 'stack-2x', 'inverse', 'layers', 'layers-text', 'layers-counter'].concat(oneToTen?.map(function (n) {
   return n + 'x';
-})).concat(oneToTwenty.map(function (n) {
+})).concat(oneToTwenty?.map(function (n) {
   return 'w-' + n;
 }));
 
@@ -728,9 +728,9 @@ var oneToTwenty = oneToTen.concat([11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
 
 
-var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left', 'pull-right', 'spin', 'pulse', 'rotate-90', 'rotate-180', 'rotate-270', 'flip-horizontal', 'flip-vertical', 'stack', 'stack-1x', 'stack-2x', 'inverse', 'layers', 'layers-text', 'layers-counter'].concat(oneToTen.map(function (n) {
+var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left', 'pull-right', 'spin', 'pulse', 'rotate-90', 'rotate-180', 'rotate-270', 'flip-horizontal', 'flip-vertical', 'stack', 'stack-1x', 'stack-2x', 'inverse', 'layers', 'layers-text', 'layers-counter'].concat(oneToTen?.map(function (n) {
   return n + 'x';
-})).concat(oneToTwenty.map(function (n) {
+})).concat(oneToTwenty?.map(function (n) {
   return 'w-' + n;
 }));
 
@@ -1338,9 +1338,9 @@ var oneToTwenty = oneToTen.concat([11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
 var ATTRIBUTES_WATCHED_FOR_MUTATION = ['class', 'data-prefix', 'data-icon', 'data-fa-transform', 'data-fa-mask'];
 
-var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left', 'pull-right', 'spin', 'pulse', 'rotate-90', 'rotate-180', 'rotate-270', 'flip-horizontal', 'flip-vertical', 'stack', 'stack-1x', 'stack-2x', 'inverse', 'layers', 'layers-text', 'layers-counter'].concat(oneToTen.map(function (n) {
+var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left', 'pull-right', 'spin', 'pulse', 'rotate-90', 'rotate-180', 'rotate-270', 'flip-horizontal', 'flip-vertical', 'stack', 'stack-1x', 'stack-2x', 'inverse', 'layers', 'layers-text', 'layers-counter'].concat(oneToTen?.map(function (n) {
   return n + 'x';
-})).concat(oneToTwenty.map(function (n) {
+})).concat(oneToTwenty?.map(function (n) {
   return 'w-' + n;
 }));
 
@@ -1455,7 +1455,7 @@ var functions = [];
 var listener = function listener() {
   DOCUMENT.removeEventListener('DOMContentLoaded', listener);
   loaded = 1;
-  functions.map(function (fn) {
+  functions?.map(function (fn) {
     return fn();
   });
 };
@@ -2070,7 +2070,7 @@ function toHtml(abstractNodes) {
   if (typeof abstractNodes === 'string') {
     return htmlEscape(abstractNodes);
   } else {
-    return '<' + tag + ' ' + joinAttributes(attributes) + '>' + children.map(toHtml).join('') + '</' + tag + '>';
+    return '<' + tag + ' ' + joinAttributes(attributes) + '>' + children?.map(toHtml).join('') + '</' + tag + '>';
   }
 }
 
@@ -2096,7 +2096,7 @@ var mutators = {
   replace: function replace(mutation) {
     var node = mutation[0];
     var abstract = mutation[1];
-    var newOuterHTML = abstract.map(function (a) {
+    var newOuterHTML = abstract?.map(function (a) {
       return toHtml(a);
     }).join('\n');
 
@@ -2134,7 +2134,7 @@ var mutators = {
 
     abstract[0].attributes.class = splitClasses.toSvg.join(' ');
 
-    var newInnerHTML = abstract.map(function (a) {
+    var newInnerHTML = abstract?.map(function (a) {
       return toHtml(a);
     }).join('\n');
     node.setAttribute('class', splitClasses.toNode.join(' '));
@@ -2157,7 +2157,7 @@ function perform(mutations, callback) {
       var mutator = getMutator();
       var mark = perf.begin('mutate');
 
-      mutations.map(mutator);
+      mutations?.map(mutator);
 
       mark();
 
@@ -2374,7 +2374,7 @@ var maskParser = function (node) {
   if (!mask) {
     return emptyCanonicalIcon();
   } else {
-    return getCanonicalIcon(mask.split(' ').map(function (i) {
+    return getCanonicalIcon(mask.split(' ')?.map(function (i) {
       return i.trim();
     }));
   }
@@ -2627,7 +2627,7 @@ function onTree(root) {
     return htmlClassList.remove(HTML_CLASS_I2SVG_BASE_CLASS + '-' + suffix);
   };
   var prefixes = Object.keys(styles);
-  var prefixesDomQuery = ['.' + LAYERS_TEXT_CLASSNAME + ':not([' + DATA_FA_I2SVG + '])'].concat(prefixes.map(function (p) {
+  var prefixesDomQuery = ['.' + LAYERS_TEXT_CLASSNAME + ':not([' + DATA_FA_I2SVG + '])'].concat(prefixes?.map(function (p) {
     return '.' + p + ':not([' + DATA_FA_I2SVG + '])';
   })).join(', ');
 
@@ -2767,7 +2767,7 @@ var Library = function () {
     value: function _pullDefinitions(additions, definition) {
       var normalized = definition.prefix && definition.iconName && definition.icon ? { 0: definition } : definition;
 
-      Object.keys(normalized).map(function (key) {
+      Object.keys(normalized)?.map(function (key) {
         var _normalized$key = normalized[key],
             prefix = _normalized$key.prefix,
             iconName = _normalized$key.iconName,
@@ -2819,7 +2819,7 @@ function apiObject(val, abstractCreator) {
 
   Object.defineProperty(val, 'html', {
     get: function get() {
-      return val.abstract.map(function (a) {
+      return val.abstract?.map(function (a) {
         return toHtml(a);
       });
     }
@@ -2997,7 +2997,7 @@ var layer = function layer(assembler) {
     var children = [];
 
     assembler(function (args) {
-      Array.isArray(args) ? children = args.map(function (a) {
+      Array.isArray(args) ? children = args?.map(function (a) {
         children = children.concat(a.abstract);
       }) : children = children.concat(args.abstract);
     });

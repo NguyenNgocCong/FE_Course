@@ -270,7 +270,7 @@ const Posts = () => {
                                     }}
                                 >
                                     <option value="">All Category</option>
-                                    {listCategory?.map((item, index) => {
+                                    {listCategory.map((item, index) => {
                                         return (
                                             <option
                                                 key={index}
@@ -291,7 +291,7 @@ const Posts = () => {
                                     }}
                                 >
                                     <option value={0}>All Status</option>
-                                    {optionStatus?.map((item, index) => {
+                                    {optionStatus.map((item, index) => {
                                         return (
                                             <option
                                                 key={index}

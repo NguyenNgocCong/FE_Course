@@ -211,7 +211,7 @@ const Contact = () => {
                                     }}
                                 >
                                     <option value={0}>All Category</option>
-                                    {listCategory?.map((item, index) => {
+                                    {listCategory.map((item, index) => {
                                         return (
                                             <option
                                                 key={index}
