@@ -9,7 +9,6 @@ import Header from "../layout/header/header1";
 import { Markup } from "interweave";
 import { classApi } from "../../api/classApi";
 import bannerImg from "../../images/banner/banner2.jpg";
-import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import { combieImg } from "../../utils/index";
 
 function ClassUserDetails(props) {
@@ -57,9 +56,7 @@ function ClassUserDetails(props) {
                 <div className="col-xl-3 col-lg-4 col-md-12 col-sm-12 m-b30">
                   <div className="course-detail-bx">
                     <img
-                      src={combieImg(
-                        res.packages?.image
-                      )}
+                      src={combieImg(res.packages?.image)}
                       alt={res.packages?.title}
                       onError={({ currentTarget }) => {
                         currentTarget.src =
@@ -68,20 +65,36 @@ function ClassUserDetails(props) {
                     />
                     <div className="course-price">
                       <del>${res.packages.listPrice}</del>
-                      <h4 className="price">
-                        ${res.packages.salePrice}
-                      </h4>
+                      <h4 className="price">${res.packages.salePrice}</h4>
                     </div>
-                    <div className="text-center"><i className="fa fa-calendar"></i> {new Date(res?.dateStart).toLocaleDateString()}</div>
-                    <div className="course-pricetext-center"><i className="fa fa-clock-o"></i> {new Date(res?.dateFrom).toLocaleDateString()} - {new Date(res?.dateTo).toLocaleDateString()}</div>
-                    <div className="course-price"><i className="fa fa-location-arrow"></i> {res?.branch?.setting_title ? res?.branch?.setting_title : "Online"}</div>
+                    <div className="text-center">
+                      <i className="fa fa-calendar"></i>{" "}
+                      {new Date(res?.dateStart).toLocaleDateString()}
+                    </div>
+                    <div className="course-pricetext-center">
+                      <i className="fa fa-clock-o"></i>{" "}
+                      {new Date(res?.dateFrom).toLocaleDateString()} -{" "}
+                      {new Date(res?.dateTo).toLocaleDateString()}
+                    </div>
+                    <div className="course-price">
+                      <i className="fa fa-location-arrow"></i>{" "}
+                      {res?.branch?.setting_title
+                        ? res?.branch?.setting_title
+                        : "Online"}
+                    </div>
                     <div className="course-buy-now text-center">
-                      <Link to="#" className="btn radius-xl btn-primary"> Advise </Link>
+                      <Link to="#" className="btn radius-xl btn-primary">
+                        {" "}
+                        Advise{" "}
+                      </Link>
                     </div>
                     <div className="teacher-bx">
                       <div className="teacher-info">
                         <div className="teacher-thumb">
-                          <img src={combieImg(res.trainer?.user?.avatar)} alt="" />
+                          <img
+                            src={combieImg(res.trainer?.user?.avatar)}
+                            alt=""
+                          />
                         </div>
                         <div className="teacher-name">
                           <h5>{res.trainer?.user?.fullname}</h5>
@@ -127,7 +140,9 @@ function ClassUserDetails(props) {
                       </div>
                       <div className="review-bx">
                         <div className="ttr-post-text">
-                          <h5>Trainer informaiton: {res.trainer?.user?.fullname}</h5>
+                          <h5>
+                            Trainer informaiton: {res.trainer?.user?.fullname}
+                          </h5>
                           <Markup content={res.trainer?.description} />
                         </div>
                       </div>
@@ -324,8 +339,7 @@ const classDetailEx = {
       updatedDate: "2022-11-19 13:38:22.102",
       email: "expert2@gmail.com",
       username: "Toanbn",
-      password:
-        "$2a$10$5hB.S1F2mmY1a19omdGGiebwWXanOJXfLceeL6OlyHSEwg2znEaU2",
+      password: "$2a$10$5hB.S1F2mmY1a19omdGGiebwWXanOJXfLceeL6OlyHSEwg2znEaU2",
       fullname: "Bạch Ngọc Toàn",
       phoneNumber: "09836342323",
       avatar: "1131cab7-2257-4bb5-a07b-d1e78a88316a.jpg",
@@ -348,7 +362,7 @@ const classDetailEx = {
         desciption: "role of expert",
       },
     },
-  }
+  },
 };
 
 export default ClassUserDetails;

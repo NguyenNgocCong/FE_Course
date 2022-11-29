@@ -1,6 +1,8 @@
 import React from "react";
+import { useState } from "react";
 
 const Reviews = ({ onReview }) => {
+  const [ratting, setRatting] = useState(0);
   return (
     <div className="" id="reviews">
       <h4>Reviews</h4>
@@ -9,21 +11,17 @@ const Reviews = ({ onReview }) => {
         <div className="all-review">
           <h2 className="rating-type">3</h2>
           <ul className="cours-star">
-            <li className="active">
-              <i className="fa fa-star"></i>
-            </li>
-            <li className="active">
-              <i className="fa fa-star"></i>
-            </li>
-            <li className="active">
-              <i className="fa fa-star"></i>
-            </li>
-            <li>
-              <i className="fa fa-star"></i>
-            </li>
-            <li>
-              <i className="fa fa-star"></i>
-            </li>
+            {[1, 2, 3, 4, 5].map((x) => {
+              return (
+                <li
+                  className={x <= ratting && "active"}
+                  key={x}
+                  onClick={() => setRatting(x)}
+                >
+                  <i className="fa fa-star"></i>
+                </li>
+              );
+            })}
           </ul>
           <span>3 Rating</span>
         </div>

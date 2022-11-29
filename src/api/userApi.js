@@ -138,4 +138,13 @@ export const userApi = {
     const url = `/api/account/active-course/`;
     return axiosApi.post(url, {}, { params });
   },
+
+  createComment: (body) => {
+    const url = `/api/feedback/create/`;
+    return axiosApi.post(url, body);
+  },
+  getCommentPackage: (params) => {
+    const url = `/api/feedback/list-package`;
+    return axiosApi.get(url, { params });
+  },
 };
