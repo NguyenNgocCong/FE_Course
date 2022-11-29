@@ -28,10 +28,12 @@ function UserDetail(props) {
   const location = useLocation();
   const history = useHistory();
   const [option, setOption] = useState();
-  const [alertMessage, setAlertMessage] = useState();
-  const [alertVisible, setAlertVisible] = useState(false);
-  const [alertType, setPopupAlertType] = useState("primary");
-  const [validated, setValidated] = useState(false);
+  const [alertMessageUsername, setAlertMessageUsername] = useState();
+  const [alertVisibleUsername, setAlertVisibleUsername] = useState(false);
+  const [alertMessageFullName, setAlertMessageFullName] = useState();
+  const [alertVisibleFullName, setAlertVisibleFullName] = useState(false);  
+  const [alertMessagePhone, setAlertMessagePhone] = useState();
+  const [alertVisiblePhone, setAlertVisiblePhone] = useState(false);
   const id = location.pathname.substring(
     "/admin/users/".length,
     location.pathname.length
@@ -69,8 +71,7 @@ function UserDetail(props) {
         phoneNumber: phone,
         note: note,
       };
-      setValidated(true);
-      if (!alertVisible &&validated) {
+      if (!alertVisibleFullName && !alertMessagePhone &&!alertMessageUsername ) {
         if (option !== user.role && option !== undefined) {
           await adminApi.updateRoleUser(params);
         }
@@ -101,42 +102,38 @@ function UserDetail(props) {
     const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
     const usernameInput = e.target.value;
     if (!regUsername.test(usernameInput)) {
-      setAlertMessage("Username is Invalid");
-      setAlertVisible(true);
-      setPopupAlertType("danger");
+      setAlertMessageUsername("Username is Invalid");
+      setAlertVisibleUsername(true);
     }else if(!usernameInput){
-      setAlertMessage("Username is required");
-      setAlertVisible(true);
-      setPopupAlertType("danger");
+      setAlertMessageUsername("Username is required");
+      setAlertVisibleUsername(true);
     } 
     else {
-      setAlertVisible(false);
-      setUsername(usernameInput);
+      setAlertVisibleUsername(false);
     }
+    setUsername(usernameInput);
   };
   const handleUpdatePhone = (e) => {
     const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})/;
     const phoneInput = e.target.value;
     if (!regPhoneNumber.test(phoneInput)) {
-      setAlertMessage("Phone Number is Invalid");
-      setAlertVisible(true);
-      setPopupAlertType("danger");
+      setAlertMessagePhone("Phone Number is Invalid");
+      setAlertVisiblePhone(true);
     } else {
-      setAlertVisible(false);
-      setPhone(phoneInput);
+      setAlertVisiblePhone(false);
     }
+    setPhone(phoneInput);
   };
 
   const handleUpdateFullName=(e) => {
     const fullNameInput = e.target.value;
     if (!fullNameInput) {
-      setAlertMessage("Full Name  is Required");
-      setAlertVisible(true);
-      setPopupAlertType("danger");
+      setAlertMessageFullName("Full Name  is Required");
+      setAlertVisibleFullName(true);
     } else {
-      setAlertVisible(false);
-      setFullname(fullNameInput);
+      setAlertVisibleFullName(false);
     }
+    setFullname(fullNameInput);
   }
 
   return (
@@ -182,6 +179,15 @@ function UserDetail(props) {
                           defaultValue={user?.username}
                           onChange={(e) => handleUpdateUsername(e)}
                         />
+                        <div
+                    className={`alert alert-danger alert-dismissible fade show`}
+                    role="alert"
+                    style={{
+                      display: `${alertVisibleUsername ? "" : "none"}`,
+                    }}
+                  >
+                    {alertMessageUsername}
+                  </div>
                       </div>
                     </CCol>
                     <CCol sm={6}>
@@ -197,6 +203,15 @@ function UserDetail(props) {
                           onChange={(e) => handleUpdateFullName(e)}
                           required
                         />
+                        <div
+                    className={`alert alert-danger alert-dismissible fade show`}
+                    role="alert"
+                    style={{
+                      display: `${alertVisibleFullName ? "" : "none"}`,
+                    }}
+                  >
+                    {alertMessageFullName}
+                  </div>
                       </div>
                     </CCol>
                     <CCol sm={6}>
@@ -212,6 +227,15 @@ function UserDetail(props) {
                           onChange={(e) => handleUpdatePhone(e)}
                         />
                       </div>
+                      <div
+                    className={`alert alert-danger alert-dismissible fade show`}
+                    role="alert"
+                    style={{
+                      display: `${alertVisiblePhone ? "" : "none"}`,
+                    }}
+                  >
+                    {alertMessagePhone}
+                  </div>
                     </CCol>
                     <CCol sm={6}>
                       <div className="mb-3">
@@ -255,17 +279,9 @@ function UserDetail(props) {
                       onChange={(e) => setNote(e.target.value)}
                     />
                   </div>
-                  <div
-                    className={`alert alert-${alertType} alert-dismissible fade show`}
-                    role="alert"
-                    style={{
-                      display: `${alertVisible ? "" : "none"}`,
-                    }}
-                  >
-                    {alertMessage}
-                  </div>
+                  
                   <div className="mb-3">
-                    <CButton onClick={()=>handleUpdateRoleAndProfile()} disabled={alertVisible}>
+                    <CButton onClick={()=>handleUpdateRoleAndProfile()} disabled={alertVisibleFullName || alertVisiblePhone || alertVisibleUsername}>
                       Save
                     </CButton>
                   </div>
