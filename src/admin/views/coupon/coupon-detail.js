@@ -19,7 +19,7 @@ import { AppFooter, AppHeader, AppSidebar } from "../../components";
 function CouponDetail(props) {
 
     const [detailCoupon, setDetailCoupon] = useState();
-    const [packageId, setPackageId] = useState(0);
+    const [packageId, setPackageId] = useState();
     const [validFrom, setValidFrom] = useState();
     const [validTo, setValidTo] = useState();
     const [code,setCode] = useState();
@@ -71,18 +71,18 @@ function CouponDetail(props) {
         }
     };
 
-    const handleUpdateClass = async () => {
+
+    const handleUpdateCoupon = async () => {
         try {
             const params = {
-                code: code,
-                discountRate: discountRate,
-                maxQuantity: maxQuantity,
-                minQuantity: minQuantity,
                 minRevenue: minRevenue,
-                packages: packageId,
+                minQuantity: minQuantity,
+                maxQuantity: maxQuantity,
+                discountRate: discountRate,
                 status: status,
                 validFrom: validFrom,
                 validTo: validTo,
+                packageId: packageId,
             };
             console.log(params);
 
@@ -348,7 +348,7 @@ function CouponDetail(props) {
                                 </CRow>
                                 <div className="mb-3">
                                     <CButton
-                                        onClick={() => handleUpdateClass()}
+                                        onClick={() => handleUpdateCoupon()}
                                     >
                                         Save
                                     </CButton>

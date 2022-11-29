@@ -330,7 +330,7 @@ export const adminApi = {
   },
   updateCoupon: (params,id) =>{
     const url = `api/coupon/update?id=${id}`;
-    return axiosApi.post(url,params);
+    return axiosApi.put(url,params);
   },
   createCoupon: (params) =>{
     const url = `api/coupon/create`;
