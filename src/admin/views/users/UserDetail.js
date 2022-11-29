@@ -1,249 +1,258 @@
 import {
-    CButton,
-    CCard,
-    CCardBody,
-    CCardHeader,
-    CCol,
-    CFormInput,
-    CFormLabel,
-    CFormSelect,
-    CFormTextarea,
-    CRow,
+  CButton,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCol,
+  CFormInput,
+  CFormLabel,
+  CFormSelect,
+  CFormTextarea,
+  CRow,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useHistory, useLocation } from "react-router-dom";
 import { adminApi } from "../../../api/adminApi";
-import {
-    AppFooter,
-    AppHeader,
-    AppSidebar,
-} from "../../components";
+import { AppFooter, AppHeader, AppSidebar } from "../../components";
 
 function UserDetail(props) {
-    const [listRole, setListRole] = useState([]);
-    const [user, setUser] = useState({});
-    const [fullname, setFullname] = useState();
-    const [phone, setPhone] = useState();
-    const [username, setUsername] = useState();
-    const [note, setNote] = useState();
-    const location = useLocation();
-    const history = useHistory();
-    const [option, setOption] = useState();
-    const id = location.pathname.substring(
-        "/admin/users/".length,
-        location.pathname.length
-    );
+  const [listRole, setListRole] = useState([]);
+  const [user, setUser] = useState({});
+  const [fullname, setFullname] = useState();
+  const [phone, setPhone] = useState();
+  const [username, setUsername] = useState();
+  const [note, setNote] = useState();
+  const location = useLocation();
+  const history = useHistory();
+  const [option, setOption] = useState();
+  const [alertMessage, setAlertMessage] = useState();
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertType, setPopupAlertType] = useState("primary");
+  const id = location.pathname.substring(
+    "/admin/users/".length,
+    location.pathname.length,
+  );
 
-    const getListRole = async () => {
-        try {
-            const response = await adminApi.getListRole();
-            setListRole(response);
-        } catch (responseError) {
-            console.log(responseError);
-        }
-    };
+  const getListRole = async () => {
+    try {
+      const response = await adminApi.getListRole();
+      setListRole(response);
+    } catch (responseError) {
+      console.log(responseError);
+    }
+  };
 
-    const getUserById = async () => {
-        try {
-            const response = await adminApi.getUserById(id);
-            setUser(response);
-        } catch (responseError) {
-            toast.error(responseError?.data.message, {
-                duration: 2000,
-            });
-        }
-    };
+  const getUserById = async () => {
+    try {
+      const response = await adminApi.getUserById(id);
+      setUser(response);
+    } catch (responseError) {
+      toast.error(responseError?.data.message, {
+        duration: 2000,
+      });
+    }
+  };
 
-    const handleUpdateRoleAndProfile = async () => {
-        try {
-            const params = {
-                username: user?.username,
-                role: option,
-            };
-            const paramsProfile = {
-                username: username,
-                fullname: fullname,
-                phoneNumber: phone,
-                note: note
-            };
-            if (option !== user.role && option !== undefined) {
-                await adminApi.updateRoleUser(params);
-            }
-            const responseProfile = await adminApi.updateUserProfile(
-                paramsProfile,
-                user?.id
-            );
-            toast.success(responseProfile?.message, {
-                duration: 2000,
-            });
-            history.push("/admin/users");
-        } catch (responseError) {
-            toast.error(responseError?.data.message, {
-                duration: 2000,
-            });
-            console.log(responseError);
-        }
-    };
-    useEffect(() => {
-        getListRole();
-        if (id !== undefined) {
-            getUserById();
-        }
-        // eslint-disable-next-line
-    }, []);
+  const handleUpdateRoleAndProfile = async () => {
+    try {
+      const params = {
+        username: user?.username,
+        role: option,
+      };
+      const paramsProfile = {
+        username: username,
+        fullname: fullname,
+        phoneNumber: phone,
+        note: note,
+      };
+     if(!alertVisible){
+        if (option !== user.role && option !== undefined) {
+            await adminApi.updateRoleUser(params);
+          }
+          const responseProfile = await adminApi.updateUserProfile(
+            paramsProfile,
+            user?.id,
+          );
+          toast.success(responseProfile?.message, {
+            duration: 2000,
+          });
+          history.push("/admin/users");
+     }
+    } catch (responseError) {
+      toast.error(responseError?.data.message, {
+        duration: 2000,
+      });
+      console.log(responseError);
+    }
+  };
+  useEffect(() => {
+    getListRole();
+    if (id !== undefined) {
+      getUserById();
+    }
+    // eslint-disable-next-line
+  }, []);
+  const handleUpdateUsername = (e) => {
+    const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+    const usernameInput = e.target.value;
+    if (!regUsername.test(usernameInput)) {
+      setAlertMessage("Username is Invalid");
+      setAlertVisible(true);
+      setPopupAlertType("danger");
+    } else {
+        setAlertVisible(false);
+      setUsername(usernameInput);
+    }
+  };
+  const handleUpdatePhone = (e) => {
+    const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})/;
+    const phoneInput = e.target.value;
+    if (!regPhoneNumber.test(phoneInput)) {
+      setAlertMessage("Phone Number is Invalid");
+      setAlertVisible(true);
+      setPopupAlertType("danger");
+    } else {
+        setAlertVisible(false);
+      setPhone(phoneInput);
+    }
+  };
 
-    return (
-        <div>
-            <AppSidebar />
-            <Toaster position="top-center" reverseOrder={false} />
-            <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-                <AppHeader />
-                <div className="body flex-grow-1 px-3">
-                    <CCol xs={12}>
-                        <CCard className="mb-4">
-                            <CCardHeader>
-                                <strong>Change User Info</strong>
-                            </CCardHeader>
+  return (
+    <div>
+      <AppSidebar />
+      <Toaster position="top-center" reverseOrder={false} />
+      <div className="wrapper d-flex flex-column min-vh-100 bg-light">
+        <AppHeader />
+        <div className="body flex-grow-1 px-3">
+          <CCol xs={12}>
+            <CCard className="mb-4">
+              <CCardHeader>
+                <strong>Change User Info</strong>
+              </CCardHeader>
 
-                            <CCardBody>
-                                <CRow className="g-3 mb-3">
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Email
-                                            </CFormLabel>
-                                            <CFormInput
-                                                disabled
-                                                type="email"
-                                                id="exampleFormControlInput1"
-                                                placeholder="name@example.com"
-                                                defaultValue={user?.email}
-                                            />
-                                        </div>
-
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Username
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                placeholder=""
-                                                defaultValue={user?.username}
-                                                onChange={(e) =>
-                                                    setUsername(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Fullname
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                placeholder=""
-                                                defaultValue={user?.fullname}
-                                                onChange={(e) =>
-                                                    setFullname(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Phone Number
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="number"
-                                                id="exampleFormControlInput1"
-                                                placeholder=""
-                                                defaultValue={user?.phoneNumber}
-                                                onChange={(e) =>
-                                                    setPhone(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="formFile">
-                                                Set Roles. Click Ctrl to select multiple
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setOption(e.target.value)
-                                                }
-                                                defaultValue={user?.role}
-                                            >
-                                                {listRole?.map((item, index) => {
-                                                    return user?.role === item?.setting_value ? (
-                                                        <option
-                                                            key={index}
-                                                            value={item?.setting_value}
-                                                            selected
-                                                        >
-                                                            {item?.setting_value?.replace(
-                                                                "ROLE_",
-                                                                ""
-                                                            )}
-                                                        </option>
-                                                    ) : (
-                                                        <option
-                                                            key={index}
-                                                            value={item?.setting_value}
-                                                        >
-                                                            {item?.setting_value?.replace(
-                                                                "ROLE_",
-                                                                ""
-                                                            )}
-                                                        </option>
-                                                    );
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                </CRow>
-                                <div className="mb-3">
-                                    <CFormLabel htmlFor="exampleFormControlInput1">
-                                        Note (
-                                        <span style={{ color: "red" }}>*</span>)
-                                    </CFormLabel>
-                                    <CFormTextarea
-                                        type="text"
-                                        id="exampleFormControlInput1"
-                                        rows="3"
-                                        defaultValue={user?.note}
-                                        placeholder=""
-                                        onChange={(e) =>
-                                            setNote(e.target.value)
-                                        }
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <CButton
-                                        onClick={() =>
-                                            handleUpdateRoleAndProfile()
-                                        }
-                                    >
-                                        Save
-                                    </CButton>
-                                </div>
-                            </CCardBody>
-                        </CCard>
-                    </CCol>
+              <CCardBody>
+                <CRow className="g-3 mb-3">
+                  <CCol sm={6}>
+                    <div className="mb-3">
+                      <CFormLabel htmlFor="exampleFormControlInput1">
+                        Email
+                      </CFormLabel>
+                      <CFormInput
+                        disabled
+                        type="email"
+                        id="exampleFormControlInput1"
+                        placeholder="name@example.com"
+                        defaultValue={user?.email}
+                      />
+                    </div>
+                  </CCol>
+                  <CCol sm={6}>
+                    <div className="mb-3">
+                      <CFormLabel htmlFor="exampleFormControlInput1">
+                        Username
+                      </CFormLabel>
+                      <CFormInput
+                        type="text"
+                        id="exampleFormControlInput1"
+                        placeholder=""
+                        defaultValue={user?.username}
+                        onChange={(e) => handleUpdateUsername(e)}
+                      />
+                    </div>
+                  </CCol>
+                  <CCol sm={6}>
+                    <div className="mb-3">
+                      <CFormLabel htmlFor="exampleFormControlInput1">
+                        Fullname
+                      </CFormLabel>
+                      <CFormInput
+                        type="text"
+                        id="exampleFormControlInput1"
+                        placeholder=""
+                        defaultValue={user?.fullname}
+                        onChange={(e) => setFullname(e.target.value)}
+                      />
+                    </div>
+                  </CCol>
+                  <CCol sm={6}>
+                    <div className="mb-3">
+                      <CFormLabel htmlFor="exampleFormControlInput1">
+                        Phone Number
+                      </CFormLabel>
+                      <CFormInput
+                        type="number"
+                        id="exampleFormControlInput1"
+                        placeholder=""
+                        defaultValue={user?.phoneNumber}
+                        onChange={(e) => handleUpdatePhone(e)}
+                      />
+                    </div>
+                  </CCol>
+                  <CCol sm={6}>
+                    <div className="mb-3">
+                      <CFormLabel htmlFor="formFile">
+                        Set Roles. Click Ctrl to select multiple
+                      </CFormLabel>
+                      <CFormSelect
+                        aria-label="Default select example"
+                        onChange={(e) => setOption(e.target.value)}
+                        defaultValue={user?.role}
+                      >
+                        {listRole?.map((item, index) => {
+                          return user?.role === item?.setting_value ? (
+                            <option
+                              key={index}
+                              value={item?.setting_value}
+                              selected
+                            >
+                              {item?.setting_value?.replace("ROLE_", "")}
+                            </option>
+                          ) : (
+                            <option key={index} value={item?.setting_value}>
+                              {item?.setting_value?.replace("ROLE_", "")}
+                            </option>
+                          );
+                        })}
+                      </CFormSelect>
+                    </div>
+                  </CCol>
+                </CRow>
+                <div className="mb-3">
+                  <CFormLabel htmlFor="exampleFormControlInput1">
+                    Note (<span style={{ color: "red" }}>*</span>)
+                  </CFormLabel>
+                  <CFormTextarea
+                    type="text"
+                    id="exampleFormControlInput1"
+                    rows="3"
+                    defaultValue={user?.note}
+                    placeholder=""
+                    onChange={(e) => setNote(e.target.value)}
+                  />
                 </div>
-                <AppFooter />
-            </div>
+                <div
+                  className={`alert alert-${alertType} alert-dismissible fade show`}
+                  role="alert"
+                  style={{
+                    display: `${alertVisible ? "" : "none"}`,
+                  }}
+                >
+                  {alertMessage}
+                </div>
+                <div className="mb-3">
+                  <CButton onClick={() => handleUpdateRoleAndProfile()} disabled={alertVisible}>
+                    Save
+                  </CButton>
+                </div>
+              </CCardBody>
+            </CCard>
+          </CCol>
         </div>
-    );
+        <AppFooter />
+      </div>
+    </div>
+  );
 }
 
 export default UserDetail;
