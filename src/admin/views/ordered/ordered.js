@@ -213,7 +213,7 @@ function Ordered() {
                   }}
                 >
                   <option value={0}>All Category</option>
-                  {listCategory?.map((item, index) => {
+                  {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
                         {item?.setting_title}
@@ -229,9 +229,9 @@ function Ordered() {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
+                  <option value={0}>All Status</option>
+                  <option value={3}>Paid</option>
+                  <option value={4}>Cancel</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>

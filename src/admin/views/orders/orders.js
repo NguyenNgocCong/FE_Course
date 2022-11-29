@@ -233,7 +233,7 @@ function Orders() {
                   }}
                 >
                   <option value={0}>All Category</option>
-                  {listCategory?.map((item, index) => {
+                  {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
                         {item?.setting_title}
@@ -249,9 +249,9 @@ function Orders() {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
+                  <option value={0}>All Status</option>
+                  <option value={1}>Submitted</option>
+                  <option value={2}>Verified</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>

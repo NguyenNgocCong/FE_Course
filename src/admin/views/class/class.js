@@ -191,7 +191,7 @@ function Class() {
                   }}
                 >
                   <option value={0}>All Trainer</option>
-                  {listTraner?.map((item, index) => {
+                  {listTraner.map((item, index) => {
                     return (
                       <option key={index} value={item?.id}>
                         {item?.fullname}

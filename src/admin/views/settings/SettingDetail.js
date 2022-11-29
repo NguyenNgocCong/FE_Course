@@ -205,7 +205,7 @@ function SettingDetail(props) {
                                                     setStatus(e.target.value)
                                                 }
                                             >
-                                                {optionStatus?.map((item, index) => {
+                                                {optionStatus.map((item, index) => {
                                                     if (type === 1) {
                                                         return setting?.status ===
                                                             item?.status ? (
@@ -251,7 +251,7 @@ function SettingDetail(props) {
                                                 }
                                             >
                                                 <option>Select type</option>
-                                                {listType?.map((item, index) => {
+                                                {listType.map((item, index) => {
                                                     if (type === 1) {
                                                         return setting?.type.type_id === item?.type_id ? (
                                                             <option

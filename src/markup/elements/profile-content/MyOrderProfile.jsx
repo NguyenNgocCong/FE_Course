@@ -123,7 +123,7 @@ function MyOrderProfile() {
                                   Acctice
                                 </button>
                               ) : (
-                                <span class="badge badge-secondary">
+                                <span className="badge badge-secondary">
                                   {handleStatus(item.status)}
                                 </span>
                               )}
@@ -162,7 +162,7 @@ function MyOrderProfile() {
                                   Acctice
                                 </button>
                               ) : (
-                                <span class="badge badge-secondary">
+                                <span className="badge badge-secondary">
                                   {handleStatus(item.status)}
                                 </span>
                               )}

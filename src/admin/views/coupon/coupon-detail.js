@@ -22,7 +22,7 @@ function CouponDetail(props) {
     const [packageId, setPackageId] = useState();
     const [validFrom, setValidFrom] = useState();
     const [validTo, setValidTo] = useState();
-    const [code,setCode] = useState();
+    const [code, setCode] = useState();
     const [listPackages, setListPackages] = useState([]);
     const [minRevenue, setMinRevenue] = useState();
     const [minQuantity, setMinQuantity] = useState();
@@ -42,8 +42,6 @@ function CouponDetail(props) {
     const getCouponById = async () => {
         try {
             const response = await adminApi.getCouponDetail(id);
-            console.log(response);
-            console.log(id);
             setDetailCoupon(response);
             setValidFrom(response?.validFrom);
             setValidTo(response?.validTo);
@@ -105,8 +103,8 @@ function CouponDetail(props) {
         if (type === 1) {
             getCouponById();
         }
-        if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER") 
-        getListPackage();
+        if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER")
+            getListPackage();
         // eslint-disable-next-line
     }, []);
 
@@ -148,7 +146,7 @@ function CouponDetail(props) {
                                                 onChange={(e) => setPackageId(e.target.value)}
                                             >
                                                 <option value="">Select package</option>
-                                                {listPackages?.map((item, index) => {
+                                                {listPackages.map((item, index) => {
                                                     return (
                                                         <option
                                                             key={index}
@@ -227,7 +225,7 @@ function CouponDetail(props) {
                                                     setStatus(e.target.value)
                                                 }
                                             >
-                                                {optionStatus?.map((item, index) => {
+                                                {optionStatus.map((item, index) => {
                                                     if (type === 1) {
                                                         return detailCoupon?.status ===
                                                             item?.status ? (
@@ -284,7 +282,7 @@ function CouponDetail(props) {
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
-                                                type="minQuantity"
+                                                type="number"
                                                 id="exampleFormControlInput1"
                                                 placeholder="Min Quantity"
                                                 defaultValue={minQuantity}
@@ -301,7 +299,7 @@ function CouponDetail(props) {
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
-                                                type="maxQuantity"
+                                                type="number"
                                                 id="exampleFormControlInput1"
                                                 placeholder="Max Quantity"
                                                 defaultValue={maxQuantity}
@@ -318,7 +316,7 @@ function CouponDetail(props) {
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
-                                                type="discountRate"
+                                                type="number"
                                                 id="exampleFormControlInput1"
                                                 placeholder="Discount Rate"
                                                 defaultValue={discountRate}
@@ -328,14 +326,15 @@ function CouponDetail(props) {
                                             />
                                         </div>
                                     </CCol>
-                                    <CCol sm={12}>
+                                    {type === 1 ? <CCol sm={12}>
                                         <div className="mb-3">
-                                        <CFormLabel htmlFor="exampleFormControlInput1">
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
                                                 Code(
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
                                                 type="code"
+                                                readOnly={true}
                                                 id="exampleFormControlInput1"
                                                 placeholder="Code"
                                                 defaultValue={code}
@@ -345,6 +344,8 @@ function CouponDetail(props) {
                                             />
                                         </div>
                                     </CCol>
+                                        : <></>
+                                    }
                                 </CRow>
                                 <div className="mb-3">
                                     <CButton

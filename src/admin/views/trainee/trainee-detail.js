@@ -143,7 +143,6 @@ function TraineeDetail(props) {
                       />
                     </div>
                   </CCol>
-
                   <CCol sm={6}>
                     <div className="mb-3">
                       <CFormLabel htmlFor="exampleFormControlInput1">

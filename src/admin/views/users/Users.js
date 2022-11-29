@@ -210,7 +210,7 @@ const Users = () => {
                   }}
                 >
                   <option value={0}>All Role</option>
-                  {listRole?.map((item, index) => {
+                  {listRole.map((item, index) => {
                     return (
                       <option
                         key={index}
