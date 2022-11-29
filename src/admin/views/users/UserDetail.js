@@ -128,7 +128,7 @@ function UserDetail(props) {
   const handleUpdateFullName=(e) => {
     const fullNameInput = e.target.value;
     if (!fullNameInput) {
-      setAlertMessageFullName("Full Name  is Required");
+      setAlertMessageFullName("Full Name is Required");
       setAlertVisibleFullName(true);
     } else {
       setAlertVisibleFullName(false);
@@ -168,7 +168,7 @@ function UserDetail(props) {
                       </div>
                     </CCol>
                     <CCol sm={6}>
-                      <div className="mb-3">
+                      <div className="mb-3" style={{height:'100px'}}>
                         <CFormLabel htmlFor="exampleFormControlInput1">
                           Username
                         </CFormLabel>
@@ -179,11 +179,9 @@ function UserDetail(props) {
                           defaultValue={user?.username}
                           onChange={(e) => handleUpdateUsername(e)}
                         />
-                        <div
-                    className={`alert alert-danger alert-dismissible fade show`}
-                    role="alert"
+                        <div  className="mt-3"
                     style={{
-                      display: `${alertVisibleUsername ? "" : "none"}`,
+                      display: `${alertVisibleUsername ? "" : "none"}`,color:'red'
                     }}
                   >
                     {alertMessageUsername}
@@ -191,7 +189,7 @@ function UserDetail(props) {
                       </div>
                     </CCol>
                     <CCol sm={6}>
-                      <div className="mb-3">
+                      <div className=" "  style={{height:'100px'}}>
                         <CFormLabel htmlFor="exampleFormControlInput1">
                           Fullname
                         </CFormLabel>
@@ -204,10 +202,9 @@ function UserDetail(props) {
                           required
                         />
                         <div
-                    className={`alert alert-danger alert-dismissible fade show`}
-                    role="alert"
+                   className="mt-3"
                     style={{
-                      display: `${alertVisibleFullName ? "" : "none"}`,
+                      display: `${alertVisibleFullName ? "" : "none"}`, color:'red'
                     }}
                   >
                     {alertMessageFullName}
@@ -215,7 +212,7 @@ function UserDetail(props) {
                       </div>
                     </CCol>
                     <CCol sm={6}>
-                      <div className="mb-3">
+                      <div className="" style={{height:'100px'}}>
                         <CFormLabel htmlFor="exampleFormControlInput1">
                           Phone Number
                         </CFormLabel>
@@ -226,18 +223,17 @@ function UserDetail(props) {
                           defaultValue={user?.phoneNumber}
                           onChange={(e) => handleUpdatePhone(e)}
                         />
-                      </div>
-                      <div
-                    className={`alert alert-danger alert-dismissible fade show`}
-                    role="alert"
+                         <div className="mt-3"
                     style={{
-                      display: `${alertVisiblePhone ? "" : "none"}`,
+                      display: `${alertVisiblePhone ? "" : "none"}`, color:'red'
                     }}
                   >
                     {alertMessagePhone}
                   </div>
+                      </div>
+                     
                     </CCol>
-                    <CCol sm={6}>
+                    <CCol sm={3}>
                       <div className="mb-3">
                         <CFormLabel htmlFor="formFile">
                           Set Roles. Click Ctrl to select multiple
