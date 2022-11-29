@@ -114,7 +114,7 @@ function UserDetail(props) {
     setUsername(usernameInput);
   };
   const handleUpdatePhone = (e) => {
-    const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})/;
+    const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
     const phoneInput = e.target.value;
     if (!regPhoneNumber.test(phoneInput)) {
       setAlertMessagePhone("Phone Number is Invalid");
