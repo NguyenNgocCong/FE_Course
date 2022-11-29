@@ -126,36 +126,40 @@ function Profile(props) {
                                 Cart
                               </Nav.Link>
                             </Nav.Item>
-                            <Nav.Item>
-                              <Nav.Link eventKey="tabTwo">
-                                <i className="ti-book"></i>
-                                Order
-                              </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                              <Nav.Link eventKey="tabThree">
-                                <i className="ti-book"></i>
-                                Class
-                              </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                              <Nav.Link eventKey="tabFour">
-                                <i className="ti-book"></i>
-                                Courses
-                              </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                              <Nav.Link eventKey="tabFive">
-                                <i className="ti-pencil-alt"></i>
-                                Edit Profile
-                              </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                              <Nav.Link eventKey="tabSix">
-                                <i className="ti-lock"></i>
-                                Change Password
-                              </Nav.Link>
-                            </Nav.Item>
+                            {isLogin && (
+                              <>
+                                <Nav.Item>
+                                  <Nav.Link eventKey="tabTwo">
+                                    <i className="ti-book"></i>
+                                    Order
+                                  </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                  <Nav.Link eventKey="tabThree">
+                                    <i className="ti-book"></i>
+                                    Class
+                                  </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                  <Nav.Link eventKey="tabFour">
+                                    <i className="ti-book"></i>
+                                    Courses
+                                  </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                  <Nav.Link eventKey="tabFive">
+                                    <i className="ti-pencil-alt"></i>
+                                    Edit Profile
+                                  </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                  <Nav.Link eventKey="tabSix">
+                                    <i className="ti-lock"></i>
+                                    Change Password
+                                  </Nav.Link>
+                                </Nav.Item>
+                              </>
+                            )}
                           </Nav>
                         </div>
                       </div>

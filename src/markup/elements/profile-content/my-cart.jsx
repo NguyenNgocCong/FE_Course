@@ -2,23 +2,49 @@ import React, { Component, useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import Masonry from "react-masonry-component";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
 import PagingQuestion from "../PagingQuestion/PagingQuestion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BodyCartLoacl } from "../../pages/Cart";
+import {
+  removeCartCombo,
+  removeCartPackage,
+  resetState,
+} from "../../../redux/reducers/order";
 
 function CartContent() {
+  const dispatch = useDispatch();
+
   const { isLogin } = useSelector((state) => state.auth);
+  const { data } = useSelector((state) => state.order);
+
   const [res, setRes] = useState([]);
   const [showCheckout, setShowCheckOut] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
   const { totalPages } = res;
+  const { packages, combos } = data;
+
+  const totalPackage = [...packages].reduce((pre, x) => pre + x.salePrice, 0);
+  const totalCombo = [...combos].reduce(
+    (pre, x) => pre + x.comboPackages.reduce((pre, x) => pre + x.salePrice, 0),
+    0
+  );
 
   useEffect(() => {
     userApi.getCarts({ page: pageIndex - 1 }).then((res) => setRes(res));
   }, [pageIndex]);
+
+  const handleDelete = (params) => {
+    userApi
+      .removeCart(params)
+      .then((res) => {
+        if (params.packageId) dispatch(removeCartPackage(params.packageId));
+        if (params.comboId) dispatch(removeCartCombo(params.comboId));
+      })
+      .catch((e) => toast.error(e?.data?.message));
+  };
 
   const totalPrice = 0;
 
@@ -116,6 +142,12 @@ function CartContent() {
                                 className="shop-tooltip close float-none text-danger"
                                 title=""
                                 data-original-title="Remove"
+                                onClick={() =>
+                                  handleDelete({
+                                    id: x.id,
+                                    comboId: x._combo.id,
+                                  })
+                                }
                               >
                                 ×
                               </button>
@@ -150,6 +182,12 @@ function CartContent() {
                                 className="shop-tooltip close float-none text-danger"
                                 title=""
                                 data-original-title="Remove"
+                                onClick={() =>
+                                  handleDelete({
+                                    id: x.id,
+                                    packageId: x._package.id,
+                                  })
+                                }
                               >
                                 ×
                               </button>
@@ -173,7 +211,7 @@ function CartContent() {
               </div>
               <div className="text-right " style={{ marginRight: "10px" }}>
                 <div className="text-large">
-                  <strong>${totalPrice}</strong>
+                  <strong>${totalPackage + totalCombo}</strong>
                 </div>
               </div>
               <button
@@ -191,13 +229,15 @@ function CartContent() {
 }
 
 const ModalCheckOut = ({ show, handleClose, setRes }) => {
+  const dispatch = useDispatch();
   const [code, setCode] = useState("");
   const handleCheckOut = () => {
     userApi
       .payCarts({ couponCode: code })
       .then((res) => {
         toast.success("checkout success");
-        setRes((pre) => ({ ...pre, data: [] }));
+        setRes((pre) => []);
+        dispatch(resetState());
         handleClose();
       })
       .catch((e) => toast.error(e?.data?.message));

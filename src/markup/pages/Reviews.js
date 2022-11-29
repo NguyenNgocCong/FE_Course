@@ -16,7 +16,10 @@ const Reviews = ({ onReview }) => {
                 <li
                   className={x <= ratting && "active"}
                   key={x}
-                  onClick={() => setRatting(x)}
+                  onClick={() => {
+                    setRatting(x);
+                    onReview(x);
+                  }}
                 >
                   <i className="fa fa-star"></i>
                 </li>
@@ -36,7 +39,7 @@ const Reviews = ({ onReview }) => {
               </div>
             </div>
             <div className="side right">
-              <div>150</div>
+              <div>...</div>
             </div>
           </div>
           <div className="bar-bx">
@@ -49,7 +52,7 @@ const Reviews = ({ onReview }) => {
               </div>
             </div>
             <div className="side right">
-              <div>140</div>
+              <div>...</div>
             </div>
           </div>
           <div className="bar-bx">
@@ -62,7 +65,7 @@ const Reviews = ({ onReview }) => {
               </div>
             </div>
             <div className="side right">
-              <div>120</div>
+              <div>...</div>
             </div>
           </div>
           <div className="bar-bx">
@@ -75,7 +78,7 @@ const Reviews = ({ onReview }) => {
               </div>
             </div>
             <div className="side right">
-              <div>110</div>
+              <div>...</div>
             </div>
           </div>
           <div className="bar-bx">
@@ -88,7 +91,7 @@ const Reviews = ({ onReview }) => {
               </div>
             </div>
             <div className="side right">
-              <div>80</div>
+              <div>...</div>
             </div>
           </div>
         </div>

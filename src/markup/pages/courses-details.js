@@ -8,7 +8,6 @@ import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
 
 // Images
-import toast from "react-hot-toast";
 import { adminApi } from "../../api/adminApi";
 import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
@@ -18,6 +17,7 @@ import Comments from "./Comments";
 import Reviews from "./Reviews";
 import { userApi } from "../../api/userApi";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 
 function CoursesDetails(props) {
   const { isLogin } = useSelector((state) => state.auth);
@@ -48,15 +48,33 @@ function CoursesDetails(props) {
     // eslint-disable-next-line
   }, []);
 
-  console.log(commets);
   const handleComment = (data) => {
     if (isLogin && type === 1) {
-      userApi.createComment(data).then((res) => console.log(res));
+      userApi
+        .createComment({ ...data, packageId: id })
+        .then((res) => {
+          toast.success(res.message);
+          userApi.getCommentPackage().then((x) => setComments(x));
+        })
+        .catch((e) => toast.error(e?.data?.message));
+    }
+  };
+
+  const handleReview = (vote) => {
+    if (isLogin && type === 1) {
+      userApi
+        .createComment({ vote, packageId: id })
+        .then((res) => {
+          toast.success(res.message);
+          userApi.getCommentPackage().then((x) => setComments(x));
+        })
+        .catch((e) => toast.error(e?.data?.message));
     }
   };
   return (
     <>
       <Header />
+      <ToastContainer />
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
@@ -197,7 +215,7 @@ function CoursesDetails(props) {
                     </div>
                   </div>
 
-                  <Reviews />
+                  <Reviews onReview={handleReview} comments={commets.data} />
                   <Comments
                     hanleComment={handleComment}
                     comments={commets.data}

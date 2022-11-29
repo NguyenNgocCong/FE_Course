@@ -12,9 +12,14 @@ import bannerImg from "../../images/banner/banner2.jpg";
 import { combieImg } from "../../utils/index";
 import Reviews from "./Reviews";
 import Comments from "./Comments";
+import { useSelector } from "react-redux";
+import { userApi } from "../../api/userApi";
+import { toast } from "react-toastify";
 
 function ClassUserDetails(props) {
   const params = useParams();
+  const { isLogin } = useSelector((state) => state.auth);
+  const [commets, setComments] = useState({ data: [] });
 
   const [res, setRes] = useState(classDetailEx);
 
@@ -24,7 +29,33 @@ function ClassUserDetails(props) {
     classApi.getClassById(id).then((res) => {
       setRes(res);
     });
+    userApi.getCommentClass().then((x) => setComments(x));
   }, [id]);
+
+  const handleComment = (data) => {
+    if (isLogin) {
+      userApi
+        .createComment({ ...data, classId: id })
+        .then((res) => {
+          toast.success(res.message);
+
+          userApi.getCommentClass().then((x) => setComments(x));
+        })
+        .catch((e) => toast.error(e?.data?.message));
+    }
+  };
+
+  const handleReview = (vote) => {
+    if (isLogin) {
+      userApi
+        .createComment({ vote, classId: id })
+        .then((res) => {
+          toast.success(res.message);
+          userApi.getCommentClass().then((x) => setComments(x));
+        })
+        .catch((e) => toast.error(e?.data?.message));
+    }
+  };
 
   return (
     <>
@@ -150,8 +181,11 @@ function ClassUserDetails(props) {
                       </div>
                     </div>
                   </div>
-                  <Reviews />
-                  <Comments />
+                  <Reviews onReview={handleReview} comments={commets.data} />
+                  <Comments
+                    hanleComment={handleComment}
+                    comments={commets.data}
+                  />
                 </div>
               </div>
             </div>

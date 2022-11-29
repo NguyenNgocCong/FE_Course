@@ -9,10 +9,14 @@ import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import Reviews from "./Reviews";
 import Comments from "./Comments";
+import { useSelector } from "react-redux";
+import { userApi } from "../../api/userApi";
+import { toast } from "react-toastify";
 
 function CoursesDetails(props) {
   const params = useParams();
-
+  const { isLogin } = useSelector((state) => state.auth);
+  const [commets, setComments] = useState({ data: [] });
   const [res, setRes] = useState(comboDetailsEx);
 
   const { id } = params;
@@ -21,7 +25,33 @@ function CoursesDetails(props) {
     comboApi.getComboById(id).then((res) => {
       setRes(res);
     });
+    userApi.getCommentCombo().then((x) => setComments(x));
   }, [id]);
+
+  const handleComment = (data) => {
+    if (isLogin) {
+      userApi
+        .createComment({ ...data, comboId: id })
+        .then((res) => {
+          toast.success(res.message);
+
+          userApi.getCommentCombo().then((x) => setComments(x));
+        })
+        .catch((e) => toast.error(e?.data?.message));
+    }
+  };
+
+  const handleReview = (vote) => {
+    if (isLogin) {
+      userApi
+        .createComment({ vote, comboId: id })
+        .then((res) => {
+          toast.success(res.message);
+          userApi.getCommentCombo().then((x) => setComments(x));
+        })
+        .catch((e) => toast.error(e?.data?.message));
+    }
+  };
 
   const columns = [
     {
@@ -114,8 +144,11 @@ function CoursesDetails(props) {
                     </div>
                   </div>
                 </div>
-                <Reviews />
-                <Comments />
+                <Reviews onReview={handleReview} comments={commets.data} />
+                <Comments
+                  hanleComment={handleComment}
+                  comments={commets.data}
+                />
               </div>
             </div>
           </div>
