@@ -17,16 +17,11 @@ import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 
 function TraineeDetail(props) {
-  const [listTrainer, setListTrainer] = useState();
-  const [listBranch, setListBranch] = useState();
-  const [listSupporter, setListSupporter] = useState();
   const [detailClass, setDetailClass] = useState();
-  const [classId, setClassId] = useState(0);
+  const [classId, setClassId] = useState();
   const [listPackages, setListPackages] = useState([]);
-  const [email, setEmail] = useState();
-  const [fullName, setFullName] = useState();
+  const [userId, setUserId] = useState();
   const [dropOutDate, setDropOutDate] = useState();
-  const [phone, setPhone] = useState();
   const [status, setStatus] = useState();
   const role = JSON.parse(Cookies.get("user"))?.role;
   const isNotAdmin = role !== "ROLE_ADMIN" ? true : false;
@@ -42,45 +37,7 @@ function TraineeDetail(props) {
     try {
       const response = await adminApi.getTraineeDetailById(id);
       setDetailClass(response);
-      setEmail(response?.user?.email);
-      setFullName(response?.user?.fullname);
-      setPhone(response?.user?.phoneNumber);
-      setClassId(response?.id);
-      setStatus(response.status);
-      setDropOutDate(response?.dropOutDate);
-    } catch (responseError) {
-      toast.error(responseError?.data.message, {
-        duration: 2000,
-      });
-    }
-  };
-
-  const getListTrainer = async () => {
-    try {
-      const response = await adminApi.getListExperts(0, 50, "");
-      setListTrainer(response.data);
-    } catch (responseError) {
-      toast.error(responseError?.data.message, {
-        duration: 2000,
-      });
-    }
-  };
-
-  const getListBranch = async () => {
-    try {
-      const response = await adminApi.getListCategoryBranch();
-      setListBranch(response);
-    } catch (responseError) {
-      toast.error(responseError?.data.message, {
-        duration: 2000,
-      });
-    }
-  };
-
-  const getListSupporter = async () => {
-    try {
-      const response = await adminApi.getListSupporter();
-      setListSupporter(response.data);
+      setUserId(response?.user?.id);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -103,11 +60,9 @@ function TraineeDetail(props) {
     try {
       const params = {
         class: classId,
-        email: email,
-        phone: phone,
-        fullname: fullName,
         status: status,
         dropOutDate: dropOutDate,
+        userId: userId,
       };
       console.log(params);
 
@@ -130,11 +85,7 @@ function TraineeDetail(props) {
     if (type === 1) {
       getTraineeDetailById();
     }
-    if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER") getListTrainer();
     getListPackage();
-    getListSupporter();
-    getListBranch();
-    // eslint-disable-next-line
   }, []);
 
   const optionStatus = [
@@ -165,10 +116,9 @@ function TraineeDetail(props) {
                       </CFormLabel>
                       <CFormSelect
                         id="autoSizingSelect"
-                        value={classId ? classId : ""}
+                        value={detailClass?.aclass?.id ? detailClass?.aclass?.id : "" }
                         onChange={(e) => setClassId(e.target.value)}
                       >
-                        <option value="">Select Class</option>
                         {listPackages?.map((item, index) => {
                           return (
                             <option key={index} value={item?.id}>
@@ -189,8 +139,7 @@ function TraineeDetail(props) {
                         type="email"
                         id="exampleFormControlInput1"
                         placeholder="name@example.com"
-                        defaultValue={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        defaultValue={detailClass?.user?.email}
                       />
                     </div>
                   </CCol>
@@ -206,7 +155,7 @@ function TraineeDetail(props) {
                       >
                         {optionStatus?.map((item, index) => {
                           if (type === 1) {
-                            return status ? (
+                            return detailClass?.status ? (
                               <option key={index} value={item?.status} selected>
                                 {item?.label}
                               </option>
@@ -233,11 +182,11 @@ function TraineeDetail(props) {
                         <span style={{ color: "red" }}>*</span>)
                       </CFormLabel>
                       <CFormInput
+                       disabled
                         type="text"
                         id="exampleFormControlInput1"
                         placeholder=""
-                        defaultValue={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
+                        defaultValue={detailClass?.user?.fullname}
                       />
                     </div>
                   </CCol>
@@ -269,11 +218,11 @@ function TraineeDetail(props) {
                         Phone (<span style={{ color: "red" }}>*</span>)
                       </CFormLabel>
                       <CFormInput
+                       disabled
                         type="number"
                         id="exampleFormControlInput1"
                         placeholder=""
-                        defaultValue={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        defaultValue={detailClass?.user?.phoneNumber}
                       />
                     </div>
                   </CCol>

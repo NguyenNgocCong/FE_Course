@@ -341,8 +341,8 @@ export const adminApi = {
     const url = `api/trainee/create`;
     return axiosApi.post(url,params);
   },
-   getAllTrainee: (page,size) =>{
-    const url = `/api/trainee?page=${page}&size=${size}`;
+   getAllTrainee: (page, size, keyword, category, status) =>{
+    const url = `/api/trainee?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
   getTraineeDetailById: (id) => {

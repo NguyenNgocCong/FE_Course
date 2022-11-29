@@ -70,16 +70,6 @@ function Trainee() {
       selector: (row) => row.aclass?.code,
       sortable: true,
     },
-    // {
-    //   name: "Branch",
-    //   width: "120px",
-    //   selector: (row) => (
-    //     <div className={`${row?.branch ? Styles.inactive : Styles.active}`}>
-    //       {row.branch ? row?.branch.setting_title : "Online"}
-    //     </div>
-    //   ),
-    //   sortable: true,
-    // },
     {
       name: "Status",
       width: "120px",
@@ -118,18 +108,17 @@ function Trainee() {
   const [keywordSearch, setKeywordSearch] = useState("");
   // eslint-disable-next-line
   const [isModify, setIsModify] = useState(false);
-  const [listTraner, setListTrainer] = useState([]);
+  const [listClass, setListClass] = useState([]);
   const [traner, setTrainer] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = React.useState(10);
+  const [itemsPerPage, setItemsPerPage] = React.useState(50);
 
   const getAllClass = async () => {
     try {
-      const response = await adminApi.getAllTrainee(page, itemsPerPage);
+      const response = await adminApi.getAllTrainee(page, itemsPerPage, keywordSearch, traner, status);
       setDataTable(response.data);
-      console.log('res',response)
       setTotalRows(response.totalItems);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
@@ -141,7 +130,7 @@ function Trainee() {
   const getListTrainer = async () => {
     try {
       const response = await adminApi.getAllClass(0, 50, "", 0, "");
-      setListTrainer(response.data);
+      setListClass(response.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -191,7 +180,7 @@ function Trainee() {
                   }}
                 >
                   <option value={0}>All Class</option>
-                  {listTraner?.map((item, index) => {
+                  {listClass?.map((item, index) => {
                     return (
                       <option key={index} value={item?.id}>
                         {item?.code}
