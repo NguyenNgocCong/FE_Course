@@ -82,6 +82,8 @@ const AppSidebar = () => {
                     }
                 });
                 setListNavigation(newList);
+            }else if(role === "ROLE_ADMIN"){
+                setListNavigation(navigation)
             }
         }
     }, [role]);
