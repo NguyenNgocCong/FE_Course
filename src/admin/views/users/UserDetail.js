@@ -37,8 +37,7 @@ function UserDetail(props) {
     "/admin/users/".length,
     location.pathname.length
   );
-  const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-  const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+  
 
   const getListRole = async () => {
     try {
@@ -178,7 +177,7 @@ function UserDetail(props) {
                         id="exampleFormControlInput1"
                         placeholder=""
                         defaultValue={user?.username}
-                        onChange={(e) => handleUpdateUsername(e.target.value)}
+                        onChange={(e) => handleUpdateUsername(e)}
 
                       />
                     </div>
@@ -198,7 +197,7 @@ function UserDetail(props) {
                         id="exampleFormControlInput1"
                         placeholder=""
                         defaultValue={user?.fullname}
-                        onChange={(e) => handleUpdateFullName(e.target.value)}
+                        onChange={(e) => handleUpdateFullName(e)}
 
                       />
                     </div>
@@ -218,7 +217,7 @@ function UserDetail(props) {
                         id="exampleFormControlInput1"
                         placeholder=""
                         defaultValue={user?.phoneNumber}
-                        onChange={(e) => handleUpdatePhone(e.target.value)}
+                        onChange={(e) => handleUpdatePhone(e)}
 
                       />
                     </div>
