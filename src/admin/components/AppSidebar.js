@@ -98,9 +98,9 @@ const AppSidebar = () => {
             <CSidebarBrand className="d-none d-md-flex" style={{ backgroundColor: "#FFFFFF", border: "solid 1px #cfd8dc" }} to="/">
                 <img src={logo} alt="" width={150} />
             </CSidebarBrand>
-            <CSidebarNav>
+            <CSidebarNav style={{background:'#fff'}}>
                 <SimpleBar>
-                    <AppSidebarNav items={navigation} />
+                    <AppSidebarNav items={listNavigation} />
                 </SimpleBar>
             </CSidebarNav>
             {/* <CSidebarToggler
