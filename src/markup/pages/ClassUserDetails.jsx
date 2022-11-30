@@ -10,7 +10,6 @@ import { Markup } from "interweave";
 import { classApi } from "../../api/classApi";
 import bannerImg from "../../images/banner/banner2.jpg";
 import { combieImg } from "../../utils/index";
-import Reviews from "./Reviews";
 import Comments from "./Comments";
 import { useSelector } from "react-redux";
 import { userApi } from "../../api/userApi";

@@ -214,39 +214,34 @@ function Cart(prop) {
   );
 }
 
-export const BodyCartLoacl = () => {
+export const BodyCartLocal = () => {
   const { data } = useSelector((state) => state.order);
   const { packages, combos } = data;
 
   const dispatch = useDispatch();
- 
+
   return (
     <>
       {[...packages].map((x) => (
         <tr key={x.id}>
-          <td className="p-4">
+          <td>
             <div className="media align-items-center">
               <img
+                style={{ maxHeight: "50px" }}
                 src={combieImg(x.image)}
                 className="d-block ui-w-40 ui-bordered mr-4"
                 alt=""
-                width={200}
+                width={100}
                 onError={({ currentTarget }) => {
                   currentTarget.src =
                     "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
                 }}
               />
               <div className="media-body">
-                <a href="#/" className="d-block text-dark">
-                  {x.title}
-                </a>
+                {x.title}
               </div>
             </div>
           </td>
-          <td className="text-right font-weight-semibold align-middle p-4">
-            ${x.listPrice}
-          </td>
-          <td className="align-middle p-4">${x.salePrice}</td>
           <td className="text-right font-weight-semibold align-middle p-4">
             ${x.salePrice}
           </td>
@@ -255,7 +250,7 @@ export const BodyCartLoacl = () => {
               className="shop-tooltip close float-none text-danger"
               title=""
               data-original-title="Remove"
-              onClick={() => dispatch(removeCartPackage(x.id))}
+              onClick={() => dispatch(removeCartCombo(x.id))}
             >
               ×
             </button>
@@ -263,34 +258,31 @@ export const BodyCartLoacl = () => {
         </tr>
       ))}
       {[...combos].map((x) => (
-        <tr>
-          <td className="p-4">
+        <tr key={x.id}>
+          <td>
             <div className="media align-items-center">
               <img
+                style={{ maxHeight: "50px" }}
                 src={combieImg(x.image)}
                 className="d-block ui-w-40 ui-bordered mr-4"
                 alt=""
-                width={200}
+                width={100}
                 onError={({ currentTarget }) => {
                   currentTarget.src =
                     "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
                 }}
               />
               <div className="media-body">
-                <a href="#/" className="d-block text-dark">
-                  {x.title}
-                </a>
+                {x.title}
               </div>
             </div>
           </td>
           <td className="text-right font-weight-semibold align-middle p-4">
-            ${x.comboPackages.reduce((pre, x) => pre + x.salePrice, 0)}
-          </td>
-          <td className="align-middle p-4">
-            ${x.comboPackages.reduce((pre, x) => pre + x.salePrice, 0)}
-          </td>
-          <td className="text-right font-weight-semibold align-middle p-4">
-            ${x.comboPackages.reduce((pre, x) => pre + x.salePrice, 0)}
+            $
+            {x.comboPackages.reduce(
+              (pre, x) => pre + x.salePrice,
+              0
+            )}
           </td>
           <td className="text-center align-middle px-0">
             <button

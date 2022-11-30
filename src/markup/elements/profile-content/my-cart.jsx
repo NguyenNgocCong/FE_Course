@@ -1,11 +1,11 @@
 import React, { Component, useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import Masonry from "react-masonry-component";
-import { toast} from "react-toastify";
+import { toast } from "react-toastify";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
-import { BodyCartLoacl } from "../../pages/Cart";
+import { BodyCartLocal } from "../../pages/Cart";
 import { TYPE_CHECKOUT_PACKAGE } from "../../../constrains/index";
 import {
   removeCartCombo,
@@ -113,7 +113,7 @@ function CartContent() {
                     return (
                       <React.Fragment key={x.id}>
                         {x._combo && (
-                          <tr>
+                          <tr key={x.id}>
                             <td>
                               <div className="media align-items-center">
                                 <img
@@ -157,7 +157,7 @@ function CartContent() {
                           </tr>
                         )}
                         {x._package && (
-                          <tr>
+                          <tr key={x.id}>
                             <td>
                               <div className="media align-items-center">
                                 <img
@@ -200,7 +200,7 @@ function CartContent() {
                     );
                   })
                 ) : (
-                  <BodyCartLoacl />
+                  <BodyCartLocal />
                 )}
               </tbody>
             </table>
