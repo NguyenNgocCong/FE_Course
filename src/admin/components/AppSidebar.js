@@ -27,16 +27,16 @@ const AppSidebar = () => {
   const sidebarShow = useSelector((state) => state.sidebarShow);
 
   const [role, setRole] = useState("");
-  const [listNavigation, setListNavigation] = useState(navigation);
+  const [listNavigation, setListNavigation] = useState([]);
 
   useEffect(() => {
     setRole(JSON.parse(Cookies.get("user"))?.role);
   }, []);
   useEffect(() => {
-    if (listNavigation.length) {
+    if (navigation.length) {
       if (role === "ROLE_MANAGER") {
         const newList = [];
-        listNavigation.map((element) => {
+        navigation.map((element) => {
           const array1 = [
             "Combo",
             "Coupon",
@@ -52,7 +52,7 @@ const AppSidebar = () => {
         setListNavigation(newList);
       } else if (role === "ROLE_SUPPORTER") {
         const newList = [];
-        listNavigation.map((element) => {
+        navigation.map((element) => {
           const array1 = [
             "Class",
             "Contact",
@@ -71,7 +71,7 @@ const AppSidebar = () => {
         setListNavigation(newList);
       } else if (role === "ROLE_MARKETER") {
         const newList = [];
-        listNavigation.map((element) => {
+        navigation.map((element) => {
           const array1 = ["Sliders", "Posts"];
           if (array1.includes(element.name)) {
             newList.push(element);
@@ -80,7 +80,7 @@ const AppSidebar = () => {
         setListNavigation(newList);
       } else if (role === "ROLE_EXPERT") {
         const newList = [];
-        listNavigation.map((element) => {
+        navigation.map((element) => {
           const array1 = [""];
           if (array1.includes(element.name)) {
             newList.push(element);
