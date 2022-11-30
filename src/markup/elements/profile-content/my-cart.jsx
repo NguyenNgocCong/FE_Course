@@ -12,6 +12,7 @@ import {
   removeCartPackage,
   resetState,
 } from "../../../redux/reducers/order";
+import { useHistory } from "react-router-dom";
 
 function CartContent() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function CartContent() {
         if (params.packageId) dispatch(removeCartPackage(params.packageId));
         if (params.comboId) dispatch(removeCartCombo(params.comboId));
         toast.success(res.message);
-        userApi.getCarts({ page: pageIndex - 1 }).then((res) => setRes(res));
+        userApi.getCarts().then((res) => setRes(res));
       })
       .catch((e) => toast.error(e?.data?.message));
   };
