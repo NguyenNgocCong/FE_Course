@@ -291,19 +291,36 @@ function PrivateRoute({ children, ...rest }) {
   if (Cookies.get("roles") === "ROLE_ADMIN") isAuthenticated = true;
   else {
     if (
-      rest?.path?.includes("contact") &&
-      Cookies.get("roles") === "ROLE_SUPPORTER"
-    )
-      isAuthenticated = true;
-    else if (
-      rest?.path?.includes("subjects") &&
+      (rest?.path?.includes("combos") ||
+        rest?.path?.includes("coupon") ||
+        rest?.path?.includes("class") ||
+        rest?.path?.includes("packages") ||
+        rest?.path?.includes("experts") ||
+        rest?.path?.includes("posts")) &&
       Cookies.get("roles") === "ROLE_MANAGER"
     )
       isAuthenticated = true;
     else if (
-      rest?.path?.includes("class") &&
-      (Cookies.get("roles") === "ROLE_MANAGER" ||
-        Cookies.get("roles") === "ROLE_TRAINER")
+      (rest?.path?.includes("contacts") ||
+        rest?.path?.includes("trainee") ||
+        rest?.path?.includes("class") ||
+        rest?.path?.includes("registration") ||
+        rest?.path?.includes("orders") ||
+        rest?.path?.includes("ordered") ||
+        rest?.path?.includes("feedback") ||
+        rest?.path?.includes("dashboard") ||
+        rest?.path?.includes("posts")) &&
+      Cookies.get("roles") === "ROLE_SUPPORTER"
+    )
+      isAuthenticated = true;
+    // else if (
+    //   rest?.path?.includes("experts") &&
+    //   Cookies.get("roles") === "ROLE_EXPERT"
+    // )
+    //   isAuthenticated = true;
+    else if (
+      (rest?.path?.includes("posts") || rest?.path?.includes("sliders")) &&
+      Cookies.get("roles") === "ROLE_MARKETER"
     )
       isAuthenticated = true;
   }
