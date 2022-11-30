@@ -1,37 +1,11 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import { toast } from "react-toastify";
 import { userApi } from "../../api/userApi";
 
-// Images
-import testiPic1 from "../../images/testimonials/pic1.jpg";
-import testiPic2 from "../../images/testimonials/pic2.jpg";
-import testiPic3 from "../../images/testimonials/pic3.jpg";
 import { combieImg } from "../../utils/index";
 import Comments from "../pages/Comments";
-
-// Content
-const content = [
-  {
-    thumb: testiPic1,
-    name: "Peter Packer",
-    work: "Art Director",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...",
-  },
-  {
-    thumb: testiPic2,
-    name: "Eilderasse",
-    work: "Developer",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...",
-  },
-  {
-    thumb: testiPic3,
-    name: "Atwood",
-    work: "Designer",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...",
-  },
-];
 
 const Testimonial1 = () => {
   const [commets, setComments] = useState({ data: [] });

@@ -1,6 +1,3 @@
-import React from "react";
-import CIcon from "@coreui/icons-react";
-import { cilContact, cilGrid, cilTextSquare, cilUser, cilViewColumn } from "@coreui/icons";
 import { CNavItem } from "@coreui/react";
 
 const _nav = [

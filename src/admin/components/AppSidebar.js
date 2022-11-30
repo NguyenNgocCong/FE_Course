@@ -22,6 +22,7 @@ const AppSidebar = () => {
 
 
     const [role, setRole] = useState("");
+    // eslint-disable-next-line
     const [listNavigation, setListNavigation] = useState([]);
 
     useEffect(() => {
@@ -31,7 +32,7 @@ const AppSidebar = () => {
         if (navigation.length) {
             if (role === "ROLE_MANAGER") {
                 const newList = [];
-                navigation.map((element) => {
+                navigation.forEach((element) => {
                     const array1 = [
                         "Combo",
                         "Coupon",
@@ -47,7 +48,7 @@ const AppSidebar = () => {
                 setListNavigation(newList);
             } else if (role === "ROLE_SUPPORTER") {
                 const newList = [];
-                navigation.map((element) => {
+                navigation.forEach((element) => {
                     const array1 = [
                         "Class",
                         "Contact",
@@ -66,7 +67,7 @@ const AppSidebar = () => {
                 setListNavigation(newList);
             } else if (role === "ROLE_MARKETER") {
                 const newList = [];
-                navigation.map((element) => {
+                navigation.forEach((element) => {
                     const array1 = ["Sliders", "Posts"];
                     if (array1.includes(element.name)) {
                         newList.push(element);
@@ -75,7 +76,7 @@ const AppSidebar = () => {
                 setListNavigation(newList);
             } else if (role === "ROLE_EXPERT") {
                 const newList = [];
-                navigation.map((element) => {
+                navigation.forEach((element) => {
                     const array1 = [""];
                     if (array1.includes(element.name)) {
                         newList.push(element);

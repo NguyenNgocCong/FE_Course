@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 function Class() {
   const [showModal, setShowModal] = useState(false);
   const [code, setCode] = useState("");
-  const { isLogin, data: userInfo } = useSelector((state) => state.auth);
+  const { isLogin } = useSelector((state) => state.auth);
   const [res, setRes] = useState(classEx);
   const [classId, setClassId] = useState(0);
 

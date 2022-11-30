@@ -10,9 +10,6 @@ import BlogAside from "../elements/blog-aside";
 
 // Images
 import bannerImg from "../../images/banner/banner2.jpg";
-import testiPic1 from "../../images/testimonials/pic1.jpg";
-import testiPic2 from "../../images/testimonials/pic2.jpg";
-import testiPic3 from "../../images/testimonials/pic3.jpg";
 import { userApi } from "../../api/userApi";
 import ReactHtmlParser from "react-html-parser";
 import { combieImg } from "../../utils/index";
@@ -37,8 +34,8 @@ function LecturerDetails(prop) {
   useEffect(() => {
     // console.log(id);
     getexpertById();
-    // eslint-disable-next-line
     userApi.getCommentExpert().then((x) => setComments(x));
+    // eslint-disable-next-line
   }, []);
 
   const handleComment = (data) => {

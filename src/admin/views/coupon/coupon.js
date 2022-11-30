@@ -1,6 +1,5 @@
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
-import { CFormInput, CFormSelect } from "@coreui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -103,7 +102,6 @@ function Class() {
   const [data, setDataTable] = useState([]);
   // eslint-disable-next-line
   const [isModify, setIsModify] = useState(false);
-  const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
@@ -145,21 +143,7 @@ function Class() {
         <div className="body flex-grow px-2">
           <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-              <Col xs={12} lg={6}>
-                <CFormSelect
-                  aria-label="Default select example"
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
-                  onChange={(e) => {
-                    setStatus(e.target.value);
-                  }}
-                >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
-                </CFormSelect>
-              </Col>
-              
-              <Col xs={12} lg={6} >
+              <Col xs={12} lg={12} >
                 <button
                   style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px' }}
                   onClick={() =>

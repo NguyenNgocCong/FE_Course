@@ -59,7 +59,6 @@ import Error401 from "./pages/error-401";
 import ClassUserDetails from "./pages/ClassUserDetails";
 import LecturerDetails from "./pages/LecturerDetails";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfoReduce } from "../redux/reducers/auth";
 import Cart from "./pages/Cart";
 import CheckOut from "./pages/Checkout";
 import { getAllCartLocal } from "../redux/reducers/order";

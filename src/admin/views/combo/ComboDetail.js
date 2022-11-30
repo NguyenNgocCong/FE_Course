@@ -21,7 +21,6 @@ import Styles from "./style.module.scss";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useSelector } from "react-redux";
 
 function ComboDetail(props) {
   const [combo, setCombo] = useState();

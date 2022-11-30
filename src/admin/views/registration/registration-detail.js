@@ -1,19 +1,14 @@
 import {
-    CButton,
     CCard,
     CCardBody,
-    CCardHeader,
     CCol,
     CFormInput,
     CFormLabel,
-    CFormSelect,
-    CFormTextarea,
     CRow,
 } from "@coreui/react";
-import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 
@@ -40,11 +35,6 @@ function RegistrationDetail(props) {
         getRegistrationById();
         // eslint-disable-next-line
     }, []);
-
-    const optionStatus = [
-        { status: false, label: "Deactivate" },
-        { status: true, label: "Active" },
-    ];
 
     return (
         <div>

@@ -15,8 +15,6 @@ import testiPic2 from "../../images/testimonials/pic2.jpg";
 import testiPic3 from "../../images/testimonials/pic3.jpg";
 import { userApi } from "./../../api/userApi";
 import ReactHtmlParser from "react-html-parser";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
 function BlogDetails(prop) {
   const [post, setPost] = useState(blogDetailsEx);

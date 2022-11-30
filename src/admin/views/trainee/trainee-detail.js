@@ -94,6 +94,7 @@ function TraineeDetail(props) {
       getTraineeDetailById();
     }
     getListPackage();
+    // eslint-disable-next-line
   }, []);
 
   const optionStatus = [

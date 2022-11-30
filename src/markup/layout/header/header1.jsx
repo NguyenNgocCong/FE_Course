@@ -14,7 +14,6 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { combieImg } from "../../../utils";
 import { getUserInfoReduce, resetState } from "../../../redux/reducers/auth";
 import {
-  getAllCartReduce,
   getAllCartServer,
 } from "../../../redux/reducers/order";
 

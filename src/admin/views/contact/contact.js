@@ -11,8 +11,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import Styles from "./style.module.scss";
 import { Col, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
-import CIcon from "@coreui/icons-react";
-import { cilPen } from "@coreui/icons";
 import moment from "moment/moment";
 
 const Contact = () => {
