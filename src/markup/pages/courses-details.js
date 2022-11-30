@@ -60,17 +60,6 @@ function CoursesDetails(props) {
     }
   };
 
-  const handleReview = (vote) => {
-    if (isLogin && type === 1) {
-      userApi
-        .createComment({ vote, packageId: id })
-        .then((res) => {
-          toast.success(res.message);
-          userApi.getCommentPackage().then((x) => setComments(x));
-        })
-        .catch((e) => toast.error(e?.data?.message));
-    }
-  };
   return (
     <>
       <Header />
@@ -215,7 +204,6 @@ function CoursesDetails(props) {
                     </div>
                   </div>
 
-                  <Reviews onReview={handleReview} comments={commets.data} />
                   <Comments
                     hanleComment={handleComment}
                     comments={commets.data}

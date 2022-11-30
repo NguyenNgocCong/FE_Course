@@ -144,7 +144,7 @@ function CoursesDetails(props) {
                     </div>
                   </div>
                 </div>
-                <Reviews onReview={handleReview} comments={commets.data} />
+                {/* <Reviews onReview={handleReview} comments={commets.data} /> */}
                 <Comments
                   hanleComment={handleComment}
                   comments={commets.data}

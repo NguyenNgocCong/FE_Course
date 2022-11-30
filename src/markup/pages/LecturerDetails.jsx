@@ -51,18 +51,6 @@ function LecturerDetails(prop) {
     }
   };
 
-  const handleReview = (vote) => {
-    if (isLogin) {
-      userApi
-        .createComment({ vote, expertId: id })
-        .then((res) => {
-          toast.success(res.message);
-          userApi.getCommentExpert().then((x) => setComments(x));
-        })
-        .catch((e) => toast.error(e?.data?.message));
-    }
-  };
-
   return (
     <>
       <Header />
@@ -145,7 +133,6 @@ function LecturerDetails(prop) {
                       </div>
                     </div>
                   </div>
-                  <Reviews onReview={handleReview} comments={commets.data} />
                   <Comments
                     hanleComment={handleComment}
                     comments={commets.data}

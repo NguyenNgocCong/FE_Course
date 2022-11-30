@@ -6,6 +6,7 @@ import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { BodyCartLoacl } from "../../pages/Cart";
+import { TYPE_CHECKOUT_PACKAGE } from "../../../constrains/index";
 import {
   removeCartCombo,
   removeCartPackage,
@@ -14,6 +15,7 @@ import {
 
 function CartContent() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { isLogin } = useSelector((state) => state.auth);
   const { data } = useSelector((state) => state.order);
@@ -34,12 +36,19 @@ function CartContent() {
 
   const handleDelete = (params) => {
     userApi
-      .removeCart(params)
+      .removeCart({ ...params })
       .then((res) => {
         if (params.packageId) dispatch(removeCartPackage(params.packageId));
         if (params.comboId) dispatch(removeCartCombo(params.comboId));
+        toast.success(res.message);
+        userApi.getCarts({ page: pageIndex - 1 }).then((res) => setRes(res));
       })
       .catch((e) => toast.error(e?.data?.message));
+  };
+
+  const handleCheckOut = () => {
+    if (isLogin) setShowCheckOut(true);
+    else history.push("/checkout", { type: TYPE_CHECKOUT_PACKAGE });
   };
 
   return (
@@ -208,7 +217,7 @@ function CartContent() {
               </div>
               <button
                 className="btn btn-ms btn-warning mt-2"
-                onClick={() => setShowCheckOut(true)}
+                onClick={handleCheckOut}
               >
                 Checkout
               </button>

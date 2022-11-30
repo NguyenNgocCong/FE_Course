@@ -45,18 +45,6 @@ function ClassUserDetails(props) {
     }
   };
 
-  const handleReview = (vote) => {
-    if (isLogin) {
-      userApi
-        .createComment({ vote, classId: id })
-        .then((res) => {
-          toast.success(res.message);
-          userApi.getCommentClass().then((x) => setComments(x));
-        })
-        .catch((e) => toast.error(e?.data?.message));
-    }
-  };
-
   return (
     <>
       <Header />
@@ -181,7 +169,6 @@ function ClassUserDetails(props) {
                       </div>
                     </div>
                   </div>
-                  <Reviews onReview={handleReview} comments={commets.data} />
                   <Comments
                     hanleComment={handleComment}
                     comments={commets.data}

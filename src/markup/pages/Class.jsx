@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // Layout
 import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
@@ -13,12 +13,15 @@ import { Button, Form, Modal, ToastContainer } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { userApi } from "../../api/userApi";
 import { toast } from "react-toastify";
+import { TYPE_CHECKOUT_CLASS } from "../../constrains";
 function Class() {
   const [showModal, setShowModal] = useState(false);
   const [code, setCode] = useState("");
   const { isLogin } = useSelector((state) => state.auth);
   const [res, setRes] = useState(classEx);
   const [classId, setClassId] = useState(0);
+
+  const history = useHistory();
 
   const [page, setPage] = useState(1);
 
@@ -149,8 +152,14 @@ function Class() {
                               <div
                                 className="btn btn-warning"
                                 onClick={() => {
-                                  setShowModal(true);
-                                  setClassId(item.id);
+                                  if (isLogin) {
+                                    setShowModal(true);
+                                    setClassId(item.id);
+                                  } else
+                                    history.push("/checkout", {
+                                      type: TYPE_CHECKOUT_CLASS,
+                                      classId: item.id,
+                                    });
                                 }}
                               >
                                 <i className="fa fa-phone"></i> Advise
