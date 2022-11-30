@@ -4,6 +4,7 @@ import {
     CCardBody,
     CCardHeader,
     CCol,
+    CForm,
     CFormInput,
     CFormLabel,
     CFormSelect,
@@ -27,6 +28,7 @@ function SliderDetail(props) {
     const [status, setStatus] = useState(0);
     const [preview, setPreview] = useState();
     const [image, setImage] = useState();
+    const [validated, setValidated] = useState(false);
     const location = useLocation();
     const history = useHistory();
     const id = location.pathname.substring(
@@ -49,20 +51,26 @@ function SliderDetail(props) {
         }
     };
 
-    const handleUpdateSlider = async () => {
+    const handleSubmit = async (event) => {
         try {
-            const params = {
-                validTo: validTo,
-                status: status,
-            };
-            const response =
-                type === 1
-                    ? await adminApi.updateSlider(id, image, params)
-                    : await adminApi.createSlider(image, params);
-            toast.success(response?.message, {
-                duration: 2000,
-            });
-            history.push("/admin/sliders");
+            const form = event.currentTarget
+            setValidated(true)
+            event.preventDefault()
+            event.stopPropagation()
+            if (form.checkValidity()) {
+                const params = {
+                    validTo: validTo,
+                    status: status,
+                };
+                const response =
+                    type === 1
+                        ? await adminApi.updateSlider(id, image, params)
+                        : await adminApi.createSlider(image, params);
+                toast.success(response?.message, {
+                    duration: 2000,
+                });
+                history.push("/admin/sliders");
+            }
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -103,107 +111,121 @@ function SliderDetail(props) {
                                 <strong>Slider Details</strong>
                             </CCardHeader>
                             <CCardBody>
-                                <div className="mb-3">
-                                    <CFormLabel htmlFor="exampleFormControlInput1">
-                                        Image (
-                                        <span style={{ color: "red" }}>*</span>)
-                                    </CFormLabel>
-                                    <br />
-                                    <CImage
-                                        rounded
-                                        thumbnail
-                                        src={!preview ? (slider?.imageUrl != null && slider?.imageUrl) ? combieImg(slider?.imageUrl) : img : preview}
-                                        width={1200}
-                                        style={{ maxHeight: '450px', display: 'block', margin: 'auto' }}
-                                        onLoad={() => URL.revokeObjectURL(preview)}
-                                    />
-                                    <CFormInput
-                                        className="form-control"
-                                        type="file"
-                                        accept=".jpg, .png, .jpeg"
-                                        onChange={(e) => handleThumbnail(e)}
-                                    />
-                                </div>
-                                <CRow className="g-3 mb-3">
-                                    <CCol sm={4}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Valid To (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            {/* <DatePicker selected={validTo} onChange={(date) => setValidTo(new Date(date))} /> */}
-                                            <CFormInput
-                                                type="date"
-                                                id="exampleFormControlInput1"
-                                                placeholder=""
-                                                value={
-                                                    validTo
-                                                        ? new Date(
-                                                            validTo
-                                                        ).toLocaleDateString("en-CA")
-                                                        : new Date(
-                                                            ""
-                                                        ).toLocaleDateString("en-CA")
-                                                }
-                                                onChange={(e) =>
-                                                    setValidTo(
-                                                        new Date(e.target.value)
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={4} className="offset-sm-4">
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Status
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                id="autoSizingSelect"
-                                                onChange={(e) => setStatus(e.target.value)}
-                                                disabled={type !== 1}
-                                            >
-                                                {optionStatus.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return slider?.status ===
-                                                            item?.status ? (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                                selected
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
+                                <CForm
+                                    className="row g-3 needs-validation"
+                                    noValidate
+                                    validated={validated}
+                                    onSubmit={handleSubmit}
+                                >
+                                    <div className="mb-3">
+                                        <CFormLabel htmlFor="exampleFormControlInput1">
+                                            Image (
+                                            <span style={{ color: "red" }}>*</span>)
+                                        </CFormLabel>
+                                        <br />
+                                        <CImage
+                                            rounded
+                                            thumbnail
+                                            src={!preview ? (slider?.imageUrl != null && slider?.imageUrl) ? combieImg(slider?.imageUrl) : img : preview}
+                                            width={1200}
+                                            style={{ maxHeight: '450px', display: 'block', margin: 'auto' }}
+                                            onLoad={() => URL.revokeObjectURL(preview)}
+                                        />
+                                        <CFormInput
+                                            feedbackInvalid="Please choose Img!"
+                                            required
+                                            tooltipFeedback
+                                            className="form-control"
+                                            type="file"
+                                            accept=".jpg, .png, .jpeg"
+                                            onChange={(e) => handleThumbnail(e)}
+
+                                        />
+                                    </div>
+                                    <CRow className="g-3 mb-3">
+                                        <CCol sm={4}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="exampleFormControlInput1">
+                                                    Valid To (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                {/* <DatePicker selected={validTo} onChange={(date) => setValidTo(new Date(date))} /> */}
+                                                <CFormInput
+                                                    type="date"
+                                                    id="exampleFormControlInput1"
+                                                    placeholder=""
+                                                    value={
+                                                        validTo
+                                                            ? new Date(
+                                                                validTo
+                                                            ).toLocaleDateString("en-CA")
+                                                            : new Date(
+                                                                ""
+                                                            ).toLocaleDateString("en-CA")
                                                     }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                </CRow>
-                                <div className="mb-3">
-                                    <CButton
-                                        onClick={() => handleUpdateSlider()}
-                                    >
-                                        Submit
-                                    </CButton>
-                                </div>
+                                                    onChange={(e) =>
+                                                        setValidTo(
+                                                            new Date(e.target.value)
+                                                        )
+                                                    }
+                                                    feedbackInvalid="Please choose Valid To!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={4} className="offset-sm-4">
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="exampleFormControlInput1">
+                                                    Status
+                                                </CFormLabel>
+                                                <CFormSelect
+                                                    id="autoSizingSelect"
+                                                    onChange={(e) => setStatus(e.target.value)}
+                                                    disabled={type !== 1}
+                                                >
+                                                    {optionStatus.map((item, index) => {
+                                                        if (type === 1) {
+                                                            return slider?.status ===
+                                                                item?.status ? (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.status}
+                                                                    selected
+                                                                >
+                                                                    {item?.label}
+                                                                </option>
+                                                            ) : (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.status}
+                                                                >
+                                                                    {item?.label}
+                                                                </option>
+                                                            );
+                                                        } else {
+                                                            return (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.status}
+                                                                >
+                                                                    {item?.label}
+                                                                </option>
+                                                            );
+                                                        }
+                                                    })}
+                                                </CFormSelect>
+                                            </div>
+                                        </CCol>
+                                    </CRow>
+                                    <div className="mb-3">
+                                        <CButton
+                                            type="submit"
+                                        >
+                                            Submit
+                                        </CButton>
+                                    </div>
+                                </CForm>
                             </CCardBody>
                         </CCard>
                     </CCol>

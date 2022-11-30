@@ -4,6 +4,7 @@ import {
   CCardBody,
   CCardHeader,
   CCol,
+  CForm,
   CFormInput,
   CFormLabel,
   CFormSelect,
@@ -23,6 +24,7 @@ function TraineeDetail(props) {
   const [userId, setUserId] = useState();
   const [dropOutDate, setDropOutDate] = useState();
   const [status, setStatus] = useState();
+  const [validated, setValidated] = useState(false);
   const role = JSON.parse(Cookies.get("user"))?.role;
   const isNotAdmin = role !== "ROLE_ADMIN" ? true : false;
   const location = useLocation();
@@ -56,24 +58,30 @@ function TraineeDetail(props) {
     }
   };
 
-  const handleUpdateTrainee = async () => {
+  const handleSubmit = async (event) => {
     try {
-      const params = {
-        class: classId,
-        status: status,
-        dropOutDate: dropOutDate,
-        userId: userId,
-      };
-      console.log(params);
+      const form = event.currentTarget
+      setValidated(true)
+      event.preventDefault()
+      event.stopPropagation()
+      if (form.checkValidity()) {
+        const params = {
+          class: classId,
+          status: status,
+          dropOutDate: dropOutDate,
+          userId: userId,
+        };
+        console.log(params);
 
-      const response =
-        type === 1
-          ? await adminApi.updateTrainee(params, id)
-          : await adminApi.createClass(params);
-      toast.success(response?.message, {
-        duration: 2000,
-      });
-      history.push("/admin/trainee");
+        const response =
+          type === 1
+            ? await adminApi.updateTrainee(params, id)
+            : await adminApi.createClass(params);
+        toast.success(response?.message, {
+          duration: 2000,
+        });
+        history.push("/admin/trainee");
+      }
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -108,127 +116,137 @@ function TraineeDetail(props) {
                 </strong>
               </CCardHeader>
               <CCardBody>
-                <CRow className="g-3 mb-3">
-                  <CCol sm={6}>
-                    <div className="mb-3">
-                      <CFormLabel htmlFor="exampleFormControlInput1">
-                        Class (<span style={{ color: "red" }}>*</span>)
-                      </CFormLabel>
-                      <CFormSelect
-                        id="autoSizingSelect"
-                        value={detailClass?.aclass?.id ? detailClass?.aclass?.id : "" }
-                        onChange={(e) => setClassId(e.target.value)}
-                      >
-                        {listPackages?.map((item, index) => {
-                          return (
-                            <option key={index} value={item?.id}>
-                              {item?.code}
-                            </option>
-                          );
-                        })}
-                      </CFormSelect>
-                    </div>
-                  </CCol>
-                  <CCol sm={6}>
-                    <div className="mb-3">
-                      <CFormLabel htmlFor="exampleFormControlInput1">
-                        Email (<span style={{ color: "red" }}>*</span>)
-                      </CFormLabel>
-                      <CFormInput
-                        disabled
-                        type="email"
-                        id="exampleFormControlInput1"
-                        placeholder="name@example.com"
-                        defaultValue={detailClass?.user?.email}
-                      />
-                    </div>
-                  </CCol>
-                  <CCol sm={6}>
-                    <div className="mb-3">
-                      <CFormLabel htmlFor="exampleFormControlInput1">
-                        Status (<span style={{ color: "red" }}>*</span>)
-                      </CFormLabel>
-                      <CFormSelect
-                        aria-label="Default select example"
-                        onChange={(e) => setStatus(e.target.value)}
-                      >
-                        {optionStatus?.map((item, index) => {
-                          if (type === 1) {
-                            return detailClass?.status ? (
-                              <option key={index} value={item?.status} selected>
-                                {item?.label}
-                              </option>
-                            ) : (
-                              <option key={index} value={item?.status}>
-                                {item?.label}
-                              </option>
-                            );
-                          } else {
+                <CForm
+                  className="row g-3 needs-validation"
+                  noValidate
+                  validated={validated}
+                  onSubmit={handleSubmit}
+                >
+                  <CRow className="g-3 mb-3">
+                    <CCol sm={6}>
+                      <div className="mb-3">
+                        <CFormLabel htmlFor="exampleFormControlInput1">
+                          Class (<span style={{ color: "red" }}>*</span>)
+                        </CFormLabel>
+                        <CFormSelect
+                          id="autoSizingSelect"
+                          value={detailClass?.aclass?.id ? detailClass?.aclass?.id : ""}
+                          onChange={(e) => setClassId(e.target.value)}
+                        >
+                          {listPackages?.map((item, index) => {
                             return (
-                              <option key={index} value={item?.status}>
-                                {item?.label}
+                              <option key={index} value={item?.id}>
+                                {item?.code}
                               </option>
                             );
+                          })}
+                        </CFormSelect>
+                      </div>
+                    </CCol>
+                    <CCol sm={6}>
+                      <div className="mb-3">
+                        <CFormLabel htmlFor="exampleFormControlInput1">
+                          Email (<span style={{ color: "red" }}>*</span>)
+                        </CFormLabel>
+                        <CFormInput
+                          disabled
+                          type="email"
+                          id="exampleFormControlInput1"
+                          placeholder="name@example.com"
+                          defaultValue={detailClass?.user?.email}
+                        />
+                      </div>
+                    </CCol>
+                    <CCol sm={6}>
+                      <div className="mb-3">
+                        <CFormLabel htmlFor="exampleFormControlInput1">
+                          Status (<span style={{ color: "red" }}>*</span>)
+                        </CFormLabel>
+                        <CFormSelect
+                          aria-label="Default select example"
+                          onChange={(e) => setStatus(e.target.value)}
+                        >
+                          {optionStatus?.map((item, index) => {
+                            if (type === 1) {
+                              return detailClass?.status ? (
+                                <option key={index} value={item?.status} selected>
+                                  {item?.label}
+                                </option>
+                              ) : (
+                                <option key={index} value={item?.status}>
+                                  {item?.label}
+                                </option>
+                              );
+                            } else {
+                              return (
+                                <option key={index} value={item?.status}>
+                                  {item?.label}
+                                </option>
+                              );
+                            }
+                          })}
+                        </CFormSelect>
+                      </div>
+                    </CCol>
+                    <CCol sm={6}>
+                      <div className="mb-3">
+                        <CFormLabel htmlFor="formFile">
+                          FullName(
+                          <span style={{ color: "red" }}>*</span>)
+                        </CFormLabel>
+                        <CFormInput
+                          disabled
+                          type="text"
+                          id="exampleFormControlInput1"
+                          placeholder=""
+                          defaultValue={detailClass?.user?.fullname}
+                        />
+                      </div>
+                    </CCol>
+                    <CCol sm={6}>
+                      <div className="mb-3">
+                        <CFormLabel htmlFor="exampleFormControlInput1">
+                          Drop-out Date(
+                          <span style={{ color: "red" }}>*</span>)
+                        </CFormLabel>
+                        <CFormInput
+                          type="date"
+                          id="exampleFormControlInput1"
+                          disabled={isNotAdmin}
+                          placeholder=""
+                          value={
+                            dropOutDate
+                              ? new Date(dropOutDate).toLocaleDateString("en-CA")
+                              : new Date("").toLocaleDateString("en-CA")
                           }
-                        })}
-                      </CFormSelect>
-                    </div>
-                  </CCol>
-                  <CCol sm={6}>
-                    <div className="mb-3">
-                      <CFormLabel htmlFor="formFile">
-                        FullName(
-                        <span style={{ color: "red" }}>*</span>)
-                      </CFormLabel>
-                      <CFormInput
-                       disabled
-                        type="text"
-                        id="exampleFormControlInput1"
-                        placeholder=""
-                        defaultValue={detailClass?.user?.fullname}
-                      />
-                    </div>
-                  </CCol>
-                  <CCol sm={6}>
-                    <div className="mb-3">
-                      <CFormLabel htmlFor="exampleFormControlInput1">
-                        Drop-out Date(
-                        <span style={{ color: "red" }}>*</span>)
-                      </CFormLabel>
-                      <CFormInput
-                        type="date"
-                        id="exampleFormControlInput1"
-                        disabled={isNotAdmin}
-                        placeholder=""
-                        value={
-                          dropOutDate
-                            ? new Date(dropOutDate).toLocaleDateString("en-CA")
-                            : new Date("").toLocaleDateString("en-CA")
-                        }
-                        onChange={(e) =>
-                          setDropOutDate(new Date(e.target.value))
-                        }
-                      />
-                    </div>
-                  </CCol>
-                  <CCol sm={4}>
-                    <div className="mb-3">
-                      <CFormLabel htmlFor="exampleFormControlInput1">
-                        Phone (<span style={{ color: "red" }}>*</span>)
-                      </CFormLabel>
-                      <CFormInput
-                       disabled
-                        type="number"
-                        id="exampleFormControlInput1"
-                        placeholder=""
-                        defaultValue={detailClass?.user?.phoneNumber}
-                      />
-                    </div>
-                  </CCol>
-                </CRow>
-                <div className="mb-3">
-                  <CButton onClick={() => handleUpdateTrainee()}>Save</CButton>
-                </div>
+                          onChange={(e) =>
+                            setDropOutDate(new Date(e.target.value))
+                          }
+                          feedbackInvalid="Please select Drop-out Date!"
+                          required
+                          tooltipFeedback
+                        />
+                      </div>
+                    </CCol>
+                    <CCol sm={4}>
+                      <div className="mb-3">
+                        <CFormLabel htmlFor="exampleFormControlInput1">
+                          Phone (<span style={{ color: "red" }}>*</span>)
+                        </CFormLabel>
+                        <CFormInput
+                          disabled
+                          type="number"
+                          id="exampleFormControlInput1"
+                          placeholder=""
+                          defaultValue={detailClass?.user?.phoneNumber}
+                        />
+                      </div>
+                    </CCol>
+                  </CRow>
+                  <div className="mb-3">
+                    <CButton type="submit">Save</CButton>
+                  </div>
+                </CForm>
               </CCardBody>
             </CCard>
           </CCol>

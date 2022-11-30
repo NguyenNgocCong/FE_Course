@@ -4,6 +4,7 @@ import {
     CCardBody,
     CCardHeader,
     CCol,
+    CForm,
     CFormInput,
     CFormLabel,
     CFormSelect,
@@ -28,6 +29,7 @@ function SettingDetail(props) {
     const [value, setValue] = useState();
     const [displayOrder, setDisplayOrder] = useState();
     const [typeId, setTypeId] = useState();
+    const [validated, setValidated] = useState(false);
     const location = useLocation();
     const history = useHistory();
     const id = location.pathname.substring(
@@ -61,32 +63,38 @@ function SettingDetail(props) {
         }
     };
 
-    const handleUpdateSetting = async () => {
+    const handleSubmit = async (event) => {
         try {
-            const params = type === 1 ? {
-                setting_id: id,
-                type_id: typeId,
-                setting_title: title,
-                setting_value: value,
-                display_order: displayOrder,
-                desciption: description,
-                status: status,
-            } : {
-                type_id: typeId,
-                setting_title: title,
-                setting_value: value,
-                display_order: displayOrder,
-                desciption: description,
-                status: status,
-            };
-            const response =
-                type === 1
-                    ? await adminApi.updateSetting(params)
-                    : await adminApi.createSetting(params);
-            toast.success(response?.message, {
-                duration: 2000,
-            });
-            history.push("/admin/settings");
+            const form = event.currentTarget
+            setValidated(true)
+            event.preventDefault()
+            event.stopPropagation()
+            if (form.checkValidity()) {
+                const params = type === 1 ? {
+                    setting_id: id,
+                    type_id: typeId,
+                    setting_title: title,
+                    setting_value: value,
+                    display_order: displayOrder,
+                    desciption: description,
+                    status: status,
+                } : {
+                    type_id: typeId,
+                    setting_title: title,
+                    setting_value: value,
+                    display_order: displayOrder,
+                    desciption: description,
+                    status: status,
+                };
+                const response =
+                    type === 1
+                        ? await adminApi.updateSetting(params)
+                        : await adminApi.createSetting(params);
+                toast.success(response?.message, {
+                    duration: 2000,
+                });
+                history.push("/admin/settings");
+            }
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -120,183 +128,209 @@ function SettingDetail(props) {
                                 <strong>Setting Details</strong>
                             </CCardHeader>
                             <CCardBody>
-                                <CRow className="g-3 mb-3">
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Title (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? setting?.setting_title : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setTitle(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Value (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? setting?.setting_value : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setValue(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Display Order (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? setting?.display_order : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setDisplayOrder(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Description (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                defaultValue={
-                                                    type === 1 ? setting?.desciption : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setDescription(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Status (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setStatus(e.target.value)
-                                                }
-                                            >
-                                                {optionStatus.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return setting?.status ===
-                                                            item?.status ? (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                                selected
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
+                                <CForm
+                                    className="row g-3 needs-validation"
+                                    noValidate
+                                    validated={validated}
+                                    onSubmit={handleSubmit}
+                                >
+                                    <CRow className="g-3 mb-3">
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel>
+                                                    Title (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormInput
+                                                    type="text"
+                                                    id="exampleFormControlInput1"
+                                                    defaultValue={
+                                                        type === 1 ? setting?.setting_title : ""
                                                     }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="formFile">
-                                                Type (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setTypeId(e.target.value)
-                                                }
-                                            >
-                                                <option>Select type</option>
-                                                {listType.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return setting?.type.type_id === item?.type_id ? (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.type_id
-                                                                }
-                                                                selected
-                                                            >
-                                                                {item?.title}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.type_id
-                                                                }
-                                                            >
-                                                                {item?.title}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.type_id
-                                                                }
-                                                            >
-                                                                {item?.title}
-                                                            </option>
-                                                        );
+                                                    onChange={(e) =>
+                                                        setTitle(e.target.value)
                                                     }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                </CRow>
-                                <div className="mb-3">
-                                    <CButton
-                                        onClick={() => handleUpdateSetting()}
-                                    >
-                                        Submit
-                                    </CButton>
-                                </div>
+                                                    feedbackInvalid="Please enter Title!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel>
+                                                    Value (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormInput
+                                                    type="text"
+                                                    id="exampleFormControlInput1"
+                                                    defaultValue={
+                                                        type === 1 ? setting?.setting_value : ""
+                                                    }
+                                                    onChange={(e) =>
+                                                        setValue(e.target.value)
+                                                    }
+                                                    feedbackInvalid="Please enter Value!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel>
+                                                    Display Order (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormInput
+                                                    type="text"
+                                                    id="exampleFormControlInput1"
+                                                    defaultValue={
+                                                        type === 1 ? setting?.display_order : ""
+                                                    }
+                                                    onChange={(e) =>
+                                                        setDisplayOrder(e.target.value)
+                                                    }
+                                                    feedbackInvalid="Please enter Display Order!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel>
+                                                    Description (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormInput
+                                                    type="text"
+                                                    id="exampleFormControlInput1"
+                                                    defaultValue={
+                                                        type === 1 ? setting?.desciption : ""
+                                                    }
+                                                    onChange={(e) =>
+                                                        setDescription(e.target.value)
+                                                    }
+                                                    feedbackInvalid="Please enter Description!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="exampleFormControlInput1">
+                                                    Status (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormSelect
+                                                    aria-label="Default select example"
+                                                    onChange={(e) =>
+                                                        setStatus(e.target.value)
+                                                    }
+                                                    feedbackInvalid="Please choose Status!"
+                                                    required
+                                                    tooltipFeedback
+                                                >
+                                                    <option value="">Select Status</option>
+                                                    {optionStatus?.map((item, index) => {
+                                                        if (type === 1) {
+                                                            return setting?.status ===
+                                                                item?.status ? (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.status}
+                                                                    selected
+                                                                >
+                                                                    {item?.label}
+                                                                </option>
+                                                            ) : (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.status}
+                                                                >
+                                                                    {item?.label}
+                                                                </option>
+                                                            );
+                                                        } else {
+                                                            return (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.status}
+                                                                >
+                                                                    {item?.label}
+                                                                </option>
+                                                            );
+                                                        }
+                                                    })}
+                                                </CFormSelect>
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="formFile">
+                                                    Type (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormSelect
+                                                    aria-label="Default select example"
+                                                    onChange={(e) =>
+                                                        setTypeId(e.target.value)
+                                                    }
+                                                    feedbackInvalid="Please choose Type!"
+                                                    required
+                                                    tooltipFeedback
+                                                >
+                                                    <option value="">Select type</option>
+                                                    {listType?.map((item, index) => {
+                                                        if (type === 1) {
+                                                            return setting?.type.type_id === item?.type_id ? (
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        item?.type_id
+                                                                    }
+                                                                    selected
+                                                                >
+                                                                    {item?.title}
+                                                                </option>
+                                                            ) : (
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        item?.type_id
+                                                                    }
+                                                                >
+                                                                    {item?.title}
+                                                                </option>
+                                                            );
+                                                        } else {
+                                                            return (
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        item?.type_id
+                                                                    }
+                                                                >
+                                                                    {item?.title}
+                                                                </option>
+                                                            );
+                                                        }
+                                                    })}
+                                                </CFormSelect>
+                                            </div>
+                                        </CCol>
+                                    </CRow>
+                                    <div className="mb-3">
+                                        <CButton
+                                            type="submit"
+                                        >
+                                            Submit
+                                        </CButton>
+                                    </div>
+                                </CForm>
                             </CCardBody>
                         </CCard>
                     </CCol>

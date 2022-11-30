@@ -6,6 +6,7 @@ import {
   CCardBody,
   CCardHeader,
   CCol,
+  CForm,
   CFormInput,
   CFormLabel,
   CFormSelect,
@@ -32,6 +33,7 @@ function ComboDetail(props) {
   const [listPackagesSale, setListPackagesSale] = useState([]);
   const [salePrice, setSalePrice] = useState(0);
   const [packages, setPackages] = useState({});
+  const [validated, setValidated] = useState(false);
 
   const columns = [
     {
@@ -138,34 +140,41 @@ function ComboDetail(props) {
     }
   };
 
-  const handleUpdateSlider = async () => {
+  const handleSubmit = async (event) => {
     try {
-      if (listPackagesSale?.length > 0) {
-        const params = {
-          title: title,
-          description: description,
-          packages: [],
-        };
-        listPackagesSale.map((element) => {
-          const pack = {
-            packageId: element?._package?.id,
-            salePrice: Number(element?.salePrice),
+      const form = event.currentTarget
+      setValidated(true)
+      event.preventDefault()
+      event.stopPropagation()
+      if (form.checkValidity()) {
+
+        if (listPackagesSale?.length > 0) {
+          const params = {
+            title: title,
+            description: description,
+            packages: [],
           };
-          return params.packages.push(pack);
-        });
-        console.log(params);
-        const response =
-          type === 1
-            ? await adminApi.updateCombo(id, params)
-            : await adminApi.createCombo(params);
-        toast.success(response?.message, {
-          duration: 2000,
-        });
-        history.push("/admin/combos");
-      } else {
-        toast.error("Please import package", {
-          duration: 2000,
-        });
+          listPackagesSale.map((element) => {
+            const pack = {
+              packageId: element?._package?.id,
+              salePrice: Number(element?.salePrice),
+            };
+            return params.packages.push(pack);
+          });
+          console.log(params);
+          const response =
+            type === 1
+              ? await adminApi.updateCombo(id, params)
+              : await adminApi.createCombo(params);
+          toast.success(response?.message, {
+            duration: 2000,
+          });
+          history.push("/admin/combos");
+        } else {
+          toast.error("Please import package", {
+            duration: 2000,
+          });
+        }
       }
     } catch (responseError) {
       toast.error(responseError?.data.message, {
@@ -230,107 +239,117 @@ function ComboDetail(props) {
               <strong>Combo Details</strong>
             </CCardHeader>
             <CCardBody>
-              <CRow className="g-3 mb-3">
-                <CCol sm={12}>
-                  <div className="mb-3">
-                    <CFormLabel>
-                      Title (<span style={{ color: "red" }}>*</span>)
-                    </CFormLabel>
-                    <CFormInput
-                      type="text"
-                      id="exampleFormControlInput1"
-                      defaultValue={type === 1 ? combo?.title : ""}
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
-                  </div>
-                </CCol>
-                <CCol sm={12}>
-                  <div className="mb-3">
-                    <CFormLabel>
-                      Description (<span style={{ color: "red" }}>*</span>)
-                    </CFormLabel>
-                    <CKEditor
-                      editor={ClassicEditor}
-                      data={combo?.description}
-                      onChange={(event, editor) => {
-                        const data = editor.getData();
-                        setDescription(data);
-                      }}
-                    />
-                  </div>
-                </CCol>
-              </CRow>
-              <h5>Packages information</h5>
-              <hr></hr>
-              <CRow className="g-3 mb-3">
-                <CCol sm={5}>
-                  <div className="d-flex form-row-inline label-medium">
-                    <CFormLabel style={{ marginRight: "10px" }}>
-                      Packages:
-                    </CFormLabel>
-                    <CFormSelect
-                      id="autoSizingSelect"
-                      value={packages?.id ? packages?.id : ""}
-                      onChange={(e) => handleSelectPackage(e.target.value)}
-                    >
-                      <option value="">Select package</option>
-                      {listPackages?.map((item, index) => {
-                        return (
-                          <option key={index} value={item?.id}>
-                            {item?.title}
-                          </option>
-                        );
-                      })}
-                    </CFormSelect>
-                  </div>
-                </CCol>
-                <CCol sm={3}>
-                  <CRow>
-                    <CCol sm={2}>
-                      <CFormLabel>Price:</CFormLabel>
-                    </CCol>
-                    <CCol sm={10}>
+              <CForm
+                className="row g-3 needs-validation"
+                noValidate
+                validated={validated}
+                onSubmit={handleSubmit}
+              >
+                <CRow className="g-3 mb-3">
+                  <CCol sm={12}>
+                    <div className="mb-3">
+                      <CFormLabel>
+                        Title (<span style={{ color: "red" }}>*</span>)
+                      </CFormLabel>
                       <CFormInput
-                        type="number"
-                        disabled={true}
+                        type="text"
                         id="exampleFormControlInput1"
-                        defaultValue={packages?.salePrice}
+                        defaultValue={type === 1 ? combo?.title : ""}
+                        onChange={(e) => setTitle(e.target.value)}
+                        feedbackInvalid="Please enter Title!"
+                        required
+                        tooltipFeedback
                       />
-                    </CCol>
-                  </CRow>
-                </CCol>
-                <CCol sm={3}>
-                  <CRow>
-                    <CCol sm={4} className="d-flex justify-content-end">
-                      <CFormLabel>Sale Price:</CFormLabel>
-                    </CCol>
-                    <CCol sm={8}>
-                      <CFormInput
-                        type="number"
-                        id="exampleFormControlInput1"
-                        value={salePrice}
-                        placeholder="Enter sale price"
-                        onChange={(e) => setSalePrice(e.target.value)}
+                    </div>
+                  </CCol>
+                  <CCol sm={12}>
+                    <div className="mb-3">
+                      <CFormLabel>
+                        Description (<span style={{ color: "red" }}>*</span>)
+                      </CFormLabel>
+                      <CKEditor
+                        editor={ClassicEditor}
+                        data={combo?.description}
+                        onChange={(event, editor) => {
+                          const data = editor.getData();
+                          setDescription(data);
+                        }}
                       />
-                    </CCol>
-                  </CRow>
-                </CCol>
-                <CCol sm={1}>
-                  <CButton onClick={() => handleAddPackage()}>Import</CButton>
-                </CCol>
-                <CCol sm={12}>
-                  <DataTable
-                    columns={columns}
-                    data={listPackagesSale}
-                    paginationServer
-                  />
-                </CCol>
-              </CRow>
-              <div className="mb-3">
-                <CButton onClick={() => handleUpdateSlider()}>
-                  {type === 1 ? "Update" : "Add"}
-                </CButton>
-              </div>
+                    </div>
+                  </CCol>
+                </CRow>
+                <h5>Packages information</h5>
+                <hr></hr>
+                <CRow className="g-3 mb-3">
+                  <CCol sm={5}>
+                    <div className="d-flex form-row-inline label-medium">
+                      <CFormLabel style={{ marginRight: "10px" }}>
+                        Packages:
+                      </CFormLabel>
+                      <CFormSelect
+                        id="autoSizingSelect"
+                        value={packages?.id ? packages?.id : ""}
+                        onChange={(e) => handleSelectPackage(e.target.value)}
+                      >
+                        <option value="">Select package</option>
+                        {listPackages?.map((item, index) => {
+                          return (
+                            <option key={index} value={item?.id}>
+                              {item?.title}
+                            </option>
+                          );
+                        })}
+                      </CFormSelect>
+                    </div>
+                  </CCol>
+                  <CCol sm={3}>
+                    <CRow>
+                      <CCol sm={2}>
+                        <CFormLabel>Price:</CFormLabel>
+                      </CCol>
+                      <CCol sm={10}>
+                        <CFormInput
+                          type="number"
+                          disabled={true}
+                          id="exampleFormControlInput1"
+                          defaultValue={packages?.salePrice}
+                        />
+                      </CCol>
+                    </CRow>
+                  </CCol>
+                  <CCol sm={3}>
+                    <CRow>
+                      <CCol sm={4} className="d-flex justify-content-end">
+                        <CFormLabel>Sale Price:</CFormLabel>
+                      </CCol>
+                      <CCol sm={8}>
+                        <CFormInput
+                          type="number"
+                          id="exampleFormControlInput1"
+                          value={salePrice}
+                          placeholder="Enter sale price"
+                          onChange={(e) => setSalePrice(e.target.value)}
+                        />
+                      </CCol>
+                    </CRow>
+                  </CCol>
+                  <CCol sm={1}>
+                    <CButton onClick={() => handleAddPackage()}>Import</CButton>
+                  </CCol>
+                  <CCol sm={12}>
+                    <DataTable
+                      columns={columns}
+                      data={listPackagesSale}
+                      paginationServer
+                    />
+                  </CCol>
+                </CRow>
+                <div className="mb-3">
+                  <CButton type="submit">
+                    {type === 1 ? "Update" : "Add"}
+                  </CButton>
+                </div>
+              </CForm>
             </CCardBody>
           </CCard>
         </div>
