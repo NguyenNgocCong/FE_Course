@@ -11,7 +11,7 @@ import { combieImg } from "../../utils";
 import ProductAside from "../elements/product-aside";
 import { useDispatch, useSelector } from "react-redux";
 import { addPackageLocal } from "../../redux/reducers/order";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { userApi } from "../../api/userApi";
 
 function Products() {

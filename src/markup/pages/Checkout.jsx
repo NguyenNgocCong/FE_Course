@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 // Layout
 import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
@@ -12,16 +11,11 @@ import {
 } from "../../constrains/index";
 import { toast } from "react-toastify";
 import { resetState } from "../../redux/reducers/order";
-
-// Elements
-
-// Images
-
 function CheckOut(prop) {
   const { data } = useSelector((state) => state.order);
 
   const { packages, combos } = data;
-  const location = useLocation();
+ const location = useLocation();
   const history = useHistory();
   const [info, setInfo] = useState({
     fullName: "",

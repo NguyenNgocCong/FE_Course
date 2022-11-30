@@ -14,7 +14,6 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { combieImg } from "../../../utils";
 import { getUserInfoReduce, resetState } from "../../../redux/reducers/auth";
 import {
-  getAllCartReduce,
   getAllCartServer,
 } from "../../../redux/reducers/order";
 
@@ -26,7 +25,7 @@ function Header() {
   const [user, setUser] = useState(
     Cookies.get("user") === undefined
       ? Cookies.get("user")
-      : JSON.parse(Cookies.get("user"))
+      : JSON.parse(Cookies.get("user")),
   );
 
   // eslint-disable-next-line
@@ -68,7 +67,7 @@ function Header() {
 
     // Mobile Submenu open close function
     var navMenu = [].slice.call(
-      document.querySelectorAll(".menu-links > ul > li")
+      document.querySelectorAll(".menu-links > ul > li"),
     );
     for (var y = 0; y < navMenu.length; y++) {
       navMenu[y].addEventListener("click", function () {
@@ -82,10 +81,8 @@ function Header() {
 
       if (active) {
         current.classList.remove("open");
-        console.log("active");
       } else {
         current.classList.add("open");
-        console.log("close");
       }
     }
   }, []);
@@ -94,7 +91,7 @@ function Header() {
     setUser(
       Cookies.get("user") === undefined
         ? Cookies.get("user")
-        : JSON.parse(Cookies.get("user"))
+        : JSON.parse(Cookies.get("user")),
     );
     dispatch(setEditAvatar(false));
     // eslint-disable-next-line
@@ -172,8 +169,12 @@ function Header() {
                           <Link to="/admin/contacts">
                             <li className="text-left">Admin</li>
                           </Link>
+                        ) : role === "ROLE_MARKETER" ? (
+                          <Link to="/admin/posts">
+                            <li className="text-left">Admin</li>
+                          </Link>
                         ) : role === "ROLE_MANAGER" ? (
-                          <Link to="/admin/subjects">
+                          <Link to="/admin/class">
                             <li className="text-left">Admin</li>
                           </Link>
                         ) : (

@@ -10,7 +10,7 @@ const AppContent = () => {
         <CContainer className="app-content" lg>
             <Suspense fallback={<CSpinner color="primary" />}>
                 <Switch>
-                    {routes.map((route, idx) => {
+                    {routes?.map((route, idx) => {
                         return (
                             route.element && (
                                 <Route

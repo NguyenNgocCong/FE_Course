@@ -1,6 +1,3 @@
-import React from "react";
-import CIcon from "@coreui/icons-react";
-import { cilContact, cilGrid, cilSpeedometer, cilTextSquare, cilUser, cilViewColumn } from "@coreui/icons";
 import { CNavItem } from "@coreui/react";
 
 const _nav = [
@@ -8,7 +5,7 @@ const _nav = [
         component: CNavItem,
         name: "Dashboard",
         to: "/admin/dashboard",
-        icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+        icon: "fa fa-home",
         badge: {
             color: "info",
             text: "NEW",
@@ -18,91 +15,91 @@ const _nav = [
         component: CNavItem,
         name: "Users",
         to: "/admin/users",
-        icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+        icon: "fa fa-user",
     },
     {
         component: CNavItem,
         name: "Contact",
         to: "/admin/contacts",
-        icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
+        icon: "fa fa-id-badge",
     },
     {
         component: CNavItem,
         name: "Subjects",
         to: "/admin/subjects",
-        icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
+        icon: "fa fa-book",
     },
     {
         component: CNavItem,
         name: "Class",
         to: "/admin/class",
-        icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
+        icon: "fa fa-users",
     },
     {
         component: CNavItem,
         name: "Trainee",
         to: "/admin/trainee",
-        icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
+        icon: "fa fa-user-circle",
     },
     {
         component: CNavItem,
         name: "Posts",
         to: "/admin/posts",
-        icon: <CIcon icon={cilTextSquare} customClassName="nav-icon" />,
+        icon: "fa fa-bookmark",
     },
     {
         component: CNavItem,
         name: "Sliders",
         to: "/admin/sliders",
-        icon: <CIcon icon={cilViewColumn} customClassName="nav-icon" />,
+        icon: "fa fa-image",
     },
     {
         component: CNavItem,
         name: "Packages",
         to: "/admin/packages",
-        icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
+        icon: "fa fa-folder",
     }, {
         component: CNavItem,
         name: "Expert",
         to: "/admin/experts",
-        icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
+        icon: "fa fa-user-md",
     },
     {
         component: CNavItem,
         name: "Combo",
         to: "/admin/combos",
-        icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
+        icon: "fa fa-inbox",
     },
     {
         component: CNavItem,
         name: "Registration",
         to: "/admin/registration",
-        icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
+        icon: "fa fa-shopping-cart",
     },
     {
         component: CNavItem,
         name: "Orders",
         to: "/admin/orders",
-        icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
+        icon: "fa fa-shopping-basket",
     },
     {
         component: CNavItem,
         name: "Ordered",
         to: "/admin/ordered",
-        icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
+        icon: "fa fa-shopping-bag",
     },
     {
         component: CNavItem,
         name: "Coupon",
         to: "/admin/coupon",
-        icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
+        icon: "fa fa-table",
     },
     {
         component: CNavItem,
         name: "Setting",
         to: "/admin/settings",
-        icon: <CIcon icon={cilGrid} customClassName="nav-icon" />,
-    },
+        icon: "fa fa-sliders",
+    }
 ];
 
 export default _nav;

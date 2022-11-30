@@ -4,6 +4,7 @@ import {
     CCardBody,
     CCardHeader,
     CCol,
+    CForm,
     CFormInput,
     CFormLabel,
     CFormSelect,
@@ -29,6 +30,7 @@ function SubjectDetail(props) {
     const [note, setNote] = useState();
     const [manager, setManager] = useState();
     const [expert, setExpert] = useState();
+    const [validated, setValidated] = useState(false);
     const role = JSON.parse(Cookies.get("user"))?.role;
     const isNotAdmin = role !== "ROLE_ADMIN" ? true : false;
     const location = useLocation();
@@ -84,41 +86,48 @@ function SubjectDetail(props) {
         }
     };
 
-    const handleUpdateSubject = async () => {
+    const handleSubmit = async (event) => {
         try {
-            if (isNotAdmin) {
-                const params = {
-                    id: id,
-                    categoryId: categoryId,
-                    status: status,
-                    expert: expert,
-                };
+            const form = event.currentTarget
+            setValidated(true)
+            event.preventDefault()
+            event.stopPropagation()
+            if (form.checkValidity()) {
+                if (isNotAdmin) {
+                    const params = {
+                        id: id,
+                        categoryId: categoryId,
+                        status: status,
+                        expert: expert,
+                    };
 
-                const response = await adminApi.managerUpdateSubject(params);
-                toast.success(response?.message, {
-                    duration: 2000,
-                });
-            } else {
-                const params = {
-                    code: codeSubject,
-                    name: name,
-                    categoryId: categoryId,
-                    status: status,
-                    note: note,
-                    manager: manager,
-                    expert: expert
-                };
+                    const response = await adminApi.managerUpdateSubject(params);
+                    toast.success(response?.message, {
+                        duration: 2000,
+                    });
+                } else {
+                    const params = {
+                        code: codeSubject,
+                        name: name,
+                        categoryId: categoryId,
+                        status: status,
+                        note: note,
+                        manager: manager,
+                        expert: expert
+                    };
 
-                const response =
-                    type === 1
-                        ? await adminApi.updateSubject(params, id)
-                        : await adminApi.addSubject(params);
-                console.log(response);
-                toast.success(response?.message, {
-                    duration: 2000,
-                });
+                    const response =
+                        type === 1
+                            ? await adminApi.updateSubject(params, id)
+                            : await adminApi.addSubject(params);
+                    console.log(response);
+                    toast.success(response?.message, {
+                        duration: 2000,
+                    });
+
+                    history.push("/admin/subjects");
+                }
             }
-            history.push("/admin/subjects");
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -130,7 +139,8 @@ function SubjectDetail(props) {
         if (type === 1) {
             getSubjectById();
         }
-        if (role === "ROLE_ADMIN") getListManager();
+        if (role === "ROLE_ADMIN")
+            getListManager();
         getListExpert();
         getListCategory();
         // eslint-disable-next-line
@@ -158,266 +168,287 @@ function SubjectDetail(props) {
                                 </strong>
                             </CCardHeader>
                             <CCardBody>
-                                <CRow className="g-3 mb-3">
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel>
-                                                Code (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                disabled={isNotAdmin}
-                                                defaultValue={
-                                                    type === 1 ? subject?.code : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setCodeSubject(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Name (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormInput
-                                                type="text"
-                                                id="exampleFormControlInput1"
-                                                disabled={isNotAdmin}
-                                                placeholder=""
-                                                defaultValue={
-                                                    type === 1 ? subject?.name : ""
-                                                }
-                                                onChange={(e) =>
-                                                    setName(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Category (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                id="autoSizingSelect"
-                                                onChange={(e) => setCategoryId(e.target.value)}
-                                            >
-                                                <option value="">Select category</option>
-                                                {listCategory?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return subject?.categoryId ===
-                                                            item?.setting_id ? (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.setting_id}
-                                                                selected
-                                                            >
-                                                                {item?.setting_title}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.setting_id}
-                                                            >
-                                                                {item?.setting_title}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.setting_id}
-                                                            >
-                                                                {item?.setting_title}
-                                                            </option>
-                                                        );
+                                <CForm
+                                    className="row g-3 needs-validation"
+                                    noValidate
+                                    validated={validated}
+                                    onSubmit={handleSubmit}
+                                >
+                                    <CRow className="g-3 mb-3">
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel>
+                                                    Code (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormInput
+                                                    type="text"
+                                                    id="exampleFormControlInput1"
+                                                    disabled={isNotAdmin}
+                                                    defaultValue={
+                                                        type === 1 ? subject?.code : ""
                                                     }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Status (
-                                                <span style={{ color: "red" }}>*</span>)
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setStatus(e.target.value)
-                                                }
-                                            >
-                                                {optionStatus?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return subject?.status ===
-                                                            item?.status ? (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                                selected
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.status}
-                                                            >
-                                                                {item?.label}
-                                                            </option>
-                                                        );
+                                                    onChange={(e) =>
+                                                        setCodeSubject(e.target.value)
                                                     }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="formFile">
-                                                Manager
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                disabled={isNotAdmin}
-                                                onChange={(e) =>
-                                                    setManager(e.target.value)
-                                                }
-                                            >
-                                                <option>Select manager</option>
-                                                {listManager?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return subject?.manager
-                                                            ?.username ===
-                                                            item?.username ? (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.username
-                                                                }
-                                                                selected
-                                                            >
-                                                                {item?.username}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.username
-                                                                }
-                                                            >
-                                                                {item?.username}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.username
-                                                                }
-                                                            >
-                                                                {item?.username}
-                                                            </option>
-                                                        );
+                                                    feedbackInvalid="Please enter Code!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="exampleFormControlInput1">
+                                                    Name (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormInput
+                                                    type="text"
+                                                    id="exampleFormControlInput1"
+                                                    disabled={isNotAdmin}
+                                                    placeholder=""
+                                                    defaultValue={
+                                                        type === 1 ? subject?.name : ""
                                                     }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                    <CCol sm={6}>
-                                        <div className="mb-3">
-                                            <CFormLabel htmlFor="formFile">
-                                                Expert
-                                            </CFormLabel>
-                                            <CFormSelect
-                                                aria-label="Default select example"
-                                                onChange={(e) =>
-                                                    setExpert(e.target.value)
-                                                }
-                                            >
-                                                <option>Select expert</option>
-                                                {listExpert?.map((item, index) => {
-                                                    if (type === 1) {
-                                                        return subject?.expert
-                                                            ?.id ===
-                                                            item?.id ? (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                                selected
-                                                            >
-                                                                {item?.user?.fullname}
-                                                            </option>
-                                                        ) : (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                            >
-                                                                {item?.user?.fullname}
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={
-                                                                    item?.id
-                                                                }
-                                                            >
-                                                                {item?.user?.fullname}
-                                                            </option>
-                                                        );
+                                                    onChange={(e) =>
+                                                        setName(e.target.value)
                                                     }
-                                                })}
-                                            </CFormSelect>
-                                        </div>
-                                    </CCol>
-                                </CRow>
-                                <div className="mb-3">
-                                    <CFormLabel htmlFor="exampleFormControlInput1">
-                                        Note (
-                                        <span style={{ color: "red" }}>*</span>)
-                                    </CFormLabel>
-                                    <CFormTextarea
-                                        id="exampleFormControlTextarea1"
-                                        disabled={isNotAdmin}
-                                        defaultValue={
-                                            type === 1 ? subject?.note : ""
-                                        }
-                                        onChange={(e) =>
-                                            setNote(e.target.value)
-                                        }
-                                        rows="3"
-                                    >
-                                    </CFormTextarea>
-                                </div>
-                                <div className="mb-3">
-                                    <CButton
-                                        onClick={() => handleUpdateSubject()}
-                                    >
-                                        Save
-                                    </CButton>
-                                </div>
+                                                    feedbackInvalid="Please enter Name!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="exampleFormControlInput1">
+                                                    Category (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormSelect
+                                                    id="autoSizingSelect"
+                                                    onChange={(e) => setCategoryId(e.target.value)}
+                                                    feedbackInvalid="Please select Category!"
+                                                    required
+                                                    tooltipFeedback
+                                                >
+                                                    <option value="">Select category</option>
+                                                    {listCategory?.map((item, index) => {
+                                                        if (type === 1) {
+                                                            return subject?.categoryId ===
+                                                                item?.setting_id ? (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.setting_id}
+
+                                                                >
+                                                                    {item?.setting_title}
+                                                                </option>
+                                                            ) : (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.setting_id}
+                                                                >
+                                                                    {item?.setting_title}
+                                                                </option>
+                                                            );
+                                                        } else {
+                                                            return (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.setting_id}
+                                                                >
+                                                                    {item?.setting_title}
+                                                                </option>
+                                                            );
+                                                        }
+                                                    })}
+                                                </CFormSelect>
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="exampleFormControlInput1">
+                                                    Status (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormSelect
+                                                    aria-label="Default select example"
+                                                    onChange={(e) =>
+                                                        setStatus(e.target.value)
+                                                    }
+                                                    
+                                                >
+                                                    {optionStatus?.map((item, index) => {
+                                                        if (type === 1) {
+                                                            return subject?.status ===
+                                                                item?.status ? (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.status}
+                                                                    selected
+                                                                >
+                                                                    {item?.label}
+                                                                </option>
+                                                            ) : (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.status}
+                                                                >
+                                                                    {item?.label}
+                                                                </option>
+                                                            );
+                                                        } else {
+                                                            return (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.status}
+                                                                >
+                                                                    {item?.label}
+                                                                </option>
+                                                            );
+                                                        }
+                                                    })}
+                                                </CFormSelect>
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="formFile">
+                                                    Manager
+                                                </CFormLabel>
+                                                <CFormSelect
+                                                    aria-label="Default select example"
+                                                    disabled={isNotAdmin}
+                                                    onChange={(e) =>
+                                                        setManager(e.target.value)
+                                                    }
+                                                    feedbackInvalid="Please select Manager!"
+                                                    required
+                                                    tooltipFeedback
+                                                >
+                                                    <option>Select manager</option>
+                                                    {listManager?.map((item, index) => {
+                                                        if (type === 1) {
+                                                            return subject?.manager
+                                                                ?.username ===
+                                                                item?.username ? (
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        item?.username
+                                                                    }
+                                                                    selected
+                                                                >
+                                                                    {item?.username}
+                                                                </option>
+                                                            ) : (
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        item?.username
+                                                                    }
+                                                                >
+                                                                    {item?.username}
+                                                                </option>
+                                                            );
+                                                        } else {
+                                                            return (
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        item?.username
+                                                                    }
+                                                                >
+                                                                    {item?.username}
+                                                                </option>
+                                                            );
+                                                        }
+                                                    })}
+                                                </CFormSelect>
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="formFile">
+                                                    Expert
+                                                </CFormLabel>
+                                                <CFormSelect
+                                                    aria-label="Default select example"
+                                                    onChange={(e) =>
+                                                        setExpert(e.target.value)
+                                                    }
+                                                    feedbackInvalid="Please select Expert!"
+                                                    required
+                                                    tooltipFeedback
+                                                >
+                                                    <option>Select expert</option>
+                                                    {listExpert?.map((item, index) => {
+                                                        if (type === 1) {
+                                                            return subject?.expert
+                                                                ?.id ===
+                                                                item?.id ? (
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        item?.id
+                                                                    }
+                                                                    selected
+                                                                >
+                                                                    {item?.user?.fullname}
+                                                                </option>
+                                                            ) : (
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        item?.id
+                                                                    }
+                                                                >
+                                                                    {item?.user?.fullname}
+                                                                </option>
+                                                            );
+                                                        } else {
+                                                            return (
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        item?.id
+                                                                    }
+                                                                >
+                                                                    {item?.user?.fullname}
+                                                                </option>
+                                                            );
+                                                        }
+                                                    })}
+                                                </CFormSelect>
+                                            </div>
+                                        </CCol>
+                                    </CRow>
+                                    <div className="mb-3">
+                                        <CFormLabel htmlFor="exampleFormControlInput1">
+                                            Note (
+                                            <span style={{ color: "red" }}>*</span>)
+                                        </CFormLabel>
+                                        <CFormTextarea
+                                            id="exampleFormControlTextarea1"
+                                            disabled={isNotAdmin}
+                                            defaultValue={
+                                                type === 1 ? subject?.note : ""
+                                            }
+                                            onChange={(e) =>
+                                                setNote(e.target.value)
+                                            }
+                                            rows="3"
+                                        >
+                                        </CFormTextarea>
+                                    </div>
+                                    <div className="mb-3">
+                                        <CButton type="submit">
+                                            Save
+                                        </CButton>
+                                    </div>
+                                </CForm>
                             </CCardBody>
                         </CCard>
                     </CCol>

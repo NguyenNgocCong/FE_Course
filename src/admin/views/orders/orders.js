@@ -7,9 +7,6 @@ import DataTable from "react-data-table-component";
 import toast, { Toaster } from "react-hot-toast";
 import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
-import { useHistory } from "react-router-dom";
-import CIcon from "@coreui/icons-react";
-import { cilLibraryAdd } from "@coreui/icons";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
@@ -77,7 +74,7 @@ function Orders() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/subjects/" + row?.id;
+              window.location.href = "/lrs/admin/orders/" + row?.id;
             }}
             color="primary"
             style={{
@@ -122,13 +119,13 @@ function Orders() {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
+  // eslint-disable-next-line
   const [listCategory, setListCategory] = useState([]);
   const [category, setCategory] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
-  const history = useHistory();
 
   const getAllOrder = async () => {
     try {
@@ -233,7 +230,7 @@ function Orders() {
                   }}
                 >
                   <option value={0}>All Category</option>
-                  {listCategory?.map((item, index) => {
+                  {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
                         {item?.setting_title}
@@ -244,40 +241,24 @@ function Orders() {
               </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
+                  style={{ margin: "0px 5px", maxWidth: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
+                  <option value={0}>All Status</option>
+                  <option value={1}>Submitted</option>
+                  <option value={2}>Verified</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
+                  style={{ margin: "0px 10px" }}
                   placeholder="Search..."
                   onChange={onSearch}
                 />
-              </Col>
-              <Col xs={12} lg={4}>
-                <button
-                  style={{
-                    backgroundColor: "#7367f0",
-                    border: "none",
-                    float: "right",
-                    height: "100%",
-                    width: "100px",
-                    color: "white",
-                    borderRadius: "10px",
-                    marginRight: "inherit",
-                  }}
-                  onClick={() => history.push("/admin/subjects/create")}
-                >
-                  <CIcon icon={cilLibraryAdd} />
-                </button>
               </Col>
             </Row>
           </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // Images
-import logoWhite2 from "../../images/logo-white-2.png";
+import logo from "../../images/logowhite.png";
 import bannerImg from "../../images/background/bg2.jpg";
 import { userApi } from "../../api/userApi";
 
@@ -61,7 +61,7 @@ function Register(props) {
           style={{ backgroundImage: "url(" + bannerImg + ")" }}
         >
           <Link to="/">
-            <img src={logoWhite2} alt="" />
+            <img src={logo} alt="" />
           </Link>
         </div>
         {step === 0 ? (

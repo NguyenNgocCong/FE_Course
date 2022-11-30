@@ -1,11 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import Masonry from "react-masonry-component";
-import { Link, useHistory } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast} from "react-toastify";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
-import PagingQuestion from "../PagingQuestion/PagingQuestion";
 import { useDispatch, useSelector } from "react-redux";
 import { BodyCartLoacl } from "../../pages/Cart";
 import { TYPE_CHECKOUT_PACKAGE } from "../../../constrains/index";
@@ -24,8 +22,6 @@ function CartContent() {
 
   const [res, setRes] = useState([]);
   const [showCheckout, setShowCheckOut] = useState(false);
-  const [pageIndex, setPageIndex] = useState(1);
-  const { totalPages } = res;
   const { packages, combos } = data;
 
   const totalPackage = [...packages].reduce((pre, x) => pre + x.salePrice, 0);
@@ -35,8 +31,8 @@ function CartContent() {
   );
 
   useEffect(() => {
-    userApi.getCarts({ page: pageIndex - 1 }).then((res) => setRes(res));
-  }, [pageIndex]);
+    userApi.getCarts().then((res) => setRes(res));
+  }, []);
 
   const handleDelete = (params) => {
     userApi
@@ -49,10 +45,6 @@ function CartContent() {
       })
       .catch((e) => toast.error(e?.data?.message));
   };
-
-  const totalPrice = 0;
-
-  console.log(res);
 
   const handleCheckOut = () => {
     if (isLogin) setShowCheckOut(true);

@@ -1,10 +1,8 @@
-import React, { Component, useState, useEffect, useId } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Masonry from "react-masonry-component";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils/index";
 import PagingQuestion from "../PagingQuestion/PagingQuestion";
-import { useSelector } from "react-redux";
 
 function MyClass() {
   const [res, setRes] = useState({

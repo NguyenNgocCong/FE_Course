@@ -130,14 +130,14 @@ const Settings = () => {
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
                             <Col xs={12} lg={2} >
                                 <CFormSelect
-                                    style={{ margin: "0px 0px", width: "180px" }}
+                                    style={{ margin: "0px 0px" }}
                                     aria-label="Default select example"
                                     onChange={(e) => {
                                         setTypeId(e.target.value);
                                     }}
                                 >
                                     <option value={0}>All Type</option>
-                                    {listType?.map((item, index) => {
+                                    {listType.map((item, index) => {
                                         return (
                                             <option
                                                 key={index}
@@ -151,7 +151,7 @@ const Settings = () => {
                             </Col>
                             <Col xs={12} lg={2}>
                                 <CFormSelect
-                                    style={{ margin: "0px 0px", maxWidth: "180px" }}
+                                    style={{ margin: "0px 5px", maxWidth: "180px" }}
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}
@@ -161,16 +161,16 @@ const Settings = () => {
                                     <option value={false}>Deactivate</option>
                                 </CFormSelect>
                             </Col>
-                            <Col xs={12} lg={2}>
+                            <Col xs={12} lg={4}>
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
                                     placeholder="Search..."
                                     onChange={onSearch}
-                                    style={{ width: "350px" }}
+                                    style={{  margin: "0px 10px" }}
                                 />
                             </Col>
-                            <Col xs={12} lg={6} className='d-flex justify-content-end'>
+                            <Col xs={12} lg={4} className='d-flex justify-content-end'>
                                 <div className={Styles.inputSearch}>
                                     <button
                                         style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}

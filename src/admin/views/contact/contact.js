@@ -11,8 +11,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import Styles from "./style.module.scss";
 import { Col, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
-import CIcon from "@coreui/icons-react";
-import { cilPen } from "@coreui/icons";
 import moment from "moment/moment";
 
 const Contact = () => {
@@ -211,7 +209,7 @@ const Contact = () => {
                                     }}
                                 >
                                     <option value={0}>All Category</option>
-                                    {listCategory?.map((item, index) => {
+                                    {listCategory.map((item, index) => {
                                         return (
                                             <option
                                                 key={index}
@@ -228,7 +226,7 @@ const Contact = () => {
                                 <div className='mt-50 width-270 mt-sm-0 mt-1'>
                                     <CFormSelect
                                         aria-label="Default select example"
-                                        style={{ margin: "0px 0px", maxWidth: "180px" }}
+                                        style={{ margin: "0px 5px", maxWidth: "180px" }}
                                         onChange={(e) => {
                                             setStatus(e.target.value);
                                         }}
@@ -245,6 +243,7 @@ const Contact = () => {
                                         type="text"
                                         id="exampleInputPassword1"
                                         placeholder="Search..."
+                                        style={{ margin: "0px 10px" }}
                                         onChange={onSearch}
                                     />
                                 </div>

@@ -1,18 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
-import { toast } from "react-toastify";
 import { userApi } from "../../api/userApi";
-import { addPackageLocal } from "../../redux/reducers/order";
 import { combieImg } from "../../utils";
 
 const RecentNewsSlider = () => {
   const [listPost, setListPost] = useState([]);
   const [recentBlog, setRecentBlog] = useState([]);
-  const { isLogin } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
 
   const getListPost = async () => {
     try {
@@ -35,19 +30,19 @@ const RecentNewsSlider = () => {
     getListPost();
   }, []);
 
-  const handleAddToCart = (data) => {
-    if (!isLogin) {
-      dispatch(addPackageLocal(data));
-    } else {
-      userApi.addToCard({ packageId: data.id }).then((res) => {
-        console.log(res);
-        toast.success("Add To Cart Success !", {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-        dispatch(addPackageLocal(data));
-      });
-    }
-  };
+  // const handleAddToCart = (data) => {
+  //   if (!isLogin) {
+  //     dispatch(addPackageLocal(data));
+  //   } else {
+  //     userApi.addToCard({ packageId: data.id }).then((res) => {
+  //       console.log(res);
+  //       toast.success("Add To Cart Success !", {
+  //         position: toast.POSITION.BOTTOM_RIGHT,
+  //       });
+  //       dispatch(addPackageLocal(data));
+  //     });
+  //   }
+  // };
 
   const settings = {
     infinite: true,

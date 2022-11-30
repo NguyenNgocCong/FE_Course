@@ -76,7 +76,7 @@ function Ordered() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/subjects/" + row?.id;
+              window.location.href = "/lrs/admin/ordered/" + row?.id;
             }}
             color="primary"
             style={{
@@ -109,6 +109,7 @@ function Ordered() {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
+   // eslint-disable-next-line
   const [listCategory, setListCategory] = useState([]);
   const [category, setCategory] = useState(0);
   const [status, setStatus] = useState("");
@@ -213,7 +214,7 @@ function Ordered() {
                   }}
                 >
                   <option value={0}>All Category</option>
-                  {listCategory?.map((item, index) => {
+                  {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
                         {item?.setting_title}
@@ -224,20 +225,21 @@ function Ordered() {
               </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
+                  style={{ margin: "0px 5px", maxWidth: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
+                  <option value={0}>All Status</option>
+                  <option value={3}>Paid</option>
+                  <option value={4}>Cancel</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
+                  style={{ margin: "0px 10px" }}
                   placeholder="Search..."
                   onChange={onSearch}
                 />

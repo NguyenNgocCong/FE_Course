@@ -9,7 +9,7 @@ import {
 
 import avatarProfile from '../../../images/icon/avatar.svg'
 import Cookies from "js-cookie";
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { combieImg } from "../../../utils";
 
 const AppHeaderDropdown = () => {
@@ -41,16 +41,14 @@ const AppHeaderDropdown = () => {
                 />
             </CDropdownToggle>
             <CDropdownMenu className="pt-0" placement="bottom-end" >
-                <CDropdownItem>
-                    <Link to="/">
-                        Home
-                    </Link>
+                <CDropdownItem href="/">
+                    Home
                 </CDropdownItem>
-                <CDropdownItem>
-                    <Link to="/profile">User Profile</Link>
+                <CDropdownItem href="/profile">
+                    User Profile
                 </CDropdownItem>
-                <CDropdownItem>
-                    <Link to="/profile">Change Password</Link>
+                <CDropdownItem href="/profile">
+                    Change Password
                 </CDropdownItem>
                 <CDropdownItem onClick={handleLogout} style={{ cursor: 'pointer  ' }}>
                     Logout

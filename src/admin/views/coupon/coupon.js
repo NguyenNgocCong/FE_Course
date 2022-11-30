@@ -1,6 +1,5 @@
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
-import { CFormInput, CFormSelect } from "@coreui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -22,54 +21,41 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Class Code",
+      name: "Code",
       minWidth: '140px',
-      width: '160px',
-      maxWidth: '180px',
+      width: '150px',
+      maxWidth: '160px',
       selector: (row) => row.code,
       sortable: true,
     },
     {
       name: "Package",
-
-      minWidth: '225px',
-      width: '250px',
-      maxWidth: '275px',
-      selector: (row) => row.packages.title,
+      width: '100px',
+      selector: (row) => row.apackage.id,
       sortable: true,
     },
     {
-      name: "Date From",
-      minWidth: '140px',
-      width: '160px',
-      maxWidth: '180px',
-      selector: (row) => new Date(row.dateFrom).toLocaleDateString(),
-      sortable: true,
-    },
-    {
-      name: "Date To",
-      minWidth: '140px',
-      width: '160px',
-      maxWidth: '180px',
-      selector: (row) => new Date(row.dateTo).toLocaleDateString(),
-      sortable: true,
-    },
-    {
-      name: "Trainer",
-      minWidth: '150px',
-      width: '200px',
-      maxWidth: '250px',
-      selector: (row) => row.trainer?.user?.fullname,
-      sortable: true,
-    },
-    {
-      name: "Branch",
+      name: "Min Revenue",
       width: '120px',
-      selector: (row) => (
-        <div className={`${row?.branch ? Styles.inactive : Styles.active}`}>
-          {row.branch ? row?.branch.setting_title : "Online"}
-        </div>
-      ),
+      selector: (row) => row.minRevenue,
+      sortable: true,
+    },
+    {
+      name: "Min Quantity",
+      width: '120px',
+      selector: (row) => row.minQuantity,
+      sortable: true,
+    },
+    {
+      name: "Max Quantity",
+      width: '130px',
+      selector: (row) => row.maxQuantity,
+      sortable: true,
+    },
+    {
+      name: "Discount Rate",
+      width: '130px',
+      selector: (row) => row.discountRate,
       sortable: true,
     },
     {
@@ -83,6 +69,18 @@ function Class() {
       sortable: true,
     },
     {
+      name: "Valid From",
+      width: '120px',
+      selector: (row) => new Date(row.validFrom).toLocaleDateString(),
+      sortable: true,
+    },
+    {
+      name: "Valid To",
+      width: '120px',
+      selector: (row) => new Date(row.validTo).toLocaleDateString(),
+      sortable: true,
+    },
+    {
       name: "Action",
       center: true,
       selector: (row) => (
@@ -91,7 +89,7 @@ function Class() {
         // </CButton>
         <div className={Styles.inputSearch}>
           <button
-            onClick={() => { window.location.href = "/lrs/admin/class/" + row?.id }}
+            onClick={() => { window.location.href = "/lrs/admin/coupon/" + row?.id }}
             style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
           >
             <CIcon icon={cilPen} />
@@ -102,21 +100,18 @@ function Class() {
   ];
   const history = useHistory();
   const [data, setDataTable] = useState([]);
-  const [keywordSearch, setKeywordSearch] = useState("");
   // eslint-disable-next-line
   const [isModify, setIsModify] = useState(false);
-  const [listTraner, setListTrainer] = useState([]);
-  const [traner, setTrainer] = useState(0);
-  const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
 
-  const getAllClass = async () => {
+  const getAllCoupon = async () => {
     try {
-      const response = await adminApi.getAllClass(page, itemsPerPage, keywordSearch, traner, status);
+      const response = await adminApi.getAllCoupon(page, itemsPerPage);
       setDataTable(response.data);
       setTotalRows(response.totalItems)
+      console.log(response.data)
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -124,30 +119,16 @@ function Class() {
     }
   };
 
-  const getListTrainer = async () => {
-    try {
-      const response = await adminApi.getListTrainer();
-      setListTrainer(response.data);
-    } catch (responseError) {
-      toast.error(responseError?.data.message, {
-        duration: 2000,
-      });
-    }
-  };
+  
 
-  const onSearch = async (e) => {
-    setKeywordSearch(e.target.value);
-  };
+  
 
   useEffect(() => {
-    getAllClass();
+    getAllCoupon();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, status, traner, itemsPerPage, page]);
+  }, [isModify, itemsPerPage, page]);
 
-  useEffect(() => {
-    getListTrainer();
-    // eslint-disable-next-line
-  }, []);
+  
 
   const handlePerRowsChange = async (newPerPage) => {
     setItemsPerPage(newPerPage);
@@ -162,55 +143,12 @@ function Class() {
         <div className="body flex-grow px-2">
           <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-              <Col xs={12} lg={2}>
-                <CFormSelect
-                  aria-label="Default select example"
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
-                  onChange={(e) => {
-                    setTrainer(e.target.value);
-                  }}
-                >
-                  <option value={0}>All Trainer</option>
-                  {listTraner?.map((item, index) => {
-                    return (
-                      <option
-                        key={index}
-                        value={item?.id}
-                      >
-                        {item?.fullname}
-                      </option>
-                    );
-                  })}
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={2}>
-                <CFormSelect
-                  aria-label="Default select example"
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
-                  onChange={(e) => {
-                    setStatus(e.target.value);
-                  }}
-                >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={4}>
-                <CFormInput
-                  type="text"
-                  id="exampleInputPassword1"
-                  placeholder="Search..."
-                  onChange={onSearch}
-
-                />
-              </Col>
-              <Col xs={12} lg={4} >
+              <Col xs={12} lg={12} >
                 <button
                   style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px' }}
                   onClick={() =>
                     history.push(
-                      "/admin/class/create"
+                      "/admin/coupon/create"
                     )
                   }
                 >

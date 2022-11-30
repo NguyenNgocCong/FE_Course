@@ -7,6 +7,7 @@ import bannerImg from "../../images/background/bg2.jpg";
 import { userApi } from "../../api/userApi";
 import { useScript } from "../../hooks/useScript";
 import toast, { Toaster } from "react-hot-toast";
+import logo from "../../images/logowhite.png";
 
 function Login(props) {
   const [email, setEmail] = useState();
@@ -56,19 +57,26 @@ function Login(props) {
         password: password,
       };
 
-      const response = await userApi.loginAccount(param);
-      Cookies.set("id", response?.id);
-      Cookies.set("username", response?.username);
-      Cookies.set("access_token", response?.accessToken);
-      Cookies.set("roles", response?.roles);
-      const responseAvatar = await userApi.getUserDetail();
-      Cookies.set("user", JSON.stringify(responseAvatar));
-      toast.success("Login Successfully", {
-        duration: 1500,
-      });
-      setTimeout(() => {
-        history.push("/");
-      }, 1500);
+      if (email && password) {
+        setAlertVisible(false);
+        const response = await userApi.loginAccount(param);
+        Cookies.set("id", response?.id);
+        Cookies.set("username", response?.username);
+        Cookies.set("access_token", response?.accessToken);
+        Cookies.set("roles", response?.roles);
+        const responseAvatar = await userApi.getUserDetail();
+        Cookies.set("user", JSON.stringify(responseAvatar));
+        toast.success("Login Successfully", {
+          duration: 1500,
+        });
+        setTimeout(() => {
+          history.push("/");
+        }, 1500);
+      } else {
+        setAlertMessage("Email and Password is required");
+        setAlertVisible(true);
+        setPopupAlertType("danger");
+      }
     } catch (responseError) {
       if (responseError?.data) {
         setAlertMessage(responseError?.data?.message);
@@ -91,8 +99,7 @@ function Login(props) {
           style={{ backgroundImage: "url(" + bannerImg + ")" }}
         >
           <Link className="text-decoration-none" to="/">
-            <div><h1 className="text-decoration-none font-weight-bold">LRS</h1>
-            <h4 className="text-decoration-none">Learning Register System</h4></div>
+            <img src={logo} alt="" />
           </Link>
         </div>
         <div className="account-form-inner">
@@ -127,7 +134,7 @@ function Login(props) {
                       <input
                         name="email"
                         type="text"
-                        required=""
+                        required={true}
                         placeholder="Email"
                         className="form-control"
                         onChange={(e) => setEmail(e.target.value)}
@@ -143,7 +150,7 @@ function Login(props) {
                         type="password"
                         className="form-control"
                         placeholder="Your Password"
-                        required=""
+                        required={true}
                         onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>

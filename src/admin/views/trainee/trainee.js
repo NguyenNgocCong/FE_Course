@@ -10,71 +10,69 @@ import { useHistory } from "react-router-dom";
 import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import Styles from "./style.module.scss";
-import 'react-confirm-alert/src/react-confirm-alert.css';
+import "react-confirm-alert/src/react-confirm-alert.css";
 import { Col, Row } from "react-bootstrap";
 
-function Class() {
+function Trainee() {
   const columns = [
     {
       name: "STT",
-      width: '50px',
+      width: "50px",
       selector: (row, rowIndex) => rowIndex + 1,
       sortable: true,
     },
     {
-      name: "Class Code",
+      name: "User",
       minWidth: '140px',
       width: '160px',
       maxWidth: '180px',
-      selector: (row) => row.code,
+      selector: (row) => row?.user.username,
       sortable: true,
     },
     {
-      name: "Package",
+      name: "Email",
+      minWidth: "180px",
+      width: "250px",
+      maxWidth: "270px",
+      selector: (row) => row.user.email,
+      sortable: true,
+    },
+    {
+      name: "Fullname",
 
-      minWidth: '225px',
-      width: '250px',
-      maxWidth: '275px',
-      selector: (row) => row.packages.title,
+      minWidth: "225px",
+      width: "250px",
+      maxWidth: "275px",
+      selector: (row) => row.user.fullname,
       sortable: true,
     },
     {
-      name: "Date From",
-      minWidth: '140px',
-      width: '160px',
-      maxWidth: '180px',
-      selector: (row) => new Date(row.dateFrom).toLocaleDateString(),
+      name: "Phone",
+      minWidth: "140px",
+      width: "160px",
+      maxWidth: "180px",
+      selector: (row) => row.user.phoneNumber,
       sortable: true,
     },
     {
-      name: "Date To",
-      minWidth: '140px',
-      width: '160px',
-      maxWidth: '180px',
-      selector: (row) => new Date(row.dateTo).toLocaleDateString(),
+      name: "Start Date",
+      minWidth: "140px",
+      width: "160px",
+      maxWidth: "180px",
+      selector: (row) => new Date(row.aclass.startDate).toLocaleDateString(),
       sortable: true,
     },
     {
-      name: "Trainer",
-      minWidth: '150px',
-      width: '200px',
-      maxWidth: '250px',
-      selector: (row) => row.trainer?.user?.fullname,
-      sortable: true,
-    },
-    {
-      name: "Branch",
-      width: '120px',
-      selector: (row) => (
-        <div className={`${row?.branch ? Styles.inactive : Styles.active}`}>
-          {row.branch ? row?.branch.setting_title : "Online"}
-        </div>
-      ),
+      name: "Class",
+      minWidth: "150px",
+      width: "200px",
+      maxWidth: "250px",
+      selector: (row) => row.aclass?.code,
       sortable: true,
     },
     {
       name: "Status",
-      width: '120px',
+      width: "120px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
           {row.status ? "Active" : "Deactivate"}
@@ -86,13 +84,18 @@ function Class() {
       name: "Action",
       center: true,
       selector: (row) => (
-        // <CButton href={`/react/admin/class/${row?.id}`} color="primary">
-        //   <CIcon icon={cilPen} />
-        // </CButton>
         <div className={Styles.inputSearch}>
           <button
-            onClick={() => { window.location.href = "/lrs/admin/class/" + row?.id }}
-            style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
+            onClick={() => {
+              window.location.href = "/lrs/admin/trainee/" + row?.id;
+            }}
+            style={{
+              backgroundColor: "#7367f0",
+              height: "30px",
+              width: "40px",
+              border: "none",
+              float: "right",
+            }}
           >
             <CIcon icon={cilPen} />
           </button>
@@ -105,18 +108,18 @@ function Class() {
   const [keywordSearch, setKeywordSearch] = useState("");
   // eslint-disable-next-line
   const [isModify, setIsModify] = useState(false);
-  const [listTraner, setListTrainer] = useState([]);
+  const [listClass, setListClass] = useState([]);
   const [traner, setTrainer] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = React.useState(10);
+  const [itemsPerPage, setItemsPerPage] = React.useState(50);
 
   const getAllClass = async () => {
     try {
-      const response = await adminApi.getAllClass(page, itemsPerPage, keywordSearch, traner, status);
+      const response = await adminApi.getAllTrainee(page, itemsPerPage, keywordSearch, traner, status);
       setDataTable(response.data);
-      setTotalRows(response.totalItems)
+      setTotalRows(response.totalItems);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -126,8 +129,8 @@ function Class() {
 
   const getListTrainer = async () => {
     try {
-      const response = await adminApi.getListTrainer();
-      setListTrainer(response.data);
+      const response = await adminApi.getAllClass(0, 50, "", 0, "");
+      setListClass(response.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -151,7 +154,7 @@ function Class() {
 
   const handlePerRowsChange = async (newPerPage) => {
     setItemsPerPage(newPerPage);
-  }
+  };
 
   return (
     <div>
@@ -160,8 +163,14 @@ function Class() {
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
         <div className="body flex-grow px-2">
-          <div style={{ backgroundColor: "white", padding: "15px 20px", margin: "0px 0px 15px 0px" }}>
-            <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "15px 20px",
+              margin: "0px 0px 15px 0px",
+            }}
+          >
+            <Row className="text-nowrap w-100 my-75 g-0 permission-header">
               <Col xs={12} lg={2}>
                 <CFormSelect
                   aria-label="Default select example"
@@ -170,14 +179,11 @@ function Class() {
                     setTrainer(e.target.value);
                   }}
                 >
-                  <option value={0}>All Trainer</option>
-                  {listTraner?.map((item, index) => {
+                  <option value={0}>All Class</option>
+                  {listClass?.map((item, index) => {
                     return (
-                      <option
-                        key={index}
-                        value={item?.id}
-                      >
-                        {item?.fullname}
+                      <option key={index} value={item?.id}>
+                        {item?.code}
                       </option>
                     );
                   })}
@@ -186,7 +192,7 @@ function Class() {
               <Col xs={12} lg={2}>
                 <CFormSelect
                   aria-label="Default select example"
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
+                  style={{ margin: "0px 5px", maxWidth: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
@@ -201,18 +207,22 @@ function Class() {
                   type="text"
                   id="exampleInputPassword1"
                   placeholder="Search..."
+                  style={{ margin: "0px 10px" }}
                   onChange={onSearch}
-
                 />
               </Col>
-              <Col xs={12} lg={4} >
+              <Col xs={12} lg={4}>
                 <button
-                  style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px' }}
-                  onClick={() =>
-                    history.push(
-                      "/admin/class/create"
-                    )
-                  }
+                  style={{
+                    backgroundColor: "#7367f0",
+                    border: "none",
+                    float: "right",
+                    height: "100%",
+                    width: "100px",
+                    color: "white",
+                    borderRadius: "10px",
+                  }}
+                  onClick={() => history.push("/admin/trainee/create")}
                 >
                   <CIcon icon={cilLibraryAdd} />
                 </button>
@@ -228,11 +238,12 @@ function Class() {
             onChangeRowsPerPage={handlePerRowsChange}
             pagination
             paginationServer
-          /> </div>
+          />{" "}
+        </div>
         <AppFooter />
       </div>
     </div>
   );
 }
 
-export default Class;
+export default Trainee;

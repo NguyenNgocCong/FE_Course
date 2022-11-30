@@ -95,6 +95,10 @@ export const adminApi = {
     const url = `/api/order/list-confirm?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
+  getOrderDetail: (id) => {
+    const url = `/api/order/${id}`;
+    return axiosApi.get(url);
+  },
   updateOrder: (status, id) => {
     const url = `/api/order/update-status?id=${id}&status=${status}`;
     return axiosApi.put(url);
@@ -313,5 +317,40 @@ export const adminApi = {
   getListCategoryWebContact: () => {
     const url = `/api/admin/setting/list-category-WebContact`;
     return axiosApi.get(url);
+  },
+
+  //coupon 
+  getAllCoupon: (page,size) =>{
+    const url = `/api/coupon?page=${page}&size=${size}`;
+    return axiosApi.get(url);
+  },
+  getCouponDetail: (id) => {
+    const url = `/api/coupon/${id}`;
+    return axiosApi.get(url);
+  },
+  updateCoupon: (params,id) =>{
+    const url = `api/coupon/update?id=${id}`;
+    return axiosApi.put(url,params);
+  },
+  createCoupon: (params) =>{
+    const url = `api/coupon/create`;
+    return axiosApi.post(url,params);
+  },
+  //trainee
+  createTrainee: (params) =>{
+    const url = `api/trainee/create`;
+    return axiosApi.post(url,params);
+  },
+   getAllTrainee: (page, size, keyword, category, status) =>{
+    const url = `/api/trainee?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    return axiosApi.get(url);
+  },
+  getTraineeDetailById: (id) => {
+    const url = `/api/trainee/${id}`;
+    return axiosApi.get(url);
+  },
+  updateTrainee: (params,id) =>{
+    const url = `api/trainee/update?id=${id}`;
+    return axiosApi.put(url,params);
   },
 };
