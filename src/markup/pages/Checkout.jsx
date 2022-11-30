@@ -6,7 +6,10 @@ import Footer from "../layout/footer/footer1";
 import Header from "../layout/header/header1";
 import { useHistory, useLocation } from "react-router-dom";
 import { userApi } from "../../api/userApi";
-import { TYPE_CHECKOUT_PACKAGE } from "../../constrains/index";
+import {
+  TYPE_CHECKOUT_CLASS,
+  TYPE_CHECKOUT_PACKAGE,
+} from "../../constrains/index";
 import { toast } from "react-toastify";
 import { resetState } from "../../redux/reducers/order";
 
@@ -55,20 +58,38 @@ function CheckOut(prop) {
           toast.success(res.message);
           dispatch(resetState());
           setTimeout(() => {
-            history.push("/");
+            history.replace("/");
           }, 1000);
         })
         .catch((e) => toast.error(e?.data?.message));
+    else if (type === TYPE_CHECKOUT_CLASS) {
+      userApi
+        .orderClass({
+          ...info,
+          codeCoupon,
+          classId: location.state.classId,
+        })
+        .then((res) => {
+          toast.success(res.message);
+          dispatch(resetState());
+          setTimeout(() => {
+            history.replace("/");
+          }, 1000);
+        })
+        .catch((e) => toast.error(e?.data?.message));
+    }
   };
   return (
     <>
       <Header />
 
       <section className="component">
-        <div className="total">
-          <h3>TOTAL</h3>
-          <p>${totalPackage + totalCombo}</p>
-        </div>
+        {location.state.type === TYPE_CHECKOUT_PACKAGE && (
+          <div className="total">
+            <h3>TOTAL</h3>
+            <p>${totalPackage + totalCombo}</p>
+          </div>
+        )}
         <div className="credit-card">
           <h2>Checkout</h2>
           <form>
