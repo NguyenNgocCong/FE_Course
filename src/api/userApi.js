@@ -122,6 +122,10 @@ export const userApi = {
     const url = `/api/order/create`;
     return axiosApi.post(url, body);
   },
+  removeCart: (params) => {
+    const url = `/api/order/remove-from-cart`;
+    return axiosApi.delete(url, { params });
+  },
   getMyOrder: (params) => {
     const url = `/api/order/list-detail/`;
     return axiosApi.get(url, { params });
@@ -145,6 +149,22 @@ export const userApi = {
   },
   getCommentPackage: (params) => {
     const url = `/api/feedback/list-package`;
+    return axiosApi.get(url, { params });
+  },
+  getCommentExpert: (params) => {
+    const url = `/api/feedback/list-expert`;
+    return axiosApi.get(url, { params });
+  },
+  getCommentClass: (params) => {
+    const url = `/api/feedback/list-class`;
+    return axiosApi.get(url, { params });
+  },
+  getCommentCombo: (params) => {
+    const url = `/api/feedback/list-combo`;
+    return axiosApi.get(url, { params });
+  },
+  getCommentWeb: (params) => {
+    const url = `/api/feedback/list-website`;
     return axiosApi.get(url, { params });
   },
 };
