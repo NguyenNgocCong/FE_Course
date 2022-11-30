@@ -1,10 +1,9 @@
 import { CCol, CListGroup, CListGroupItem, CRow } from "@coreui/react";
 import { React, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-
 import Slider1 from "./slider/slider1";
 import { userApi } from "../../api/userApi";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 function OnlineCourses() {
   const history = useHistory();
@@ -24,28 +23,30 @@ function OnlineCourses() {
   const getAllSubject = async () => {
     try {
       const response = await userApi.getListAllSubject();
-      setListSubject(response);
+      setListSubject(response)
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
       });
     }
   };
-
-  useEffect(() => {
+  if (listCategory?.length === 0) {
     getListCategory();
+  }
+  if (listSubject?.length === 0) {
     getAllSubject();
-  }, []);
+  }
+
   return (
     <div>
       <CRow>
         <CCol sm={3} style={{ padding: "0px" }}>
           <div
-            className="menu-links navbar-collapse justify-content-start"
+            className="menu-links navbar-collapse justify-content-end"
             id="menuDropdown"
           >
-            <CListGroup className="nav navbar-nav d-flex justify-content-end">
-              <CListGroupItem className="font-weight-bold list-homepage float-none">
+            <CListGroup className="nav navbar-nav d-flex">
+              <CListGroupItem className="font-weight-bold list-homepage" style={{ minWidth: "250px", height: "45px"}}>
                 <span className="d-flex justify-content-between">
                   <span>Knowledge</span>
                   <span>
@@ -73,6 +74,7 @@ function OnlineCourses() {
               </CListGroupItem>
               <CListGroupItem
                 className="font-weight-bold list-homepage"
+                style={{ minWidth: "250px", height: "45px"}}
                 onClick={() => {
                   window.location.href = "/lrs/products";
                 }}
@@ -81,6 +83,7 @@ function OnlineCourses() {
               </CListGroupItem>
               <CListGroupItem
                 className="font-weight-bold list-homepage"
+                style={{ minWidth: "250px", height: "45px"}}
                 onClick={() => {
                   window.location.href = "/lrs/combos";
                 }}
@@ -89,18 +92,20 @@ function OnlineCourses() {
               </CListGroupItem>
               <CListGroupItem
                 className="font-weight-bold list-homepage"
+                style={{ minWidth: "250px", height: "45px"}}
                 onClick={() => {
                   window.location.href = "/lrs/lecturers";
                 }}
               >
                 Lecturers
               </CListGroupItem>
-              {listSubject.splice(0, 6).map((elment) => {
+              {listSubject.splice(0, 7).map((elment) => {
                 return (
                   <CListGroupItem
                     key={elment?.id}
                     className="font-weight-bold list-homepage"
-                    onClick={() => {
+                style={{ minWidth: "250px", height: "45px"}}
+                onClick={() => {
                       history.push("/products", {
                         category: elment?.id,
                       });

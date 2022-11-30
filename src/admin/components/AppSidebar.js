@@ -5,17 +5,11 @@ import {
     CSidebar,
     CSidebarBrand,
     CSidebarNav,
-    CSidebarToggler,
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
-
 import { AppSidebarNav } from "./AppSidebarNav";
-
-import { logoNegative } from "../assets/brand/logo-negative";
-import { sygnet } from "../assets/brand/sygnet";
-
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
+import logo from "../../images/logo.png";
 
 // sidebar nav config
 import navigation from "../../_nav";
@@ -34,29 +28,20 @@ const AppSidebar = () => {
                 dispatch({ type: "set", sidebarShow: visible });
             }}
         >
-            <CSidebarBrand className="d-none d-md-flex" to="/">
-                <CIcon
-                    className="sidebar-brand-full"
-                    icon={logoNegative}
-                    height={35}
-                />
-                <CIcon
-                    className="sidebar-brand-narrow"
-                    icon={sygnet}
-                    height={35}
-                />
+            <CSidebarBrand className="d-none d-md-flex" style={{ backgroundColor: "#FFFFFF", border: "solid 1px #cfd8dc" }} to="/">
+                <img src={logo} alt="" width={150} />
             </CSidebarBrand>
             <CSidebarNav>
                 <SimpleBar>
                     <AppSidebarNav items={navigation} />
                 </SimpleBar>
             </CSidebarNav>
-            <CSidebarToggler
+            {/* <CSidebarToggler
                 className="d-none d-lg-flex"
                 onClick={() =>
                     dispatch({ type: "set", sidebarUnfoldable: !unfoldable })
                 }
-            />
+            /> */}
         </CSidebar>
     );
 };

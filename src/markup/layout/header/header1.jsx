@@ -82,10 +82,8 @@ function Header() {
 
       if (active) {
         current.classList.remove("open");
-        console.log("active");
       } else {
         current.classList.add("open");
-        console.log("close");
       }
     }
   }, []);

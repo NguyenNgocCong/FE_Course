@@ -5,7 +5,6 @@ import {
   CCardHeader,
   CCol,
   CForm,
-  CFormFeedback,
   CFormInput,
   CFormLabel,
   CFormSelect,
@@ -28,16 +27,16 @@ function UserDetail(props) {
   const location = useLocation();
   const history = useHistory();
   const [option, setOption] = useState();
-  const [alertMessageUsername, setAlertMessageUsername] = useState();
-  const [alertVisibleUsername, setAlertVisibleUsername] = useState(false);
-  const [alertMessageFullName, setAlertMessageFullName] = useState();
-  const [alertVisibleFullName, setAlertVisibleFullName] = useState(false);  
-  const [alertMessagePhone, setAlertMessagePhone] = useState();
-  const [alertVisiblePhone, setAlertVisiblePhone] = useState(false);
+  const [alertMessage, setAlertMessage] = useState();
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertType, setPopupAlertType] = useState("primary");
+  const [validated, setValidated] = useState(false);
   const id = location.pathname.substring(
     "/admin/users/".length,
     location.pathname.length
   );
+  const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+  const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
 
   const getListRole = async () => {
     try {
@@ -52,6 +51,7 @@ function UserDetail(props) {
     try {
       const response = await adminApi.getUserById(id);
       setUser(response);
+      setPhone(response.phoneNumber);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -59,19 +59,23 @@ function UserDetail(props) {
     }
   };
 
-  const handleUpdateRoleAndProfile = async () => {
+  const handleSubmit = async (event) => {
     try {
-      const params = {
-        username: user?.username,
-        role: option,
-      };
-      const paramsProfile = {
-        username: username,
-        fullname: fullname,
-        phoneNumber: phone,
-        note: note,
-      };
-      if (!alertVisibleFullName && !alertVisibleUsername &&!alertVisiblePhone ) {
+      const form = event.currentTarget
+      setValidated(true)
+      event.preventDefault()
+      event.stopPropagation()
+      if (form.checkValidity() && !alertVisible) {
+        const params = {
+          username: user?.username,
+          role: option,
+        };
+        const paramsProfile = {
+          username: username,
+          fullname: fullname,
+          phoneNumber: phone,
+          note: note,
+        };
         if (option !== user.role && option !== undefined) {
           await adminApi.updateRoleUser(params);
         }
@@ -83,7 +87,7 @@ function UserDetail(props) {
           duration: 2000,
         });
         history.push("/admin/users");
-      }
+      } 
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -98,43 +102,23 @@ function UserDetail(props) {
     }
     // eslint-disable-next-line
   }, []);
-  const handleUpdateUsername = (e) => {
-    const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-    const usernameInput = e.target.value;
-    if (!regUsername.test(usernameInput)) {
-      setAlertMessageUsername("Username is Invalid");
-      setAlertVisibleUsername(true);
-    }else if(!usernameInput){
-      setAlertMessageUsername("Username is required");
-      setAlertVisibleUsername(true);
-    } 
-    else {
-      setAlertVisibleUsername(false);
-    }
-    setUsername(usernameInput);
-  };
-  const handleUpdatePhone = (e) => {
-    const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
-    const phoneInput = e.target.value;
-    if (!regPhoneNumber.test(phoneInput)) {
-      setAlertMessagePhone("Phone Number is Invalid");
-      setAlertVisiblePhone(true);
-    } else {
-      setAlertVisiblePhone(false);
-    }
-    setPhone(phoneInput);
-  };
 
-  const handleUpdateFullName=(e) => {
-    const fullNameInput = e.target.value;
-    if (!fullNameInput) {
-      setAlertMessageFullName("Full Name is Required");
-      setAlertVisibleFullName(true);
+  useEffect(() => {
+    console.log(phone)
+    if (!regUsername.test(username)) {
+      setAlertMessage("Username is Invalid");
+      setAlertVisible(true);
+      setPopupAlertType("danger");
+    } else if (!regPhoneNumber.test(phone)) {
+      setAlertMessage("Phone Number is Invalid");
+      setAlertVisible(true);
+      setPopupAlertType("danger");
     } else {
-      setAlertVisibleFullName(false);
+      setAlertVisible(false);
     }
-    setFullname(fullNameInput);
-  }
+    // eslint-disable-next-line
+  }, [username, phone]);
+
 
   return (
     <div>
@@ -148,92 +132,71 @@ function UserDetail(props) {
               <CCardHeader>
                 <strong>Change User Info</strong>
               </CCardHeader>
-
               <CCardBody>
-               
+                <CForm
+                  className="row g-3 needs-validation"
+                  noValidate
+                  validated={validated}
+                  onSubmit={handleSubmit}
+                >
                   <CRow className="g-3 mb-3">
                     <CCol sm={6}>
                       <div className="mb-3">
-                        <CFormLabel htmlFor="exampleFormControlInput1">
-                          Email
-                        </CFormLabel>
                         <CFormInput
                           disabled
+                          label="Email"
                           type="email"
                           id="exampleFormControlInput1"
                           placeholder="name@example.com"
                           defaultValue={user?.email}
-                          required
                         />
                       </div>
                     </CCol>
                     <CCol sm={6}>
-                      <div className="mb-3" style={{height:'100px'}}>
-                        <CFormLabel htmlFor="exampleFormControlInput1">
-                          Username
-                        </CFormLabel>
+                      <div className="mb-3">
                         <CFormInput
                           type="text"
+                          label="Username"
                           id="exampleFormControlInput1"
                           placeholder=""
                           defaultValue={user?.username}
-                          onChange={(e) => handleUpdateUsername(e)}
+                          onChange={(e) => setUsername(e.target.value)}
+                          feedbackInvalid="Please enter username!"
+                          required
+                          tooltipFeedback
                         />
-                        <div  className="mt-3"
-                    style={{
-                      display: `${alertVisibleUsername ? "" : "none"}`,color:'red'
-                    }}
-                  >
-                    {alertMessageUsername}
-                  </div>
                       </div>
                     </CCol>
                     <CCol sm={6}>
-                      <div className=" "  style={{height:'100px'}}>
-                        <CFormLabel htmlFor="exampleFormControlInput1">
-                          Fullname
-                        </CFormLabel>
+                      <div className="mb-3">
                         <CFormInput
                           type="text"
+                          label="Fullname"
                           id="exampleFormControlInput1"
                           placeholder=""
                           defaultValue={user?.fullname}
-                          onChange={(e) => handleUpdateFullName(e)}
+                          onChange={(e) => setFullname(e.target.value)}
+                          feedbackInvalid="Please enter fullname!"
                           required
+                          tooltipFeedback
                         />
-                        <div
-                   className="mt-3"
-                    style={{
-                      display: `${alertVisibleFullName ? "" : "none"}`, color:'red'
-                    }}
-                  >
-                    {alertMessageFullName}
-                  </div>
                       </div>
                     </CCol>
                     <CCol sm={6}>
-                      <div className="" style={{height:'100px'}}>
-                        <CFormLabel htmlFor="exampleFormControlInput1">
-                          Phone Number
-                        </CFormLabel>
+                      <div className="mb-3">
                         <CFormInput
-                          type="number"
+                          label="Phone Number"
                           id="exampleFormControlInput1"
                           placeholder=""
                           defaultValue={user?.phoneNumber}
-                          onChange={(e) => handleUpdatePhone(e)}
+                          onChange={(e) => setPhone(e.target.value)}
+                          feedbackInvalid="Please enter phone number!"
+                          required
+                          tooltipFeedback
                         />
-                         <div className="mt-3"
-                    style={{
-                      display: `${alertVisiblePhone ? "" : "none"}`, color:'red'
-                    }}
-                  >
-                    {alertMessagePhone}
-                  </div>
                       </div>
-                     
                     </CCol>
-                    <CCol sm={3}>
+                    <CCol sm={6}>
                       <div className="mb-3">
                         <CFormLabel htmlFor="formFile">
                           Set Roles. Click Ctrl to select multiple
@@ -261,34 +224,40 @@ function UserDetail(props) {
                         </CFormSelect>
                       </div>
                     </CCol>
+                    <div className="mb-3">
+                      <CFormLabel htmlFor="exampleFormControlInput1">
+                        Note (<span style={{ color: "red" }}>*</span>)
+                      </CFormLabel>
+                      <CFormTextarea
+                        type="text"
+                        id="exampleFormControlInput1"
+                        rows="3"
+                        defaultValue={user?.note}
+                        placeholder=""
+                        onChange={(e) => setNote(e.target.value)}
+                      />
+                    </div>
                   </CRow>
-                  <div className="mb-3">
-                    <CFormLabel htmlFor="exampleFormControlInput1">
-                      Note (<span style={{ color: "red" }}>*</span>)
-                    </CFormLabel>
-                    <CFormTextarea
-                      type="text"
-                      id="exampleFormControlInput1"
-                      rows="3"
-                      defaultValue={user?.note}
-                      placeholder=""
-                      onChange={(e) => setNote(e.target.value)}
-                    />
+                  <div
+                    className={`alert alert-${alertType} alert-dismissible fade show`}
+                    role="alert"
+                    style={{display: alertVisible ? "" : "none"}}
+                  >
+                    {alertMessage}
                   </div>
-                  
                   <div className="mb-3">
-                    <CButton onClick={()=>handleUpdateRoleAndProfile()} disabled={alertVisibleFullName || alertVisiblePhone || alertVisibleUsername}>
+                    <CButton disabled={alertVisible} type="submit">
                       Save
                     </CButton>
                   </div>
-             
+                </CForm>
               </CCardBody>
             </CCard>
           </CCol>
         </div>
         <AppFooter />
       </div>
-    </div>
+    </div >
   );
 }
 

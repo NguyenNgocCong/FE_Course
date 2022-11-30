@@ -7,6 +7,7 @@ import bannerImg from "../../images/background/bg2.jpg";
 import { userApi } from "../../api/userApi";
 import { useScript } from "../../hooks/useScript";
 import toast, { Toaster } from "react-hot-toast";
+import logo from "../../images/logowhite.png";
 
 function Login(props) {
   const [email, setEmail] = useState();
@@ -56,22 +57,22 @@ function Login(props) {
         password: password,
       };
 
-      if(email && password){
+      if (email && password) {
         setAlertVisible(false);
         const response = await userApi.loginAccount(param);
-      Cookies.set("id", response?.id);
-      Cookies.set("username", response?.username);
-      Cookies.set("access_token", response?.accessToken);
-      Cookies.set("roles", response?.roles);
-      const responseAvatar = await userApi.getUserDetail();
-      Cookies.set("user", JSON.stringify(responseAvatar));
-      toast.success("Login Successfully", {
-        duration: 1500,
-      });
-      setTimeout(() => {
-        history.push("/");
-      }, 1500);
-      }else{
+        Cookies.set("id", response?.id);
+        Cookies.set("username", response?.username);
+        Cookies.set("access_token", response?.accessToken);
+        Cookies.set("roles", response?.roles);
+        const responseAvatar = await userApi.getUserDetail();
+        Cookies.set("user", JSON.stringify(responseAvatar));
+        toast.success("Login Successfully", {
+          duration: 1500,
+        });
+        setTimeout(() => {
+          history.push("/");
+        }, 1500);
+      } else {
         setAlertMessage("Email and Password is required");
         setAlertVisible(true);
         setPopupAlertType("danger");
@@ -98,8 +99,7 @@ function Login(props) {
           style={{ backgroundImage: "url(" + bannerImg + ")" }}
         >
           <Link className="text-decoration-none" to="/">
-            <div><h1 className="text-decoration-none font-weight-bold">LRS</h1>
-            <h4 className="text-decoration-none">Learning Register System</h4></div>
+            <img src={logo} alt="" />
           </Link>
         </div>
         <div className="account-form-inner">
