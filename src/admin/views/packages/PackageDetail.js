@@ -25,7 +25,7 @@ import { combieImg } from "../../../utils";
 
 function PackagesDetail(props) {
     const [packages, setPackage] = useState();
-    const [listSubject, setListSubject] = useState();
+    const [listSubject, setListSubject] = useState([]);
     const [status, setStatus] = useState(0);
     const [title, setTitle] = useState();
     const [excerpt, setExcerpt] = useState();

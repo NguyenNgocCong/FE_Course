@@ -77,7 +77,7 @@ function Registration() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/subjects/" + row?.id;
+              window.location.href = "/lrs/admin/registration/" + row?.id;
             }}
             color="primary"
             style={{
@@ -169,7 +169,7 @@ function Registration() {
           newStatus = 3;
         }
       }
-      console.log(newStatus+" " + row?.id)
+      console.log(toast)
       const response = await adminApi.updateOrder(newStatus, row?.id);
       toast.success(response?.message, {
         duration: 2000,
@@ -234,7 +234,7 @@ function Registration() {
                   }}
                 >
                   <option value={0}>All Category</option>
-                  {listCategory?.map((item, index) => {
+                  {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
                         {item?.setting_title}
@@ -245,40 +245,24 @@ function Registration() {
               </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
+                  style={{ margin: "0px 5px", maxWidth: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
+                  <option value={0}>All Status</option>
+                  <option value={1}>Submitted</option>
+                  <option value={2}>Verified</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
+                  style={{ margin: "0px 10px" }}
                   placeholder="Search..."
                   onChange={onSearch}
                 />
-              </Col>
-              <Col xs={12} lg={4}>
-                <button
-                  style={{
-                    backgroundColor: "#7367f0",
-                    border: "none",
-                    float: "right",
-                    height: "100%",
-                    width: "100px",
-                    color: "white",
-                    borderRadius: "10px",
-                    marginRight: "inherit",
-                  }}
-                  onClick={() => history.push("/admin/subjects/create")}
-                >
-                  <CIcon icon={cilLibraryAdd} />
-                </button>
               </Col>
             </Row>
           </div>

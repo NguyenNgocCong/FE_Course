@@ -219,15 +219,11 @@ export const BodyCartLoacl = () => {
   const { packages, combos } = data;
 
   const dispatch = useDispatch();
-  const totalPackage = [...packages].reduce((pre, x) => pre + x.salePrice, 0);
-  const totalCombo = [...combos].reduce(
-    (pre, x) => pre + x.comboPackages.reduce((pre, x) => pre + x.salePrice, 0),
-    0
-  );
+ 
   return (
     <>
       {[...packages].map((x) => (
-        <tr>
+        <tr key={x.id}>
           <td className="p-4">
             <div className="media align-items-center">
               <img

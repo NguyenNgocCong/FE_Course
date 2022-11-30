@@ -134,7 +134,7 @@ function ContactDetail(props) {
                                                 onChange={(e) => setCategoryId(e.target.value)}
                                             >
                                                 <option value="">Select category</option>
-                                                {listCategory?.map((item, index) => {
+                                                {listCategory.map((item, index) => {
                                                     return contact?.setting_id ===
                                                         item?.setting_id ? (
                                                         <option

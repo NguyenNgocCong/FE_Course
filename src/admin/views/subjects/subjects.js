@@ -235,7 +235,7 @@ function Subjects() {
                   }}
                 >
                   <option value={0}>All Category</option>
-                  {listCategory?.map((item, index) => {
+                  {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
                         {item?.setting_title}
@@ -246,7 +246,7 @@ function Subjects() {
               </Col>
               <Col xs={12} lg={2}>
                 <CFormSelect
-                  style={{ margin: "0px 0px", maxWidth: "180px" }}
+                  style={{ margin: "0px 5px", maxWidth: "180px" }}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}
@@ -261,6 +261,7 @@ function Subjects() {
                   type="text"
                   id="exampleInputPassword1"
                   placeholder="Search..."
+                  style={{ margin: "0px 10px" }}
                   onChange={onSearch}
                 />
               </Col>

@@ -270,7 +270,7 @@ const Posts = () => {
                                     }}
                                 >
                                     <option value="">All Category</option>
-                                    {listCategory?.map((item, index) => {
+                                    {listCategory.map((item, index) => {
                                         return (
                                             <option
                                                 key={index}
@@ -285,13 +285,13 @@ const Posts = () => {
                             <Col lg={2}>
                                 <CFormSelect
                                     aria-label="Default select example"
-                                    style={{ margin: "0px 0px", maxWidth: "180px" }}
+                                    style={{ margin: "0px 5px", maxWidth: "180px" }}
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}
                                 >
                                     <option value={0}>All Status</option>
-                                    {optionStatus?.map((item, index) => {
+                                    {optionStatus.map((item, index) => {
                                         return (
                                             <option
                                                 key={index}
@@ -307,6 +307,7 @@ const Posts = () => {
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
+                                    style={{ margin: "0px 10px" }}
                                     placeholder="Search..."
                                     onChange={onSearch}
                                 />

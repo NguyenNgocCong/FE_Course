@@ -163,7 +163,7 @@ function SliderDetail(props) {
                                                 onChange={(e) => setStatus(e.target.value)}
                                                 disabled={type !== 1}
                                             >
-                                                {optionStatus?.map((item, index) => {
+                                                {optionStatus.map((item, index) => {
                                                     if (type === 1) {
                                                         return slider?.status ===
                                                             item?.status ? (

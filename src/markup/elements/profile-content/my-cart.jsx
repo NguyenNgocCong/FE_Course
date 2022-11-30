@@ -48,7 +48,6 @@ function CartContent() {
 
   const totalPrice = 0;
 
-  console.log(res);
 
   return (
     <>
