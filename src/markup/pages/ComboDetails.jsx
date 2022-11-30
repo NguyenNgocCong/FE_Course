@@ -7,7 +7,6 @@ import DataTable from "react-data-table-component";
 import { comboApi } from "../../api/comboApi";
 import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
-import Reviews from "./Reviews";
 import Comments from "./Comments";
 import { useSelector } from "react-redux";
 import { userApi } from "../../api/userApi";
@@ -41,17 +40,17 @@ function CoursesDetails(props) {
     }
   };
 
-  const handleReview = (vote) => {
-    if (isLogin) {
-      userApi
-        .createComment({ vote, comboId: id })
-        .then((res) => {
-          toast.success(res.message);
-          userApi.getCommentCombo().then((x) => setComments(x));
-        })
-        .catch((e) => toast.error(e?.data?.message));
-    }
-  };
+  // const handleReview = (vote) => {
+  //   if (isLogin) {
+  //     userApi
+  //       .createComment({ vote, comboId: id })
+  //       .then((res) => {
+  //         toast.success(res.message);
+  //         userApi.getCommentCombo().then((x) => setComments(x));
+  //       })
+  //       .catch((e) => toast.error(e?.data?.message));
+  //   }
+  // };
 
   const columns = [
     {

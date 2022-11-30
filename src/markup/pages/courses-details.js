@@ -14,7 +14,6 @@ import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import testiPic1 from "../../images/testimonials/pic1.jpg";
 import { combieImg } from "../../utils/index";
 import Comments from "./Comments";
-import Reviews from "./Reviews";
 import { userApi } from "../../api/userApi";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";

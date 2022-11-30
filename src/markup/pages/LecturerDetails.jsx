@@ -15,7 +15,6 @@ import ReactHtmlParser from "react-html-parser";
 import { combieImg } from "../../utils/index";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Reviews from "./Reviews";
 import Comments from "./Comments";
 
 function LecturerDetails(prop) {
