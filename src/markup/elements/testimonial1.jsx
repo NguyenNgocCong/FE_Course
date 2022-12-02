@@ -60,8 +60,6 @@ const Testimonial1 = () => {
     }
   };
 
-  console.log(commets.data);
-
   return (
     <>
       <div className="section-area section-sp2">
