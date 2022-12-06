@@ -9,7 +9,7 @@ const Comments = ({ hanleComment, comments }) => {
   return (
     <div className="clear border p-4 my-4" id="comment-list">
       <div className="comments-area " id="comments">
-        <h4 className="comments-title">8 Comments</h4>
+        <h4 className="comments-title">{comments.length} Comments</h4>
         <div className="clearfix m-b20">
           <ol className="comment-list">
             {comments?.map((x, i) => (
@@ -18,19 +18,18 @@ const Comments = ({ hanleComment, comments }) => {
                   <div className="comment-author vcard">
                     <img
                       className="avatar photo"
-                      src={() => combieImg(x.user.avatar)}
+                      src={combieImg(x.user.avatar)}
                       onError={({ currentTarget }) => {
-                        console.log("errpr");
                         currentTarget.src = testiPic1;
                       }}
                       alt=""
                     />
                     <cite className="fn">{x.user?.fullname}</cite>
-                    <span className="says">says:</span>
+                    <span className="comment-meta">
+                      <Link to="#">December 02, 2019 at 10:45 am</Link>
+                    </span>
                   </div>
-                  <div className="comment-meta">
-                    <Link to="#">December 02, 2019 at 10:45 am</Link>
-                  </div>
+
                   <p>{x.body}</p>
                 </div>
               </li>

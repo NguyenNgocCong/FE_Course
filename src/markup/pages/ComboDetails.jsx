@@ -8,16 +8,16 @@ import { comboApi } from "../../api/comboApi";
 import bannerImg from "../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import Comments from "./Comments";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userApi } from "../../api/userApi";
 import { toast } from "react-toastify";
+import { addComboLocal } from "../../redux/reducers/order";
 
 function CoursesDetails(props) {
   const params = useParams();
   const { isLogin } = useSelector((state) => state.auth);
   const [commets, setComments] = useState({ data: [] });
   const [res, setRes] = useState(comboDetailsEx);
-
   const { id } = params;
 
   useEffect(() => {
@@ -40,17 +40,24 @@ function CoursesDetails(props) {
     }
   };
 
-  // const handleReview = (vote) => {
-  //   if (isLogin) {
-  //     userApi
-  //       .createComment({ vote, comboId: id })
-  //       .then((res) => {
-  //         toast.success(res.message);
-  //         userApi.getCommentCombo().then((x) => setComments(x));
-  //       })
-  //       .catch((e) => toast.error(e?.data?.message));
-  //   }
-  // };
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (data) => {
+    if (!isLogin) {
+      dispatch(addComboLocal(data));
+      toast.success("Add To Cart Success !", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else {
+      userApi.addToCard({ comboId: data.id }).then((res) => {
+        toast.success("Add To Cart Success !", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+        dispatch(addComboLocal(data));
+      });
+    }
+  };
+
 
   const columns = [
     {
@@ -90,7 +97,7 @@ function CoursesDetails(props) {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              <li>{}</li>
+              <li>{ }</li>
             </ul>
           </div>
         </div>
@@ -111,22 +118,25 @@ function CoursesDetails(props) {
                           <del>
                             ${" "}
                             {res.comboPackages.reduce(
-                              (total, x) => total + x._package.listPrice,
+                              (total, x) => total + x._package.salePrice,
                               0
                             )}
                           </del>
                           <h4 className="price">
                             $
                             {res.comboPackages.reduce(
-                              (total, x) => total + x._package.salePrice,
+                              (total, x) => total + x.salePrice,
                               0
                             )}
                           </h4>
                         </div>
                         <div className="course-buy-now text-center">
-                          <Link to="#" className="btn radius-xl btn-primary">
-                            Buy Now
-                          </Link>
+                          <div
+                                className="btn btn-warning"
+                                onClick={() => handleAddToCart(res)}
+                              >
+                                <i className="fa fa-cart-plus"></i> Add to cart
+                              </div>
                         </div>
                         <DataTable columns={columns} data={res.comboPackages} />
                       </div>
@@ -140,14 +150,13 @@ function CoursesDetails(props) {
                           <Markup content={res.description} />
                         </div>
                       </div>
+                      <Comments
+                        hanleComment={handleComment}
+                        comments={commets.data}
+                      />
                     </div>
                   </div>
                 </div>
-                {/* <Reviews onReview={handleReview} comments={commets.data} /> */}
-                <Comments
-                  hanleComment={handleComment}
-                  comments={commets.data}
-                />
               </div>
             </div>
           </div>

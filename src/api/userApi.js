@@ -151,6 +151,10 @@ export const userApi = {
     const url = `/api/feedback/list-package`;
     return axiosApi.get(url, { params });
   },
+  getCommentBlog: (params) => {
+    const url = `/api/feedback/list-blog`;
+    return axiosApi.get(url, { params });
+  },
   getCommentExpert: (params) => {
     const url = `/api/feedback/list-expert`;
     return axiosApi.get(url, { params });

@@ -5,9 +5,8 @@ import Slider from "react-slick";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
 
-const RecentNewsSlider = () => {
+const RecentTopsSlider = () => {
   const [listPost, setListPost] = useState([]);
-  const [recentBlog, setRecentBlog] = useState([]);
 
   const getListPost = async () => {
     try {
@@ -17,32 +16,9 @@ const RecentNewsSlider = () => {
       console.log(responseError);
     }
   };
-  const getListRecentPost = async () => {
-    try {
-      const response = await userApi.getListRecentPost(8);
-      setRecentBlog(response);
-    } catch (responseError) {
-      console.log(responseError);
-    }
-  };
   useEffect(() => {
-    getListRecentPost();
     getListPost();
   }, []);
-
-  // const handleAddToCart = (data) => {
-  //   if (!isLogin) {
-  //     dispatch(addPackageLocal(data));
-  //   } else {
-  //     userApi.addToCard({ packageId: data.id }).then((res) => {
-  //       console.log(res);
-  //       toast.success("Add To Cart Success !", {
-  //         position: toast.POSITION.BOTTOM_RIGHT,
-  //       });
-  //       dispatch(addPackageLocal(data));
-  //     });
-  //   }
-  // };
 
   const settings = {
     infinite: true,
@@ -83,7 +59,7 @@ const RecentNewsSlider = () => {
         <div className="container">
           <div className="heading-bx left">
             <h2 className="title-head">
-              Read A Top <span>Blog</span>
+              TOP <span>Blogs</span>
             </h2>
             <p>
               A place containing huge treasures of knowledge to help you reach
@@ -140,10 +116,10 @@ const RecentNewsSlider = () => {
             ))}
           </Slider>
         </div>
-        <div className="container">
+        {/* <div className="container">
           <div className="heading-bx left">
             <h2 className="title-head">
-              Read A News <span>Blog</span>
+              A News <span>Blog</span>
             </h2>
           </div>
           <Slider
@@ -195,10 +171,10 @@ const RecentNewsSlider = () => {
               </div>
             ))}
           </Slider>
-        </div>
+        </div> */}
       </div>
     </>
   );
 };
 
-export default RecentNewsSlider;
+export default RecentTopsSlider;

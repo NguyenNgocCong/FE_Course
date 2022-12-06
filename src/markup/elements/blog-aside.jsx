@@ -77,13 +77,13 @@ function BlogAside() {
           </div>
         </div>
         <div className="widget widget_archive">
-          <h5 className="widget-title">List of Blogs</h5>
+          <h5 className="widget-title">Category of blogs</h5>
           <ul>
             <li className="active">
               <h6 role={"button"}
                 onClick={() => {
                   history.push("/blog", { category: 0 });
-                }} to="#">General</h6>
+                }} to="#">All Blogs</h6>
             </li>
             {listCategory.map((category) => {
               return (

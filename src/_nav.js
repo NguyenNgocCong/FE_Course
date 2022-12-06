@@ -9,7 +9,7 @@ const _nav = [
         badge: {
             color: "info",
             text: "NEW",
-        },
+        }
     },
     {
         component: CNavItem,

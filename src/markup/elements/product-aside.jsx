@@ -64,7 +64,7 @@ function ProductAside() {
           </div>
         </div>
         <div className="widget widget_archive">
-          <h5 className="widget-title style-1">All Courses</h5>
+          <h5 className="widget-title style-1">Category of courses</h5>
           <ul>
             <li className="active">
               <h6 role={"button"}
@@ -72,7 +72,7 @@ function ProductAside() {
                   history.push("/products", {
                     category: 0,
                   });
-                }} >General</h6>
+                }} >All courses</h6>
             </li>
             {listCategory.map((category) => {
               return (

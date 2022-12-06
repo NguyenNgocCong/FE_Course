@@ -8,10 +8,10 @@ import { combieImg } from "../../utils";
 function FeatureContent3(props) {
   const [listPost, setListPost] = useState([]);
 
-  const getListPost = async () => {
+
+  const getListRecentPost = async () => {
     try {
-      const response = await userApi.getListTopViewPost(4);
-      console.log(response);
+      const response = await userApi.getListRecentPost(4);
       setListPost(response);
     } catch (responseError) {
       console.log(responseError);
@@ -19,40 +19,28 @@ function FeatureContent3(props) {
   };
 
   useEffect(() => {
-    getListPost();
+    getListRecentPost();
   }, []);
   return (
     <>
-      <div className="section-area section-sp1">
+      <div className="section-area bg-fix ovbl-dark join-bx section-sp1">
         <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-4 m-b50">
-              <div className="heading-bx left mb-3">
-                <h2 className="title-head m-b0">
-                  Read A Top <span>Blog knowledge</span>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="heading-bx left text-white" style={{ marginBottom: "5px" }}>
+                <h2 className="title-head">
+                  NEWS <span><Count counter={968} />+ Blogs</span>
                 </h2>
-                <p className="m-b0">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page
-                </p>
               </div>
-              <p className="m-b15">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a
-                galley.
-              </p>
-              <h4 className="m-b30">
-                <Count counter={800} />+ Blog knowledge
-              </h4>
             </div>
-            <div className="col-lg-8">
+            <div className="col-lg-12">
               <div className="row">
                 {listPost.map((item) => (
-                  <div className="col-lg-6" title={item?.brefInfo}>
-                    <div className="row" key={item?.id}>
-                      <div className="col-lg-3">
+                  <div key={item.id} className="col-lg-3" style={{ padding: "10px" }} title={item?.brefInfo}>
+                    <div className="row" key={item?.id} style={{ boxShadow: "0px 5px 20px rgb(0 0 0 / 10%)", marginLeft: "10px", backgroundColor: "#FFFFFF", borderRadius: "5px" }}>
+                      <div className="col-lg-4" style={{ marginTop: "10px", textAlign: "center" }}>
                         <img
+                          style={{ height: "80px", width: "100%", borderRadius: "3px" }}
                           src={combieImg(item?.thumnailUrl)}
                           alt=""
                           onError={({ currentTarget }) => {
@@ -60,8 +48,17 @@ function FeatureContent3(props) {
                               "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
                           }}
                         />
+                        <div
+                          onClick={() => {
+                            window.location.href = "/lrs/blog/" + item?.id;
+                          }}
+                          className="btn btn-warning"
+                          style={{ marginTop: "5px" }}
+                        >
+                          Read
+                        </div>
                       </div>
-                      <div className="col-lg-9 blog-home">
+                      <div className="col-lg-8 blog-home" style={{ padding: "10px" }}>
                         <h5
                           onClick={() => {
                             window.location.href = "/lrs/blog/" + item?.id;
@@ -71,20 +68,19 @@ function FeatureContent3(props) {
                         </h5>
                         <ul className="media-post">
                           <li>
+                            <i className="fa fa-user"></i> By{" "}
+                            {item?.author.fullname}
+                          </li>
+                          <li>
                             <i className="fa fa-calendar"></i>
                             {" " +
                               new Date(item?.createDate).toLocaleDateString()}
-                          </li>
-                          <li>
-                            <i className="fa fa-user"></i> By{" "}
-                            {item?.author.fullname}
                           </li>
                           <li>
                             <i className="fa fa-eye"></i> {item?.views}
                           </li>
                         </ul>
                       </div>
-                      <hr />
                     </div>
                   </div>
                 ))}

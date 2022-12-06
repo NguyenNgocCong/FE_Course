@@ -76,8 +76,8 @@ function Cart(prop) {
                   </tr>
                 </thead>
                 <tbody>
-                  {[...packages].map((x) => (
-                    <tr>
+                  {[...packages].map((x, index) => (
+                    <tr key={index}>
                       <td className="p-4">
                         <div className="media align-items-center">
                           <img
@@ -116,8 +116,8 @@ function Cart(prop) {
                       </td>
                     </tr>
                   ))}
-                  {[...combos].map((x) => (
-                    <tr>
+                  {[...combos].map((x, index) => (
+                    <tr key={index}>
                       <td className="p-4">
                         <div className="media align-items-center">
                           <img
@@ -222,79 +222,98 @@ export const BodyCartLocal = () => {
 
   return (
     <>
-      {[...packages].map((x) => (
-        <tr key={x.id}>
-          <td>
-            <div className="media align-items-center">
-              <img
-                style={{ maxHeight: "50px" }}
-                src={combieImg(x.image)}
-                className="d-block ui-w-40 ui-bordered mr-4"
-                alt=""
-                width={100}
-                onError={({ currentTarget }) => {
-                  currentTarget.src =
-                    "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
-                }}
-              />
-              <div className="media-body">
-                {x.title}
+      {[...packages].map((x, index) => (
+        <div key={x.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
+          <div className="row bg-orange2" style={{ margin: "0px", height: "40px" }}> <div className="col-md-12 col-lg-8 col-sm-12"></div>
+            <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2" style={{ margin: "auto" }} >
+              ${x.salePrice}
+            </div>
+            <div className="col-md-12 col-lg-2 col-sm-12 text-center align-middle" style={{ margin: "auto" }} >
+              <span
+                style={{ cursor: "pointer" }}
+                className="badge badge-danger"
+                onClick={() => dispatch(removeCartPackage(x.id))}
+              >
+                Remove
+              </span>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12 col-lg-6 col-sm-12">
+              <div className="media align-items-center font-weight-semibold align-middle p-2">
+                <img
+                  style={{ height: "50px", borderRadius: "5px", objectFit: "cover" }}
+                  src={combieImg(x.image)}
+                  className="d-block ui-w-40 ui-bordered mr-4"
+                  alt=""
+                  width={100}
+                  onError={({ currentTarget }) => {
+                    currentTarget.src =
+                      "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                  }}
+                />
+                <div className="media-body">
+                  {x.title}
+                </div>
               </div>
             </div>
-          </td>
-          <td className="text-right font-weight-semibold align-middle p-4">
-            ${x.salePrice}
-          </td>
-          <td className="text-center align-middle px-0">
-            <button
-              className="shop-tooltip close float-none text-danger"
-              title=""
-              data-original-title="Remove"
-              onClick={() => dispatch(removeCartCombo(x.id))}
-            >
-              ×
-            </button>
-          </td>
-        </tr>
+            <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
+              ${x.salePrice}
+            </div>
+          </div>
+        </div>
       ))}
-      {[...combos].map((x) => (
-        <tr key={x.id}>
-          <td>
-            <div className="media align-items-center">
-              <img
-                style={{ maxHeight: "50px" }}
-                src={combieImg(x.image)}
-                className="d-block ui-w-40 ui-bordered mr-4"
-                alt=""
-                width={100}
-                onError={({ currentTarget }) => {
-                  currentTarget.src =
-                    "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
-                }}
-              />
-              <div className="media-body">
-                {x.title}
-              </div>
+      {[...combos].map((x, index) => (
+        <div key={x.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
+          <div className="row bg-orange2" style={{ margin: "0px", height: "40px" }}>
+            <div style={{ margin: "auto" }} className="col-md-12 col-lg-8 col-sm-12 ">
+              {x?.title}</div>
+            <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold" style={{ margin: "auto" }} >
+              $
+              {x.comboPackages.reduce(
+                (pre, x) => pre + x.salePrice,
+                0
+              )}
             </div>
-          </td>
-          <td className="text-right font-weight-semibold align-middle p-4">
-            $
-            {x.comboPackages.reduce(
-              (pre, x) => pre + x.salePrice,
-              0
-            )}
-          </td>
-          <td className="text-center align-middle px-0">
-            <button
-              className="shop-tooltip close float-none text-danger"
-              title=""
-              data-original-title="Remove"
-              onClick={() => dispatch(removeCartCombo(x.id))}
-            >
-              ×
-            </button>
-          </td>
-        </tr>
+            <div className="col-md-12 col-lg-2 col-sm-12 text-center" style={{ margin: "auto" }} >
+              <span
+                style={{ margin: "0 auto", cursor: "pointer" }}
+                className="badge badge-danger"
+                onClick={() => dispatch(removeCartCombo(x.id))}
+              >
+                Remove
+              </span>
+            </div>
+          </div>
+          {x.comboPackages.map((item, i) => {
+            return (
+              <div className="row" key={item.id}>
+                <div className="col-md-12 col-lg-6 col-sm-12 ">
+                  <div className="media align-items-center font-weight-semibold align-middle p-2">
+                    <img
+                      style={{ height: "50px", borderRadius: "5px", objectFit: "cover" }}
+                      src={combieImg(item?._package?.image)}
+                      className="d-block ui-w-40 ui-bordered mr-4"
+                      alt=""
+                      width={100}
+                      onError={({ currentTarget }) => {
+                        currentTarget.src =
+                          "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                      }}
+                    />
+                    <div className="media-body ">
+                      {item?._package?.title}
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
+                  ${item._package.salePrice}
+                </div>
+              </div>
+            )
+          }
+          )}
+        </div>
       ))}
     </>
   );

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
-// Images
-import bg1 from "../../images/background/bg1.jpg";
+import Count from "./counter/counter-sensor";
 
 class JoinBx extends Component {
   render() {
@@ -10,14 +8,18 @@ class JoinBx extends Component {
       <>
         <div
           className="section-area bg-fix ovbl-dark join-bx"
-          style={{ backgroundImage: "url(" + bg1 + ")" }}
         >
           <div className="container">
             <div className="row join-content-bx text-white">
-              <div className="col-md-8">
-                <h2>See all our courses</h2>
+              <div className="col-md-9">
+                <h3>Popular online courses</h3>
               </div>
-              <div className="col-md-4 text-right">
+              <div className="col-md-2">
+                <h4>
+                  <Count counter={198} />+ Courses
+                </h4>
+              </div>
+              <div className="col-md-1 text-right">
                 <Link to="/products" className="btn btn-warning button-md">
                   See Now
                 </Link>

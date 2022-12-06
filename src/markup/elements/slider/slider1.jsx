@@ -30,12 +30,11 @@ function Slider1() {
   }, []);
 
   return (
-    <Slider {...settings} className="tt-slider slider-one slider-sp0">
+    <Slider {...settings} className="tt-slider slider-one slider-sp0 element-home">
       {listSlider.map((slider) => (
         <div
           key={slider?.id}
           className="slider-item"
-          style={{ position: "absolute" }}
         >
           <div width="100%">
             {/* eslint-disable-next-line */}
@@ -43,7 +42,7 @@ function Slider1() {
               loop="1"
               behavior="scroll"
               scrolldelay="1"
-              direction="down"
+              direction="left"
               className="titledown"
             >
               {slider?.imageUrl}

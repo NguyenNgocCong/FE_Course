@@ -137,7 +137,6 @@
 /*without top bar*/
 .secondary-menu {
     float: right;
-    padding: 26px 0;
     position: relative;
     z-index: 9;
 }
@@ -374,6 +373,7 @@
 .topbar-right ul li {
     padding-left: 10px;
     margin-left: 10px;
+    margin-top: 10px;
 }
 
 .topbar-left ul li i {
@@ -385,7 +385,7 @@
 .topbar-right ul li:after {
     position: absolute;
     width: 1px;
-    height: 20px;
+    height: 40px;
     background-color: #000;
     right: 0;
     content: "";
@@ -566,7 +566,9 @@
 
 .menu-bar {
     width: 100%;
+    background-color: #f7b205 !important;
     position: relative;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 4px 12px rgb(0 0 0 / 5%);
 }
 
 .navbar-toggler {
@@ -595,6 +597,18 @@
     float: right;
 }
 
+.element-home{
+    border-radius: 5px;
+    height: 452px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 4px 12px rgb(0 0 0 / 10%);
+}
+
+.element-home-left {
+    border-radius: 5px;
+    height: 452px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 4px 12px rgb(0 0 0 / 10%);
+}
+
 .menu-links .nav i {
     font-size: 9px;
     margin-left: 3px;
@@ -612,7 +626,7 @@
     border-radius: 0px;
     color: #000;
     font-size: 16px;
-    padding: 30px 12px;
+    padding: 18px 12px;
     cursor: pointer;
     font-weight: 500;
     display: inline-block;
@@ -620,7 +634,7 @@
 
 .menu-links .nav>li>a:hover {
     background-color: transparent !important;
-    color: #efbb20 !important;
+    color: #ffffff !important;
 }
 
 .menu-links .nav>li>a:active,
@@ -633,7 +647,7 @@
 .menu-links .nav>li.current-menu-item>a {
     text-decoration: none;
     background-color: transparent;
-    color: #4c1864;
+    color: #370e4a;
 }
 
 .menu-links .nav>li:hover>a {
@@ -956,14 +970,20 @@
     margin: 0;
 }
 
-.secondary-inner ul li {
+.secondary-inner {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: inline-block;
-    position: relative;
-    margin-left: 10px;
 }
 
+
 .secondary-inner ul li a {
-    color: #000;
+    color: #370e4a;
+}
+
+.secondary-inner ul li a:hover {
+    color: #FFFFFF;
 }
 
 .search-btn {
@@ -2998,6 +3018,10 @@ footer .pt-social-link ul li {
     border-left: 5px solid var(--primary);
 }
 
+.heading-bx-news-blog {
+    border-top: 5px solid var(--primary) !important;
+}
+
 .heading-bx.text-center p,
 .heading-bx.left p {
     max-width: 500px;
@@ -3006,6 +3030,10 @@ footer .pt-social-link ul li {
 
 .title-head span {
     font-weight: 400;
+}
+
+.title-head {
+    font-weight: 800;
 }
 
 .heading-bx.style1 .title-head {
@@ -3030,8 +3058,8 @@ footer .pt-social-link ul li {
 
 /* section space */
 .section-sp1 {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 10px;
 }
 
 .section-sp2 {
@@ -3207,7 +3235,8 @@ footer .pt-social-link ul li {
     font-style: italic;
     font-size: 18px;
     margin: 0;
-    line-height: 30px;
+    line-height: 10px;
+    height: 50px;
 }
 
 .testimonial-bx .testimonial-head {
@@ -3408,30 +3437,28 @@ footer .pt-social-link ul li {
     margin: 0;
 }
 
-.join-bx {
-    padding: 60px 0;
-}
-
 .join-content-bx {
-    margin: auto;
+    height: 80px;
 }
 
-.join-content-bx h2 {
-    font-size: 48px;
-    line-height: 55px;
-    margin: 0;
+.join-content-bx h3 {
+    font-size: 36px;
+    font-weight: 600;
 }
+
 
 .join-content-bx h4 {
-    font-weight: 400;
-    font-size: 30px;
-    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 24px;
 }
 
 .join-content-bx p {
     font-size: 18px;
     opacity: 0.8;
-    margin-bottom: 30px;
+}
+
+.join-content-bx div {
+    margin: auto;
 }
 
 .choose-bx .choose-bx-in {
@@ -3774,7 +3801,7 @@ footer .pt-social-link ul li {
     margin-bottom: 30px;
     padding: 0;
     list-style: none;
-    position: sticky;
+    /* position: sticky; */
     top: 80px;
 }
 
@@ -5003,7 +5030,7 @@ footer .pt-social-link ul li {
 .tt-slider .slider-thumb {
     width: 100%;
     margin: auto;
-    height: 450px;
+    max-height: 445px;
 }
 
 .tt-slider .slider-content {

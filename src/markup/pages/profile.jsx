@@ -15,9 +15,9 @@ import bannerImg from "../../images/banner/banner1.jpg";
 import avatarProfile from "../../images/icon/avatar.svg";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
-import MyOrderProfile from "../elements/profile-content/MyOrderProfile";
-import MyClass from "../elements/profile-content/MyClass";
-import MyCourses from "../elements/profile-content/MyCoures";
+import MyOrderProfile from "../elements/profile-content/my-order-profile";
+import MyClass from "../elements/profile-content/my-class";
+import MyCourses from "../elements/profile-content/my-courses";
 import { useSelector } from "react-redux";
 
 function Profile(props) {
@@ -65,11 +65,11 @@ function Profile(props) {
 
         <div className="content-block">
           <div className="section-area section-sp1">
-            <div className="container">
+            <div >
               <Tab.Container defaultActiveKey="tabOne">
                 <Tab.Content>
                   <div className="row">
-                    <div className="col-lg-4 col-md-5 col-sm-12 m-b30">
+                    <div className="col-lg-3 col-md-3 col-sm-12 m-b30">
                       <div className="profile-bx text-center">
                         {isLogin ? (
                           <>
@@ -123,7 +123,7 @@ function Profile(props) {
                             <Nav.Item>
                               <Nav.Link eventKey="tabOne">
                                 <i className="ti-book"></i>
-                                Cart
+                                Shopping Cart
                               </Nav.Link>
                             </Nav.Item>
                             {isLogin && (
@@ -131,19 +131,19 @@ function Profile(props) {
                                 <Nav.Item>
                                   <Nav.Link eventKey="tabTwo">
                                     <i className="ti-book"></i>
-                                    Order
+                                    My Orders
                                   </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
                                   <Nav.Link eventKey="tabThree">
                                     <i className="ti-book"></i>
-                                    Class
+                                    My Offline Classes
                                   </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
                                   <Nav.Link eventKey="tabFour">
                                     <i className="ti-book"></i>
-                                    Courses
+                                    My Online Courses
                                   </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
@@ -164,7 +164,7 @@ function Profile(props) {
                         </div>
                       </div>
                     </div>
-                    <div className="col-lg-8 col-md-7 col-sm-12 m-b30">
+                    <div className="col-lg-9 col-md-9 col-sm-12 m-b30">
                       <div className="profile-content-bx">
                         <div className="tab-content">
                           <Tab.Pane eventKey="tabOne">

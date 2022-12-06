@@ -10,15 +10,17 @@ import BlogAside from "../elements/blog-aside";
 
 // Images
 import bannerImg from "../../images/banner/banner2.jpg";
-import testiPic1 from "../../images/testimonials/pic1.jpg";
-import testiPic2 from "../../images/testimonials/pic2.jpg";
-import testiPic3 from "../../images/testimonials/pic3.jpg";
 import { userApi } from "./../../api/userApi";
 import ReactHtmlParser from "react-html-parser";
+import Comments from "./Comments";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 function BlogDetails(prop) {
   const [post, setPost] = useState(blogDetailsEx);
   const { id } = useParams();
+  const [commets, setComments] = useState({ data: [] });
+  const { isLogin } = useSelector((state) => state.auth);
 
   const getPostById = async () => {
     console.log(id);
@@ -30,8 +32,21 @@ function BlogDetails(prop) {
   useEffect(() => {
     // console.log(id);
     getPostById();
+    userApi.getCommentBlog().then((x) => setComments(x));
     // eslint-disable-next-line
   }, []);
+
+  const handleComment = (data) => {
+    if (isLogin) {
+      userApi
+        .createComment({ ...data, blogId: id })
+        .then((res) => {
+          toast.success(res.message);
+          userApi.getCommentPackage().then((x) => setComments(x));
+        })
+        .catch((e) => toast.error(e?.data?.message));
+    }
+  };
 
   return (
     <>
@@ -89,7 +104,7 @@ function BlogDetails(prop) {
                       <div className="ttr-divider bg-gray">
                         <i className="icon-dot c-square"></i>
                       </div>
-                      <div className="widget_tag_cloud">
+                      {/* <div className="widget_tag_cloud">
                         <h6>TAGS</h6>
                         <div className="tagcloud">
                           <Link to="#">Design</Link>
@@ -111,281 +126,16 @@ function BlogDetails(prop) {
                           <Link to="#">Development</Link>
                           <Link to="#">Joomla</Link>
                         </div>
-                      </div>
-                      <div className="ttr-divider bg-gray">
-                        <i className="icon-dot c-square"></i>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div className="clear" id="comment-list">
                     <div className="comments-area" id="comments">
-                      <h4 className="comments-title">8 Comments</h4>
-                      <div className="clearfix m-b20">
-                        <ol className="comment-list">
-                          <li className="comment">
-                            <div className="comment-body">
-                              <div className="comment-author vcard">
-                                <img
-                                  className="avatar photo"
-                                  src={testiPic1}
-                                  alt=""
-                                />
-                                <cite className="fn">John Doe</cite>
-                                <span className="says">says:</span>
-                              </div>
-                              <div className="comment-meta">
-                                <Link to="#">
-                                  December 02, 2019 at 10:45 am
-                                </Link>
-                              </div>
-                              <div>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nam vitae neqnsectetur
-                                adipiscing elit. Nam viae neqnsectetur
-                                adipiscing elit. Nam vitae neque vitae sapien
-                                malesuada aliquet.{" "}
-                              </div>
-                              <div className="reply">
-                                <Link to="#" className="comment-reply-link">
-                                  Reply
-                                </Link>
-                              </div>
-                            </div>
-                            <ol className="children">
-                              <li className="comment odd parent">
-                                <div className="comment-body">
-                                  <div className="comment-author vcard">
-                                    <img
-                                      className="avatar photo"
-                                      src={testiPic2}
-                                      alt=""
-                                    />
-                                    <cite className="fn">John Doe</cite>
-                                    <span className="says">says:</span>
-                                  </div>
-                                  <div className="comment-meta">
-                                    <Link to="#">
-                                      December 02, 2019 at 10:45 am
-                                    </Link>
-                                  </div>
-                                  <div>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Nam vitae neque vitae
-                                    sapien malesuada aliquet. In viverra dictum
-                                    justo in vehicula. Fusce et massa eu ante
-                                    ornare molestie. Sed vestibulum sem felis,
-                                    ac elementum ligula blandit ac.
-                                  </div>
-                                  <div className="reply">
-                                    <Link to="#" className="comment-reply-link">
-                                      Reply
-                                    </Link>
-                                  </div>
-                                </div>
-                                <ol className="children">
-                                  <li className="comment odd parent">
-                                    <div className="comment-body">
-                                      <div className="comment-author vcard">
-                                        <img
-                                          className="avatar photo"
-                                          src={testiPic3}
-                                          alt=""
-                                        />
-                                        <cite className="fn">John Doe</cite>
-                                        <span className="says">says:</span>
-                                      </div>
-                                      <div className="comment-meta">
-                                        <Link to="#">
-                                          December 02, 2019 at 10:45 am
-                                        </Link>
-                                      </div>
-                                      <div>
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit. Nam vitae neque vitae
-                                        sapien malesuada aliquet. In viverra
-                                        dictum justo in vehicula. Fusce et massa
-                                        eu ante ornare molestie. Sed vestibulum
-                                        sem felis, ac elementum ligula blandit
-                                        ac.
-                                      </div>
-                                      <div className="reply">
-                                        <Link
-                                          to="#"
-                                          className="comment-reply-link"
-                                        >
-                                          Reply
-                                        </Link>
-                                      </div>
-                                    </div>
-                                  </li>
-                                </ol>
-                              </li>
-                            </ol>
-                          </li>
-                          <li className="comment">
-                            <div className="comment-body">
-                              <div className="comment-author vcard">
-                                <img
-                                  className="avatar photo"
-                                  src={testiPic1}
-                                  alt=""
-                                />
-                                <cite className="fn">John Doe</cite>
-                                <span className="says">says:</span>
-                              </div>
-                              <div className="comment-meta">
-                                <Link to="#">
-                                  December 02, 2019 at 10:45 am
-                                </Link>
-                              </div>
-                              <div>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nam vitae neque vitae sapien
-                                malesuada aliquet. In viverra dictum justo in
-                                vehicula. Fusce et massa eu ante ornare
-                                molestie. Sed vestibulum sem felis, ac elementum
-                                ligula blandit ac.
-                              </div>
-                              <div className="reply">
-                                <Link to="#" className="comment-reply-link">
-                                  Reply
-                                </Link>
-                              </div>
-                            </div>
-                          </li>
-                          <li className="comment">
-                            <div className="comment-body">
-                              <div className="comment-author vcard">
-                                <img
-                                  className="avatar photo"
-                                  src={testiPic2}
-                                  alt=""
-                                />
-                                <cite className="fn">John Doe</cite>
-                                <span className="says">says:</span>
-                              </div>
-                              <div className="comment-meta">
-                                <Link to="#">
-                                  December 02, 2019 at 10:45 am
-                                </Link>
-                              </div>
-                              <div>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nam vitae neque vitae sapien
-                                malesuada aliquet. In viverra dictum justo in
-                                vehicula. Fusce et massa eu ante ornare
-                                molestie. Sed vestibulum sem felis, ac elementum
-                                ligula blandit ac.
-                              </div>
-                              <div className="reply">
-                                <Link to="#" className="comment-reply-link">
-                                  Reply
-                                </Link>
-                              </div>
-                            </div>
-                          </li>
-                          <li className="comment">
-                            <div className="comment-body">
-                              <div className="comment-author vcard">
-                                <img
-                                  className="avatar photo"
-                                  src={testiPic3}
-                                  alt=""
-                                />
-                                <cite className="fn">John Doe</cite>
-                                <span className="says">says:</span>
-                              </div>
-                              <div className="comment-meta">
-                                <Link to="#">
-                                  December 02, 2019 at 10:45 am
-                                </Link>
-                              </div>
-                              <div>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nam vitae neque vitae sapien
-                                malesuada aliquet. In viverra dictum justo in
-                                vehicula. Fusce et massa eu ante ornare
-                                molestie. Sed vestibulum sem felis ac elementum
-                                ligula blandit ac.
-                              </div>
-                              <div className="reply">
-                                <Link to="#" className="comment-reply-link">
-                                  Reply
-                                </Link>
-                              </div>
-                            </div>
-                          </li>
-                        </ol>
-                        <div className="comment-respond" id="respond">
-                          <h4 className="comment-reply-title" id="reply-title">
-                            Leave a Reply{" "}
-                            <small>
-                              {" "}
-                              <Link
-                                style={{ display: "none" }}
-                                to="#"
-                                id="cancel-comment-reply-link"
-                                rel="nofollow"
-                              >
-                                Cancel reply
-                              </Link>{" "}
-                            </small>{" "}
-                          </h4>
-                          <form className="comment-form">
-                            <div className="comment-form-author">
-                              <label htmlFor="author">
-                                Name <span className="required">*</span>
-                              </label>
-                              <input
-                                type="text"
-                                value=""
-                                name="Author"
-                                placeholder="Author"
-                                id="author"
-                              />
-                            </div>
-                            <div className="comment-form-email">
-                              <label htmlFor="email">
-                                Email <span className="required">*</span>
-                              </label>
-                              <input
-                                type="text"
-                                value=""
-                                placeholder="Email"
-                                name="email"
-                                id="email"
-                              />
-                            </div>
-                            <div className="comment-form-url">
-                              <label htmlFor="url">Website</label>
-                              <input
-                                type="text"
-                                value=""
-                                placeholder="Website"
-                                name="url"
-                                id="url"
-                              />
-                            </div>
-                            <div className="comment-form-comment">
-                              <label htmlFor="comment">Comment</label>
-                              <textarea
-                                rows="8"
-                                name="comment"
-                                placeholder="Comment"
-                                id="comment"
-                              ></textarea>
-                            </div>
-                            <div className="form-submit">
-                              <input
-                                type="submit"
-                                value="Submit Comment"
-                                className="submit"
-                                name="submit"
-                              />
-                            </div>
-                          </form>
-                        </div>
-                      </div>
+                      <Comments
+                        hanleComment={handleComment}
+                        comments={commets.data}
+                      >
+                      </Comments>
                     </div>
                   </div>
                 </div>

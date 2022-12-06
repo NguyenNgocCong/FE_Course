@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Images
-import logo from "../../../images/logo-white.png";
+import logo from "../../../images/logowhite.png";
 import {
   CAlert,
   CButton,

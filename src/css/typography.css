@@ -383,7 +383,7 @@ dl dd { margin-bottom: 10px; }
 	Text Color
 ====================*/
 .bg-tp { background-color: transparent; }
-.bg-primary { background-color: ; }
+.bg-primary { background-color: #743eff; }
 .bg-white { background-color: #FFF; }
 .bg-black { background-color: #000; }
 .bg-gray { background-color: #F7F9FB; }
@@ -392,7 +392,8 @@ dl dd { margin-bottom: 10px; }
 .bg-yellow { background-color: #ffb822; }
 .bg-pink { background-color: #ff3c85; }
 .bg-blue { background-color: #00c5dc; }
-.bg-orange { background-color: #ef9800; }
+.bg-orange { background-color: #f7b205; }
+.bg-orange2 { background-color: #fff4da; }
 /*=================  
 	Background White Transperent
 ====================*/

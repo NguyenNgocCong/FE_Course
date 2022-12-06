@@ -10,25 +10,25 @@ import Header from "../layout/header/header1";
 // Images
 import { adminApi } from "../../api/adminApi";
 import bannerImg from "../../images/banner/banner2.jpg";
-import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 import testiPic1 from "../../images/testimonials/pic1.jpg";
 import { combieImg } from "../../utils/index";
 import Comments from "./Comments";
 import { userApi } from "../../api/userApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { addPackageLocal } from "../../redux/reducers/order";
 
 function CoursesDetails(props) {
   const { isLogin } = useSelector((state) => state.auth);
   const [product, setProduct] = useState({});
   const location = useLocation();
+  const dispatch = useDispatch();
   const id = location.pathname.substring(
     "/courses-details/".length,
     location.pathname.length
   );
   const [commets, setComments] = useState({ data: [] });
 
-  const type = id !== "create" ? 1 : 0;
   const getProductById = async () => {
     try {
       const response = await adminApi.getProductById(id);
@@ -40,15 +40,13 @@ function CoursesDetails(props) {
     }
   };
   useEffect(() => {
-    if (type === 1) {
-      getProductById();
-    }
+    getProductById();
     userApi.getCommentPackage().then((x) => setComments(x));
     // eslint-disable-next-line
   }, []);
 
   const handleComment = (data) => {
-    if (isLogin && type === 1) {
+    if (isLogin) {
       userApi
         .createComment({ ...data, packageId: id })
         .then((res) => {
@@ -56,6 +54,23 @@ function CoursesDetails(props) {
           userApi.getCommentPackage().then((x) => setComments(x));
         })
         .catch((e) => toast.error(e?.data?.message));
+    }
+  };
+
+  const handleAddToCart = (data) => {
+    if (!isLogin) {
+      dispatch(addPackageLocal(data));
+      toast.success("Add To Cart Success !", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else {
+      userApi.addToCard({ packageId: data.id }).then((res) => {
+        console.log(res);
+        toast.success("Add To Cart Success !", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+        dispatch(addPackageLocal(data));
+      });
     }
   };
 
@@ -88,16 +103,67 @@ function CoursesDetails(props) {
           <div className="section-area" style={{ marginTop: "20px" }}>
             <div className="container">
               <div className="row d-flex flex-row-reverse">
-                <div className="col-xl-3 col-lg-4 col-md-12 col-sm-12 m-b30">
-                  <div className="course-detail-bx">
+                <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 m-b30">
+                  <div className="ttr-post-media media-effect">
+
+                  </div>
+                  {/* <ul className="course-features">
+                    <li>
+                      <i className="ti-book"></i>{" "}
+                      <span className="label">manager</span>{" "}
+                      <span className="value">
+                        {product?.sucjectCode?.manager?.username}
+                      </span>
+                    </li>
+                    <li>
+                      <i className="ti-help-alt"></i>{" "}
+                      <span className="label">Manager Phone</span>{" "}
+                      <span className="value">
+                        {product?.sucjectCode?.manager?.phoneNumber}
+                      </span>
+                    </li>
+                    <li>
+                      <i className="ti-time"></i>{" "}
+                      <span className="label">Duration</span>{" "}
+                      <span className="value">{product?.duration}</span>
+                    </li>
+                    <li>
+                      <i className="ti-stats-up"></i>{" "}
+                      <span className="label">expert</span>{" "}
+                      <span className="value">
+                        {product?.sucjectCode?.expert?.user?.fullname}
+                      </span>
+                    </li>
+                    <li>
+                      <i className="ti-smallcap"></i>{" "}
+                      <span className="label">Phone</span>{" "}
+                      <span className="value">
+                        {product?.sucjectCode?.expert?.user?.phoneNumber}
+                      </span>
+                    </li>
+                  </ul> */}
+                  <div className="course-detail-bx" style={{ borderRadius: "5px" }}>
+                    <img
+                      style={{ borderRadius: "5px" }}
+                      src={combieImg(
+                        product?.image
+                      )}
+                      alt=""
+                      onError={({ currentTarget }) => {
+                        currentTarget.src = testiPic1;
+                      }}
+                    />
                     <div className="course-price">
                       <del>${product?.listPrice}</del>
                       <h6 className="price">${product?.salePrice}</h6>
                     </div>
                     <div className="course-buy-now text-center">
-                      <Link to="#" className="btn btn-primary radius-xl">
-                        Buy Now
-                      </Link>
+                      <div
+                        className="btn btn-warning"
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        <i className="fa fa-cart-plus"></i> Add to cart
+                      </div>
                     </div>
                     <div className="teacher-bx">
                       <div className="teacher-info">
@@ -120,8 +186,7 @@ function CoursesDetails(props) {
                         </div>
                       </div>
                     </div>
-
-                    <div className="course-info-list scroll-page">
+                    <div className="course-info-list">
                       <ul className="navbar">
                         <li>
                           <ScrollTo
@@ -134,12 +199,22 @@ function CoursesDetails(props) {
                             <i className="ti-zip"></i> Overview
                           </ScrollTo>
                         </li>
+                        <li>
+                          <ScrollTo
+                            smooth={true}
+                            activeClass="active"
+                            spy={true}
+                            className="nav-link"
+                            to={"comment"}
+                          >
+                            <i className="ti-zip"></i> Comment
+                          </ScrollTo>
+                        </li>
                       </ul>
                     </div>
                   </div>
                 </div>
-
-                <div className="col-xl-9 col-lg-8 col-md-12 col-sm-12">
+                <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12">
                   <div className="courses-post">
                     <div className="ttr-post-info m-b30">
                       <div className="ttr-post-title ">
@@ -152,61 +227,17 @@ function CoursesDetails(props) {
                   </div>
                   <div className="courese-overview" id="overview">
                     <h4>Overview</h4>
-                    <div className="row">
-                      <div className="col-md-12 col-lg-4">
-                        <div className="ttr-post-media media-effect">
-                          <Link to="#">
-                            <img src={blogDefaultThum1} alt="" />
-                          </Link>
-                        </div>
-                        <ul className="course-features">
-                          <li>
-                            <i className="ti-book"></i>{" "}
-                            <span className="label">manager</span>{" "}
-                            <span className="value">
-                              {product?.sucjectCode?.manager?.username}
-                            </span>
-                          </li>
-                          <li>
-                            <i className="ti-help-alt"></i>{" "}
-                            <span className="label">Manager Phone</span>{" "}
-                            <span className="value">
-                              {product?.sucjectCode?.manager?.phoneNumber}
-                            </span>
-                          </li>
-                          <li>
-                            <i className="ti-time"></i>{" "}
-                            <span className="label">Duration</span>{" "}
-                            <span className="value">{product?.duration}</span>
-                          </li>
-                          <li>
-                            <i className="ti-stats-up"></i>{" "}
-                            <span className="label">expert</span>{" "}
-                            <span className="value">
-                              {product?.sucjectCode?.expert?.user?.fullname}
-                            </span>
-                          </li>
-                          <li>
-                            <i className="ti-smallcap"></i>{" "}
-                            <span className="label">Phone</span>{" "}
-                            <span className="value">
-                              {product?.sucjectCode?.expert?.user?.phoneNumber}
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="col-md-12 col-lg-8">
-                        <div className="p-3">
-                          <Markup content={product?.description} />
-                        </div>
-                      </div>
+                    <div className="p-3">
+                      <Markup content={product?.description} />
                     </div>
                   </div>
-
-                  <Comments
-                    hanleComment={handleComment}
-                    comments={commets.data}
-                  />
+                  <div id="comment">
+                    <Comments
+                      hanleComment={handleComment}
+                      comments={commets.data}
+                    >
+                    </Comments>
+                  </div>
                 </div>
               </div>
             </div>
