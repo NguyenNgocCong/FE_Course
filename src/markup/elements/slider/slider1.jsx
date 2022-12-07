@@ -45,11 +45,11 @@ function Slider1() {
               direction="left"
               className="titledown"
             >
-              {slider?.imageUrl}
+              {slider?.title}
             </marquee>
           </div>
           <div className="slider-thumb">
-            <img src={combieImg(slider?.imageUrl)} alt="" />
+            <img src={combieImg(slider?.imageUrl)} alt={slider?.title} />
           </div>
         </div>
       ))}
