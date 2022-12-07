@@ -371,9 +371,7 @@ function PackagesDetail(props) {
                                                     type="file"
                                                     accept=".jpg, .png, .jpeg"
                                                     onChange={(e) => handleThumbnail(e)}
-                                                    feedbackInvalid="Please choose Img!"
-                                                    required
-                                                    tooltipFeedback
+                                                    
                                                 />
                                             </div>
                                         </CCol>
