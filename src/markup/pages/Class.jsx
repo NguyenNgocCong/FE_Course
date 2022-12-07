@@ -9,37 +9,14 @@ import PagingQuestion from "../elements/PagingQuestion/PagingQuestion";
 import { classApi } from "../../api/classApi";
 import { combieImg } from "../../utils/index";
 import ProductAside from "../elements/product-aside";
-import { Button, Form, Modal, ToastContainer } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { userApi } from "../../api/userApi";
-import { toast } from "react-toastify";
+import {ToastContainer } from "react-bootstrap";
 import { TYPE_CHECKOUT_CLASS } from "../../constrains";
 function Class() {
-  const [showModal, setShowModal] = useState(false);
-  const [code, setCode] = useState("");
-  const { isLogin } = useSelector((state) => state.auth);
   const [res, setRes] = useState(classEx);
-  const [classId, setClassId] = useState(0);
-
   const history = useHistory();
 
   const [page, setPage] = useState(1);
 
-  console.log(code);
-
-  const handleCheckOut = () => {
-    if (isLogin)
-      userApi
-        .orderClass({
-          codeCoupon: code,
-          classId: classId,
-        })
-        .then((res) => {
-          toast.success(res.message);
-          setShowModal(false);
-        })
-        .catch((e) => toast.error(e?.data?.message));
-  };
 
   useEffect(() => {
     // eslint-disable-next-line
@@ -50,19 +27,11 @@ function Class() {
 
   const { data, totalItems, totalPages, currentPage } = res;
 
-  console.log(classId);
 
   return (
     <>
       <Header />
       <ToastContainer />
-      <ModalClass
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        handleCheckOut={handleCheckOut}
-        setCode={setCode}
-      />
-
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
@@ -104,7 +73,7 @@ function Class() {
                             <img
                               src={
                                 item?.packages?.image != null &&
-                                item?.packages?.image
+                                  item?.packages?.image
                                   ? combieImg(item?.packages?.image)
                                   : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
                               }
@@ -152,14 +121,10 @@ function Class() {
                               <div
                                 className="btn btn-warning"
                                 onClick={() => {
-                                  if (isLogin) {
-                                    setShowModal(true);
-                                    setClassId(item.id);
-                                  } else
-                                    history.push("/checkout", {
-                                      type: TYPE_CHECKOUT_CLASS,
-                                      classId: item.id,
-                                    });
+                                  history.push("/checkout", {
+                                    type: TYPE_CHECKOUT_CLASS,
+                                    class: item,
+                                  });
                                 }}
                               >
                                 <i className="fa fa-phone"></i> Advise
@@ -209,30 +174,6 @@ function Class() {
   );
 }
 
-const ModalClass = ({ show, handleClose, handleCheckOut, setCode }) => {
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Order class</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form.Label htmlFor="inputPassword5">coupon-Code</Form.Label>
-        <Form.Control
-          aria-describedby="passwordHelpBlock"
-          onChange={(e) => setCode(e.target.value)}
-        />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleCheckOut}>
-          Save Changes
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-};
 
 const classEx = {
   totalItems: 2,

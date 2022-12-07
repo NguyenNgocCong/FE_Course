@@ -35,11 +35,23 @@ const Sliders = () => {
             selector: (row) => (
                 <img
                     src={(row?.imageUrl != null && row?.imageUrl) ? combieImg(row?.imageUrl) : ""}
-                    width={120}
+                    style={{height:"70px", width:"100%"}}
                     alt='thumbnail'
                 />
             ),
             sortable: false,
+        },
+        {
+            name: "Title",
+            maxWidth: '260px',
+            selector: (row) => row?.title,
+            sortable: true,
+        },
+        {
+            name: "URL",
+            maxWidth: '260px',
+            selector: (row) => row?.url,
+            sortable: true,
         },
         {
             name: "Valid To",

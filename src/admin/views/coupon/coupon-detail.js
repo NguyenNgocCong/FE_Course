@@ -20,13 +20,9 @@ import { AppFooter, AppHeader, AppSidebar } from "../../components";
 function CouponDetail(props) {
 
     const [detailCoupon, setDetailCoupon] = useState();
-    const [packageId, setPackageId] = useState();
     const [validFrom, setValidFrom] = useState();
     const [validTo, setValidTo] = useState();
     const [code, setCode] = useState();
-    const [listPackages, setListPackages] = useState([]);
-    const [minRevenue, setMinRevenue] = useState();
-    const [minQuantity, setMinQuantity] = useState();
     const [maxQuantity, setMaxQuantity] = useState();
     const [discountRate, setDiscountRate] = useState();
     const [status, setStatus] = useState();
@@ -49,8 +45,6 @@ function CouponDetail(props) {
             setValidTo(response?.validTo);
             setStatus(response.status);
             setCode(response?.code);
-            setMinRevenue(response?.minRevenue);
-            setMinQuantity(response?.minQuantity);
             setMaxQuantity(response?.maxQuantity);
             setDiscountRate(response?.discountRate);
             console.log(response)
@@ -61,18 +55,6 @@ function CouponDetail(props) {
         }
     };
 
-    const getListPackage = async () => {
-        try {
-            const response = await adminApi.getAllProduct(0, 50, "", 0, "");
-            setListPackages(response.data);
-        } catch (responseError) {
-            toast.error(responseError?.data.message, {
-                duration: 2000,
-            });
-        }
-    };
-
-
     const handleSubmit = async (event) => {
         try {
             const form = event.currentTarget
@@ -81,14 +63,11 @@ function CouponDetail(props) {
             event.stopPropagation()
             if (form.checkValidity()) {
                 const params = {
-                    minRevenue: minRevenue,
-                    minQuantity: minQuantity,
-                    maxQuantity: maxQuantity,
+                    quantity: maxQuantity,
                     discountRate: discountRate,
                     status: status,
                     validFrom: validFrom,
                     validTo: validTo,
-                    packageId: packageId,
                 };
                 console.log(params);
 
@@ -112,8 +91,6 @@ function CouponDetail(props) {
         if (type === 1) {
             getCouponById();
         }
-        if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER")
-            getListPackage();
         // eslint-disable-next-line
     }, []);
 
@@ -149,34 +126,6 @@ function CouponDetail(props) {
                                     onSubmit={handleSubmit}
                                 >
                                     <CRow className="g-3 mb-3">
-                                        <CCol sm={6}>
-                                            <div className="mb-3">
-                                                <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Package (
-                                                    <span style={{ color: "red" }}>*</span>)
-                                                </CFormLabel>
-                                                <CFormSelect
-                                                    id="autoSizingSelect"
-                                                    value={packageId ? packageId : ""}
-                                                    onChange={(e) => setPackageId(e.target.value)}
-                                                    feedbackInvalid="Please choose Package!"
-                                                    required
-                                                    tooltipFeedback
-                                                >
-                                                    <option value="">Select package</option>
-                                                    {listPackages.map((item, index) => {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.id}
-                                                            >
-                                                                {item?.title}
-                                                            </option>
-                                                        );
-                                                    })}
-                                                </CFormSelect>
-                                            </div>
-                                        </CCol>
                                         <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
@@ -287,46 +236,6 @@ function CouponDetail(props) {
                                             </div>
                                         </CCol>
                                         <CCol sm={6}>
-                                            <div className="mb-3">
-                                                <CFormLabel htmlFor="formFile">
-                                                    Min Revenue(
-                                                    <span style={{ color: "red" }}>*</span>)
-                                                </CFormLabel>
-                                                <CFormInput
-                                                    type="number"
-                                                    id="exampleFormControlInput1"
-                                                    placeholder="Min Revenue"
-                                                    defaultValue={minRevenue}
-                                                    onChange={(e) =>
-                                                        setMinRevenue(e.target.value)
-                                                    }
-                                                    feedbackInvalid="Please enter Min Revenue!"
-                                                    required
-                                                    tooltipFeedback
-                                                />
-                                            </div>
-                                        </CCol>
-                                        <CCol sm={3}>
-                                            <div className="mb-3">
-                                                <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Min Quantity (
-                                                    <span style={{ color: "red" }}>*</span>)
-                                                </CFormLabel>
-                                                <CFormInput
-                                                    type="number"
-                                                    id="exampleFormControlInput1"
-                                                    placeholder="Min Quantity"
-                                                    defaultValue={minQuantity}
-                                                    onChange={(e) =>
-                                                        setMinQuantity(e.target.value)
-                                                    }
-                                                    feedbackInvalid="Please enter Min Quantity!"
-                                                    required
-                                                    tooltipFeedback
-                                                />
-                                            </div>
-                                        </CCol>
-                                        <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
                                                     Max Quantity(

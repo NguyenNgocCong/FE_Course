@@ -1,5 +1,4 @@
 import React, { Component, useEffect, useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
@@ -9,7 +8,6 @@ import { TYPE_CHECKOUT_PACKAGE } from "../../../constrains/index";
 import {
   removeCartCombo,
   removeCartPackage,
-  resetState,
 } from "../../../redux/reducers/order";
 import { useHistory } from "react-router-dom";
 
@@ -21,7 +19,6 @@ function CartContent() {
   const { data } = useSelector((state) => state.order);
 
   const [res, setRes] = useState([]);
-  const [showCheckout, setShowCheckOut] = useState(false);
   const { packages, combos } = data;
 
   const totalPackage = [...packages].reduce((pre, x) => pre + x.salePrice, 0);
@@ -47,17 +44,11 @@ function CartContent() {
   };
 
   const handleCheckOut = () => {
-    if (isLogin) setShowCheckOut(true);
-    else history.push("/checkout", { type: TYPE_CHECKOUT_PACKAGE });
+     history.push("/checkout", { type: TYPE_CHECKOUT_PACKAGE });
   };
 
   return (
     <>
-      <ModalCheckOut
-        show={showCheckout}
-        handleClose={() => setShowCheckOut(false)}
-        setRes={setRes}
-      />
       {/* <div className="profile-head">
 
         <h5>My Cart</h5>
@@ -227,44 +218,6 @@ function CartContent() {
     </>
   );
 }
-
-const ModalCheckOut = ({ show, handleClose, setRes }) => {
-  const dispatch = useDispatch();
-  const [code, setCode] = useState("");
-  const handleCheckOut = () => {
-    userApi
-      .payCarts({ couponCode: code })
-      .then((res) => {
-        toast.success("checkout success");
-        setRes((pre) => []);
-        dispatch(resetState());
-        handleClose();
-      })
-      .catch((e) => toast.error(e?.data?.message));
-  };
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form.Label htmlFor="inputPassword5">coupon-Code</Form.Label>
-        <Form.Control
-          aria-describedby="passwordHelpBlock"
-          onChange={(e) => setCode(e.target.value)}
-        />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleCheckOut}>
-          Save Changes
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-};
 
 class Cart extends Component {
   render() {

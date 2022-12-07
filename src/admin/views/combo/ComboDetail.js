@@ -10,6 +10,7 @@ import {
   CFormInput,
   CFormLabel,
   CFormSelect,
+  CImage,
   CRow,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
@@ -21,6 +22,8 @@ import Styles from "./style.module.scss";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { combieImg } from "../../../utils";
+const img = "https://i.fbcd.co/products/resized/resized-750-500/563d0201e4359c2e890569e254ea14790eb370b71d08b6de5052511cc0352313.jpg";
 
 function ComboDetail(props) {
   const [combo, setCombo] = useState();
@@ -28,11 +31,13 @@ function ComboDetail(props) {
   const [description, setDescription] = useState();
   const location = useLocation();
   const history = useHistory();
+  const [preview, setPreview] = useState();
   const [listPackages, setListPackages] = useState([]);
   const [listPackagesSale, setListPackagesSale] = useState([]);
   const [salePrice, setSalePrice] = useState(0);
   const [packages, setPackages] = useState({});
   const [validated, setValidated] = useState(false);
+  const [image, setImage] = useState();
 
   const columns = [
     {
@@ -94,6 +99,14 @@ function ComboDetail(props) {
       ),
     },
   ];
+
+  const handleThumbnail = (e) => {
+    const fileDropped = e.target.files[0];
+    setImage(fileDropped)
+    const previewUrl = URL.createObjectURL(fileDropped);
+    setPreview(previewUrl);
+  }
+
 
   const id = location.pathname.substring(
     "/admin/combos/".length,
@@ -163,8 +176,8 @@ function ComboDetail(props) {
           console.log(params);
           const response =
             type === 1
-              ? await adminApi.updateCombo(id, params)
-              : await adminApi.createCombo(params);
+              ? await adminApi.updateCombo(id, image, params)
+              : await adminApi.createCombo(image, params);
           toast.success(response?.message, {
             duration: 2000,
           });
@@ -245,34 +258,64 @@ function ComboDetail(props) {
                 onSubmit={handleSubmit}
               >
                 <CRow className="g-3 mb-3">
-                  <CCol sm={12}>
-                    <div className="mb-3">
-                      <CFormLabel>
-                        Title (<span style={{ color: "red" }}>*</span>)
-                      </CFormLabel>
-                      <CFormInput
-                        type="text"
-                        id="exampleFormControlInput1"
-                        defaultValue={type === 1 ? combo?.title : ""}
-                        onChange={(e) => setTitle(e.target.value)}
-                        feedbackInvalid="Please enter Title!"
-                        required
-                        tooltipFeedback
-                      />
-                    </div>
+                  <CCol sm={6}>
+                    <CRow className="g-3 mb-3">
+                      <CCol sm={12}>
+                        <div className="mb-3">
+                          <CFormLabel>
+                            Title (<span style={{ color: "red" }}>*</span>)
+                          </CFormLabel>
+                          <CFormInput
+                            type="text"
+                            id="exampleFormControlInput1"
+                            defaultValue={type === 1 ? combo?.title : ""}
+                            onChange={(e) => setTitle(e.target.value)}
+                            feedbackInvalid="Please enter Title!"
+                            required
+                            tooltipFeedback
+                          />
+                        </div>
+                      </CCol>
+                      <CCol sm={12}>
+                        <div className="mb-3">
+                          <CFormLabel>
+                            Description (<span style={{ color: "red" }}>*</span>)
+                          </CFormLabel>
+                          <CKEditor
+                            editor={ClassicEditor}
+                            data={combo?.description}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setDescription(data);
+                            }}
+                          />
+                        </div>
+                      </CCol>
+                    </CRow>
                   </CCol>
-                  <CCol sm={12}>
+                  <CCol sm={6}>
                     <div className="mb-3">
-                      <CFormLabel>
-                        Description (<span style={{ color: "red" }}>*</span>)
+                      <CFormLabel htmlFor="exampleFormControlInput1">
+                        Image (
+                        <span style={{ color: "red" }}>*</span>)
                       </CFormLabel>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        data={combo?.description}
-                        onChange={(event, editor) => {
-                          const data = editor.getData();
-                          setDescription(data);
-                        }}
+                      <br />
+                      <CImage
+                        rounded
+                        thumbnail
+                        src={!preview ? (combo?.image != null && combo?.image) ? combieImg(combo?.image) : img : preview}
+                        width={1200}
+                        style={{ maxHeight: '305px', display: 'block', margin: 'auto' }}
+                        onLoad={() => URL.revokeObjectURL(preview)}
+                      />
+                      <CFormInput
+                        feedbackInvalid="Please choose Img!"
+                        tooltipFeedback
+                        className="form-control"
+                        type="file"
+                        accept=".jpg, .png, .jpeg"
+                        onChange={(e) => handleThumbnail(e)}
+
                       />
                     </div>
                   </CCol>
