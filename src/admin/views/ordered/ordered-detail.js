@@ -209,7 +209,7 @@ function SubjectDetail(props) {
                                                 onChange={(e) => setCategoryId(e.target.value)}
                                             >
                                                 <option value="">Select category</option>
-                                                {listCategory.map((item, index) => {
+                                                {listCategory?.map((item, index) => {
                                                     if (type === 1) {
                                                         return subject?.categoryId ===
                                                             item?.setting_id ? (
@@ -254,7 +254,7 @@ function SubjectDetail(props) {
                                                     setStatus(e.target.value)
                                                 }
                                             >
-                                                {optionStatus.map((item, index) => {
+                                                {optionStatus?.map((item, index) => {
                                                     if (type === 1) {
                                                         return subject?.status ===
                                                             item?.status ? (
@@ -300,7 +300,7 @@ function SubjectDetail(props) {
                                                 }
                                             >
                                                 <option>Select manager</option>
-                                                {listManager.map((item, index) => {
+                                                {listManager?.map((item, index) => {
                                                     if (type === 1) {
                                                         return subject?.manager
                                                             ?.username ===
@@ -352,7 +352,7 @@ function SubjectDetail(props) {
                                                 }
                                             >
                                                 <option>Select expert</option>
-                                                {listExpert.map((item, index) => {
+                                                {listExpert?.map((item, index) => {
                                                     if (type === 1) {
                                                         return subject?.expert
                                                             ?.id ===
