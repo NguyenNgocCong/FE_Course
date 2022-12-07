@@ -25,6 +25,8 @@ import {
 function SliderDetail(props) {
     const [slider, setSlider] = useState();
     const [validTo, setValidTo] = useState();
+    const [title, setTitle] = useState();
+    const [url, setURL] = useState();
     const [status, setStatus] = useState(0);
     const [preview, setPreview] = useState();
     const [image, setImage] = useState();
@@ -61,6 +63,8 @@ function SliderDetail(props) {
                 const params = {
                     validTo: validTo,
                     status: status,
+                    title: title,
+                    url: url
                 };
                 const response =
                     type === 1
@@ -117,104 +121,151 @@ function SliderDetail(props) {
                                     validated={validated}
                                     onSubmit={handleSubmit}
                                 >
-                                    <div className="mb-3">
-                                        <CFormLabel htmlFor="exampleFormControlInput1">
-                                            Image (
-                                            <span style={{ color: "red" }}>*</span>)
-                                        </CFormLabel>
-                                        <br />
-                                        <CImage
-                                            rounded
-                                            thumbnail
-                                            src={!preview ? (slider?.imageUrl != null && slider?.imageUrl) ? combieImg(slider?.imageUrl) : img : preview}
-                                            width={1200}
-                                            style={{ maxHeight: '450px', display: 'block', margin: 'auto' }}
-                                            onLoad={() => URL.revokeObjectURL(preview)}
-                                        />
-                                        <CFormInput
-                                            feedbackInvalid="Please choose Img!"
-                                            required
-                                            tooltipFeedback
-                                            className="form-control"
-                                            type="file"
-                                            accept=".jpg, .png, .jpeg"
-                                            onChange={(e) => handleThumbnail(e)}
-
-                                        />
-                                    </div>
                                     <CRow className="g-3 mb-3">
-                                        <CCol sm={4}>
+                                        <CCol sm={6}>
+                                            <CRow className="g-3 mb-3">
+                                                <CCol sm={11}>
+                                                    <div className="mb-3">
+                                                        <CFormLabel>
+                                                            Title (
+                                                            <span style={{ color: "red" }}>*</span>)
+                                                        </CFormLabel>
+                                                        <CFormInput
+                                                            type="text"
+                                                            id="exampleFormControlInput1"
+                                                            defaultValue={
+                                                                type === 1 ? slider?.url : ""
+                                                            }
+                                                            onChange={(e) =>
+                                                                setTitle(e.target.value)
+                                                            }
+                                                            feedbackInvalid="Please enter Value!"
+                                                            required
+                                                            tooltipFeedback
+                                                        />
+                                                    </div>
+                                                </CCol>
+                                                <CCol sm={11}>
+                                                    <div className="mb-3">
+                                                        <CFormLabel>
+                                                            URL (
+                                                            <span style={{ color: "red" }}>*</span>)
+                                                        </CFormLabel>
+                                                        <CFormInput
+                                                            type="text"
+                                                            id="exampleFormControlInput1"
+                                                            defaultValue={
+                                                                type === 1 ? slider?.title : ""
+                                                            }
+                                                            onChange={(e) =>
+                                                                setURL(e.target.value)
+                                                            }
+                                                            feedbackInvalid="Please enter Value!"
+                                                            required
+                                                            tooltipFeedback
+                                                        />
+                                                    </div>
+                                                </CCol>
+                                                <CCol sm={11}>
+                                                    <div className="mb-3">
+                                                        <CFormLabel htmlFor="exampleFormControlInput1">
+                                                            Valid To (
+                                                            <span style={{ color: "red" }}>*</span>)
+                                                        </CFormLabel>
+                                                        {/* <DatePicker selected={validTo} onChange={(date) => setValidTo(new Date(date))} /> */}
+                                                        <CFormInput
+                                                            type="date"
+                                                            id="exampleFormControlInput1"
+                                                            placeholder=""
+                                                            value={
+                                                                validTo
+                                                                    ? new Date(
+                                                                        validTo
+                                                                    ).toLocaleDateString("en-CA")
+                                                                    : new Date(
+                                                                        ""
+                                                                    ).toLocaleDateString("en-CA")
+                                                            }
+                                                            onChange={(e) =>
+                                                                setValidTo(
+                                                                    new Date(e.target.value)
+                                                                )
+                                                            }
+                                                            feedbackInvalid="Please choose Valid To!"
+                                                            required
+                                                            tooltipFeedback
+                                                        />
+                                                    </div>
+                                                </CCol>
+                                                <CCol sm={11} >
+                                                    <div className="mb-3">
+                                                        <CFormLabel htmlFor="exampleFormControlInput1">
+                                                            Status
+                                                        </CFormLabel>
+                                                        <CFormSelect
+                                                            id="autoSizingSelect"
+                                                            onChange={(e) => setStatus(e.target.value)}
+                                                            disabled={type !== 1}
+                                                        >
+                                                            {optionStatus.map((item, index) => {
+                                                                if (type === 1) {
+                                                                    return slider?.status ===
+                                                                        item?.status ? (
+                                                                        <option
+                                                                            key={index}
+                                                                            value={item?.status}
+                                                                            selected
+                                                                        >
+                                                                            {item?.label}
+                                                                        </option>
+                                                                    ) : (
+                                                                        <option
+                                                                            key={index}
+                                                                            value={item?.status}
+                                                                        >
+                                                                            {item?.label}
+                                                                        </option>
+                                                                    );
+                                                                } else {
+                                                                    return (
+                                                                        <option
+                                                                            key={index}
+                                                                            value={item?.status}
+                                                                        >
+                                                                            {item?.label}
+                                                                        </option>
+                                                                    );
+                                                                }
+                                                            })}
+                                                        </CFormSelect>
+                                                    </div>
+                                                </CCol>
+                                            </CRow>
+                                        </CCol>
+                                        <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Valid To (
+                                                    Image (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
-                                                {/* <DatePicker selected={validTo} onChange={(date) => setValidTo(new Date(date))} /> */}
-                                                <CFormInput
-                                                    type="date"
-                                                    id="exampleFormControlInput1"
-                                                    placeholder=""
-                                                    value={
-                                                        validTo
-                                                            ? new Date(
-                                                                validTo
-                                                            ).toLocaleDateString("en-CA")
-                                                            : new Date(
-                                                                ""
-                                                            ).toLocaleDateString("en-CA")
-                                                    }
-                                                    onChange={(e) =>
-                                                        setValidTo(
-                                                            new Date(e.target.value)
-                                                        )
-                                                    }
-                                                    feedbackInvalid="Please choose Valid To!"
-                                                    required
-                                                    tooltipFeedback
+                                                <br />
+                                                <CImage
+                                                    rounded
+                                                    thumbnail
+                                                    src={!preview ? (slider?.imageUrl != null && slider?.imageUrl) ? combieImg(slider?.imageUrl) : img : preview}
+                                                    width={1200}
+                                                    style={{ maxHeight: '305px', display: 'block', margin: 'auto' }}
+                                                    onLoad={() => URL.revokeObjectURL(preview)}
                                                 />
-                                            </div>
-                                        </CCol>
-                                        <CCol sm={4} className="offset-sm-4">
-                                            <div className="mb-3">
-                                                <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Status
-                                                </CFormLabel>
-                                                <CFormSelect
-                                                    id="autoSizingSelect"
-                                                    onChange={(e) => setStatus(e.target.value)}
-                                                    disabled={type !== 1}
-                                                >
-                                                    {optionStatus.map((item, index) => {
-                                                        if (type === 1) {
-                                                            return slider?.status ===
-                                                                item?.status ? (
-                                                                <option
-                                                                    key={index}
-                                                                    value={item?.status}
-                                                                    selected
-                                                                >
-                                                                    {item?.label}
-                                                                </option>
-                                                            ) : (
-                                                                <option
-                                                                    key={index}
-                                                                    value={item?.status}
-                                                                >
-                                                                    {item?.label}
-                                                                </option>
-                                                            );
-                                                        } else {
-                                                            return (
-                                                                <option
-                                                                    key={index}
-                                                                    value={item?.status}
-                                                                >
-                                                                    {item?.label}
-                                                                </option>
-                                                            );
-                                                        }
-                                                    })}
-                                                </CFormSelect>
+                                                <CFormInput
+                                                    feedbackInvalid="Please choose Img!"
+                                                    tooltipFeedback
+                                                    className="form-control"
+                                                    type="file"
+                                                    accept=".jpg, .png, .jpeg"
+                                                    onChange={(e) => handleThumbnail(e)}
+
+                                                />
                                             </div>
                                         </CCol>
                                     </CRow>

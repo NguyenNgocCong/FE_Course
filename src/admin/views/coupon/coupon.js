@@ -29,33 +29,15 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Package",
-      width: '100px',
-      selector: (row) => row.apackage.id,
-      sortable: true,
-    },
-    {
-      name: "Min Revenue",
-      width: '120px',
-      selector: (row) => row.minRevenue,
-      sortable: true,
-    },
-    {
-      name: "Min Quantity",
-      width: '120px',
-      selector: (row) => row.minQuantity,
-      sortable: true,
-    },
-    {
       name: "Max Quantity",
       width: '130px',
-      selector: (row) => row.maxQuantity,
+      selector: (row) => row.quantity,
       sortable: true,
     },
     {
       name: "Discount Rate",
       width: '130px',
-      selector: (row) => row.discountRate,
+      selector: (row) => row.discountRate + "%",
       sortable: true,
     },
     {

@@ -271,13 +271,29 @@ export const adminApi = {
     const url = `/api/combo/${id}`;
     return axiosApi.get(url);
   },
-  createCombo: (params) => {
-    const url = "/api/combo/create";
-    return axiosApi.post(url, params);
+  createCombo: (image, params) => {
+    const url = `/api/combo/create`;
+    var formData = new FormData();
+    formData.append("image", image);
+    console.log(image, params);
+    formData.append("data", JSON.stringify(params));
+    return axiosApi.post(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
-  updateCombo: (id, params) => {
-    const url = `/api/combo/update?id=${id}`;
-    return axiosApi.put(url, params);
+  updateCombo: (id, image, params) => {
+    const url = `/api/combo/update`;
+    var formData = new FormData();
+    formData.append("id", id);
+    formData.append("image", image);
+    formData.append("data", JSON.stringify(params));
+    return axiosApi.put(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
 
   getAllSetting: (page, size, type_id, keyword, status) => {

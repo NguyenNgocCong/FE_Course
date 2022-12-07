@@ -105,7 +105,10 @@ export const userApi = {
   },
 
   // cart
-
+  checkCoupon: (code) => {
+    const url = `/api/coupon/${code}`;
+    return axiosApi.get(url);
+  },
   addToCard: (ProductToOrderRequest) => {
     const url = `/api/order/add-to-cart`;
     return axiosApi.post(url, ProductToOrderRequest);

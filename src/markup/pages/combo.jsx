@@ -91,10 +91,10 @@ function Combos() {
                           <div className="action-box">
                             <img
                               src={
-                                item.comboPackages[0]?._package.image != null &&
-                                item.comboPackages[0]?._package.image
+                                item.image != null &&
+                                item.image
                                   ? combieImg(
-                                      item.comboPackages[0]?._package.image
+                                      item.image
                                     )
                                   : "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg"
                               }
