@@ -132,9 +132,7 @@ function SliderDetail(props) {
                                             onLoad={() => URL.revokeObjectURL(preview)}
                                         />
                                         <CFormInput
-                                            feedbackInvalid="Please choose Img!"
-                                            required
-                                            tooltipFeedback
+                                           
                                             className="form-control"
                                             type="file"
                                             accept=".jpg, .png, .jpeg"
