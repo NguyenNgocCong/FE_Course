@@ -22,7 +22,7 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Class Code",
+      name: "Code",
       minWidth: "140px",
       width: "160px",
       maxWidth: "180px",
@@ -39,7 +39,7 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Date From",
+      name: "Ngày bắt đầu",
       minWidth: "140px",
       width: "160px",
       maxWidth: "180px",
@@ -47,7 +47,7 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Date To",
+      name: "Ngày kết thúc",
       minWidth: "140px",
       width: "160px",
       maxWidth: "180px",
@@ -63,7 +63,7 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Branch",
+      name: "Khu vực",
       width: "120px",
       selector: (row) => (
         <div className={`${row?.branch ? Styles.inactive : Styles.active}`}>
@@ -217,7 +217,7 @@ function Class() {
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
-                  placeholder="Search..."
+                  placeholder="Tìm kiếm..."
                   style={{ margin: "0px 10px" }}
                   onChange={onSearch}
                 />

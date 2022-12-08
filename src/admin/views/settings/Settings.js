@@ -32,22 +32,22 @@ const Settings = () => {
             sortable: true,
         },
         {
-            name: "Title",
+            name: "Tiêu đề",
             selector: (row) => row?.setting_title,
             sortable: true,
         },
         {
-            name: "Display Order",
+            name: "Hiển thị",
             selector: (row) => row?.display_order,
             sortable: true,
         },
         {
-            name: "Value",
+            name: "Giá trị",
             selector: (row) => row?.setting_value,
             sortable: true,
         },
         {
-            name: "Description",
+            name: "Mô tả",
             selector: (row) => row?.desciption,
             sortable: true,
         },
@@ -165,7 +165,7 @@ const Settings = () => {
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
-                                    placeholder="Search..."
+                                    placeholder="Tìm kiếm..."
                                     onChange={onSearch}
                                     style={{  margin: "0px 10px" }}
                                 />

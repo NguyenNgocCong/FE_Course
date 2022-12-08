@@ -1,56 +1,22 @@
 import React from "react";
 
 import {
-    CAvatar,
-    CButton,
-    CButtonGroup,
+   
     CCard,
     CCardBody,
-    CCardFooter,
-    CCardHeader,
+   
     CCol,
-    CProgress,
+   
     CRow,
-    CTable,
-    CTableBody,
-    CTableDataCell,
-    CTableHead,
-    CTableHeaderCell,
-    CTableRow,
+    
 } from "@coreui/react";
 import { dashboardApi } from "../../../api/dashboardApi";
 import { CChartLine } from "@coreui/react-chartjs";
 import { getStyle, hexToRgba } from "@coreui/utils";
-import CIcon from "@coreui/icons-react";
-import {
-    cibCcAmex,
-    cibCcApplePay,
-    cibCcMastercard,
-    cibCcPaypal,
-    cibCcStripe,
-    cibCcVisa,
-    cibGoogle,
-    cibFacebook,
-    cibLinkedin,
-    cifBr,
-    cifEs,
-    cifFr,
-    cifIn,
-    cifPl,
-    cifUs,
-    cibTwitter,
-    cilCloudDownload,
-    cilPeople,
-    cilUser,
-    cilUserFemale,
-} from "@coreui/icons";
 
-import avatar1 from "../../assets/images/avatars/1.jpg";
-import avatar2 from "../../assets/images/avatars/2.jpg";
-import avatar3 from "../../assets/images/avatars/3.jpg";
-import avatar4 from "../../assets/images/avatars/4.jpg";
-import avatar5 from "../../assets/images/avatars/5.jpg";
-import avatar6 from "../../assets/images/avatars/6.jpg";
+
+
+
 import toast, { Toaster } from "react-hot-toast";
 import WidgetsBrand from "../widgets/WidgetsBrand";
 import WidgetsDropdown from "../widgets/WidgetsDropdown";
@@ -97,7 +63,7 @@ const Dashboard = () => {
                                         id="traffic"
                                         className="card-title mb-0"
                                     >
-                                        Income By Months
+                                        Doanh thu
                                     </h4>
                                 </CCol>
                                 
@@ -141,7 +107,7 @@ const Dashboard = () => {
                                                 beginAtZero: true,
                                                 maxTicksLimit: 5,
                                                 stepSize: Math.ceil(250 / 5),
-                                                callback: (value) => value+"$"
+                                                callback: (value) => value+"VND"
                                             },
                                         },
                                     },
@@ -161,7 +127,7 @@ const Dashboard = () => {
                         </CCardBody>
                     </CCard>
 
-                    <WidgetsBrand withCharts />
+                    
                  
                 </div>
                 <AppFooter />

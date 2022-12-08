@@ -47,7 +47,7 @@ function OrderDetail(props) {
             sortable: true,
         },
         {
-            name: "Title",
+            name: "Tiêu đề",
             minWidth: '350px',
             width: '400px',
             maxWidth: '450px',
@@ -55,7 +55,7 @@ function OrderDetail(props) {
             sortable: true,
         },
         {
-            name: "Price",
+            name: "Giá bán",
             minWidth: '250px',
             width: '250px',
             maxWidth: '275px',
@@ -63,7 +63,7 @@ function OrderDetail(props) {
             sortable: true,
         },
         {
-            name: "Discount",
+            name: "Chiết khấu",
             minWidth: '250px',
             width: '250px',
             maxWidth: '275px',
@@ -92,13 +92,13 @@ function OrderDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardBody>
-                                <strong>Customer info</strong>
+                                <strong>Thông tin khách hàng</strong>
                                 <hr></hr>
                                 <CRow className="g-3 mb-3">
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel>
-                                                Name (
+                                                Họ và tên (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -129,7 +129,7 @@ function OrderDetail(props) {
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Mobile
+                                                Phone
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -142,13 +142,13 @@ function OrderDetail(props) {
                                         </div>
                                     </CCol>
                                 </CRow>
-                                <strong>Order info</strong>
+                                <strong>Thông tin đơn hàng</strong>
                                 <hr></hr>
                                 <CRow className="g-3 mb-3">
                                     <CCol sm={3}>
                                         <div>
                                             <CFormLabel>
-                                                Total Cost (
+                                                Tổng tiền (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -164,7 +164,7 @@ function OrderDetail(props) {
                                     <CCol sm={3}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Coupon
+                                                Mã giảm giá
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -179,7 +179,7 @@ function OrderDetail(props) {
                                     <CCol sm={2}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Total Discount
+                                                Chiết khấu
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -194,7 +194,7 @@ function OrderDetail(props) {
                                     <CCol sm={2}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Total Money
+                                                Tổng tiền phải thanh toán
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -222,7 +222,7 @@ function OrderDetail(props) {
                                         </div>
                                     </CCol>
                                 </CRow>
-                                <strong>Product info</strong>
+                                <strong>Thông tin sản phẩm</strong>
                                 <hr></hr>
                                 <CRow className="g-3 mb-3">
                                     <DataTable

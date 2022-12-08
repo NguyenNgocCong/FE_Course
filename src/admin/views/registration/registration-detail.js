@@ -46,13 +46,13 @@ function RegistrationDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardBody>
-                                <strong>Class info</strong>
+                                <strong>Thông tin lớp học</strong>
                                 <hr></hr>
                                 <CRow className="g-3 mb-3">
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel>
-                                                Class code (
+                                                Mã lớp học (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -68,7 +68,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={6}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Package
+                                                Khóa học
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -83,7 +83,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={2}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Price
+                                                Giá bán
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -98,7 +98,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Branch
+                                                Khu vực
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -128,7 +128,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Start date
+                                                Ngày bắt đầu
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -139,13 +139,13 @@ function RegistrationDetail(props) {
                                         </div>
                                     </CCol>
                                 </CRow>
-                                <strong>Customer info</strong>
+                                <strong>thông tin khách hàng</strong>
                                 <hr></hr>
                                 <CRow className="g-3 mb-3">
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel>
-                                                Name (
+                                                Họ và tên (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -176,7 +176,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Mobile
+                                                Phone
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -195,7 +195,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={3}>
                                         <div>
                                             <CFormLabel>
-                                                Total Cost (
+                                                Tổng tiền (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -211,7 +211,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={3}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Coupon
+                                                Mã giảm giá
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -226,7 +226,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={2}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Total Discount
+                                                Chiết khấu
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -241,7 +241,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={2}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Total Money
+                                                Tổng tiền phải thanh toán
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"

@@ -125,7 +125,7 @@ function SettingDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardHeader>
-                                <strong>Setting Details</strong>
+                                <strong>Thông tin Setting</strong>
                             </CCardHeader>
                             <CCardBody>
                                 <CForm
@@ -138,7 +138,7 @@ function SettingDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel>
-                                                    Title (
+                                                    Tiêu đề (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -159,7 +159,7 @@ function SettingDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel>
-                                                    Value (
+                                                    Giá trị (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -180,7 +180,7 @@ function SettingDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel>
-                                                    Display Order (
+                                                    Hiển thị (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -201,7 +201,7 @@ function SettingDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel>
-                                                    Description (
+                                                    Mô tả (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -271,7 +271,7 @@ function SettingDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="formFile">
-                                                    Type (
+                                                    Loại (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormSelect
@@ -327,7 +327,7 @@ function SettingDetail(props) {
                                         <CButton
                                             type="submit"
                                         >
-                                            Submit
+                                            Lưu
                                         </CButton>
                                     </div>
                                 </CForm>

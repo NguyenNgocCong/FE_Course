@@ -21,7 +21,7 @@ function Orders() {
       sortable: true,
     },
     {
-      name: "Order By",
+      name: "Người đặt",
       minWidth: "175px",
       width: "200px",
       maxWidth: "225px",
@@ -37,21 +37,21 @@ function Orders() {
       sortable: true,
     },
     {
-      name: "Number product",
+      name: "Số lượng",
       width: "150px",
       center: true,
       selector: (row) => row.orderPackages ? row.orderPackages?.length + " package" : 1 + " package",
       sortable: true,
     },
     {
-      name: "Total Cost",
+      name: "Tổng tiền",
       width: "110px",
       center: "true",
       selector: (row) => row.totalCost + "$",
       sortable: true,
     },
     {
-      name: "Discount",
+      name: "Chiết khấu",
       width: "100px",
       center: "true",
       selector: (row) => row.totalDiscount + "$",
@@ -142,15 +142,15 @@ function Orders() {
 
   const submit = (row, status) => {
     confirmAlert({
-      title: "Confirm to change status",
-      message: "Are you sure to do this.",
+      title: "Xác nhận thay đổi trạng thái",
+      message: "Bạn có chắc về điều này",
       buttons: [
         {
-          label: "Yes",
+          label: "Có",
           onClick: () => handleUpdateActiveOrder(row, status),
         },
         {
-          label: "No",
+          label: "Không",
           //onClick: () => alert('Click No')
         },
       ],
@@ -256,7 +256,7 @@ function Orders() {
                   type="text"
                   id="exampleInputPassword1"
                   style={{ margin: "0px 10px" }}
-                  placeholder="Search..."
+                  placeholder="Tìm kiếm..."
                   onChange={onSearch}
                 />
               </Col>

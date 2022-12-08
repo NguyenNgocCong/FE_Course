@@ -64,15 +64,15 @@ const Contact = () => {
 
     const submit = (row) => {
         confirmAlert({
-            title: 'Confirm to change status',
-            message: 'Are you sure to do this.',
+            title: 'Xác nhận thay đổi Status',
+            message: 'Bạn có chắc chắn về điều đó',
             buttons: [
                 {
-                    label: 'Yes',
+                    label: 'Có',
                     onClick: () => handleUpdateStatus(row)
                 },
                 {
-                    label: 'No',
+                    label: 'Không',
                     //onClick: () => alert('Click No')
                 }
             ]
@@ -104,7 +104,7 @@ const Contact = () => {
             sortable: true,
         },
         {
-            name: "Fullname",
+            name: "Họ và tên",
             minWidth: '100px',
             width: '150px',
             maxWidth: '200px',
@@ -112,7 +112,7 @@ const Contact = () => {
             sortable: true,
         },
         {
-            name: "Phone number",
+            name: "Phone",
             left: true,
             minWidth: '100px',
             width: '130px',
@@ -130,7 +130,7 @@ const Contact = () => {
             sortable: true,
         },
         {
-            name: "Date created",
+            name: "Ngày tạo",
             center: true,
             minWidth: '140px',
             width: '160px',
@@ -242,7 +242,7 @@ const Contact = () => {
                                     <CFormInput
                                         type="text"
                                         id="exampleInputPassword1"
-                                        placeholder="Search..."
+                                        placeholder="Tìm kiếm..."
                                         style={{ margin: "0px 10px" }}
                                         onChange={onSearch}
                                     />

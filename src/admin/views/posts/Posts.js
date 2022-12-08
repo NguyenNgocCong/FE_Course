@@ -25,7 +25,7 @@ const Posts = () => {
             sortable: true,
         },
         {
-            name: "Thumbnail",
+            name: "Ảnh",
             maxWidth: '150px',
             selector: (row) => (
                 <img
@@ -37,13 +37,13 @@ const Posts = () => {
             sortable: false,
         },
         {
-            name: "Title",
+            name: "Tiêu đề",
             maxWidth: '300px',
             selector: (row) => row.title,
             sortable: true,
         },
         {
-            name: "Brief info",
+            name: "Tóm tắt",
             maxWidth: '300px',
             selector: (row) => row.brefInfo,
             sortable: true,
@@ -189,15 +189,15 @@ const Posts = () => {
     const submit = (row, type) => {
 
         confirmAlert({
-            title: 'Confirm to change status',
-            message: 'Are you sure to do this.',
+            title: 'Xác nhận thay đổi trạng thái',
+            message: 'Bạn có chắc chắn điều này',
             buttons: [
                 {
-                    label: 'Yes',
+                    label: 'Có',
                     onClick: () => handleUpdateStatus(row, type)
                 },
                 {
-                    label: 'No',
+                    label: 'Không',
                     //onClick: () => alert('Click No')
                 }
             ]
@@ -308,7 +308,7 @@ const Posts = () => {
                                     type="text"
                                     id="exampleInputPassword1"
                                     style={{ margin: "0px 10px" }}
-                                    placeholder="Search..."
+                                    placeholder="Tìm kiếm..."
                                     onChange={onSearch}
                                 />
                             </Col>
