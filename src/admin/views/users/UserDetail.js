@@ -104,10 +104,10 @@ function UserDetail(props) {
     const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
     const usernameInput = e.target.value;
     if (!regUsername.test(usernameInput)) {
-      setAlertMessageUsername("Username is Invalid");
+      setAlertMessageUsername("Định dạng username không đúng");
       setAlertVisibleUsername(true);
     } else if (!usernameInput) {
-      setAlertMessageUsername("Username is required");
+      setAlertMessageUsername("Không được để trống");
       setAlertVisibleUsername(true);
     }
     else {
@@ -119,7 +119,7 @@ function UserDetail(props) {
     const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
     const phoneInput = e.target.value;
     if (!regPhoneNumber.test(phoneInput)) {
-      setAlertMessagePhone("Phone Number is Invalid");
+      setAlertMessagePhone("Định dạng số điện thoại không đúng");
       setAlertVisiblePhone(true);
     } else {
       setAlertVisiblePhone(false);
@@ -130,7 +130,7 @@ function UserDetail(props) {
   const handleUpdateFullName = (e) => {
     const fullNameInput = e.target.value;
     if (!fullNameInput) {
-      setAlertMessageFullName("Full Name is Required");
+      setAlertMessageFullName("Không được để trống");
       setAlertVisibleFullName(true);
     } else {
       setAlertVisibleFullName(false);
@@ -151,7 +151,7 @@ function UserDetail(props) {
           <CCol xs={12}>
             <CCard className="mb-4">
               <CCardHeader>
-                <strong>Change User Info</strong>
+                <strong>Thông tin người dùng</strong>
               </CCardHeader>
               <CCardBody>
 
@@ -192,7 +192,7 @@ function UserDetail(props) {
                     <div className="mb-3">
                       <CFormInput
                         type="text"
-                        label="Fullname"
+                        label="Họ và tên"
                         id="exampleFormControlInput1"
                         placeholder=""
                         defaultValue={user?.fullname}
@@ -212,7 +212,7 @@ function UserDetail(props) {
                   <CCol sm={6}>
                     <div className="mb-3">
                       <CFormInput
-                        label="Phone Number"
+                        label="Phone"
                         id="exampleFormControlInput1"
                         placeholder=""
                         defaultValue={user?.phoneNumber}
@@ -272,7 +272,7 @@ function UserDetail(props) {
                 </CRow>
                 <div className="mb-3">
                   <CButton onClick={()=>handleUpdateRoleAndProfile()} disabled={alertVisibleFullName || alertVisiblePhone || alertVisibleUsername}>
-                    Save
+                    Lưu
                   </CButton>
                 </div>
             </CCardBody>

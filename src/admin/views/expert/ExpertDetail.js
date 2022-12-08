@@ -101,14 +101,14 @@ function ExpertDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardHeader>
-                                <strong>Expert Details</strong>
+                                <strong>Thông tin chuyên gia</strong>
                             </CCardHeader>
                             <CCardBody>
                                 <CRow className="g-3 mb-3">
                                     <CCol sm={8}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                User Name (
+                                                Username (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -136,7 +136,7 @@ function ExpertDetail(props) {
                                         </div>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Full Name (
+                                                Họ và tên (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -167,7 +167,7 @@ function ExpertDetail(props) {
                                     </CCol>
                                     <CCol sm={4}>
                                         <CFormLabel htmlFor="exampleFormControlInput1">
-                                            Change avatar (
+                                            Ảnh đại diện (
                                             <span style={{ color: "red" }}>*</span>)
                                         </CFormLabel>
                                         <CImage
@@ -190,7 +190,7 @@ function ExpertDetail(props) {
                                     <CCol sm={12}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Company (
+                                                Công ty (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -205,7 +205,7 @@ function ExpertDetail(props) {
                                         </div>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Job title (
+                                                Công việc (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CFormInput
@@ -220,7 +220,7 @@ function ExpertDetail(props) {
                                         </div>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Description (
+                                                Mô tả (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CKEditor
@@ -239,7 +239,7 @@ function ExpertDetail(props) {
                                     <CButton
                                         onClick={(e) => handleUpdatePost(e)}
                                     >
-                                        Save
+                                        Lưu
                                     </CButton>
                                 </div>
                             </CCardBody>

@@ -22,7 +22,7 @@ function Trainee() {
       sortable: true,
     },
     {
-      name: "User",
+      name: "Username",
       minWidth: '140px',
       width: '160px',
       maxWidth: '180px',
@@ -38,7 +38,7 @@ function Trainee() {
       sortable: true,
     },
     {
-      name: "Fullname",
+      name: "Họ và tên",
 
       minWidth: "225px",
       width: "250px",
@@ -55,7 +55,7 @@ function Trainee() {
       sortable: true,
     },
     {
-      name: "Start Date",
+      name: "Ngày bắt đầu",
       minWidth: "140px",
       width: "160px",
       maxWidth: "180px",
@@ -63,7 +63,7 @@ function Trainee() {
       sortable: true,
     },
     {
-      name: "Class",
+      name: "Lớp học",
       minWidth: "150px",
       width: "200px",
       maxWidth: "250px",
@@ -206,7 +206,7 @@ function Trainee() {
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
-                  placeholder="Search..."
+                  placeholder="Tìm kiếm..."
                   style={{ margin: "0px 10px" }}
                   onChange={onSearch}
                 />

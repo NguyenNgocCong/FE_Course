@@ -133,7 +133,7 @@ function PackagesDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardHeader>
-                                <strong>Package Details</strong>
+                                <strong>Thông tin Packages</strong>
                             </CCardHeader>
                             <CCardBody>
                                 <CForm
@@ -146,7 +146,7 @@ function PackagesDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel>
-                                                    Title (
+                                                    Tiêu đề (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -167,7 +167,7 @@ function PackagesDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel>
-                                                    Excerpt (
+                                                    Tóm tắt (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -190,7 +190,7 @@ function PackagesDetail(props) {
                                                 <CCol sm={12}>
                                                     <div className="mb-3">
                                                         <CFormLabel>
-                                                            Duration (
+                                                            Thời hạn (
                                                             <span style={{ color: "red" }}>*</span>)
                                                         </CFormLabel>
                                                         <CFormInput
@@ -211,7 +211,7 @@ function PackagesDetail(props) {
                                                 <CCol sm={12}>
                                                     <div className="mb-3">
                                                         <CFormLabel>
-                                                            List Price (
+                                                            Giá bán (
                                                             <span style={{ color: "red" }}>*</span>)
                                                         </CFormLabel>
                                                         <CFormInput
@@ -232,7 +232,7 @@ function PackagesDetail(props) {
                                                 <CCol sm={12}>
                                                     <div className="mb-3">
                                                         <CFormLabel>
-                                                            Sale Price (
+                                                            Giá khuyến mãi (
                                                             <span style={{ color: "red" }}>*</span>)
                                                         </CFormLabel>
                                                         <CFormInput
@@ -298,7 +298,7 @@ function PackagesDetail(props) {
                                                 <CCol sm={12}>
                                                     <div className="mb-3">
                                                         <CFormLabel htmlFor="formFile">
-                                                            Subject (
+                                                            Môn học (
                                                             <span style={{ color: "red" }}>*</span>)
                                                         </CFormLabel>
                                                         <CFormSelect
@@ -354,7 +354,7 @@ function PackagesDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Image (
+                                                    Ảnh (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <br />
@@ -378,7 +378,7 @@ function PackagesDetail(props) {
                                         <CCol sm={12}>
                                             <div className="mb-3">
                                                 <CFormLabel>
-                                                    Description (
+                                                    Mô tả (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CKEditor
@@ -396,7 +396,7 @@ function PackagesDetail(props) {
                                         <CButton
                                             type="submit"
                                         >
-                                            Submit
+                                            Lưu
                                         </CButton>
                                     </div>
                                 </CForm>

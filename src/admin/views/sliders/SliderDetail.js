@@ -112,7 +112,7 @@ function SliderDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardHeader>
-                                <strong>Slider Details</strong>
+                                <strong>Thông tin Sliders</strong>
                             </CCardHeader>
                             <CCardBody>
                                 <CForm
@@ -127,7 +127,7 @@ function SliderDetail(props) {
                                                 <CCol sm={11}>
                                                     <div className="mb-3">
                                                         <CFormLabel>
-                                                            Title (
+                                                            Tiêu đề (
                                                             <span style={{ color: "red" }}>*</span>)
                                                         </CFormLabel>
                                                         <CFormInput
@@ -139,7 +139,7 @@ function SliderDetail(props) {
                                                             onChange={(e) =>
                                                                 setTitle(e.target.value)
                                                             }
-                                                            feedbackInvalid="Please enter Value!"
+                                                            feedbackInvalid="Không được để trống!"
                                                             required
                                                             tooltipFeedback
                                                         />
@@ -148,7 +148,7 @@ function SliderDetail(props) {
                                                 <CCol sm={11}>
                                                     <div className="mb-3">
                                                         <CFormLabel>
-                                                            URL (
+                                                            Đường dẫn (
                                                             <span style={{ color: "red" }}>*</span>)
                                                         </CFormLabel>
                                                         <CFormInput
@@ -160,7 +160,7 @@ function SliderDetail(props) {
                                                             onChange={(e) =>
                                                                 setURL(e.target.value)
                                                             }
-                                                            feedbackInvalid="Please enter Value!"
+                                                            feedbackInvalid="Không được để trống!"
                                                             required
                                                             tooltipFeedback
                                                         />
@@ -169,7 +169,7 @@ function SliderDetail(props) {
                                                 <CCol sm={11}>
                                                     <div className="mb-3">
                                                         <CFormLabel htmlFor="exampleFormControlInput1">
-                                                            Valid To (
+                                                            Hạn bài đăng (
                                                             <span style={{ color: "red" }}>*</span>)
                                                         </CFormLabel>
                                                         {/* <DatePicker selected={validTo} onChange={(date) => setValidTo(new Date(date))} /> */}
@@ -191,7 +191,7 @@ function SliderDetail(props) {
                                                                     new Date(e.target.value)
                                                                 )
                                                             }
-                                                            feedbackInvalid="Please choose Valid To!"
+                                                            feedbackInvalid="Không được để trống!"
                                                             required
                                                             tooltipFeedback
                                                         />
@@ -245,7 +245,7 @@ function SliderDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Image (
+                                                    Ảnh (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <br />
@@ -258,8 +258,7 @@ function SliderDetail(props) {
                                                     onLoad={() => URL.revokeObjectURL(preview)}
                                                 />
                                                 <CFormInput
-                                                    feedbackInvalid="Please choose Img!"
-                                                    tooltipFeedback
+                                                    
                                                     className="form-control"
                                                     type="file"
                                                     accept=".jpg, .png, .jpeg"
@@ -273,7 +272,7 @@ function SliderDetail(props) {
                                         <CButton
                                             type="submit"
                                         >
-                                            Submit
+                                            Lưu
                                         </CButton>
                                     </div>
                                 </CForm>

@@ -138,7 +138,7 @@ function PostDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardHeader>
-                                <strong>Post Details</strong>
+                                <strong>Thông tin bài đăng</strong>
                             </CCardHeader>
                             <CCardBody>
                                 <CForm
@@ -149,7 +149,7 @@ function PostDetail(props) {
                                 >
                                     <div className="mb-3">
                                         <CFormLabel htmlFor="exampleFormControlInput1">
-                                            Post title (
+                                            Tiêu đề (
                                             <span style={{ color: "red" }}>*</span>)
                                         </CFormLabel>
                                         <CFormInput
@@ -160,7 +160,7 @@ function PostDetail(props) {
                                             onChange={(e) =>
                                                 setTitle(e.target.value)
                                             }
-                                            feedbackInvalid="Please enter Title!"
+                                            feedbackInvalid="Không được để trống!"
                                             required
                                             tooltipFeedback
                                         />
@@ -176,7 +176,7 @@ function PostDetail(props) {
                                                 <CFormSelect
                                                     id="autoSizingSelect"
                                                     onChange={(e) => setCategoryId(e.target.value)}
-                                                    feedbackInvalid="Please select Category!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 >
@@ -215,7 +215,7 @@ function PostDetail(props) {
                                             </div>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Brief info (
+                                                    Tóm tắt (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -226,7 +226,7 @@ function PostDetail(props) {
                                                     onChange={(e) =>
                                                         setBriefInfo(e.target.value)
                                                     }
-                                                    feedbackInvalid="Please enter Brief info!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 />
@@ -274,7 +274,7 @@ function PostDetail(props) {
                                             </div>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Author
+                                                    Tác giả
                                                 </CFormLabel>
                                                 <CFormInput
                                                     type="author"
@@ -287,7 +287,7 @@ function PostDetail(props) {
                                         </CCol>
                                         <CCol sm={4}>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Change thumbnail (
+                                                Ảnh (
                                                 <span style={{ color: "red" }}>*</span>)
                                             </CFormLabel>
                                             <CImage
@@ -309,7 +309,7 @@ function PostDetail(props) {
                                     </CRow>
                                     <div className="mb-3">
                                         <CFormLabel htmlFor="exampleFormControlInput1">
-                                            Post body (
+                                            Nội dung (
                                             <span style={{ color: "red" }}>*</span>)
                                         </CFormLabel>
                                         <CKEditor
@@ -326,7 +326,7 @@ function PostDetail(props) {
                                         <CButton
                                             type="submit"
                                         >
-                                            Save
+                                            Lưu
                                         </CButton>
                                     </div>
                                 </CForm>

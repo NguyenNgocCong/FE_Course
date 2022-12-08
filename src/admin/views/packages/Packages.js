@@ -23,7 +23,7 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Title",
+      name: "Tiêu đề",
       minWidth: "100px",
       width: "200px",
       maxWidth: "300px",
@@ -31,7 +31,7 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Excerpt",
+      name: "Tóm tắt",
       minWidth: "100px",
       width: "150px",
       maxWidth: "200px",
@@ -39,7 +39,7 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Duration",
+      name: "Thời hạn",
       minWidth: "100px",
       width: "150px",
       maxWidth: "200px",
@@ -47,7 +47,7 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Subject",
+      name: "Môn Học",
       minWidth: "100px",
       width: "150px",
       maxWidth: "200px",
@@ -55,7 +55,7 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Description",
+      name: "Mô tả",
       minWidth: "300px",
       width: "350px",
       maxWidth: "400px",
@@ -63,7 +63,7 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Price",
+      name: "Giá bán",
       minWidth: "100px",
       width: "120px",
       maxWidth: "140px",
@@ -71,7 +71,7 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Sale Price",
+      name: "Giá khuyến mãi",
       minWidth: "100px",
       width: "120px",
       maxWidth: "140px",
@@ -155,15 +155,15 @@ const Packages = () => {
 
   const submit = (row) => {
     confirmAlert({
-      title: "Confirm to change status",
-      message: "Are you sure to do this.",
+      title: "Xác nhận thay đổi trạng thái",
+      message: "Bạn có chắc về điều này",
       buttons: [
         {
-          label: "Yes",
+          label: "Có",
           onClick: () => handleUpdateStatus(row),
         },
         {
-          label: "No",
+          label: "Không",
           //onClick: () => alert('Click No')
         },
       ],
@@ -266,7 +266,7 @@ const Packages = () => {
                   type="text"
                   id="exampleInputPassword1"
                   style={{ margin: "0px 10px" }}
-                  placeholder="Search..."
+                  placeholder="Tìm kiếm..."
                   onChange={onSearch}
                 />
               </Col>

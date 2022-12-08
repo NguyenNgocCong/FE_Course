@@ -23,7 +23,7 @@ const Experts = () => {
             sortable: true,
         },
         {
-            name: "Fullname",
+            name: "Họ và tên",
             minWidth: '150px',
             width: '200px',
             maxWidth: '250px',
@@ -39,7 +39,7 @@ const Experts = () => {
             sortable: true,
         },
         {
-            name: "Company",
+            name: "Công ty",
             minWidth: '250px',
             width: '250px',
             maxWidth: '275px',
@@ -47,7 +47,7 @@ const Experts = () => {
             sortable: true,
         },
         {
-            name: "Job Title",
+            name: "Công việc",
             left: true,
             minWidth: '150px',
             width: '200px',
@@ -137,15 +137,15 @@ const Experts = () => {
     const submit = (row, type) => {
 
         confirmAlert({
-            title: 'Confirm to change status',
-            message: 'Are you sure to do this.',
+            title: 'Xác nhận thay đổi trạng thái',
+            message: 'Bạn có chắc về điều này',
             buttons: [
                 {
-                    label: 'Yes',
+                    label: 'Có',
                     onClick: () => handleUpdateStatus(row, type)
                 },
                 {
-                    label: 'No',
+                    label: 'Không',
                     //onClick: () => alert('Click No')
                 }
             ]
@@ -176,7 +176,7 @@ const Experts = () => {
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
-                                    placeholder="Search..."
+                                    placeholder="Tìm kiếm..."
                                     onChange={onSearch}
                                 />
                             </Col>

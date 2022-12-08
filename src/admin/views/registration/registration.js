@@ -20,7 +20,7 @@ function Registration() {
       sortable: true,
     },
     {
-      name: "Order By",
+      name: "Người đặt",
       minWidth: "175px",
       width: "200px",
       maxWidth: "225px",
@@ -28,7 +28,7 @@ function Registration() {
       sortable: true,
     },
     {
-      name: "Class code",
+      name: "Mã lớp học",
       minWidth: "125px",
       width: "150px",
       maxWidth: "175px",
@@ -44,14 +44,14 @@ function Registration() {
       sortable: true,
     },
     {
-      name: "Total Cost",
+      name: "Tổng tiền",
       width: "110px",
       center: "true",
       selector: (row) => row.totalCost + "$",
       sortable: true,
     },
     {
-      name: "Discount",
+      name: "Chiết khấu",
       width: "100px",
       center: "true",
       selector: (row) => row.totalDiscount + "$",
@@ -142,15 +142,15 @@ function Registration() {
 
   const submit = (row, status) => {
     confirmAlert({
-      title: "Confirm to change status",
-      message: "Are you sure to do this.",
+      title: "Xác nhận thay đổi trạng thái",
+      message: "Bạn có chắc chắn về điều này",
       buttons: [
         {
-          label: "Yes",
+          label: "Có",
           onClick: () => handleUpdateActiveRegistration(row, status),
         },
         {
-          label: "No",
+          label: "Không",
           //onClick: () => alert('Click No')
         },
       ],
@@ -257,7 +257,7 @@ function Registration() {
                   type="text"
                   id="exampleInputPassword1"
                   style={{ margin: "0px 10px" }}
-                  placeholder="Search..."
+                  placeholder="Tìm kiếm..."
                   onChange={onSearch}
                 />
               </Col>

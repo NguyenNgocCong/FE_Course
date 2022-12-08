@@ -172,8 +172,8 @@ function ClassDetail(props) {
                             <CCardHeader>
                                 <strong>
                                     {type === 1
-                                        ? "Change Class Info"
-                                        : "Create New Class"}
+                                        ? "Thông tin lớp học"
+                                        : "Tạo lớp học mới"}
                                 </strong>
                             </CCardHeader>
                             <CCardBody>
@@ -194,7 +194,7 @@ function ClassDetail(props) {
                                                     id="autoSizingSelect"
                                                     value={packageId ? packageId : ""}
                                                     onChange={(e) => setPackageId(e.target.value)}
-                                                    feedbackInvalid="Please select Package!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 >
@@ -215,7 +215,7 @@ function ClassDetail(props) {
                                         <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Date From (
+                                                    Ngày bắt đầu (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -237,7 +237,7 @@ function ClassDetail(props) {
                                                             new Date(e.target.value)
                                                         )
                                                     }
-                                                    feedbackInvalid="Please select Date From!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 />
@@ -246,7 +246,7 @@ function ClassDetail(props) {
                                         <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Date To (
+                                                    Ngày kết thúc (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -266,7 +266,7 @@ function ClassDetail(props) {
                                                     onChange={(e) =>
                                                         setDateTo(new Date(e.target.value))
                                                     }
-                                                    feedbackInvalid="Please select Date To!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 />
@@ -328,7 +328,7 @@ function ClassDetail(props) {
                                                     onChange={(e) =>
                                                         setTrainer(e.target.value)
                                                     }
-                                                    feedbackInvalid="Please select Trainer!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 >
@@ -376,7 +376,7 @@ function ClassDetail(props) {
                                         <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Mode of learning (
+                                                    Phương thức học (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormSelect
@@ -421,7 +421,7 @@ function ClassDetail(props) {
                                         <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Opening day(
+                                                    Ngày khai giảng(
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -443,7 +443,7 @@ function ClassDetail(props) {
                                                             new Date(e.target.value)
                                                         )
                                                     }
-                                                    feedbackInvalid="Please select Opening Day!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 />
