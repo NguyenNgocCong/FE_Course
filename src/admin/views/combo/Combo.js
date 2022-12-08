@@ -18,7 +18,7 @@ const packageTemplate = (props) => {
     return (props?.comboPackages.map((element, index) => (
         <div key={index} style={{ margin: "2px" }} className="d-flex align-items-center">
             <div className={`${Styles.element}`}>
-                <CIcon icon={cilCircle} height="7px" /> Title: {element?._package?.title}, Price: ${element?.salePrice}
+                <CIcon icon={cilCircle} height="7px" /> Tiều đề: {element?._package?.title}, Giá bán: ${element?.salePrice}
             </div>
         </div>
     )))
@@ -41,7 +41,7 @@ const Combo = () => {
             sortable: true,
         },
         {
-            name: "Title",
+            name: "Tiêu đề",
             minWidth: '125px',
             width: '150px',
             maxWidth: '175px',
@@ -49,7 +49,7 @@ const Combo = () => {
             sortable: true,
         },
         {
-            name: "description",
+            name: "Mô tả",
             minWidth: '225px',
             width: '250px',
             maxWidth: '275px',
@@ -57,7 +57,7 @@ const Combo = () => {
             sortable: true,
         },
         {
-            name: "Packages",
+            name: "Khóa học",
             left: true,
             minWidth: '350px',
             width: '300',
@@ -66,7 +66,7 @@ const Combo = () => {
             sortable: true,
         },
         {
-            name: "Price",
+            name: "Giá bán",
             width: '100px',
             selector: (row) => priceTemplate(row),
             sortable: true,
@@ -135,7 +135,7 @@ const Combo = () => {
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
-                                    placeholder="Search..."
+                                    placeholder="Tìm kiếm..."
                                     onChange={onSearch}
                                 />
                             </Col>

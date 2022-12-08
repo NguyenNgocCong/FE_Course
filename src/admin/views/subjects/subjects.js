@@ -24,7 +24,7 @@ function Subjects() {
       sortable: true,
     },
     {
-      name: "Subject Code",
+      name: "Code",
       minWidth: "180px",
       width: "200px",
       maxWidth: "220px",
@@ -32,7 +32,7 @@ function Subjects() {
       sortable: true,
     },
     {
-      name: "Name",
+      name: "Tên môn học",
       minWidth: "225px",
       width: "250px",
       maxWidth: "275px",
@@ -151,15 +151,15 @@ function Subjects() {
 
   const submit = (row) => {
     confirmAlert({
-      title: "Confirm to change status",
-      message: "Are you sure to do this.",
+      title: "Xác nhận thay đổi Status",
+      message: "Bạn có chắc chắn về điều đó",
       buttons: [
         {
-          label: "Yes",
+          label: "Có",
           onClick: () => handleUpdateActiveSubject(row),
         },
         {
-          label: "No",
+          label: "Không",
           //onClick: () => alert('Click No')
         },
       ],
@@ -260,7 +260,7 @@ function Subjects() {
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
-                  placeholder="Search..."
+                  placeholder="Tìm kiếm..."
                   style={{ margin: "0px 10px" }}
                   onChange={onSearch}
                 />

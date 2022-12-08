@@ -163,8 +163,8 @@ function SubjectDetail(props) {
                             <CCardHeader>
                                 <strong>
                                     {type === 1
-                                        ? "Change Subject Info"
-                                        : "Create New Subject"}
+                                        ? "Thông tin môn học"
+                                        : "Tạo môn học mới"}
                                 </strong>
                             </CCardHeader>
                             <CCardBody>
@@ -191,7 +191,7 @@ function SubjectDetail(props) {
                                                     onChange={(e) =>
                                                         setCodeSubject(e.target.value)
                                                     }
-                                                    feedbackInvalid="Please enter Code!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 />
@@ -200,7 +200,7 @@ function SubjectDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Name (
+                                                    Tên môn học (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -214,7 +214,7 @@ function SubjectDetail(props) {
                                                     onChange={(e) =>
                                                         setName(e.target.value)
                                                     }
-                                                    feedbackInvalid="Please enter Name!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 />
@@ -229,7 +229,8 @@ function SubjectDetail(props) {
                                                 <CFormSelect
                                                     id="autoSizingSelect"
                                                     onChange={(e) => setCategoryId(e.target.value)}
-                                                    feedbackInvalid="Please select Category!"
+                                                    
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 >
@@ -324,7 +325,7 @@ function SubjectDetail(props) {
                                                     onChange={(e) =>
                                                         setManager(e.target.value)
                                                     }
-                                                    feedbackInvalid="Please select Manager!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 >
@@ -379,7 +380,7 @@ function SubjectDetail(props) {
                                                     onChange={(e) =>
                                                         setExpert(e.target.value)
                                                     }
-                                                    feedbackInvalid="Please select Expert!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 >
@@ -445,7 +446,7 @@ function SubjectDetail(props) {
                                     </div>
                                     <div className="mb-3">
                                         <CButton type="submit">
-                                            Save
+                                            Lưu
                                         </CButton>
                                     </div>
                                 </CForm>

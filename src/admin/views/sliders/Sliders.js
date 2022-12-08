@@ -31,7 +31,8 @@ const Sliders = () => {
             sortable: true,
         },
         {
-            name: "ImageUrl",
+            name: "Ảnh",
+            width:'250px',
             selector: (row) => (
                 <img
                     src={(row?.imageUrl != null && row?.imageUrl) ? combieImg(row?.imageUrl) : ""}
@@ -42,26 +43,26 @@ const Sliders = () => {
             sortable: false,
         },
         {
-            name: "Title",
+            name: "Tiêu đề",
             maxWidth: '260px',
             selector: (row) => row?.title,
             sortable: true,
         },
         {
-            name: "URL",
+            name: "Đường dẫn",
             maxWidth: '260px',
             selector: (row) => row?.url,
             sortable: true,
         },
         {
-            name: "Valid To",
+            name: "Hạn bài đăng",
             maxWidth: '160px',
             selector: (row) => new Date(row?.validTo).toLocaleDateString(),
             sortable: true,
         },
         {
             name: "Status",
-            maxWidth: '160px',
+            maxWidth: '200px',
             selector: (row) => (
                 <>
                     <div className={` ${row?.status !== 2 ? Styles.active : Styles.inactive}`} style={{ textAlign: 'center', width: '100px' }}>
@@ -140,15 +141,15 @@ const Sliders = () => {
     const submit = (row) => {
 
         confirmAlert({
-            title: 'Confirm to change status',
-            message: 'Are you sure to do this.',
+            title: 'Xác nhận thay đổi trạng thái',
+            message: 'Bạn có chắc chắn về điều này',
             buttons: [
                 {
-                    label: 'Yes',
+                    label: 'Có',
                     onClick: () => handleUpdateStatus(row)
                 },
                 {
-                    label: 'No',
+                    label: 'Không',
                     //onClick: () => alert('Click No')
                 }
             ]

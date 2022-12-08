@@ -113,7 +113,7 @@ function TraineeDetail(props) {
             <CCard className="mb-4">
               <CCardHeader>
                 <strong>
-                  {type === 1 ? "Change Trainee Info" : "Create New Trainee"}
+                  {type === 1 ? "Thông tin học viên" : "Tạo học viên mới"}
                 </strong>
               </CCardHeader>
               <CCardBody>
@@ -127,7 +127,7 @@ function TraineeDetail(props) {
                     <CCol sm={6}>
                       <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">
-                          Class (<span style={{ color: "red" }}>*</span>)
+                          Lớp học (<span style={{ color: "red" }}>*</span>)
                         </CFormLabel>
                         <CFormSelect
                           id="autoSizingSelect"
@@ -192,7 +192,7 @@ function TraineeDetail(props) {
                     <CCol sm={6}>
                       <div className="mb-3">
                         <CFormLabel htmlFor="formFile">
-                          FullName(
+                          Họ và tên(
                           <span style={{ color: "red" }}>*</span>)
                         </CFormLabel>
                         <CFormInput
@@ -207,7 +207,7 @@ function TraineeDetail(props) {
                     <CCol sm={6}>
                       <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">
-                          Drop-out Date(
+                          Ngày bắt đầu(
                           <span style={{ color: "red" }}>*</span>)
                         </CFormLabel>
                         <CFormInput
@@ -223,7 +223,7 @@ function TraineeDetail(props) {
                           onChange={(e) =>
                             setDropOutDate(new Date(e.target.value))
                           }
-                          feedbackInvalid="Please select Drop-out Date!"
+                          feedbackInvalid="Không được để trống!"
                           required
                           tooltipFeedback
                         />
@@ -245,7 +245,7 @@ function TraineeDetail(props) {
                     </CCol>
                   </CRow>
                   <div className="mb-3">
-                    <CButton type="submit">Save</CButton>
+                    <CButton type="submit">Lưu</CButton>
                   </div>
                 </CForm>
               </CCardBody>

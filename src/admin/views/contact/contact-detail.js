@@ -89,7 +89,7 @@ function ContactDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardHeader>
-                                <strong>Change Contact Info</strong>
+                                <strong>Thông tin Contact</strong>
                             </CCardHeader>
                             <CCardBody>
                                 <CRow className="g-3 mb-3">
@@ -111,7 +111,7 @@ function ContactDetail(props) {
                                     <CCol sm={6}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Fullname
+                                                Họ và tên
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -160,7 +160,7 @@ function ContactDetail(props) {
                                     <CCol sm={6}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Phone Number
+                                                Phone
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -176,7 +176,7 @@ function ContactDetail(props) {
                                 </CRow>
                                 <div className="mb-3">
                                     <CFormLabel htmlFor="exampleFormControlInput1">
-                                        Message
+                                        Tin nhắn
                                     </CFormLabel>
                                     <CFormTextarea
                                         id="exampleFormControlTextarea1"
@@ -194,7 +194,7 @@ function ContactDetail(props) {
                                     <CButton
                                         onClick={() => handleUpdateContact()}
                                     >
-                                        Save
+                                        Lưu
                                     </CButton>
                                 </div>
                             </CCardBody>

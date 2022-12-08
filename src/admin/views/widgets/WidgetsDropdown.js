@@ -55,14 +55,14 @@ const WidgetsDropdown = () => {
           icon={<CIcon icon={cilUser} height={36} />}
           value={totalTraineeActive}
           progress={{ value: 100 }}
-          title="Trainee Active"/>
+          title="Học viên"/>
       </CCol>
       <CCol sm={6} lg={3}>
         <CWidgetStatsC
           className="mb-4"
           color=""
           value={totalClass}
-          title="Classes"
+          title="Lớp học"
           progress={{color:"success", value: 100 }}
           icon={<CIcon icon={cilRoom} height={36} />}
         />
@@ -72,7 +72,7 @@ const WidgetsDropdown = () => {
           className="mb-4"
           color=""
           value={totalSubject}
-          title="Subjects"
+          title="Môn học"
           progress={{color:"warning", value: 100 }}
           icon={<CIcon icon={cilBook} height={36} />}
         />
@@ -83,7 +83,7 @@ const WidgetsDropdown = () => {
           icon={<CIcon icon={cilCart} height={36} />}
           progress={{color:"danger", value: 100 }}
           value={totalSoldOut}
-          title="Sold Out"
+          title="Sản phẩm đã bán ra"
         />
       </CCol>
     </CRow>

@@ -114,8 +114,8 @@ function CouponDetail(props) {
                             <CCardHeader>
                                 <strong>
                                     {type === 1
-                                        ? "Change Class Info"
-                                        : "Create New Coupon"}
+                                        ? "Thông tin mã giảm giá"
+                                        : "Tạo mã giảm giá mới"}
                                 </strong>
                             </CCardHeader>
                             <CCardBody>
@@ -129,7 +129,7 @@ function CouponDetail(props) {
                                         <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Valid From (
+                                                    Ngày bắt đầu (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -160,7 +160,7 @@ function CouponDetail(props) {
                                         <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Valid To (
+                                                    Ngày kết thúc (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -238,7 +238,7 @@ function CouponDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Max Quantity(
+                                                    Số lượng(
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -258,7 +258,7 @@ function CouponDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Discount Rate(
+                                                    Chiết khấu(
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -300,7 +300,7 @@ function CouponDetail(props) {
                                         <CButton
                                             type="submit"
                                         >
-                                            Save
+                                            Lưu
                                         </CButton>
                                     </div>
                                 </CForm>

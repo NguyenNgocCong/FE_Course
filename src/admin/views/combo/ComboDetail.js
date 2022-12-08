@@ -47,7 +47,7 @@ function ComboDetail(props) {
       sortable: true,
     },
     {
-      name: "Title",
+      name: "Tiêu đề",
       minWidth: "150px",
       width: "200px",
       maxWidth: "250px",
@@ -55,7 +55,7 @@ function ComboDetail(props) {
       sortable: true,
     },
     {
-      name: "Description",
+      name: "Mô tả",
       minWidth: "250px",
       width: "300px",
       maxWidth: "350px",
@@ -63,7 +63,7 @@ function ComboDetail(props) {
       sortable: true,
     },
     {
-      name: "Price",
+      name: "Giá bán",
       minWidth: "250px",
       width: "250px",
       maxWidth: "275px",
@@ -71,7 +71,7 @@ function ComboDetail(props) {
       sortable: true,
     },
     {
-      name: "Sale Price",
+      name: "Giá khuyến mãi",
       minWidth: "250px",
       width: "250px",
       maxWidth: "275px",
@@ -197,15 +197,15 @@ function ComboDetail(props) {
 
   const handleAddPackage = async () => {
     if (!packages) {
-      toast.error("Please select package", {
+      toast.error("Hãy chọn khóa học", {
         duration: 1000,
       });
     } else if (parseInt(salePrice) === 0) {
-      toast.error("Please enter sale price", {
+      toast.error("Nhập giá khuyến mãi", {
         duration: 1000,
       });
     } else if (parseInt(salePrice) > parseInt(packages?.salePrice)) {
-      toast.error("The sale price must be less than the original price", {
+      toast.error("Giá khuyến mãi phải nhỏ hơn giá bán gốc", {
         duration: 1000,
       });
     } else {
@@ -248,7 +248,7 @@ function ComboDetail(props) {
         <div className="body flex-grow-1 px-3">
           <CCard className="mb-4">
             <CCardHeader>
-              <strong>Combo Details</strong>
+              <strong>Thông tin combo</strong>
             </CCardHeader>
             <CCardBody>
               <CForm
@@ -263,7 +263,7 @@ function ComboDetail(props) {
                       <CCol sm={12}>
                         <div className="mb-3">
                           <CFormLabel>
-                            Title (<span style={{ color: "red" }}>*</span>)
+                            Tiêu đề (<span style={{ color: "red" }}>*</span>)
                           </CFormLabel>
                           <CFormInput
                             type="text"
@@ -279,7 +279,7 @@ function ComboDetail(props) {
                       <CCol sm={12}>
                         <div className="mb-3">
                           <CFormLabel>
-                            Description (<span style={{ color: "red" }}>*</span>)
+                            Mô tả (<span style={{ color: "red" }}>*</span>)
                           </CFormLabel>
                           <CKEditor
                             editor={ClassicEditor}
@@ -296,7 +296,7 @@ function ComboDetail(props) {
                   <CCol sm={6}>
                     <div className="mb-3">
                       <CFormLabel htmlFor="exampleFormControlInput1">
-                        Image (
+                        Ảnh (
                         <span style={{ color: "red" }}>*</span>)
                       </CFormLabel>
                       <br />
@@ -320,13 +320,13 @@ function ComboDetail(props) {
                     </div>
                   </CCol>
                 </CRow>
-                <h5>Packages information</h5>
+                <h5>Thông tin khóa học</h5>
                 <hr></hr>
                 <CRow className="g-3 mb-3">
                   <CCol sm={5}>
                     <div className="d-flex form-row-inline label-medium">
                       <CFormLabel style={{ marginRight: "10px" }}>
-                        Packages:
+                        Khóa học:
                       </CFormLabel>
                       <CFormSelect
                         id="autoSizingSelect"
@@ -347,7 +347,7 @@ function ComboDetail(props) {
                   <CCol sm={3}>
                     <CRow>
                       <CCol sm={2}>
-                        <CFormLabel>Price:</CFormLabel>
+                        <CFormLabel>Giá bán:</CFormLabel>
                       </CCol>
                       <CCol sm={10}>
                         <CFormInput
@@ -362,7 +362,7 @@ function ComboDetail(props) {
                   <CCol sm={3}>
                     <CRow>
                       <CCol sm={4} className="d-flex justify-content-end">
-                        <CFormLabel>Sale Price:</CFormLabel>
+                        <CFormLabel>Giá khuyến mãi:</CFormLabel>
                       </CCol>
                       <CCol sm={8}>
                         <CFormInput
@@ -376,7 +376,7 @@ function ComboDetail(props) {
                     </CRow>
                   </CCol>
                   <CCol sm={1}>
-                    <CButton onClick={() => handleAddPackage()}>Import</CButton>
+                    <CButton onClick={() => handleAddPackage()}>Thêm</CButton>
                   </CCol>
                   <CCol sm={12}>
                     <DataTable
@@ -388,7 +388,7 @@ function ComboDetail(props) {
                 </CRow>
                 <div className="mb-3">
                   <CButton type="submit">
-                    {type === 1 ? "Update" : "Add"}
+                    {type === 1 ? "Lưu" : "Thêm"}
                   </CButton>
                 </div>
               </CForm>
