@@ -127,6 +127,7 @@ html:not([dir=rtl]) .wrapper {
   outline: none;
 }
 
+
 .input__checkout::-webkit-input-placeholder {
   color: #AAAAAA;
 }

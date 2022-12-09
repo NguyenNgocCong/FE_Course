@@ -8,7 +8,7 @@ import { store } from "./redux/store";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import "./admin/scss/style.scss";
+import "./scss/style.scss";
 
 ReactDOM.render(
   <Provider store={store}>
