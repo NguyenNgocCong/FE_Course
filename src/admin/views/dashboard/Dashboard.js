@@ -1,24 +1,14 @@
 import React from "react";
-
 import {
-   
     CCard,
     CCardBody,
-   
     CCol,
-   
     CRow,
-    
 } from "@coreui/react";
 import { dashboardApi } from "../../../api/dashboardApi";
 import { CChartLine } from "@coreui/react-chartjs";
 import { getStyle, hexToRgba } from "@coreui/utils";
-
-
-
-
-import toast, { Toaster } from "react-hot-toast";
-import WidgetsBrand from "../widgets/WidgetsBrand";
+import toast from "react-hot-toast";
 import WidgetsDropdown from "../widgets/WidgetsDropdown";
 import { AppFooter, AppHeader, AppSidebar } from "../../components";
 import { useEffect, useState } from "react";

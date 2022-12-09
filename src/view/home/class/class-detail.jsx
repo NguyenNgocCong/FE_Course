@@ -8,7 +8,7 @@ import { Markup } from "interweave";
 import { classApi } from "../../../api/classApi";
 import bannerImg from "../../../images/banner/banner2.jpg";
 import { combieImg } from "../../../utils/index";
-import Comments from "../../Comments";
+import Comments from "../../element/Comments";
 import { useSelector } from "react-redux";
 import { userApi } from "../../../api/userApi";
 import { toast } from "react-toastify";

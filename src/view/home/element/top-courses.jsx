@@ -47,7 +47,7 @@ function PopularCoursesSlider() {
         <div className="container">
           <div className="heading-bx left">
             <h2 className="title-head">
-              Top Buys <span>Courses</span>
+              Khóa học <span>tiêu biểu</span>
             </h2>
           </div>
           <Slider
@@ -78,7 +78,7 @@ function PopularCoursesSlider() {
                       }}
                       className="btn btn-warning m-2"
                     >
-                      Read More
+                      Xem thêm
                     </div>
                   </div>
                   <div className="info-bx">
@@ -118,7 +118,7 @@ function PopularCoursesSlider() {
                         className="btn btn-warning"
                         onClick={() => handleAddToCart(item)}
                       >
-                        <i className="fa fa-cart-plus"></i> Add to cart
+                        <i className="fa fa-cart-plus"></i> Thêm vào giỏ
                       </div>
                     </div>
                   </div>
@@ -130,7 +130,7 @@ function PopularCoursesSlider() {
         <div className="container">
           <div className="heading-bx left">
             <h2 className="title-head">
-              Top Views <span>Courses</span>
+            Khóa Học<span> được quan tâm</span> 
             </h2>
           </div>
           <Slider
@@ -157,7 +157,7 @@ function PopularCoursesSlider() {
                       }}
                       className="btn btn-warning m-2"
                     >
-                      Read More
+                      Xem thêm
                     </div>
                   </div>
                   <div className="info-bx">

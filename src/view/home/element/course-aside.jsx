@@ -64,7 +64,7 @@ function ProductAside() {
           </div>
         </div>
         <div className="widget widget_archive">
-          <h5 className="widget-title style-1">Loại khóa học</h5>
+          <h5 className="widget-title style-1">Chủ đề</h5>
           <ul>
             <li className="active">
               <h6 role={"button"}

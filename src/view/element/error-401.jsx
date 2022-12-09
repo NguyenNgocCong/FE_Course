@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Images
-import logoWhite2 from "../images/logo-white-2.png";
-import bannerImg from "../images/background/bg2.jpg";
+import logoWhite2 from "../../images/logo-white-2.png";
+import bannerImg from "../../images/background/bg2.jpg";
 
 function Error401() {
     return (

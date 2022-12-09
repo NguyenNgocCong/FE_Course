@@ -12,7 +12,7 @@ import { adminApi } from "../../../api/adminApi";
 import bannerImg from "../../../images/banner/banner2.jpg";
 import testiPic1 from "../../../images/testimonials/pic1.jpg";
 import { combieImg } from "../../../utils/index";
-import Comments from "../../Comments";
+import Comments from "../../element/Comments";
 import { userApi } from "../../../api/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";

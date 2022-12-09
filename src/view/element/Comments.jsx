@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import testiPic1 from "../images/testimonials/pic1.jpg";
-import { combieImg } from "../utils/index";
+import testiPic1 from "../../images/testimonials/pic1.jpg";
+import { combieImg } from "../../utils/index";
 
 const Comments = ({ hanleComment, comments }) => {
   const [text, setText] = useState("");

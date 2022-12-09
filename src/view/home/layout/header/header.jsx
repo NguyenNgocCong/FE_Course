@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Sticky from "react-stickynode";
 import logo from "../../../../images/logopurple.png";
 import Cookies from "js-cookie";
-import { CAvatar } from "@coreui/react";
 import avatarProfile from "./avatar.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { setEditAvatar } from "../../../../redux/reducers/user";
@@ -152,10 +151,11 @@ function Header() {
                           <div
                             onClick={() => setIsExpand(!isExpand)}
                           >
-                            <CAvatar
+                            <img
                               src={combieImg(user?.avatar)}
                               alt=""
                               size="md"
+                              style={{height:"40px", width:"100%", borderRadius:"20px"}}
                               onError={({ currentTarget }) => {
                                 currentTarget.src = avatarProfile;
                               }}

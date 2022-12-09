@@ -7,7 +7,7 @@ import DataTable from "react-data-table-component";
 import { comboApi } from "../../../api/comboApi";
 import bannerImg from "../../../images/banner/banner2.jpg";
 import blogDefaultThum1 from "../../../images/blog/default/thum1.jpg";
-import Comments from "../../Comments";
+import Comments from "../../element/Comments";
 import { useDispatch, useSelector } from "react-redux";
 import { userApi } from "../../../api/userApi";
 import { toast } from "react-toastify";

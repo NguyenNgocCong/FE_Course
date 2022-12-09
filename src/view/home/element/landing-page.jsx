@@ -24,7 +24,7 @@ function OnlineCourses() {
   const getAllSubject = async () => {
     try {
       const response = await userApi.getListAllSubject();
-      setListSubject(response)
+      setListSubject(response.splice(0, 7))
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -46,15 +46,15 @@ function OnlineCourses() {
     <div className="section-area bg-fix ovbl-dark" style={{ backgroundImage: "url(" + bg1 + ")", padding:marginRoot+"px 0px" }}>
       <div className="container">
         <div className="row">
-          <div className="col-md-3" style={{ padding: "0px 0px 0px 12px" }} >
+          <div className="col-md-3" >
             <div
               className="menu-links navbar-collapse"
               id="menuDropdown"
             >
               <CListGroup className="nav navbar-nav d-flex element-home-left">
-                <CListGroupItem className="font-weight-bold list-homepage" style={{ minWidth: "310px", height: "45px" }}>
+                <CListGroupItem className="font-weight-bold list-homepage">
                   <span className="d-flex justify-content-between">
-                    <span>Knowledge</span>
+                    <span>Kiến thức</span>
                     <span>
                       <i className="fa fa-chevron-right"></i>
                     </span>
@@ -80,44 +80,40 @@ function OnlineCourses() {
                 </CListGroupItem>
                 <CListGroupItem
                   className="font-weight-bold list-homepage"
-                  style={{ minWidth: "250px", height: "45px" }}
                   onClick={() => {
                     window.location.href = "/lrs/products";
                   }}
                 >
-                  All Product
+                      <div>Tất cả khóa học</div>
                 </CListGroupItem>
                 <CListGroupItem
                   className="font-weight-bold list-homepage"
-                  style={{ minWidth: "250px", height: "45px" }}
                   onClick={() => {
                     window.location.href = "/lrs/combos";
                   }}
                 >
-                  Combos
+                      <div>Combo</div>
                 </CListGroupItem>
                 <CListGroupItem
                   className="font-weight-bold list-homepage"
-                  style={{ minWidth: "250px", height: "45px" }}
                   onClick={() => {
                     window.location.href = "/lrs/lecturers";
                   }}
                 >
-                  Lecturers
+                      <div>Giảng viên</div>
                 </CListGroupItem>
-                {listSubject.splice(0, 7).map((elment) => {
+                {listSubject.map((elment) => {
                   return (
                     <CListGroupItem
                       key={elment?.id}
                       className="font-weight-bold list-homepage"
-                      style={{ minWidth: "250px", height: "45px" }}
                       onClick={() => {
                         history.push("/products", {
                           category: elment?.id,
                         });
                       }}
                     >
-                      {elment?.name}
+                      <div>{elment?.name}</div>
                     </CListGroupItem>
                   );
                 })}

@@ -8,7 +8,7 @@ import BlogAside from "../element/blog-aside";
 import bannerImg from "../../../images/banner/banner2.jpg";
 import { userApi } from "./../../../api/userApi";
 import ReactHtmlParser from "react-html-parser";
-import Comments from "../../Comments";
+import Comments from "../../element/Comments";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 

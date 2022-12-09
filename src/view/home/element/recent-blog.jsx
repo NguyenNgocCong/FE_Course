@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Count from "../../counter-sensor";
+import Count from "../../element/counter-sensor";
 import { useEffect } from "react";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
@@ -25,12 +25,17 @@ function FeatureContent3(props) {
       <div className="section-area bg-fix ovbl-dark join-bx section-sp1">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12">
+            <div className="col-lg-10">
               <div className="heading-bx left text-white" style={{ marginBottom: "5px" }}>
                 <h2 className="title-head">
-                  NEWS <span><Count counter={968} />+ Blogs</span>
+                  Blogs <span>Mới nhất </span>
                 </h2>
               </div>
+            </div>
+            <div className="col-lg-2">
+              <h2 className="title-head text-white">
+                <span><Count counter={968} />+ Blogs</span>
+              </h2>
             </div>
             <div className="col-lg-12">
               <div className="row">
@@ -54,7 +59,7 @@ function FeatureContent3(props) {
                           className="btn btn-warning"
                           style={{ marginTop: "5px" }}
                         >
-                          Read
+                          Đọc
                         </div>
                       </div>
                       <div className="col-lg-8 blog-home" style={{ padding: "10px" }}>
@@ -67,7 +72,7 @@ function FeatureContent3(props) {
                         </h5>
                         <ul className="media-post">
                           <li>
-                            <i className="fa fa-user"></i> By{" "}
+                            <i className="fa fa-user"></i> Bởi{" "}
                             {item?.author.fullname}
                           </li>
                           <li>

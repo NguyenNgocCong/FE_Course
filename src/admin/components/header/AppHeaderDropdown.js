@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-    CAvatar,
     CDropdown,
     CDropdownItem,
     CDropdownMenu,
@@ -35,9 +34,11 @@ const AppHeaderDropdown = () => {
                 className="py-0"
                 caret={false}
             >
-                <CAvatar src={
+                <img src={
                     (user?.avatar != null && user?.avatar) ? combieImg(user?.avatar) : avatarProfile}
                     size="md"
+                    alt=""
+                    style={{height:"40px", width:"100%", borderRadius:"20px"}}
                 />
             </CDropdownToggle>
             <CDropdownMenu className="pt-0" placement="bottom-end" >

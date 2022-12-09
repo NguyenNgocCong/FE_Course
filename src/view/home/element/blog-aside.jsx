@@ -77,7 +77,7 @@ function BlogAside() {
           </div>
         </div>
         <div className="widget widget_archive">
-          <h5 className="widget-title">Loại blog</h5>
+          <h5 className="widget-title">Chủ đề</h5>
           <ul>
             <li className="active">
               <h6 role={"button"}

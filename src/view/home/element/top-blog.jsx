@@ -62,8 +62,8 @@ const RecentTopsSlider = () => {
               TOP <span>Blogs</span>
             </h2>
             <p>
-              A place containing huge treasures of knowledge to help you reach
-              your dreams
+              Nơi chứa đựng kho tàng kiến thức khổng lồ giúp bạn vươn tới
+              ước mơ của bạn
             </p>
           </div>
           <Slider
@@ -94,10 +94,10 @@ const RecentTopsSlider = () => {
                         {" " + new Date(item?.createDate).toLocaleDateString()}
                       </li>
                       <li>
-                        <i className="fa fa-user"></i> By{" "}
+                        <i className="fa fa-user"></i> Bởi{" "}
                         {item?.author.fullname}
                       </li>
-                      <li>
+                      <li style={{width:"100px"}}>
                         <i className="fa fa-eye"></i> {item?.views}
                       </li>
                     </ul>
@@ -108,7 +108,7 @@ const RecentTopsSlider = () => {
                       }}
                       className="btn btn-warning m-2"
                     >
-                      Read More
+                      Đọc thêm
                     </div>
                   </div>
                 </div>

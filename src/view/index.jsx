@@ -1,20 +1,19 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 //function
-import BackToTop from "./back-top";
-import PageScrollTop from "./page-scroll-top";
+import BackToTop from "./element/back-top";
+import PageScrollTop from "./element/page-scroll-top";
 import Cookies from "js-cookie";
+import Error404 from "./element/error-404";
+import Error401 from "./element/error-401";
 
 //home
 import Index from "./home/index";
-import About2 from "./home/about-us/about";
-import Error404 from "./error-404";
-import Error401 from "./error-401";
-
 import ForgetPassword from "./auth/forget-password";
 import ForgetPasswordInput from "./auth/forget-password-input";
 import Login from "./auth/login";
 import Register from "./auth/register";
+import About2 from "./home/about-us/about";
 
 import Profile from "./user/profile";
 

@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
 // Images
-import logoWhite2 from '../images/logo-white-2.png';
-import bannerImg from '../images/background/bg2.jpg';
+import logoWhite2 from '../../images/logo-white-2.png';
+import bannerImg from '../../images/background/bg2.jpg';
 
 class Error404 extends Component{
 	

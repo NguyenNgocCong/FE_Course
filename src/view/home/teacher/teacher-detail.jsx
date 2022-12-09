@@ -15,7 +15,7 @@ import ReactHtmlParser from "react-html-parser";
 import { combieImg } from "../../../utils/index";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Comments from "../../Comments";
+import Comments from "../../element/Comments";
 
 function LecturerDetails(prop) {
   const [expert, setexpert] = useState({});

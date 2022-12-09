@@ -2,25 +2,15 @@ import React from 'react'
 import {
   CRow,
   CCol,
-  CDropdown,
-  CDropdownMenu,
-  CDropdownItem,
-  CDropdownToggle,
-  CWidgetStatsA,
   CWidgetStatsC,
 } from '@coreui/react'
-import { getStyle } from '@coreui/utils'
-import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
-import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { dashboardApi } from "../../../api/dashboardApi";
 import {cilUser,cilRoom,cilBook,cilCart} from '@coreui/icons';
 const WidgetsDropdown = () => {
-
-
-  const [dataDashboard, setDataDashboard] = useState();
+  // const [dataDashboard, setDataDashboard] = useState();
   const [totalTraineeActive, setTotalTraineeActive] = useState();
   const [totalClass, setTotalClass] = useState();
   const [totalSubject, setTotalSubject] = useState();
@@ -28,7 +18,7 @@ const WidgetsDropdown = () => {
   const getDataDashboard = async () => {
     try {
       const response = await dashboardApi.getDataDashboard();
-      setDataDashboard(response)
+      // setDataDashboard(response)
       setTotalTraineeActive(response?.totalTraineeActive);
       setTotalClass(response?.totalClass)
       setTotalSubject(response?.totalSubject)

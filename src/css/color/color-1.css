@@ -131,7 +131,8 @@ h6 a:hover,
 }
 
 .list-homepage{
-	background:#f7b205 !important;
+	background:linear-gradient(to right, #523622 0%,#011e32 100%) !important;
+	
 }
 
 .ovbl-middle::after,
