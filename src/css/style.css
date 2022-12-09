@@ -566,7 +566,7 @@
 
 .menu-bar {
     width: 100%;
-    background-color: #f7b205 !important;
+    background-color: #f7b81a !important;
     position: relative;
     box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 4px 12px rgb(0 0 0 / 5%);
 }
@@ -5520,14 +5520,9 @@ select:focus,
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #c5c5c5;
 }
 
-.list-homepage {
-    height: 100px;
-}
-
-
-.list-homepage:hover {
-    background-color: #6424a0;
-    color: white;
+.list-homepage div:hover {
+    color: #f7b205 !important;
 }

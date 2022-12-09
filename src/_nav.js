@@ -1,4 +1,4 @@
-import { CNavItem } from "@coreui/react";
+import { CNavGroup, CNavItem } from "@coreui/react";
 
 
 const _nav = [
@@ -72,22 +72,30 @@ const _nav = [
         icon: "fa fa-inbox",
     },
     {
-        component: CNavItem,
-        name: "Registration",
-        to: "/admin/registration",
+        component: CNavGroup,
+        name: 'Đơn hàng',
+        to: '/admin/order',
         icon: "fa fa-shopping-cart",
-    },
-    {
-        component: CNavItem,
-        name: "Orders",
-        to: "/admin/orders",
-        icon: "fa fa-shopping-basket",
-    },
-    {
-        component: CNavItem,
-        name: "Ordered",
-        to: "/admin/ordered",
-        icon: "fa fa-shopping-bag",
+        items: [
+            {
+                component: CNavItem,
+                name: "Registration",
+                to: "/admin/registration",
+                icon: "fa fa-shopping-cart",
+            },
+            {
+                component: CNavItem,
+                name: "Orders",
+                to: "/admin/orders",
+                icon: "fa fa-shopping-basket",
+            },
+            {
+                component: CNavItem,
+                name: "Ordered",
+                to: "/admin/ordered",
+                icon: "fa fa-shopping-bag",
+            }
+        ]
     },
     {
         component: CNavItem,

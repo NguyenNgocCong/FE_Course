@@ -1,5 +1,5 @@
 import React from "react";
-import Markup from "./view/index";
+import Markup from "./views/index";
 
 import "./App.css";
 

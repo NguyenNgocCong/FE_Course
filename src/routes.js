@@ -1,22 +1,21 @@
 import React from "react";
 
-const Dashboard = React.lazy(() => import("./admin/views/dashboard/Dashboard"));
-// Base
-const Users = React.lazy(() => import("./admin/views/users/Users"));
-const Subject = React.lazy(() => import("./admin/views/subjects/subjects"));
-const Registration = React.lazy(() => import("./admin/views/registration/registration"));
-const Orders = React.lazy(() => import("./admin/views/orders/orders"));
-const Ordered = React.lazy(() => import("./admin/views/ordered/ordered"));
-const Contact = React.lazy(() => import("./admin/views/contact/contact"));
-const Trainee = React.lazy(() => import("./admin/views/trainee/trainee"));
-const Coupon = React.lazy(() => import("./admin/views/coupon/coupon"));
-const Class = React.lazy(() => import("./admin/views/class/class"));
-const Posts = React.lazy(() => import("./admin/views/posts/Posts"));
-const Sliders = React.lazy(() => import("./admin/views/sliders/Sliders"));
-const Packages = React.lazy(() => import("./admin/views/packages/Packages"));
-const Experts = React.lazy(() => import("./admin/views/expert/Experts"));
-const Combo = React.lazy(() => import("./admin/views/combo/Combo"));
-const Settings = React.lazy(() => import("./admin/views/settings/Settings"));
+const Dashboard = React.lazy(() => import("./views/admin/dashboard/dashboard"));
+const Users = React.lazy(() => import("./views/admin/users/users"));
+const Subject = React.lazy(() => import("./views/admin/subjects/subjects"));
+const Registration = React.lazy(() => import("./views/admin/registration/registration"));
+const Orders = React.lazy(() => import("./views/admin/orders/orders"));
+const Ordered = React.lazy(() => import("./views/admin/ordered/ordered"));
+const Contact = React.lazy(() => import("./views/admin/contact/contact"));
+const Trainee = React.lazy(() => import("./views/admin/trainee/trainee"));
+const Coupon = React.lazy(() => import("./views/admin/coupon/coupon"));
+const Class = React.lazy(() => import("./views/admin/class/class"));
+const Posts = React.lazy(() => import("./views/admin/posts/posts"));
+const Sliders = React.lazy(() => import("./views/admin/sliders/sliders"));
+const Packages = React.lazy(() => import("./views/admin/packages/packages"));
+const Experts = React.lazy(() => import("./views/admin/expert/experts"));
+const Combo = React.lazy(() => import("./views/admin/combo/combo"));
+const Settings = React.lazy(() => import("./views/admin/settings/settings"));
 
 const routes = [
     { path: "/", exact: true, name: "Home" },

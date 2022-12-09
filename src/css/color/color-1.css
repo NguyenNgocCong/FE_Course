@@ -5,7 +5,8 @@
 	--sc-primary: #4d0a91;
 	--secondary: #f7b205;
 }
-::selection{
+
+::selection {
 	color: #fff;
 	background-color: #4c1864;
 }
@@ -57,12 +58,13 @@ button.back-to-top,
 .pagination-bx.primary .pagination>li>a:hover,
 .pagination-bx.primary .pagination>li>span:hover,
 .pagination-bx.primary .pagination>li.active>span,
-.pagination-bx.primary .pagination>li.active>a{
+.pagination-bx.primary .pagination>li.active>a {
 	background-color: #4d0a91;
 }
+
 .services-bx:hover:after,
 .testimonial-bx.style1,
-.subscribe-box{
+.subscribe-box {
 	background: #4d0a91;
 }
 
@@ -99,7 +101,7 @@ h5 a:hover,
 h6 a:hover,
 .btn.outline,
 .btn-link:hover,
-.service-no{
+.service-no {
 	color: #4c1864;
 }
 
@@ -130,9 +132,8 @@ h6 a:hover,
 	background-color: #121921;
 }
 
-.list-homepage{
-	background:linear-gradient(to right, #523622 0%,#011e32 100%) !important;
-	
+.list-homepage {
+	background: linear-gradient(to right, #5a4846 0%, #555158 50%, #4a5261 100%) !important;
 }
 
 .ovbl-middle::after,
@@ -147,7 +148,7 @@ h6 a:hover,
 	/* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(45deg, #100018 0%, #26006c 50%, #110038 100%);
 	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#100018', endColorstr='#110038', GradientType=1);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#100018', endColorstr='#110038', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 }
 
@@ -167,7 +168,7 @@ h6 a:hover,
 	/* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(45deg, #4c1864 0%, #3f189a 100%);
 	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c1864', endColorstr='#3f189a', GradientType=1);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c1864', endColorstr='#3f189a', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 }
 
@@ -211,15 +212,16 @@ button.back-to-top:hover,
 	color: #fff;
 }
 
-.heading-bx.text-center .title-head ,
+.heading-bx.text-center .title-head,
 .heading-bx.left .title-head,
-.widget-title{
+.widget-title {
 	border-color: #f7b205;
 }
 
 .bg-primary {
-	background-color: #4c1864!important;
+	background-color: #4c1864 !important;
 }
-.text-primary{
-	color: #4c1864!important;
+
+.text-primary {
+	color: #4c1864 !important;
 }
