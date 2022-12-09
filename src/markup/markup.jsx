@@ -45,7 +45,6 @@ import SubjectDetail from "../admin/views/subjects/subject-detail";
 import Subjects from "../admin/views/subjects/subjects";
 import RegistrationDetail from "../admin/views/registration/registration-detail";
 import Registration from "../admin/views/registration/registration";
-import OrderedDetail from "../admin/views/ordered/ordered-detail";
 import Ordered from "../admin/views/ordered/ordered";
 import OrdersDetail from "../admin/views/orders/orders-detail";
 import Orders from "../admin/views/orders/orders";
@@ -183,10 +182,6 @@ function Markup(props) {
           <PrivateRoute path="/admin/ordered" exact>
             <Ordered />
           </PrivateRoute>
-          <PrivateRoute path="/admin/ordered/:id" exact>
-            <OrderedDetail />
-          </PrivateRoute>
-
           {/* Class */}
           <PrivateRoute path="/admin/class" exact>
             <Class />

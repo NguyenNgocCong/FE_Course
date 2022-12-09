@@ -55,14 +55,6 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Description",
-      minWidth: "300px",
-      width: "350px",
-      maxWidth: "400px",
-      selector: (row) => row.description,
-      sortable: true,
-    },
-    {
       name: "Price",
       minWidth: "100px",
       width: "120px",

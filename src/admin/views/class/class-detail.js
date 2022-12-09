@@ -32,7 +32,9 @@ function ClassDetail(props) {
     const [isOnline, setIsOnline] = useState(true);
     const [supporter, setSupporter] = useState();
     const [status, setStatus] = useState();
-    const [validated,setValidated] = useState(false);
+    const [schedule, setSchedule] = useState();
+    const [time, setTime] = useState();
+    const [validated, setValidated] = useState(false);
     const role = JSON.parse(Cookies.get("user"))?.role;
     const isNotAdmin = role !== "ROLE_ADMIN" ? true : false;
     const location = useLocation();
@@ -117,7 +119,9 @@ function ClassDetail(props) {
                     online: isOnline,
                     supporterId: supporter,
                     branch: branch,
-                    startDate: dateStart
+                    startDate: dateStart,
+                    schedule: schedule,
+                    time: time
                 };
                 console.log(params);
 
@@ -267,6 +271,40 @@ function ClassDetail(props) {
                                                         setDateTo(new Date(e.target.value))
                                                     }
                                                     feedbackInvalid="Please select Date To!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Schedule (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormInput
+                                                    type="text"
+                                                    id="exampleFormControlInput1"
+                                                    defaultValue={type === 1 ? detailClass?.schedule : ""}
+                                                    onChange={(e) => setSchedule(e.target.value)}
+                                                    feedbackInvalid="Please enter Schedule!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Time (
+                                                    <span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormInput
+                                                    type="text"
+                                                    id="exampleFormControlInput1"
+                                                    defaultValue={type === 1 ? detailClass?.time : ""}
+                                                    onChange={(e) => setTime(e.target.value)}
+                                                    feedbackInvalid="Please enter Time!"
                                                     required
                                                     tooltipFeedback
                                                 />
@@ -564,7 +602,7 @@ function ClassDetail(props) {
                                             Save
                                         </CButton>
                                     </div>
-                                    </CForm>
+                                </CForm>
                             </CCardBody>
                         </CCard>
                     </CCol>

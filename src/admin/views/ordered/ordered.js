@@ -76,7 +76,7 @@ function Ordered() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/ordered/" + row?.id;
+              window.location.href = row.classId ? "/lrs/admin/registration/" + row?.id : "/lrs/admin/orders/" + row?.id;
             }}
             color="primary"
             style={{

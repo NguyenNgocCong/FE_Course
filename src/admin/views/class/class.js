@@ -23,17 +23,24 @@ function Class() {
     },
     {
       name: "Class Code",
-      minWidth: "140px",
-      width: "160px",
       maxWidth: "180px",
       selector: (row) => row.code,
       sortable: true,
     },
     {
+      name: "Schedule",
+      maxWidth: "180px",
+      selector: (row) => row.schedule,
+      sortable: true,
+    },
+    {
+      name: "Time",
+      maxWidth: "180px",
+      selector: (row) => row.time,
+      sortable: true,
+    },
+    {
       name: "Package",
-
-      minWidth: "225px",
-      width: "250px",
       maxWidth: "275px",
       selector: (row) => row.packages.title,
       sortable: true,
