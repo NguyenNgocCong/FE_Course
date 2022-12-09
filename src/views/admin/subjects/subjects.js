@@ -221,7 +221,7 @@ function Subjects() {
           <div
             style={{
               backgroundColor: "white",
-              padding: "5px 0px",padding: "5px 0px",
+              padding: "5px 0px",
               margin: "0px 0px 15px 0px",
             }}
           >
