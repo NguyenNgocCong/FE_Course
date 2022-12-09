@@ -22,7 +22,7 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Code",
+      name: "Mã lớp học",
       minWidth: "140px",
       width: "160px",
       maxWidth: "180px",
@@ -30,7 +30,7 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Package",
+      name: "Khóa học",
 
       minWidth: "225px",
       width: "250px",
@@ -55,7 +55,7 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Trainer",
+      name: "Giảng viên",
       minWidth: "150px",
       width: "200px",
       maxWidth: "250px",
@@ -73,17 +73,17 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Status",
+      name: "Trạng thái",
       width: "120px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          {row.status ? "Active" : "Deactivate"}
+          {row.status ? "Hoạt động" : "Không hoạt động"}
         </div>
       ),
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Chức năng",
       center: true,
       selector: (row) => (
         // <CButton href={`/react/admin/class/${row?.id}`} color="primary">
@@ -140,8 +140,9 @@ function Class() {
 
   const getListTrainer = async () => {
     try {
-      const response = await adminApi.getListTrainer();
+      const response = await adminApi.getListExperts(0, 50, "");
       setListTrainer(response.data);
+      console.log(response.data)
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -190,11 +191,11 @@ function Class() {
                     setTrainer(e.target.value);
                   }}
                 >
-                  <option value={0}>All Trainer</option>
+                  <option value={0}>Tất cả giảng viên</option>
                   {listTraner.map((item, index) => {
                     return (
                       <option key={index} value={item?.id}>
-                        {item?.fullname}
+                        {item?.user.fullname}
                       </option>
                     );
                   })}
@@ -208,9 +209,9 @@ function Class() {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
+                  <option value="">Tất cả trạng thái</option>
+                  <option value={true}>Hoạt động</option>
+                  <option value={false}>Không hoạt động</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>

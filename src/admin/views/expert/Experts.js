@@ -56,20 +56,20 @@ const Experts = () => {
             sortable: true,
         },
         {
-            name: "Status",
-            width: '120px',
+            name: "Trạng thái",
+            width: '150px',
             center: true,
             selector: (row) => (
                 <div className="d-flex align-items-center justify-content-center">
                     <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-                        <strong>{row?.status ? "Published" : "Unpublished"}</strong>
+                        <strong>{row?.status ? "Công khai" : "Không công khai"}</strong>
                     </div>
                 </div>
             ),
             sortable: true,
         },
         {
-            name: "Action",
+            name: "Chức năng",
             center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
@@ -80,10 +80,10 @@ const Experts = () => {
                         <CIcon icon={cilPen} />
                     </button>
                     <button
-                        style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "120px", border: "none", float: 'right' }}
                         onClick={() => submit(row)}
                     >
-                        {row?.status ? "Unpublish" : "Publish"}
+                        {row?.status ? "Không công khai" : "Công khai"}
                     </button>
                 </div>
 

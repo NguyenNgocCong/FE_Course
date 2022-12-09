@@ -113,7 +113,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Trainer
+                                                Giảng viên
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -176,7 +176,7 @@ function RegistrationDetail(props) {
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Phone
+                                                Số điện thoại
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -189,7 +189,7 @@ function RegistrationDetail(props) {
                                         </div>
                                     </CCol>
                                 </CRow>
-                                <strong>Order info</strong>
+                                <strong>Thông tin đặt hàng</strong>
                                 <hr></hr>
                                 <CRow className="g-3 mb-3">
                                     <CCol sm={3}>
@@ -256,14 +256,14 @@ function RegistrationDetail(props) {
                                     <CCol sm={2}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Status
+                                                Trạng thái
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    Number(registration?.status) === 1 ? "Submitted" : "Verified"
+                                                    Number(registration?.status) === 1 ? "Đã gửi" : "Đã xác minh"
                                                 }
                                             />
                                         </div>

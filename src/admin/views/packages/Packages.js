@@ -41,7 +41,7 @@ const Packages = () => {
     {
       name: "Thời hạn",
       minWidth: "100px",
-      width: "150px",
+      width: "100px",
       maxWidth: "200px",
       selector: (row) => row.duration,
       sortable: true,
@@ -79,19 +79,19 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Status",
+      name: "Trạng thái",
       minWidth: "100px",
-      width: "120px",
+      width: "150px",
       maxWidth: "140px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          <strong>{row.status ? "Active" : "Deactivate"}</strong>
+          <strong>{row.status ? "Hoạt động" : "Không hoạt động"}</strong>
         </div>
       ),
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Chức năng",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
@@ -114,13 +114,13 @@ const Packages = () => {
             style={{
               backgroundColor: "#7367f0",
               height: "30px",
-              width: "80px",
+              width: "120px",
               border: "none",
               float: "right",
             }}
             onClick={() => submit(row)}
           >
-            {row?.status ? "Deactivate" : "Active"}
+            {row?.status ? "Không hoạt động" : "Hoạt động"}
           </button>
         </div>
       ),
@@ -239,7 +239,7 @@ const Packages = () => {
                     setCategory(e.target.value);
                   }}
                 >
-                  <option value={0}>All Subject</option>
+                  <option value={0}>Tất cả môn học</option>
                   {listsubject?.map((item, index) => {
                     return (
                       <option key={index} value={item?.id}>
@@ -256,9 +256,9 @@ const Packages = () => {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
+                  <option value="">Tất cả trạng thái</option>
+                  <option value={true}>Hoạt động</option>
+                  <option value={false}>Không hoạt động</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>

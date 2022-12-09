@@ -121,11 +121,11 @@ function PostDetail(props) {
     }, []);
 
     const optionStatus = [
-        { status: 0, label: "Draft" },
-        { status: 1, label: "Submitted" },
-        { status: 2, label: "Published" },
-        { status: 3, label: "Achieved" },
-        { status: 4, label: "Rejected" },
+        { status: 0, label: "Nháp" },
+        { status: 1, label: "Gửi" },
+        { status: 2, label: "Được phát hành" },
+        { status: 3, label: "Hoàn thành" },
+        { status: 4, label: "Từ chối" },
     ];
 
     return (
@@ -170,7 +170,7 @@ function PostDetail(props) {
                                         <CCol sm={8}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Category (
+                                                    Phân loại (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormSelect
@@ -180,7 +180,7 @@ function PostDetail(props) {
                                                     required
                                                     tooltipFeedback
                                                 >
-                                                    <option value="">Select category</option>
+                                                    <option value="">Chọn phân loại</option>
                                                     {listCategory.map((item, index) => {
                                                         if (type === 1) {
                                                             return post?.categoryId ===
@@ -233,7 +233,7 @@ function PostDetail(props) {
                                             </div>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Status
+                                                    Trạng thái
                                                 </CFormLabel>
                                                 <CFormSelect
                                                     id="autoSizingSelect"

@@ -24,7 +24,7 @@ function Subjects() {
       sortable: true,
     },
     {
-      name: "Code",
+      name: "Mã môn học",
       minWidth: "180px",
       width: "200px",
       maxWidth: "220px",
@@ -40,7 +40,7 @@ function Subjects() {
       sortable: true,
     },
     {
-      name: "Manager",
+      name: "Quản lí",
       minWidth: "180px",
       width: "200px",
       maxWidth: "220px",
@@ -54,7 +54,7 @@ function Subjects() {
       sortable: true,
     },
     {
-      name: "Expert",
+      name: "Chuyên gia",
       minWidth: "180px",
       width: "200px",
       maxWidth: "220px",
@@ -62,7 +62,7 @@ function Subjects() {
       sortable: true,
     },
     {
-      name: "Category",
+      name: "Phân loại",
       minWidth: "160px",
       width: "180px",
       maxWidth: "200px",
@@ -81,17 +81,17 @@ function Subjects() {
       sortable: true,
     },
     {
-      name: "Status",
-      maxWidth: "120px",
+      name: "Trạng thái",
+      maxWidth: "150px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          <strong>{row.status ? "Active" : "Deactivate"}</strong>
+          <strong>{row.status ? "Hoạt động" : "Không hoạt động"}</strong>
         </div>
       ),
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Chức năng",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
@@ -114,13 +114,13 @@ function Subjects() {
             style={{
               backgroundColor: "#7367f0",
               height: "30px",
-              width: "80px",
+              width: "120px",
               border: "none",
               float: "right",
             }}
             onClick={() => submit(row)}
           >
-            {row?.status ? "Deactivate" : "Active"}
+            {row?.status ? "Không hoạt động" : "Hoạt động"}
           </button>
         </div>
       ),
@@ -234,7 +234,7 @@ function Subjects() {
                     setCategory(e.target.value);
                   }}
                 >
-                  <option value={0}>All Category</option>
+                  <option value={0}>Tất cả phân loại</option>
                   {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
@@ -251,9 +251,9 @@ function Subjects() {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
+                  <option value="">Tất cả trạng thái</option>
+                  <option value={true}>Hoạt động</option>
+                  <option value={false}>Không hoạt động</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>

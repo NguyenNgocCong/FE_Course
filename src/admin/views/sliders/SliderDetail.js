@@ -90,9 +90,9 @@ function SliderDetail(props) {
     }
 
     const optionStatus = [
-        { status: 0, label: "Draft" },
-        { status: 1, label: "Published" },
-        { status: 2, label: "Achieved" },
+        { status: 0, label: "Nháp" },
+        { status: 1, label: "Được phát hành" },
+        { status: 2, label: "Hoàn thành" },
     ];
 
     useEffect(() => {
@@ -200,7 +200,7 @@ function SliderDetail(props) {
                                                 <CCol sm={11} >
                                                     <div className="mb-3">
                                                         <CFormLabel htmlFor="exampleFormControlInput1">
-                                                            Status
+                                                            Trạng thái
                                                         </CFormLabel>
                                                         <CFormSelect
                                                             id="autoSizingSelect"

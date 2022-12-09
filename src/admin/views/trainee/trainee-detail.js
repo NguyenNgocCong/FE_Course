@@ -98,8 +98,8 @@ function TraineeDetail(props) {
   }, []);
 
   const optionStatus = [
-    { status: false, label: "Deactivate" },
-    { status: true, label: "Active" },
+    { status: false, label: "Không hoạt động" },
+    { status: true, label: "Hoạt động" },
   ];
 
   return (
@@ -161,7 +161,7 @@ function TraineeDetail(props) {
                     <CCol sm={6}>
                       <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">
-                          Status (<span style={{ color: "red" }}>*</span>)
+                          Trạng thái (<span style={{ color: "red" }}>*</span>)
                         </CFormLabel>
                         <CFormSelect
                           aria-label="Default select example"
@@ -232,7 +232,7 @@ function TraineeDetail(props) {
                     <CCol sm={4}>
                       <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">
-                          Phone (<span style={{ color: "red" }}>*</span>)
+                          Số điện thoại (<span style={{ color: "red" }}>*</span>)
                         </CFormLabel>
                         <CFormInput
                           disabled

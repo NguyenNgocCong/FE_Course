@@ -49,7 +49,7 @@ const Posts = () => {
             sortable: true,
         },
         {
-            name: "Category",
+            name: "Phân loại",
             maxWidth: '150px',
             selector: (row) => (
                 <>
@@ -66,8 +66,8 @@ const Posts = () => {
             sortable: true,
         },
         {
-            name: "Status",
-            maxWidth: '100px',
+            name: "Trạng thái",
+            maxWidth: '150px',
             selector: (row) => (
                 <>
                     <div className={` ${row?.status !== 4 ? Styles.active : Styles.inactive}`} style={{ textAlign: 'center' }}>
@@ -92,18 +92,18 @@ const Posts = () => {
             sortable: true,
         },
         {
-            name: "Action",
-            maxWidth: '180px',
+            name: "Chức năng",
+            maxWidth: '230px',
             center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     {(() => {
                         if (row?.status === 1) {
                             return (<button
-                                onClick={() => { window.location.href = "/lrs/admin/posts/" + row?.id }}
-                                style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
+                                onClick={() => submit(row,0)}
+                                style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
                             >
-                                Approve
+                                Chấp thuận
                             </button>)
                         } else {
                             return (<button
@@ -115,20 +115,20 @@ const Posts = () => {
                         }
                     })()}
                     <button
-                        style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "150px", border: "none", float: 'right' }}
                         onClick={() => submit(row)}
                     >
                         {(() => {
                             if (row?.status === 0) {
-                                return ("Submit")
+                                return ("Gửi")
                             } else if (row?.status === 1) {
-                                return ("Reject")
+                                return ("Từ chối")
                             } else if (row?.status === 2) {
-                                return ("Achieve")
+                                return ("Hoàn thành")
                             } else if (row?.status === 3) {
-                                return ("Publish")
+                                return ("Được phát hành")
                             } else if (row?.status === 4) {
-                                return ("Submit")
+                                return ("Gửi")
                             }
                         })()}
                     </button>
@@ -232,11 +232,11 @@ const Posts = () => {
     }
 
     const optionStatus = [
-        { status: 0, label: "Draft" },
-        { status: 1, label: "Submitted" },
-        { status: 2, label: "Published" },
-        { status: 3, label: "Achieved" },
-        { status: 4, label: "Rejected" },
+        { status: 0, label: "Nháp" },
+        { status: 1, label: "Gửi" },
+        { status: 2, label: "Được phát hành" },
+        { status: 3, label: "Hoàn thành" },
+        { status: 4, label: "Từ chối" },
     ];
 
     useEffect(() => {
@@ -269,7 +269,7 @@ const Posts = () => {
                                         setCategory(e.target.value);
                                     }}
                                 >
-                                    <option value="">All Category</option>
+                                    <option value="">Tất cả phân loại</option>
                                     {listCategory.map((item, index) => {
                                         return (
                                             <option
@@ -290,7 +290,7 @@ const Posts = () => {
                                         setStatus(e.target.value);
                                     }}
                                 >
-                                    <option value={0}>All Status</option>
+                                    <option value={0}>Tất cả trạng thái</option>
                                     {optionStatus.map((item, index) => {
                                         return (
                                             <option
