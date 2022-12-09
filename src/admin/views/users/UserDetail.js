@@ -172,7 +172,7 @@ function UserDetail(props) {
                     <div className="mb-3">
                       <CFormInput
                         type="text"
-                        label="Username"
+                        label="Biệt hiệu"
                         id="exampleFormControlInput1"
                         placeholder=""
                         defaultValue={user?.username}
@@ -212,7 +212,7 @@ function UserDetail(props) {
                   <CCol sm={6}>
                     <div className="mb-3">
                       <CFormInput
-                        label="Phone"
+                        label="Số điện thoại"
                         id="exampleFormControlInput1"
                         placeholder=""
                         defaultValue={user?.phoneNumber}
@@ -231,7 +231,7 @@ function UserDetail(props) {
                   <CCol sm={6}>
                     <div className="mb-3">
                       <CFormLabel htmlFor="formFile">
-                        Set Roles. Click Ctrl to select multiple
+                        Chức vụ
                       </CFormLabel>
                       <CFormSelect
                         aria-label="Default select example"

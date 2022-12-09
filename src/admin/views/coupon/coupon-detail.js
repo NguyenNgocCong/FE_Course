@@ -97,8 +97,8 @@ function CouponDetail(props) {
     useEffect(() => { }, [validFrom, validTo]);
 
     const optionStatus = [
-        { status: false, label: "Deactivate" },
-        { status: true, label: "Active" },
+        { status: false, label: "Không hoạt động" },
+        { status: true, label: "Hoạt động" },
     ];
 
 
@@ -189,7 +189,7 @@ function CouponDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Status (
+                                                    Trạng thái (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormSelect
@@ -201,7 +201,7 @@ function CouponDetail(props) {
                                                     required
                                                     tooltipFeedback
                                                 >
-                                                    <option value="">Select Status</option>
+                                                    <option value="">Chọn trạng thái</option>
                                                     {optionStatus?.map((item, index) => {
                                                         if (type === 1) {
                                                             return detailCoupon?.status ===
@@ -244,7 +244,6 @@ function CouponDetail(props) {
                                                 <CFormInput
                                                     type="number"
                                                     id="exampleFormControlInput1"
-                                                    placeholder="Max Quantity"
                                                     defaultValue={maxQuantity}
                                                     onChange={(e) =>
                                                         setMaxQuantity(e.target.value)
@@ -264,7 +263,6 @@ function CouponDetail(props) {
                                                 <CFormInput
                                                     type="number"
                                                     id="exampleFormControlInput1"
-                                                    placeholder="Discount Rate"
                                                     defaultValue={discountRate}
                                                     onChange={(e) =>
                                                         setDiscountRate(e.target.value)

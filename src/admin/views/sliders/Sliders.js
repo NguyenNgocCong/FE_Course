@@ -61,18 +61,18 @@ const Sliders = () => {
             sortable: true,
         },
         {
-            name: "Status",
+            name: "Trạng thái",
             maxWidth: '200px',
             selector: (row) => (
                 <>
                     <div className={` ${row?.status !== 2 ? Styles.active : Styles.inactive}`} style={{ textAlign: 'center', width: '100px' }}>
                         {(() => {
                             if (row?.status === 0) {
-                                return (<>Draft</>)
+                                return (<>Nháp</>)
                             } else if (row?.status === 1) {
-                                return (<>Published</>)
+                                return (<>Được phát hành</>)
                             } else if (row?.status === 2) {
-                                return (<>Achieved</>)
+                                return (<>Hoàn thành</>)
                             }
                         })()}
                     </div>
@@ -83,7 +83,7 @@ const Sliders = () => {
             sortable: true,
         },
         {
-            name: "Action",
+            name: "Chức năng",
             maxWidth: '200px',
             selector: (row) => (
                 <div className={Styles.inputSearch}>
@@ -99,9 +99,9 @@ const Sliders = () => {
                     >
                         {(() => {
                             if (row?.status === 1) {
-                                return ("Achieve")
+                                return ("Hoàn thành")
                             } else if (row?.status === 2 || row?.status === 0) {
-                                return ("Publish")
+                                return ("Phát hành")
                             }
                         })()}
                     </button>
@@ -189,15 +189,15 @@ const Sliders = () => {
                             <Col xs={12} lg={6} className={Styles.showEntry}>
                                 <CFormSelect
                                     aria-label="Default select example"
-                                    style={{ margin: "0px 10px", width: "140px" }}
+                                    style={{ margin: "0px 10px", width: "180px" }}
                                     onChange={(e) => {
                                         setStatus(e.target.value);
                                     }}
                                 >
-                                    <option value="">All Status</option>
-                                    <option value="0">Draft</option>
-                                    <option value="1">Published</option>
-                                    <option value="2">Achieved</option>
+                                    <option value="">Tất cả trạng thái </option>
+                                    <option value="0">Nháp</option>
+                                    <option value="1">Được phát hành</option>
+                                    <option value="2">Hoàn thành</option>
                                 </CFormSelect>
                             </Col>
                             <Col xs={12} lg={6} className={`${Styles.inputSearch} d-flex justify-content-end`}>

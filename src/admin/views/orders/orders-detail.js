@@ -72,10 +72,10 @@ function OrderDetail(props) {
         },
         {
             name: "Status",
-            width: "120px",
+            width: "150px",
             selector: (row) => (
                 <div className={`${row?.activated ? Styles.active : Styles.inactive}`}>
-                    {row.activated ? "Actived" : "Deactivated"}
+                    {row.activated ? "Hoạt động" : "Không hoạt động"}
                 </div>
             ),
             sortable: true,
@@ -129,7 +129,7 @@ function OrderDetail(props) {
                                     <CCol sm={4}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Phone
+                                                Số điện thoại
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
@@ -209,14 +209,14 @@ function OrderDetail(props) {
                                     <CCol sm={2}>
                                         <div>
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Status
+                                                Trạng thái
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    Number(order?.status) === 1 ? "Submitted" : "Verified"
+                                                    Number(order?.status) === 1 ? "Đã gửi" : "Đã xác minh"
                                                 }
                                             />
                                         </div>

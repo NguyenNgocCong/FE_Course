@@ -111,8 +111,8 @@ function PackagesDetail(props) {
     };
 
     const optionStatus = [
-        { status: false, label: "Deactivate" },
-        { status: true, label: "Active" },
+        { status: false, label: "Không hoạt động" },
+        { status: true, label: "Hoạt động" },
     ];
 
     useEffect(() => {
@@ -253,7 +253,7 @@ function PackagesDetail(props) {
                                                 <CCol sm={12}>
                                                     <div className="mb-3">
                                                         <CFormLabel htmlFor="exampleFormControlInput1">
-                                                            Status (
+                                                            Trạng thái (
                                                             <span style={{ color: "red" }}>*</span>)
                                                         </CFormLabel>
                                                         <CFormSelect
@@ -310,7 +310,7 @@ function PackagesDetail(props) {
                                                             required
                                                             tooltipFeedback
                                                         >
-                                                            <option value="">Select subject</option>
+                                                            <option value="">Chọn môn học</option>
                                                             {listSubject?.map((item, index) => {
                                                                 if (type === 1) {
                                                                     return packages?.sucjectCode.id === item?.id ? (

@@ -147,8 +147,8 @@ function SubjectDetail(props) {
     }, []);
 
     const optionStatus = [
-        { status: false, label: "Deactivate" },
-        { status: true, label: "Active" },
+        { status: false, label: "Không hoạt động" },
+        { status: true, label: "Hoạt động" },
     ];
 
     return (

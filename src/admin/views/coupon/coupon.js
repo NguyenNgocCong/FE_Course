@@ -41,11 +41,11 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Status",
+      name: "Trạng thái",
       width: '120px',
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          {row.status ? "Active" : "Deactivate"}
+          {row.status ? "Hoạt động" : "Không hoạt động"}
         </div>
       ),
       sortable: true,
@@ -63,7 +63,7 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Chức năng",
       center: true,
       selector: (row) => (
         // <CButton href={`/react/admin/class/${row?.id}`} color="primary">

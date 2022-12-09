@@ -22,7 +22,7 @@ function Trainee() {
       sortable: true,
     },
     {
-      name: "Username",
+      name: "Biệt hiệu",
       minWidth: '140px',
       width: '160px',
       maxWidth: '180px',
@@ -47,7 +47,7 @@ function Trainee() {
       sortable: true,
     },
     {
-      name: "Phone",
+      name: "Số điện thoại",
       minWidth: "140px",
       width: "160px",
       maxWidth: "180px",
@@ -71,17 +71,17 @@ function Trainee() {
       sortable: true,
     },
     {
-      name: "Status",
-      width: "120px",
+      name: "Trạng thái",
+      width: "150px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          {row.status ? "Active" : "Deactivate"}
+          {row.status ? "Hoạt động" : "KHông hoạt động"}
         </div>
       ),
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Chức năng",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
@@ -179,7 +179,7 @@ function Trainee() {
                     setTrainer(e.target.value);
                   }}
                 >
-                  <option value={0}>All Class</option>
+                  <option value={0}>Tất cả lớp học</option>
                   {listClass?.map((item, index) => {
                     return (
                       <option key={index} value={item?.id}>
@@ -197,9 +197,9 @@ function Trainee() {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value="">All Status</option>
-                  <option value={true}>Active</option>
-                  <option value={false}>Deactivate</option>
+                  <option value="">Tất cả trạng thái</option>
+                  <option value={true}>Hoạt động</option>
+                  <option value={false}>Không hoạt động</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>

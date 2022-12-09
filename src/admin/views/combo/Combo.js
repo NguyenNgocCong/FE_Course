@@ -72,14 +72,14 @@ const Combo = () => {
             sortable: true,
         },
         {
-            name: "Last update",
+            name: "Cập nhật cuối",
             width: '150px',
             selector: (row) => row?.updatedDate,
             format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
             sortable: true,
         },
         {
-            name: "Action",
+            name: "Chức năng",
             center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>

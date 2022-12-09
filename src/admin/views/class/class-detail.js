@@ -151,8 +151,8 @@ function ClassDetail(props) {
     useEffect(() => { }, [dateFrom, dateTo]);
 
     const optionStatus = [
-        { status: false, label: "Deactivate" },
-        { status: true, label: "Active" },
+        { status: false, label: "Không hoạt động" },
+        { status: true, label: "Hoạt động" },
     ];
 
     const optionIsOnline = [
@@ -187,7 +187,7 @@ function ClassDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Package (
+                                                    Khóa học (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormSelect
@@ -198,7 +198,7 @@ function ClassDetail(props) {
                                                     required
                                                     tooltipFeedback
                                                 >
-                                                    <option value="">Select package</option>
+                                                    <option value="">Chọn khóa học</option>
                                                     {listPackages?.map((item, index) => {
                                                         return (
                                                             <option
@@ -275,7 +275,7 @@ function ClassDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Status (
+                                                    Trạng thái (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormSelect
@@ -320,7 +320,7 @@ function ClassDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="formFile">
-                                                    Trainer
+                                                    Giảng viên
                                                 </CFormLabel>
                                                 <CFormSelect
                                                     aria-label="Default select example"
@@ -332,7 +332,7 @@ function ClassDetail(props) {
                                                     required
                                                     tooltipFeedback
                                                 >
-                                                    <option value="">Select trainer</option>
+                                                    <option value="">Chọn giảng viên</option>
                                                     {listTrainer?.map((item, index) => {
                                                         if (type === 1) {
                                                             return detailClass?.trainer
@@ -452,7 +452,7 @@ function ClassDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="formFile">
-                                                    Supporter
+                                                    Người hỗ trợ
                                                 </CFormLabel>
                                                 <CFormSelect
                                                     aria-label="Default select example"
@@ -460,11 +460,11 @@ function ClassDetail(props) {
                                                     onChange={(e) =>
                                                         setSupporter(e.target.value)
                                                     }
-                                                    feedbackInvalid="Please select Support!"
+                                                    feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
                                                 >
-                                                    <option value="">Select Supporter</option>
+                                                    <option value="">Chọn người hỗ trợ</option>
                                                     {listSupporter?.map((item, index) => {
                                                         if (type === 1) {
                                                             return detailClass?.supporter
@@ -507,7 +507,7 @@ function ClassDetail(props) {
                                         {isOnline === false ? <CCol sm={12}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="formFile">
-                                                    Branch
+                                                    Khu vực
                                                 </CFormLabel>
                                                 <CFormSelect
                                                     aria-label="Default select example"
@@ -516,7 +516,7 @@ function ClassDetail(props) {
                                                         setBranch(e.target.value)
                                                     }
                                                 >
-                                                    <option>Select Branch</option>
+                                                    <option>Chọ khu vực</option>
                                                     {listBranch?.map((item, index) => {
                                                         if (type === 1) {
                                                             return detailClass?.branch
@@ -561,7 +561,7 @@ function ClassDetail(props) {
                                         <CButton
                                             type="submit"
                                         >
-                                            Save
+                                            Lưu
                                         </CButton>
                                     </div>
                                     </CForm>

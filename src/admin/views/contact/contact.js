@@ -112,16 +112,16 @@ const Contact = () => {
             sortable: true,
         },
         {
-            name: "Phone",
+            name: "Số điện thoại",
             left: true,
             minWidth: '100px',
-            width: '130px',
-            maxWidth: '140px',
+            width: '150px',
+            maxWidth: '160px',
             selector: (row) => row?.phoneNumber,
             sortable: true,
         },
         {
-            name: "Category",
+            name: "Phân loại",
             left: true,
             minWidth: '100px',
             width: '130px',
@@ -150,20 +150,20 @@ const Contact = () => {
         //     sortable: true,
         // },
         {
-            name: "Status",
-            width: '120px',
+            name: "Trạng thái",
+            width: '150px',
             center: true,
             selector: (row) => (
                 <div className="d-flex align-items-center justify-content-center">
                     <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-                        <strong>{row?.status ? "Done" : "Not yet"}</strong>
+                        <strong>{row?.status ? "Hoàn thành" : "Chưa hoàn thành"}</strong>
                     </div>
                 </div>
             ),
             sortable: true,
         },
         {
-            name: "Action",
+            name: "Chức năng",
             center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
@@ -174,10 +174,10 @@ const Contact = () => {
                         <CIcon icon={cilPen} />
                     </button> */}
                     <button
-                        style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "120px", border: "none", float: 'right' }}
                         onClick={() => submit(row)}
                     >
-                        {row?.status ? "Not yet" : "Done"}
+                        {row?.status ? "Chưa hoàn thành" : "Hoàn thành"}
                     </button>
                 </div>
             ),
@@ -208,7 +208,7 @@ const Contact = () => {
                                         setCategory(e.target.value);
                                     }}
                                 >
-                                    <option value={0}>All Category</option>
+                                    <option value={0}>Tất cả phân loại</option>
                                     {listCategory.map((item, index) => {
                                         return (
                                             <option
@@ -231,9 +231,9 @@ const Contact = () => {
                                             setStatus(e.target.value);
                                         }}
                                     >
-                                        <option value="">All Status</option>
-                                        <option value={true}>Done</option>
-                                        <option value={false}>Not yet</option>
+                                        <option value="">Tất cả trạng thái</option>
+                                        <option value={true}>Hoàn thành</option>
+                                        <option value={false}>Chưa hoàn thành</option>
                                     </CFormSelect>
                                 </div>
                             </Col>
