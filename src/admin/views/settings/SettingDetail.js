@@ -222,7 +222,7 @@ function SettingDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Status (
+                                                    Trạng thái (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormSelect
@@ -234,7 +234,7 @@ function SettingDetail(props) {
                                                     required
                                                     tooltipFeedback
                                                 >
-                                                    <option value="">Select Status</option>
+                                                    <option value="">Chọn trạng thái</option>
                                                     {optionStatus?.map((item, index) => {
                                                         if (type === 1) {
                                                             return setting?.status ===
@@ -283,7 +283,7 @@ function SettingDetail(props) {
                                                     required
                                                     tooltipFeedback
                                                 >
-                                                    <option value="">Select type</option>
+                                                    <option value="">Chọn loại</option>
                                                     {listType?.map((item, index) => {
                                                         if (type === 1) {
                                                             return setting?.type.type_id === item?.type_id ? (

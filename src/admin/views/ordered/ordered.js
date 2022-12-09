@@ -38,7 +38,7 @@ function Ordered() {
       sortable: true,
     },
     {
-      name: "Supporter",
+      name: "Người hỗ trợ",
       minWidth: "175px",
       width: "200px",
       maxWidth: "225px",
@@ -54,23 +54,23 @@ function Ordered() {
     },
     {
       name: "Chiết khấu",
-      width: "100px",
+      width: "130px",
       center: "true",
       selector: (row) => row.totalDiscount + "$",
       sortable: true,
     },
     {
-      name: "Status",
-      maxWidth: "110px",
+      name: "Trạng thái",
+      maxWidth: "150px",
       selector: (row) => (
         <div className={`${Number(row?.status) === 3 ? Styles.active : Styles.inactive}`}>
-          <strong>{Number(row?.status) === 3 ? "Paid" : "Cancel"}</strong>
+          <strong>{Number(row?.status) === 3 ? "Thanh toán" : "Hủy"}</strong>
         </div>
       ),
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Chức năng",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
@@ -99,7 +99,7 @@ function Ordered() {
             }}
             onClick={() => submit(row)}
           >
-            Verification
+            Xác minh
           </button>
             : <></>}
         </div>
@@ -213,7 +213,7 @@ function Ordered() {
                     setCategory(e.target.value);
                   }}
                 >
-                  <option value={0}>All Category</option>
+                  <option value={0}>Tất cả phân loại</option>
                   {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
@@ -230,9 +230,9 @@ function Ordered() {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value={0}>All Status</option>
-                  <option value={3}>Paid</option>
-                  <option value={4}>Cancel</option>
+                  <option value={0}>Tất cả trạng thái</option>
+                  <option value={3}>Thanh toán</option>
+                  <option value={4}>Hủy</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>

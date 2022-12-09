@@ -29,7 +29,7 @@ function Orders() {
       sortable: true,
     },
     {
-      name: "Supporter",
+      name: "Người hỗ trợ",
       minWidth: "175px",
       width: "200px",
       maxWidth: "225px",
@@ -52,23 +52,23 @@ function Orders() {
     },
     {
       name: "Chiết khấu",
-      width: "100px",
+      width: "130px",
       center: "true",
       selector: (row) => row.totalDiscount + "$",
       sortable: true,
     },
     {
-      name: "Status",
+      name: "Trạng thái",
       maxWidth: "110px",
       selector: (row) => (
         <div className={`${Number(row?.status) === 1 ? Styles.active : Styles.inactive}`}>
-          <strong>{Number(row?.status) === 1 ? "Submitted" : "Verified"}</strong>
+          <strong>{Number(row?.status) === 1 ? "Đã Gửi" : "Đã xác minh"}</strong>
         </div>
       ),
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Chức năng",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
@@ -91,13 +91,13 @@ function Orders() {
             style={{
               backgroundColor: "#7367f0",
               height: "30px",
-              width: "80px",
+              width: "100px",
               border: "none",
               float: "right",
             }}
             onClick={() => submit(row)}
           >
-            {Number(row?.status) === 1 ? "Verification" : "Paid"}
+            {Number(row?.status) === 1 ? "Xác minh" : "Thanh toán"}
           </button>
           {Number(row?.status) === 1 ? <button
             style={{
@@ -109,7 +109,7 @@ function Orders() {
             }}
             onClick={() => submit(row, 4)}
           >
-            Cancel
+            Hủy
           </button>
             : <></>}
         </div>
@@ -229,7 +229,7 @@ function Orders() {
                     setCategory(e.target.value);
                   }}
                 >
-                  <option value={0}>All Category</option>
+                  <option value={0}>Tất cả phân loại</option>
                   {listCategory.map((item, index) => {
                     return (
                       <option key={index} value={item?.setting_id}>
@@ -246,9 +246,9 @@ function Orders() {
                     setStatus(e.target.value);
                   }}
                 >
-                  <option value={0}>All Status</option>
-                  <option value={1}>Submitted</option>
-                  <option value={2}>Verified</option>
+                  <option value={0}>Tất cả trạng thái</option>
+                  <option value={1}>Đã gửi</option>
+                  <option value={2}>Đã xác minh</option>
                 </CFormSelect>
               </Col>
               <Col xs={12} lg={4}>

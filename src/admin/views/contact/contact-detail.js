@@ -127,7 +127,7 @@ function ContactDetail(props) {
                                     <CCol sm={6}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Category
+                                                Phân loại
                                             </CFormLabel>
                                             <CFormSelect
                                                 id="autoSizingSelect"
@@ -160,7 +160,7 @@ function ContactDetail(props) {
                                     <CCol sm={6}>
                                         <div className="mb-3">
                                             <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Phone
+                                                Số điện thoại
                                             </CFormLabel>
                                             <CFormInput
                                                 type="text"

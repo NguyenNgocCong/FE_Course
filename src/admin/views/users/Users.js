@@ -26,7 +26,7 @@ const Users = () => {
       sortable: true,
     },
     {
-      name: "Username",
+      name: "Biệt hiệu",
       minWidth: '140px',
       width: '160px',
       maxWidth: '180px',
@@ -50,11 +50,11 @@ const Users = () => {
       sortable: true,
     },
     {
-      name: "Phone",
+      name: "Số điện thoại",
       left: true,
       minWidth: '80px',
-      width: '110px',
-      maxWidth: '120px',
+      width: '150px',
+      maxWidth: '160px',
       selector: (row) => row?.phoneNumber,
       sortable: true,
     },
@@ -79,20 +79,20 @@ const Users = () => {
       sortable: true,
     },
     {
-      name: "Status",
-      width: '120px',
+      name: "Trạng thái",
+      width: '150px',
       center: true,
       selector: (row) => (
         <div className="d-flex align-items-center justify-content-center">
           <div className={`${row?.active ? Styles.active : Styles.inactive}`}>
-            <strong>{row?.active ? "Active" : "Deactivate"}</strong>
+            <strong>{row?.active ? "Hoạt động" : "Không hoạt động"}</strong>
           </div>
         </div>
       ),
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Chức năng",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
@@ -103,10 +103,10 @@ const Users = () => {
             <CIcon icon={cilPen} />
           </button>
           <button
-            style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+            style={{ backgroundColor: "#7367f0", height: "30px", width: "120px", border: "none", float: 'right' }}
             onClick={() => submit(row)}
           >
-            {row?.active ? "Deactivate" : "Active"}
+            {row?.active ? "Không hoạt động" : "Hoạt động"}
           </button>
         </div>
       ),
@@ -163,15 +163,15 @@ const Users = () => {
   const submit = (row) => {
 
     confirmAlert({
-      title: 'Confirm to change status',
-      message: 'Are you sure to do this.',
+      title: 'Xác nhận thay đổi trạng thái',
+      message: 'Bạn có chắc chắn về vấn đề này',
       buttons: [
         {
-          label: 'Yes',
+          label: 'Có',
           onClick: () => handleUpdateActiveUser(row)
         },
         {
-          label: 'No',
+          label: 'Không',
           //onClick: () => alert('Click No')
         }
       ]

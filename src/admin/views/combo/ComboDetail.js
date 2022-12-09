@@ -79,7 +79,7 @@ function ComboDetail(props) {
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Chức năng",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
