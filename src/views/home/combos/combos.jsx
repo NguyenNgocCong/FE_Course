@@ -124,13 +124,13 @@ function Combos() {
                                 {item.comboPackages.reduce(
                                   (total, x) => total + x._package.salePrice,
                                   0
-                                )}VNĐ
+                                )} ₫
                               </del>
                               <h5>
                                 {item.comboPackages.reduce(
                                   (total, x) => total + x.salePrice,
                                   0
-                                )}VNĐ
+                                )} ₫
                               </h5>
                             </div>
                             <div className="review">

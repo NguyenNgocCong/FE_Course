@@ -208,7 +208,7 @@ function CheckOut(prop) {
                           {item.title}
                         </div>
                         <div className="col-md-3 d-flex justify-content-end" style={{ fontWeight: "bold" }}>
-                          <div>{item.salePrice}VNĐ</div>
+                          <div>{item.salePrice} ₫</div>
                         </div>
                       </div>)
                   })
@@ -224,7 +224,7 @@ function CheckOut(prop) {
                           {item.comboPackages.reduce(
                             (total, x) => total + x.salePrice,
                             0
-                          )}VNĐ
+                          )} ₫
                         </div>
                       </div>
                     )
@@ -236,7 +236,7 @@ function CheckOut(prop) {
                       <div>{location.state.class.packages.title}</div>
                     </div>
                     <div className="col-md-3 d-flex justify-content-end" style={{ fontWeight: "bold" }}>
-                      <div >{location.state.class.packages.salePrice}VNĐ</div>
+                      <div >{location.state.class.packages.salePrice} ₫</div>
                     </div>
                   </div>
                 )}
@@ -246,8 +246,8 @@ function CheckOut(prop) {
                   </div>
                   <div className="col-md-3 d-flex justify-content-end" style={{ fontWeight: "bold" }}>
                     {location.state.type === TYPE_CHECKOUT_PACKAGE ? (
-                      <p>{totalPackage + totalCombo}VNĐ</p>
-                    ) : (<p>{location.state.class.packages.salePrice}VNĐ</p>)}
+                      <p>{totalPackage + totalCombo} ₫</p>
+                    ) : (<p>{location.state.class.packages.salePrice} ₫</p>)}
                   </div>
                 </div>
                 <div className="row product_checkout">
@@ -275,7 +275,7 @@ function CheckOut(prop) {
                     <h6>Giảm giá</h6>
                   </div>
                   <div className="col-md-3 d-flex justify-content-end" style={{ fontWeight: "bold" }}>
-                    <p>{discount}VNĐ</p>
+                    <p>{discount} ₫</p>
                   </div>
                 </div>
                 <div className="row product_checkout">
@@ -284,8 +284,8 @@ function CheckOut(prop) {
                   </div>
                   <div className="col-md-3 d-flex justify-content-end" style={{ color: "red", fontWeight: "bold" }} >
                     {location.state.type === TYPE_CHECKOUT_PACKAGE ? (
-                      <p>{totalPackage + totalCombo - discount}VNĐ</p>
-                    ) : (<p>{location.state.class.packages.salePrice - discount}VNĐ</p>)}
+                      <p>{totalPackage + totalCombo - discount} ₫</p>
+                    ) : (<p>{location.state.class.packages.salePrice - discount} ₫</p>)}
                   </div>
                 </div>
               </div>

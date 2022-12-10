@@ -69,7 +69,7 @@ function MyOrderProfile() {
                 <div style={{ margin: "auto" }} className="col-md-12 col-lg-4 col-sm-12 text-center">
                 </div>
                 <div style={{ margin: "auto" }} className="col-md-12 col-lg-1 col-sm-12 text-center">
-                  {item.totalCost}VNĐ
+                  {item.totalCost} ₫
                 </div>
                 <div style={{ margin: "auto" }} className="col-md-12 col-lg-1 col-sm-12 text-center">
                   {item.aclass ? "Offline" : "Online"}
@@ -146,7 +146,7 @@ function MyOrderProfile() {
                           {x._combo.comboPackages.reduce(
                             (pre, x) => pre + x.salePrice,
                             0
-                          )}VNĐ
+                          )} ₫
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center">
                           {item.status === 3 ? (x.activated === true || item.aclass ? (
@@ -204,7 +204,7 @@ function MyOrderProfile() {
                           </div>
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
-                          {x?._package?.salePrice}VNĐ
+                          {x?._package?.salePrice} ₫
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center p-3">
                           {item.status === 3 ? (x.activated === true || item.aclass ? (

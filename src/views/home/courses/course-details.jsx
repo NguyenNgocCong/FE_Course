@@ -154,8 +154,8 @@ function CoursesDetails(props) {
                       }}
                     />
                     <div className="course-price">
-                      <del>{product?.listPrice}VNĐ</del>
-                      <h6 className="price">{product?.salePrice}VNĐ</h6>
+                      <del>{product?.listPrice} ₫</del>
+                      <h6 className="price">{product?.salePrice} ₫</h6>
                     </div>
                     <div className="course-buy-now text-center">
                       <div
