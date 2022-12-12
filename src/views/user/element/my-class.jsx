@@ -4,7 +4,7 @@ import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils/index";
 import Paging from "../../Paging/Paging";
 
-function MyClass() {
+function MyClass(props) {
   const [res, setRes] = useState({
     currentPage: 0,
     data: [],
@@ -16,8 +16,9 @@ function MyClass() {
   const { totalPages, data } = res;
 
   useEffect(() => {
-    userApi.getMyClass({ page: pageIndex - 1 }).then((res) => setRes(res));
-  }, [pageIndex]);
+    if (props.activeTab === 3)
+      userApi.getMyClass({ page: pageIndex - 1 }).then((res) => setRes(res));
+  }, [pageIndex, props.activeTab]);
 
   return (
     <>

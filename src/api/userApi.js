@@ -117,9 +117,9 @@ export const userApi = {
     const url = `/api/order/cart`;
     return axiosApi.get(url, { params });
   },
-  payCarts: (params) => {
-    const url = `/api/order/pay`;
-    return axiosApi.post(url, { params });
+  payCarts: (couponCode) => {
+    const url = `/api/order/pay?couponCode=${couponCode}`;
+    return axiosApi.put(url);
   },
   orderClass: (body) => {
     const url = `/api/order/create`;
@@ -129,8 +129,24 @@ export const userApi = {
     const url = `/api/order/remove-from-cart`;
     return axiosApi.delete(url, { params });
   },
+  removeOrder: (params) => {
+    const url = `/api/order/remove-order`;
+    return axiosApi.delete(url, { params });
+  },
+  removeProductFromOrder: (params) => {
+    const url = `/api/order/remove-product-from-order`;
+    return axiosApi.delete(url, { params });
+  },
   getMyOrder: (params) => {
-    const url = `/api/order/list-detail/`;
+    const url = `/api/order/list-order/`;
+    return axiosApi.get(url, { params });
+  },
+  getMyOrderCancel: (params) => {
+    const url = `/api/order/list-order-cancel/`;
+    return axiosApi.get(url, { params });
+  },
+  getMyOrderProcess: (params) => {
+    const url = `/api/order/list-order-process/`;
     return axiosApi.get(url, { params });
   },
   getMyClass: (params) => {

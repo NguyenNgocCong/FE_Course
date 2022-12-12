@@ -137,7 +137,7 @@ function Header() {
                     <ul className="d-flex">
                       <li >
                         <Link
-                          to={"/profile"}
+                          to={"/profile/1"}
                           id="quik-search-btn"
                           type="button"
                           className="btn-link fs-3 link__card"
@@ -183,10 +183,10 @@ function Header() {
                             ) : (
                               ""
                             )}
-                            <Link to="/profile">
+                            <Link to="/profile/5">
                               <li className="text-left">Hồ sơ</li>
                             </Link>
-                            <Link to="/profile">
+                            <Link to="/profile/6">
                               <li className="text-left">Thay đổi mật khẩu</li>
                             </Link>
                             <li className="text-left" onClick={handleLogout}>

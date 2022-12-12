@@ -4,7 +4,7 @@ import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils/index";
 import Paging from "../../Paging/Paging";
 
-function MyCourses() {
+function MyCourses(props) {
   const [res, setRes] = useState({
     currentPage: 0,
     data: [],
@@ -16,9 +16,10 @@ function MyCourses() {
   const { totalPages } = res;
 
   useEffect(() => {
+    if (props.activeTab === 4)
     userApi.getMyCourese({ page: pageIndex - 1 }).then((res) => setRes(res));
-  }, [pageIndex]);
-
+  }, [pageIndex, props.activeTab]);
+ 
   return (
     <>
       <div className="profile-head">

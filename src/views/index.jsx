@@ -5,6 +5,7 @@ import BackToTop from "./element/back-top";
 import PageScrollTop from "./element/page-scroll-top";
 import Cookies from "js-cookie";
 import Error401 from "./element/error-401";
+import Error404 from "./element/error-404";
 
 //home
 import Index from "./home/index";
@@ -75,7 +76,7 @@ import Subjects from "./admin/subjects/subjects";
 import RegistrationDetail from "./admin/registration/registration-detail";
 import Registration from "./admin/registration/registration";
 
-import OrderedDetail from "./admin/ordered/ordered-detail";
+// import OrderedDetail from "./admin/ordered/ordered-detail";
 import Ordered from "./admin/ordered/ordered";
 
 import OrdersDetail from "./admin/orders/orders-detail";
@@ -113,7 +114,7 @@ function Markup(props) {
 
           {/* Faq */}
           {/* Other Pages */}
-          <Route path="/profile" exact component={Profile} />
+          <Route path="/profile/:tabIndex" exact component={Profile} />
           <Route path="/error-404" exact component={Error404} />
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />

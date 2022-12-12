@@ -54,12 +54,13 @@ function CheckOut(prop) {
       setValidated(true)
       event.preventDefault()
       event.stopPropagation()
+      console.log(codeCoupon)
       if (form.checkValidity() || isLogin) {
         const { type } = location.state;
         if (type === TYPE_CHECKOUT_PACKAGE)
           if (isLogin) {
             userApi
-              .payCarts({ couponCode: codeCoupon })
+              .payCarts(codeCoupon)
               .then((res) => {
                 toast.success("checkout success");
                 dispatch(resetState());
@@ -74,7 +75,7 @@ function CheckOut(prop) {
                 ...info,
                 packages: [...packages].map((x) => x.id),
                 combos: [...combos].map((x) => x.id),
-                codeCoupon,
+                couponCode: codeCoupon,
               })
               .then((res) => {
                 toast.success(res.message);
@@ -89,7 +90,7 @@ function CheckOut(prop) {
           userApi
             .orderClass({
               ...info,
-              codeCoupon,
+              couponCode: codeCoupon,
               classId: location.state.class.id,
             })
             .then((res) => {

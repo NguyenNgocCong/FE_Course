@@ -45,10 +45,10 @@ const AppHeaderDropdown = () => {
                 <CDropdownItem href="/" style={{ cursor: 'pointer ', textAlign:"left"}}>
                     Trang chủ
                 </CDropdownItem>
-                <CDropdownItem href="/profile" style={{ cursor: 'pointer ', textAlign:"left"}}>
+                <CDropdownItem href="/profile/5" style={{ cursor: 'pointer ', textAlign:"left"}}>
                     Hồ sơ
                 </CDropdownItem>
-                <CDropdownItem href="/profile" style={{ cursor: 'pointer ', textAlign:"left"}}>
+                <CDropdownItem href="/profile/6" style={{ cursor: 'pointer ', textAlign:"left"}}>
                     Thay đổi mật khẩu
                 </CDropdownItem>
                 <CDropdownItem onClick={handleLogout} style={{ cursor: 'pointer ', textAlign:"left", borderTop: "1px solid rgba(0, 0, 0, .20)"}}>

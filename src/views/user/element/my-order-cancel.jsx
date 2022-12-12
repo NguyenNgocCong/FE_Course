@@ -3,47 +3,26 @@ import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils/index";
 import Paging from "../../Paging/Paging";
 import { Button, Form, Modal } from "react-bootstrap";
-import { toast, ToastContainer } from "react-toastify";
 import dateFormat from "dateformat";
 import { useHistory } from "react-router-dom";
 
-function MyOrderProfile(props) {
+function MyOrderCancelProfile(props) {
   const [res, setRes] = useState({
     currentPage: 0,
     data: [],
     totalItems: 0,
     totalPages: 0,
   });
-  const [showModal, setShowModal] = useState(false);
-  const [code, setCode] = useState("");
   const history = useHistory();
   const [pageIndex, setPageIndex] = useState(1);
 
   useEffect(() => {
-    if(props.activeTab === 2)
-    userApi.getMyOrder({ page: pageIndex - 1 }).then((res) => setRes(res));
+    if(props.activeTab === 3)
+    userApi.getMyOrderCancel({ page: pageIndex - 1 }).then((res) => setRes(res));
   }, [pageIndex, props.activeTab]);
 
-  const handleCheckOut = () => {
-    userApi
-      .ActiveMyCourese({
-        code: code,
-      })
-      .then((res) => {
-        toast.success(res);
-        setShowModal(false);
-      })
-      .catch((e) => toast.error(e?.data?.message));
-  };
   return (
     <>
-      <ModalAcctiveCourses
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        handleCheckOut={handleCheckOut}
-        setCode={setCode}
-      />
-      <ToastContainer />
       <div className="courses-filter bg-gray" style={{ padding: "5px" }}>
         <div className="row align-items-center bg-orange" style={{ margin: "0px", minHeight: "50px" }}>
           <div className="col-md-12 col-lg-2 col-sm-12 text-center">
@@ -76,7 +55,7 @@ function MyOrderProfile(props) {
             <h6>Hành động</h6>
           </div>
         </div>
-        {res.data.map((item, index) => (
+        {res?.data?.map((item, index) => (
           <React.Fragment key={index}>
             <div key={item.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
               <div className="row bg-orange2" style={{ margin: "0px", minHeight: "40px" }}>
@@ -105,10 +84,9 @@ function MyOrderProfile(props) {
                 </div>
                 <div style={{ margin: "auto" }} className="col-md-12 col-lg-2 col-sm-12 text-center">
                   <span
-                    className="badge badge-success"
-                    onClick={() => setShowModal(true)}
+                    className="badge badge-secondary"
                   >
-                    Đã Thanh toán
+                    Đã hủy
                   </span>
                 </div>
                 <div style={{ margin: "auto" }} className="col-md-12 col-lg-2 col-sm-12 text-center">
@@ -144,37 +122,20 @@ function MyOrderProfile(props) {
                           )}VNĐ
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center">
-                          {x.activated === true || item.aclass ? (
-                            <span
-                              className="badge badge-success"
-                            >
-                              Đã kích hoạt
-                            </span>
-                          ) : (
-                            <span
-                              className="badge badge-warning"
-                              onClick={() => setShowModal(true)}
-                            >
-                              Chưa kích hoạt
-                            </span>
-                          )}
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center p-3">
-                          {x.activated === false && !item.aclass ? (
-                            <span
-                              className="badge badge-success"
-                            >
-                              Kích hoạt ngay
-                            </span>
-                          ) : (null)
-                          }
+                          <span
+                            className="badge badge-warning"
+                          >
+                            Xem combo
+                          </span>
                         </div>
                       </div>
                     )}
                     {x._package && (
                       <div className="row" key={x.id} style={{ margin: "0px" }}>
-                        <div className="col-md-12 col-lg-6 col-sm-12">
-                          <div className="media align-items-center font-weight-semibold align-middle p-2" style={{ cursor: "pointer", }} onClick={() => history.push(`/courses-details/${x._package?.id}`)}>
+                        <div className="col-md-12 col-lg-8 col-sm-12">
+                          <div className="media align-items-center font-weight-semibold align-middle p-2" style={{ cursor: "pointer", }} onClick={() => item.aclass ? history.push(`/class/${item.aclass?.id}`) : history.push(`/courses-details/${x._package?.id}`)}>
                             <img
                               style={{ height: "50px", borderRadius: "5px", objectFit: "cover" }}
                               src={combieImg(x._package.image)}
@@ -195,30 +156,17 @@ function MyOrderProfile(props) {
                           {x?._package?.salePrice}VNĐ
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center p-3">
-                          {x.activated === true || item.aclass ? (
-                            <span
-                              className="badge badge-success"
-                            >
-                              Đã kích hoạt
-                            </span>
-                          ) : (
-                            <span
-                              className="badge badge-warning"
-                              onClick={() => setShowModal(true)}
-                            >
-                              Chưa kích hoạt
-                            </span>
-                          )}
-                        </div>
-                        <div className="col-md-12 col-lg-2 col-sm-12 text-center p-3">
-                          {x.activated === false && !item.aclass ? (
-                            <span
-                              className="badge badge-success"
-                            >
-                              Kích hoạt ngay
-                            </span>
-                          ) : (null)
-                          }
+                          {item.aclass ? (<span
+                            className="badge badge-warning"
+                            onClick={() => history.push(`/class/${item.aclass?.id}`)}
+                          >
+                            Xem lớp học
+                          </span>) : (<span
+                            className="badge badge-warning"
+                            onClick={() => history.push(`/courses-details/${x._package?.id}`)}
+                          >
+                            Xem khóa học
+                          </span>)}
                         </div>
                       </div>
                     )}
@@ -272,4 +220,4 @@ const ModalAcctiveCourses = ({
   );
 };
 
-export default MyOrderProfile;
+export default MyOrderCancelProfile;

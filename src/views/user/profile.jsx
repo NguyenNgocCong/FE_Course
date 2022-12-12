@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Nav, Tab } from "react-bootstrap";
 
 // Layout
@@ -12,6 +12,8 @@ import avatarProfile from "../../images/icon/avatar.svg";
 import { userApi } from "../../api/userApi";
 import { combieImg } from "../../utils";
 import MyOrderProfile from "./element/my-order-profile";
+import MyOrderCancel from "./element/my-order-cancel";
+import MyOrderProcess from "./element/my-order-process";
 import MyClass from "./element/my-class";
 import MyCourses from "./element/my-courses";
 import { useSelector } from "react-redux";
@@ -20,7 +22,13 @@ function Profile(props) {
   const { isLogin } = useSelector((state) => state.auth);
   const [user, setUser] = useState({});
   const [state, setState] = useState(false);
-
+  const [active, setActive] = useState(1);
+  const [subActive, setSubActive] = useState(1);
+  const location = useLocation();
+  const tabIndex = location.pathname.substring(
+    "/profile/".length,
+    location.pathname.length
+  );
   const getUsetProfile = async () => {
     try {
       const response = await userApi.getUserDetail();
@@ -33,14 +41,13 @@ function Profile(props) {
   useEffect(() => {
     getUsetProfile();
   }, [state]);
-
   return (
     <>
       <Header />
       <div className="page-content">
         <div
           className="page-banner ovbl-dark"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
+          style={{ height: "200px", backgroundImage: "url(" + bannerImg + ")" }}
         >
           <div className="container">
             <div className="page-banner-entry">
@@ -62,7 +69,7 @@ function Profile(props) {
         <div className="content-block">
           <div className="section-area section-sp1">
             <div >
-              <Tab.Container defaultActiveKey="tabOne">
+              <Tab.Container defaultActiveKey={tabIndex ? tabIndex : "1"}>
                 <Tab.Content>
                   <div className="row">
                     <div className="col-lg-3 col-md-3 col-sm-12 m-b30">
@@ -117,39 +124,39 @@ function Profile(props) {
                         <div className="profile-tabnav">
                           <Nav className="nav-tabs">
                             <Nav.Item>
-                              <Nav.Link eventKey="tabOne">
-                                <i className="ti-book"></i>
+                              <Nav.Link eventKey="1">
+                                <i className="fa fa-shopping-cart"></i>
                                 Giỏ hàng
                               </Nav.Link>
                             </Nav.Item>
                             {isLogin && (
                               <>
                                 <Nav.Item>
-                                  <Nav.Link eventKey="tabTwo">
-                                    <i className="ti-book"></i>
-                                   Đơn hàng
+                                  <Nav.Link eventKey="2">
+                                    <i className="fa fa-shopping-bag"></i>
+                                    Đơn hàng
                                   </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                  <Nav.Link eventKey="tabThree">
-                                    <i className="ti-book"></i>
-                                    Lớp học đã mua
+                                  <Nav.Link eventKey="3" onClick={() => setActive(3)}>
+                                    <i className="fa fa-users"></i>
+                                    Lớp học
                                   </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                  <Nav.Link eventKey="tabFour">
+                                  <Nav.Link eventKey="4" onClick={() => setActive(4)}>
                                     <i className="ti-book"></i>
-                                    Khóa học đã mua
+                                    Khóa học
                                   </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                  <Nav.Link eventKey="tabFive">
+                                  <Nav.Link eventKey="5" onClick={() => setActive(5)}>
                                     <i className="ti-pencil-alt"></i>
                                     Chỉnh sửa thông tin liên hệ
                                   </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                  <Nav.Link eventKey="tabSix">
+                                  <Nav.Link eventKey="6" onClick={() => setActive(6)}>
                                     <i className="ti-lock"></i>
                                     Thay đổi mật khẩu
                                   </Nav.Link>
@@ -163,27 +170,63 @@ function Profile(props) {
                     <div className="col-lg-9 col-md-9 col-sm-12 m-b30">
                       <div className="profile-content-bx">
                         <div className="tab-content">
-                          <Tab.Pane eventKey="tabOne">
+                          <Tab.Pane eventKey="1">
                             <MyCart />
                           </Tab.Pane>
-                          <Tab.Pane eventKey="tabTwo">
-                            <MyOrderProfile />
+                          <Tab.Pane eventKey="2">
+                            <Tab.Container defaultActiveKey={subActive}>
+                              <Tab.Content>
+                                <div className="row">
+                                  <div className="profile-tabnav-sub">
+                                    <Nav className="nav-tabs">
+                                      <Nav.Item>
+                                        <Nav.Link eventKey="1" onClick={() => setSubActive(1)}>
+                                          Đơn hàng chờ xử lý
+                                        </Nav.Link>
+                                      </Nav.Item>
+                                      <Nav.Item>
+                                        <Nav.Link eventKey="2" onClick={() => setSubActive(2)}>
+                                          Đơn hàng đã thanh toán
+                                        </Nav.Link>
+                                      </Nav.Item>
+                                      <Nav.Item>
+                                        <Nav.Link eventKey="3" onClick={() => setSubActive(3)}>
+                                          Đơn hàng đã hủy
+                                        </Nav.Link>
+                                      </Nav.Item>
+                                    </Nav>
+                                  </div>
+                                  <div className="tab-content">
+                                    <Tab.Pane eventKey="1">
+                                      <MyOrderProcess activeTab={subActive} />
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="2">
+                                      <MyOrderProfile activeTab={subActive} />
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="3">
+                                      <MyOrderCancel activeTab={subActive} />
+                                    </Tab.Pane>
+                                  </div>
+                                </div>
+                              </Tab.Content>
+                            </Tab.Container>
                           </Tab.Pane>
-                          <Tab.Pane eventKey="tabThree">
-                            <MyClass />
+                          <Tab.Pane eventKey="3">
+                            <MyClass activeTab={active} />
                           </Tab.Pane>
-                          <Tab.Pane eventKey="tabFour">
-                            <MyCourses />
+                          <Tab.Pane eventKey="4">
+                            <MyCourses activeTab={active} />
                           </Tab.Pane>
-                          <Tab.Pane eventKey="tabFive">
+                          <Tab.Pane eventKey="5">
                             <EditProfile
                               user={user}
                               stateChanger={setState}
                               state={state}
+                              activeTab={active}
                             />
                           </Tab.Pane>
-                          <Tab.Pane eventKey="tabSix">
-                            <ChangePassword />
+                          <Tab.Pane eventKey="6">
+                            <ChangePassword activeTab={active} />
                           </Tab.Pane>
                         </div>
                       </div>

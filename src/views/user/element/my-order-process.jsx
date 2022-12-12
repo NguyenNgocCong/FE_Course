@@ -2,47 +2,48 @@ import React, { useState, useEffect } from "react";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils/index";
 import Paging from "../../Paging/Paging";
-import { Button, Form, Modal } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import dateFormat from "dateformat";
 import { useHistory } from "react-router-dom";
 
-function MyOrderProfile(props) {
+function MyOrderProcess(props) {
   const [res, setRes] = useState({
     currentPage: 0,
     data: [],
     totalItems: 0,
     totalPages: 0,
   });
-  const [showModal, setShowModal] = useState(false);
-  const [code, setCode] = useState("");
   const history = useHistory();
   const [pageIndex, setPageIndex] = useState(1);
-
   useEffect(() => {
-    if(props.activeTab === 2)
-    userApi.getMyOrder({ page: pageIndex - 1 }).then((res) => setRes(res));
+    if (props.activeTab === 1)
+      userApi.getMyOrderProcess({ page: pageIndex - 1 }).then((res) => setRes(res));
   }, [pageIndex, props.activeTab]);
 
-  const handleCheckOut = () => {
+
+  const handleCancelOrder = (params) => {
     userApi
-      .ActiveMyCourese({
-        code: code,
-      })
+      .removeOrder({ ...params })
       .then((res) => {
-        toast.success(res);
-        setShowModal(false);
+        toast.success(res.message);
+        userApi.getMyOrderProcess().then((res) => setRes(res));
       })
       .catch((e) => toast.error(e?.data?.message));
   };
+
+  const handleCancelProductFromOrder = (params) => {
+    console.log(params)
+    userApi
+      .removeProductFromOrder({ ...params })
+      .then((res) => {
+        toast.success(res.message);
+        userApi.getMyOrderProcess().then((res) => setRes(res));
+      })
+      .catch((e) => toast.error(e?.data?.message));
+  };
+
   return (
     <>
-      <ModalAcctiveCourses
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        handleCheckOut={handleCheckOut}
-        setCode={setCode}
-      />
       <ToastContainer />
       <div className="courses-filter bg-gray" style={{ padding: "5px" }}>
         <div className="row align-items-center bg-orange" style={{ margin: "0px", minHeight: "50px" }}>
@@ -76,7 +77,7 @@ function MyOrderProfile(props) {
             <h6>Hành động</h6>
           </div>
         </div>
-        {res.data.map((item, index) => (
+        {res.data?.map((item, index) => (
           <React.Fragment key={index}>
             <div key={item.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
               <div className="row bg-orange2" style={{ margin: "0px", minHeight: "40px" }}>
@@ -104,14 +105,32 @@ function MyOrderProfile(props) {
                   </div>
                 </div>
                 <div style={{ margin: "auto" }} className="col-md-12 col-lg-2 col-sm-12 text-center">
-                  <span
-                    className="badge badge-success"
-                    onClick={() => setShowModal(true)}
-                  >
-                    Đã Thanh toán
-                  </span>
+                  {item.status === 1 ? (
+                    <span
+                      className="badge badge-primary"
+                    >
+                      chờ xác nhận
+                    </span>
+                  ) : (
+                    <span
+                      className="badge badge-warning"
+                    >
+                      Đã xác nhận
+                    </span>
+                  )}
                 </div>
                 <div style={{ margin: "auto" }} className="col-md-12 col-lg-2 col-sm-12 text-center">
+                  {item.status === 1 ? (
+                    <span
+                      className="badge badge-secondary"
+                      onClick={() => handleCancelOrder({
+                        id: item.id,
+                      })}
+                      style={{ cursor: "pointer" }}
+                    >
+                      Hủy
+                    </span>
+                  ) : (null)}
                 </div>
               </div>
               {item.orderPackages.map((x,) => {
@@ -119,7 +138,7 @@ function MyOrderProfile(props) {
                   <React.Fragment key={x.id + " " + index}>
                     {x._combo && (
                       <div className="row" key={x.id} style={{ margin: "0px" }}>
-                        <div className="col-md-12 col-lg-6 col-sm-12 ">
+                        <div className="col-md-12 col-lg-5 col-sm-12 ">
                           <div className="media align-items-center font-weight-semibold align-middle p-2" style={{ cursor: "pointer", }} onClick={() => history.push(`/combo/${x._combo?.id}`)}>
                             <img
                               style={{ height: "50px", borderRadius: "5px", objectFit: "cover" }}
@@ -137,43 +156,37 @@ function MyOrderProfile(props) {
                             </div>
                           </div>
                         </div>
-                        <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
+                        <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2" style={{ cursor: "pointer", }} onClick={() => history.push(`/courses-details/${x._package?.id}`)}>
                           {x._combo.comboPackages.reduce(
                             (pre, x) => pre + x.salePrice,
                             0
                           )}VNĐ
                         </div>
-                        <div className="col-md-12 col-lg-2 col-sm-12 text-center">
-                          {x.activated === true || item.aclass ? (
-                            <span
-                              className="badge badge-success"
-                            >
-                              Đã kích hoạt
-                            </span>
-                          ) : (
-                            <span
-                              className="badge badge-warning"
-                              onClick={() => setShowModal(true)}
-                            >
-                              Chưa kích hoạt
-                            </span>
-                          )}
+                        <div className="col-md-12 col-lg-3 col-sm-12 text-center p-2">
+                          {item.status === 2 ? (
+                            <div style={{ color: "red", fontSize: "13px" }}>
+                              Quý khách vui lòng liên hệ tổng đài viên nếu có nhu cầu hủy/xóa sản phẩm
+                            </div>
+                          ) : (null)}
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center p-3">
-                          {x.activated === false && !item.aclass ? (
+                          {item.status === 1 ? (
                             <span
-                              className="badge badge-success"
+                              className="badge badge-danger"
+                              onClick={() => handleCancelProductFromOrder({
+                                id: x.id,
+                              })}
+                              style={{ cursor: "pointer" }}
                             >
-                              Kích hoạt ngay
+                              Xóa
                             </span>
-                          ) : (null)
-                          }
+                          ) : (null)}
                         </div>
                       </div>
                     )}
                     {x._package && (
                       <div className="row" key={x.id} style={{ margin: "0px" }}>
-                        <div className="col-md-12 col-lg-6 col-sm-12">
+                        <div className="col-md-12 col-lg-5 col-sm-12">
                           <div className="media align-items-center font-weight-semibold align-middle p-2" style={{ cursor: "pointer", }} onClick={() => history.push(`/courses-details/${x._package?.id}`)}>
                             <img
                               style={{ height: "50px", borderRadius: "5px", objectFit: "cover" }}
@@ -194,31 +207,25 @@ function MyOrderProfile(props) {
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
                           {x?._package?.salePrice}VNĐ
                         </div>
-                        <div className="col-md-12 col-lg-2 col-sm-12 text-center p-3">
-                          {x.activated === true || item.aclass ? (
-                            <span
-                              className="badge badge-success"
-                            >
-                              Đã kích hoạt
-                            </span>
-                          ) : (
-                            <span
-                              className="badge badge-warning"
-                              onClick={() => setShowModal(true)}
-                            >
-                              Chưa kích hoạt
-                            </span>
-                          )}
+                        <div className="col-md-12 col-lg-3 col-sm-12 text-center p-2">
+                          {item.status === 2 ? (
+                            <div style={{ color: "red", fontSize: "13px" }}>
+                              Quý khách vui lòng liên hệ tổng đài viên nếu có nhu cầu hủy/xóa sản phẩm
+                            </div>
+                          ) : (null)}
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center p-3">
-                          {x.activated === false && !item.aclass ? (
+                          {item.status === 1 ? (
                             <span
-                              className="badge badge-success"
+                              className="badge badge-danger"
+                              onClick={() => handleCancelProductFromOrder({
+                                id: x.id,
+                              })}
+                              style={{ cursor: "pointer" }}
                             >
-                              Kích hoạt ngay
+                              Xóa
                             </span>
-                          ) : (null)
-                          }
+                          ) : (null)}
                         </div>
                       </div>
                     )}
@@ -242,34 +249,4 @@ function MyOrderProfile(props) {
   );
 }
 
-const ModalAcctiveCourses = ({
-  show,
-  handleClose,
-  handleCheckOut,
-  setCode,
-}) => {
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Active Order</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form.Label htmlFor="inputPassword5">coupon-Code</Form.Label>
-        <Form.Control
-          aria-describedby="passwordHelpBlock"
-          onChange={(e) => setCode(e.target.value)}
-        />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleCheckOut}>
-          active
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-};
-
-export default MyOrderProfile;
+export default MyOrderProcess;

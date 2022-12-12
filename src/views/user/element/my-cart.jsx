@@ -108,8 +108,7 @@ function CartContent() {
                           style={{ margin: "0 auto", cursor: "pointer" }}
                           className="badge badge-danger"
                           onClick={() => handleDelete({
-                            id: x.id,
-                            packageId: x._package.id,
+                            id: x.id
                           })}
                         >
                           Xóa
@@ -158,7 +157,6 @@ function CartContent() {
                           className="badge badge-danger"
                           onClick={() => handleDelete({
                             id: x.id,
-                            packageId: x._package.id,
                           })}
                         >
                           Xóa
