@@ -225,13 +225,13 @@ function Header() {
                     <Link to="/products">Khóa học</Link>
                   </li>
                   <li>
-                    <Link to="/combo">Combos</Link>
+                    <Link to="/combo">Combo</Link>
                   </li>
                   <li>
                     <Link to="/class">Lịch khai giảng</Link>
                   </li>
                   <li>
-                    <Link to="/blog">Blogs</Link>
+                    <Link to="/blog">Blog</Link>
                   </li>
                   <li>
                     <Link to="/about">Giới thiệu</Link>

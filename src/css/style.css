@@ -630,7 +630,7 @@
 
 .menu-links .nav>li>a:hover {
     background-color: transparent !important;
-    color: #ffffff !important;
+    color: #f7b205 !important;
 }
 
 .menu-links .nav>li>a:active,
@@ -647,7 +647,7 @@
 }
 
 .menu-links .nav>li:hover>a {
-    color: #efbb20;
+    color: #f7b205;
 }
 
 .menu-links .nav>li:hover>.sub-menu,
@@ -975,11 +975,11 @@
 
 
 .secondary-inner ul li a {
-    color: #370e4a;
+    color: #efefef;
 }
 
 .secondary-inner ul li a:hover {
-    color: #FFFFFF;
+    color: #f7b205;
 }
 
 .search-btn {
