@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils/index";
 import Paging from "../../Paging/Paging";
-import { Button, Form, Modal } from "react-bootstrap";
 import dateFormat from "dateformat";
 import { useHistory } from "react-router-dom";
 
@@ -189,35 +188,5 @@ function MyOrderCancelProfile(props) {
     </>
   );
 }
-
-const ModalAcctiveCourses = ({
-  show,
-  handleClose,
-  handleCheckOut,
-  setCode,
-}) => {
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Active Order</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form.Label htmlFor="inputPassword5">coupon-Code</Form.Label>
-        <Form.Control
-          aria-describedby="passwordHelpBlock"
-          onChange={(e) => setCode(e.target.value)}
-        />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleCheckOut}>
-          active
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-};
 
 export default MyOrderCancelProfile;

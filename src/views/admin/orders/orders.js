@@ -21,11 +21,18 @@ function Orders() {
       sortable: true,
     },
     {
-      name: "Người đặt",
+      name: "Tên tài khoản",
       minWidth: "175px",
       width: "200px",
       maxWidth: "225px",
       selector: (row) => row.user ? row.user?.username : row.customer?.fullName,
+      sortable: true,
+    },
+    {
+      name: "Mã đơn hàng",
+      width: "150px",
+      center: true,
+      selector: (row) => row.code,
       sortable: true,
     },
     {
@@ -51,13 +58,6 @@ function Orders() {
       sortable: true,
     },
     {
-      name: "Chiết khấu",
-      width: "130px",
-      center: "true",
-      selector: (row) => row.totalDiscount + " ₫",
-      sortable: true,
-    },
-    {
       name: "Trạng thái",
       maxWidth: "110px",
       selector: (row) => (
@@ -68,7 +68,7 @@ function Orders() {
       sortable: true,
     },
     {
-      name: "Chức năng",
+      name: "Hành động",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
@@ -99,7 +99,7 @@ function Orders() {
           >
             {Number(row?.status) === 1 ? "Xác minh" : "Thanh toán"}
           </button>
-          {Number(row?.status) === 1 ? <button
+          <button
             style={{
               backgroundColor: "#7367f0",
               height: "30px",
@@ -111,7 +111,6 @@ function Orders() {
           >
             Hủy
           </button>
-            : <></>}
         </div>
       ),
     },
@@ -221,7 +220,7 @@ function Orders() {
             }}
           >
             <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
                   aria-label="Default select example"
                   onChange={(e) => {
@@ -238,7 +237,7 @@ function Orders() {
                   })}
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
                   onChange={(e) => {
                     setStatus(e.target.value);
@@ -249,11 +248,11 @@ function Orders() {
                   <option value={2}>Đã xác minh</option>
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
-                  
+
                   placeholder="Tìm kiếm..."
                   onChange={onSearch}
                 />

@@ -77,7 +77,8 @@ import RegistrationDetail from "./admin/registration/registration-detail";
 import Registration from "./admin/registration/registration";
 
 // import OrderedDetail from "./admin/ordered/ordered-detail";
-import Ordered from "./admin/ordered/ordered";
+import Ordered from "./admin/ordered/order-done";
+import OrderCancel from "./admin/order-cancel/order-cancel";
 
 import OrdersDetail from "./admin/orders/orders-detail";
 import Orders from "./admin/orders/orders";
@@ -193,8 +194,12 @@ function Markup(props) {
           </PrivateRoute>
 
           {/* Ordered */}
-          <PrivateRoute path="/admin/ordered" exact>
+          <PrivateRoute path="/admin/order-done" exact>
             <Ordered />
+          </PrivateRoute>
+          {/* OrderCancel */}
+          <PrivateRoute path="/admin/order-cancel" exact>
+            <OrderCancel />
           </PrivateRoute>
           {/* Class */}
           <PrivateRoute path="/admin/class" exact>

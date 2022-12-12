@@ -23,7 +23,7 @@ function Ordered() {
       sortable: true,
     },
     {
-      name: "Người đặt",
+      name: "Tên tài khoản",
       minWidth: "175px",
       width: "200px",
       maxWidth: "225px",
@@ -31,10 +31,17 @@ function Ordered() {
       sortable: true,
     },
     {
+      name: "Mã đơn hàng",
+      width: "150px",
+      center: true,
+      selector: (row) => row.code,
+      sortable: true,
+    },
+    {
       name: "Số lượng",
       width: "150px",
       center: true,
-      selector: (row) => row.orderPackages?.length > 0 ? row.orderPackages?.length + " package" : 1 + " package",
+      selector: (row) => row.orderPackages?.length > 0 ? row.orderPackages?.length + " sản phẩm" : 1 + " sản phẩm",
       sortable: true,
     },
     {
@@ -53,24 +60,7 @@ function Ordered() {
       sortable: true,
     },
     {
-      name: "Chiết khấu",
-      width: "130px",
-      center: "true",
-      selector: (row) => row.totalDiscount + " ₫",
-      sortable: true,
-    },
-    {
-      name: "Trạng thái",
-      maxWidth: "150px",
-      selector: (row) => (
-        <div className={`${Number(row?.status) === 3 ? Styles.active : Styles.inactive}`}>
-          <strong>{Number(row?.status) === 3 ? "Thanh toán" : "Hủy"}</strong>
-        </div>
-      ),
-      sortable: true,
-    },
-    {
-      name: "Chức năng",
+      name: "Hành động",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
@@ -89,7 +79,7 @@ function Ordered() {
           >
             <i className="fa fa-eye"></i>
           </button>
-          {Number(row?.status) === 4 ? <button
+          <button
             style={{
               backgroundColor: "#7367f0",
               height: "30px",
@@ -99,9 +89,8 @@ function Ordered() {
             }}
             onClick={() => submit(row)}
           >
-            Xác minh
+            Hủy
           </button>
-            : <></>}
         </div>
       ),
     },
@@ -109,10 +98,9 @@ function Ordered() {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
-   // eslint-disable-next-line
+  // eslint-disable-next-line
   const [listCategory, setListCategory] = useState([]);
   const [category, setCategory] = useState(0);
-  const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
@@ -120,7 +108,7 @@ function Ordered() {
 
   const getAllOrdered = async () => {
     try {
-      const response = await adminApi.getAllOrdered(page, itemsPerPage, keywordSearch, category, status);
+      const response = await adminApi.getAllOrderDone(page, itemsPerPage, keywordSearch, category);
       console.log(response.data)
       setDataTable(response.data);
       setTotalRows(response.totalItems);
@@ -180,7 +168,7 @@ function Ordered() {
   useEffect(() => {
     getAllOrdered();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, page, status, category]);
+  }, [isModify, keywordSearch, page, category]);
 
   useEffect(() => {
     getListCategory();
@@ -205,7 +193,7 @@ function Ordered() {
             }}
           >
             <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
                   aria-label="Default select example"
                   onChange={(e) => {
@@ -222,27 +210,16 @@ function Ordered() {
                   })}
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
-                <CFormSelect
-                  onChange={(e) => {
-                    setStatus(e.target.value);
-                  }}
-                >
-                  <option value={0}>Tất cả</option>
-                  <option value={3}>Thanh toán</option>
-                  <option value={4}>Hủy</option>
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
-                  
+
                   placeholder="Tìm kiếm..."
                   onChange={onSearch}
                 />
               </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
                 <button
                   style={{
                     backgroundColor: "#7367f0",

@@ -579,7 +579,7 @@
 }
 
 .navbar-toggler span {
-    background: #000;
+    background: #40005e;
 }
 
 .is-fixed .navbar-toggler {
@@ -630,7 +630,7 @@
 
 .menu-links .nav>li>a:hover {
     background-color: transparent !important;
-    color: #f7b205 !important;
+    color: #FFFFFF !important;
 }
 
 .menu-links .nav>li>a:active,
@@ -643,11 +643,11 @@
 .menu-links .nav>li.current-menu-item>a {
     text-decoration: none;
     background-color: transparent;
-    color: #efefef;
+    color: #2d0042;
 }
 
 .menu-links .nav>li:hover>a {
-    color: #f7b205;
+    color: #FFFFFF;
 }
 
 .menu-links .nav>li:hover>.sub-menu,
@@ -975,7 +975,7 @@
 
 
 .secondary-inner ul li a {
-    color: #efefef;
+    color: #2d0042;
 }
 
 .secondary-inner ul li a:hover {
@@ -4125,16 +4125,14 @@ footer .pt-social-link ul li {
 }
 
 .profile-tabnav-sub .nav .nav-item a {
-    border: 0;
     color: #8a8a8a;
     font-size: 13px;
     text-align: left;
-    padding: 5px 20px;
+    padding: 3px 20px;
 }
 
 .profile-tabnav-sub .nav .nav-item a.active {
-    background-color: var(--primary);
-    color: #fff;
+    border-bottom: 4px solid  var(--primary);
 }
 
 .profile-tabnav-sub .nav .nav-item a i {

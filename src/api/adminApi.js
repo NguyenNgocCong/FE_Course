@@ -91,8 +91,12 @@ export const adminApi = {
     const url = `/api/order/list-onli?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
-  getAllOrdered: (page, size, keyword, category, status) => {
-    const url = `/api/order/list-confirm?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+  getAllOrderDone: (page, size, keyword, category) => {
+    const url = `/api/order/list-confirm?page=${page}&size=${size}&category=${category}&keyword=${keyword}`;
+    return axiosApi.get(url);
+  },
+  getAllOrderCancel: (page, size, keyword, category) => {
+    const url = `/api/order/list-cancel?page=${page}&size=${size}&category=${category}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
   getOrderDetail: (id) => {

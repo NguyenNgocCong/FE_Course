@@ -7,11 +7,14 @@ import DataTable from "react-data-table-component";
 import toast, { Toaster } from "react-hot-toast";
 import { adminApi } from "../../../api/adminApi";
 import { AppFooter, AppHeader, AppSidebar } from "../component";
+import { useHistory } from "react-router-dom";
+import CIcon from "@coreui/icons-react";
+import { cilLibraryAdd } from "@coreui/icons";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
 
-function Registration() {
+function Ordered() {
   const columns = [
     {
       name: "STT",
@@ -35,11 +38,10 @@ function Registration() {
       sortable: true,
     },
     {
-      name: "Mã lớp học",
-      minWidth: "125px",
+      name: "Số lượng",
       width: "150px",
-      maxWidth: "175px",
-      selector: (row) => row.aclass?.code,
+      center: true,
+      selector: (row) => row.orderPackages?.length > 0 ? row.orderPackages?.length + " sản phẩm" : 1 + " sản phẩm",
       sortable: true,
     },
     {
@@ -52,19 +54,9 @@ function Registration() {
     },
     {
       name: "Tổng tiền",
-      width: "110px",
+      width: "120px",
       center: "true",
-      selector: (row) => row.totalCost + "$",
-      sortable: true,
-    },
-    {
-      name: "Trạng thái",
-      maxWidth: "140px",
-      selector: (row) => (
-        <div className={`${Number(row?.status) === 1 ? Styles.active : Styles.inactive}`}>
-          <strong>{Number(row?.status) === 1 ? "Đã gửi" : "Đã xác minh"}</strong>
-        </div>
-      ),
+      selector: (row) => row.totalCost + " ₫",
       sortable: true,
     },
     {
@@ -74,7 +66,7 @@ function Registration() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/registration/" + row?.id;
+              window.location.href = row.classId ? "/lrs/admin/registration/" + row?.id : "/lrs/admin/orders/" + row?.id;
             }}
             color="primary"
             style={{
@@ -85,7 +77,7 @@ function Registration() {
               float: "right",
             }}
           >
-             <i className="fa fa-eye"></i>
+            <i className="fa fa-eye"></i>
           </button>
           <button
             style={{
@@ -97,19 +89,7 @@ function Registration() {
             }}
             onClick={() => submit(row)}
           >
-            {Number(row?.status) === 1 ? "Xác minh" : "Thanh toán"}
-            </button>
-          <button
-            style={{
-              backgroundColor: "#7367f0",
-              height: "30px",
-              width: "80px",
-              border: "none",
-              float: "right",
-            }}
-            onClick={() => submit(row, 4)}
-          >
-            Hủy
+            Xác minh
           </button>
         </div>
       ),
@@ -118,17 +98,17 @@ function Registration() {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
-   // eslint-disable-next-line
+  // eslint-disable-next-line
   const [listCategory, setListCategory] = useState([]);
   const [category, setCategory] = useState(0);
-  const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
+  const history = useHistory();
 
-  const getAllRegistration = async () => {
+  const getAllOrdered = async () => {
     try {
-      const response = await adminApi.getAllRegistration(page, itemsPerPage, keywordSearch, category, status);
+      const response = await adminApi.getAllOrderCancel(page, itemsPerPage, keywordSearch, category);
       console.log(response.data)
       setDataTable(response.data);
       setTotalRows(response.totalItems);
@@ -139,14 +119,14 @@ function Registration() {
     }
   };
 
-  const submit = (row, status) => {
+  const submit = (row) => {
     confirmAlert({
       title: "Xác nhận thay đổi trạng thái",
-      message: "Bạn có chắc chắn về điều này",
+      message: "Bạn có chắc về điều này",
       buttons: [
         {
           label: "Có",
-          onClick: () => handleUpdateActiveRegistration(row, status),
+          onClick: () => handleUpdateActiveOrdered(row),
         },
         {
           label: "Không",
@@ -156,17 +136,9 @@ function Registration() {
     });
   };
 
-  const handleUpdateActiveRegistration = async (row, newStatus) => {
+  const handleUpdateActiveOrdered = async (row) => {
     try {
-      if(!newStatus) {
-        if (Number(row?.status) === 1) {
-          newStatus = 2;
-        } else {
-          newStatus = 3;
-        }
-      }
-      console.log(toast)
-      const response = await adminApi.updateOrder(newStatus, row?.id);
+      const response = await adminApi.updateOrder(2, row?.id);
       toast.success(response?.message, {
         duration: 2000,
       });
@@ -180,7 +152,7 @@ function Registration() {
 
   const getListCategory = async () => {
     try {
-      // const response = await adminApi.getListCategoryRegistration();
+      // const response = await adminApi.getListCategoryOrdered();
       // setListCategory(response);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
@@ -194,9 +166,9 @@ function Registration() {
   };
 
   useEffect(() => {
-    getAllRegistration();
+    getAllOrdered();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, page, status, category]);
+  }, [isModify, keywordSearch, page, category]);
 
   useEffect(() => {
     getListCategory();
@@ -209,7 +181,7 @@ function Registration() {
   return (
     <div>
       <AppSidebar />
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrdered={false} />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
         <div className="body flex-grow px-2">
@@ -221,7 +193,7 @@ function Registration() {
             }}
           >
             <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
                   aria-label="Default select example"
                   onChange={(e) => {
@@ -238,25 +210,31 @@ function Registration() {
                   })}
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
-                <CFormSelect
-                  onChange={(e) => {
-                    setStatus(e.target.value);
-                  }}
-                >
-                  <option value={0}>Tất cả</option>
-                  <option value={1}>Đã gửi</option>
-                  <option value={2}>Đã xác minh</option>
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
-                  
+
                   placeholder="Tìm kiếm..."
                   onChange={onSearch}
                 />
+              </Col>
+              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
+                <button
+                  style={{
+                    backgroundColor: "#7367f0",
+                    border: "none",
+                    float: "right",
+                    height: "100%",
+                    width: "100px",
+                    color: "white",
+                    borderRadius: "10px",
+                    marginRight: "inherit",
+                  }}
+                  onClick={() => history.push("/admin/subjects/create")}
+                >
+                  <CIcon icon={cilLibraryAdd} />
+                </button>
               </Col>
             </Row>
           </div>
@@ -277,4 +255,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default Ordered;
