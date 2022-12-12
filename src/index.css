@@ -38,11 +38,11 @@ html:not([dir=rtl]) .wrapper {
 }
 
 .link__card i {
-  color: #370e4a;
+  color: #efefef;
 }
 
 .link__card i:hover {
-  color: #FFFFFF;
+  color: #f7b205;
 }
 
 .link__card span {

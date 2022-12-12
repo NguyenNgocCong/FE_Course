@@ -102,8 +102,8 @@ function PopularCoursesSlider() {
                   </div>
                   <div className="cours-more-info">
                     <div className="price">
-                      <del>{item.listPrice}VNĐ</del>
-                      <h5 className="fs-6">{item.salePrice}VNĐ</h5>
+                      <del>{item.listPrice} ₫</del>
+                      <h5 className="fs-6">{item.salePrice} ₫</h5>
                     </div>
                     <div className="review">
                       {/* <span> expert</span> */}
@@ -181,8 +181,8 @@ function PopularCoursesSlider() {
                   </div>
                   <div className="cours-more-info">
                     <div className="price">
-                      <del>{item.listPrice}VNĐ</del>
-                      <h5 className="fs-6">{item.salePrice}VNĐ</h5>
+                      <del>{item.listPrice} ₫</del>
+                      <h5 className="fs-6">{item.salePrice} ₫</h5>
                     </div>
                     <div className="review">
                       {/* <span> expert</span> */}

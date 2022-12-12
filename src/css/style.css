@@ -566,11 +566,9 @@
 
 .menu-bar {
     width: 100%;
-    background-color: #f7b81a !important;
     position: relative;
     box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 4px 12px rgb(0 0 0 / 5%);
-}
-
+}  
 .navbar-toggler {
     border: 0 solid #efbb20;
     font-size: 16px;
@@ -632,7 +630,7 @@
 
 .menu-links .nav>li>a:hover {
     background-color: transparent !important;
-    color: #ffffff !important;
+    color: #f7b205 !important;
 }
 
 .menu-links .nav>li>a:active,
@@ -645,11 +643,11 @@
 .menu-links .nav>li.current-menu-item>a {
     text-decoration: none;
     background-color: transparent;
-    color: #370e4a;
+    color: #efefef;
 }
 
 .menu-links .nav>li:hover>a {
-    color: #efbb20;
+    color: #f7b205;
 }
 
 .menu-links .nav>li:hover>.sub-menu,
@@ -977,11 +975,11 @@
 
 
 .secondary-inner ul li a {
-    color: #370e4a;
+    color: #efefef;
 }
 
 .secondary-inner ul li a:hover {
-    color: #FFFFFF;
+    color: #f7b205;
 }
 
 .search-btn {
@@ -5543,7 +5541,7 @@ select:focus,
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #c5c5c5;
+    color: #efefef;
 }
 
 .list-homepage div:hover {

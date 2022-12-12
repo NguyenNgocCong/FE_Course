@@ -83,7 +83,7 @@ function ClassUserDetails(props) {
                     />
                     <div className="course-price">
                       <del>{res.packages.listPrice}</del>
-                      <h4 className="price">{res.packages.salePrice}VNĐ</h4>
+                      <h4 className="price">{res.packages.salePrice} ₫</h4>
                     </div>
                     <div className="text-center">
                       <i className="fa fa-calendar"></i>{" "}

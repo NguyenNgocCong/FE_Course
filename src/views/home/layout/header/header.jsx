@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sticky from "react-stickynode";
-import logo from "../../../../images/logopurple.png";
+import logo from "../../../../images/logowhite.png";
 import Cookies from "js-cookie";
 import avatarProfile from "./avatar.svg";
 import { useSelector, useDispatch } from "react-redux";
@@ -108,7 +108,7 @@ function Header() {
     <>
       <header className="header1 rs-nav">
         <Sticky enabled={true} className="sticky-header navbar-expand-lg">
-          <div className="menu-bar clearfix">
+          <div className="menu-bar clearfix bg-fix ovbl-dark">
             <div className="container clearfix">
               {/* <!-- Header Logo ==== --> */}
               <div className="menu-logo" style={{ height: "60px" }}>
@@ -225,13 +225,13 @@ function Header() {
                     <Link to="/products">Khóa học</Link>
                   </li>
                   <li>
-                    <Link to="/combo">Combos</Link>
+                    <Link to="/combo">Combo</Link>
                   </li>
                   <li>
                     <Link to="/class">Lịch khai giảng</Link>
                   </li>
                   <li>
-                    <Link to="/blog">Blogs</Link>
+                    <Link to="/blog">Blog</Link>
                   </li>
                   <li>
                     <Link to="/about">Giới thiệu</Link>

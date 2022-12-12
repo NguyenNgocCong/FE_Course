@@ -47,14 +47,14 @@ function Orders() {
       name: "Tổng tiền",
       width: "110px",
       center: "true",
-      selector: (row) => row.totalCost + "VNĐ",
+      selector: (row) => row.totalCost + " ₫",
       sortable: true,
     },
     {
       name: "Chiết khấu",
       width: "130px",
       center: "true",
-      selector: (row) => row.totalDiscount + "VNĐ",
+      selector: (row) => row.totalDiscount + " ₫",
       sortable: true,
     },
     {

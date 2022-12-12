@@ -59,7 +59,7 @@ function OrderDetail(props) {
             minWidth: '250px',
             width: '250px',
             maxWidth: '275px',
-            selector: (row) => "VNĐ" + row?.packageCost,
+            selector: (row) => " ₫" + row?.packageCost,
             sortable: true,
         },
         {
@@ -67,7 +67,7 @@ function OrderDetail(props) {
             minWidth: '250px',
             width: '250px',
             maxWidth: '275px',
-            selector: (row) => "VNĐ" + row?.discount,
+            selector: (row) => " ₫" + row?.discount,
             sortable: true,
         },
         {
@@ -156,7 +156,7 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    "VNĐ" + order?.totalCost
+                                                    " ₫" + order?.totalCost
                                                 }
                                             />
                                         </div>
@@ -186,7 +186,7 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    "VNĐ" + order?.totalDiscount
+                                                    " ₫" + order?.totalDiscount
                                                 }
                                             />
                                         </div>
@@ -201,7 +201,7 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    "VNĐ" + (order?.totalCost - order?.totalDiscount)
+                                                    " ₫" + (order?.totalCost - order?.totalDiscount)
                                                 }
                                             />
                                         </div>

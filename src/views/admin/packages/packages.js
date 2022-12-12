@@ -67,7 +67,7 @@ const Packages = () => {
       minWidth: "100px",
       width: "120px",
       maxWidth: "140px",
-      selector: (row) => row.listPrice + "VNĐ",
+      selector: (row) => row.listPrice + " ₫",
       sortable: true,
     },
     {
@@ -75,7 +75,7 @@ const Packages = () => {
       minWidth: "100px",
       width: "120px",
       maxWidth: "140px",
-      selector: (row) => row.salePrice + "VNĐ",
+      selector: (row) => row.salePrice + " ₫",
       sortable: true,
     },
     {

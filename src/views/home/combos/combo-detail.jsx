@@ -72,7 +72,7 @@ function CoursesDetails(props) {
       name: "Price",
       right: true,
       width: "100px",
-      selector: (row) => row?.salePrice + " VNĐ",
+      selector: (row) => row?.salePrice + "  ₫",
       sortable: true,
     },
   ];
@@ -118,13 +118,13 @@ function CoursesDetails(props) {
                           <del> {res.comboPackages.reduce(
                               (total, x) => total + x._package.salePrice,
                               0
-                            )}VNĐ
+                            )} ₫
                           </del>
                           <h4 className="price">
                              {res.comboPackages.reduce(
                               (total, x) => total + x.salePrice,
                               0
-                            )}VNĐ
+                            )} ₫
                           </h4>
                         </div>
                         <div className="course-buy-now text-center">

@@ -121,8 +121,8 @@ function ProductAside() {
                   <div className="ttr-post-meta">
                     <ul>
                       <li className="price">
-                        <del>{x.listPrice}VNĐ</del>
-                        <h5>{x.salePrice}VNĐ</h5>
+                        <del>{x.listPrice} ₫</del>
+                        <h5>{x.salePrice} ₫</h5>
                       </li>
                       <li className="review">{x.views} Lượt xem</li>
                     </ul>
