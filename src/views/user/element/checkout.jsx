@@ -54,7 +54,6 @@ function CheckOut(prop) {
       setValidated(true)
       event.preventDefault()
       event.stopPropagation()
-      console.log(codeCoupon)
       if (form.checkValidity() || isLogin) {
         const { type } = location.state;
         if (type === TYPE_CHECKOUT_PACKAGE)
