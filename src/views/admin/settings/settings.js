@@ -37,7 +37,7 @@ const Settings = () => {
             sortable: true,
         },
         {
-            name: "Hiển thị",
+            name: "Tên",
             selector: (row) => row?.display_order,
             sortable: true,
         },
@@ -62,13 +62,13 @@ const Settings = () => {
             sortable: true,
         },
         {
-            name: "Chức năng",
+            name: "Hành động",
             center: true,
             maxWidth: '140px',
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
-                        onClick={() => { window.location.href = "/lrs/admin/settings/" + row?.setting_id }}
+                        onClick={() => { window.location.href = "/admin/settings/" + row?.setting_id }}
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
                         <CIcon icon={cilPen} />
@@ -128,15 +128,14 @@ const Settings = () => {
                 <div className="body flex-grow px-2">
                     <div style={{ backgroundColor: "white",  padding: "5px 0px", margin: "0px 0px 15px 0px" }}>
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-                            <Col xs={12} lg={2} >
+                            <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                                 <CFormSelect
-                                    style={{ margin: "0px 0px" }}
                                     aria-label="Default select example"
                                     onChange={(e) => {
                                         setTypeId(e.target.value);
                                     }}
                                 >
-                                    <option value={0}>Tất cả loại</option>
+                                    <option value={0}>Tất cả</option>
                                     {listType.map((item, index) => {
                                         return (
                                             <option

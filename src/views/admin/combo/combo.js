@@ -49,14 +49,6 @@ const Combo = () => {
             sortable: true,
         },
         {
-            name: "Mô tả",
-            minWidth: '225px',
-            width: '250px',
-            maxWidth: '275px',
-            selector: (row) => row?.description,
-            sortable: true,
-        },
-        {
             name: "Khóa học",
             left: true,
             maxWidth: '700px',
@@ -70,19 +62,19 @@ const Combo = () => {
             sortable: true,
         },
         {
-            name: "Cập nhật cuối",
+            name: "Cập nhật gần nhất",
             width: '150px',
             selector: (row) => row?.updatedDate,
             format: (row) => moment(row.lastLogin).format('hh:MM DD/mm/yyyy'),
             sortable: true,
         },
         {
-            name: "Chức năng",
+            name: "Hành động",
             center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
-                        onClick={() => { window.location.href = "/lrs/admin/combos/" + row?.id }}
+                        onClick={() => { window.location.href = "/admin/combos/" + row?.id }}
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
                         <CIcon icon={cilPen} />

@@ -1,18 +1,15 @@
 import { CFormInput, CFormSelect } from "@coreui/react";
-import Styles from "./style.module.scss";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import Styles from "../style.module.scss";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import toast, { Toaster } from "react-hot-toast";
-import { adminApi } from "../../../api/adminApi";
-import { AppFooter, AppHeader, AppSidebar } from "../component";
+import toast from "react-hot-toast";
+import { adminApi } from "../../../../api/adminApi";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
 
 
-function Orders() {
+const OrderOnline = (props) => {
   const columns = [
     {
       name: "STT",
@@ -74,7 +71,7 @@ function Orders() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/orders/" + row?.id;
+              window.location.href = "/admin/orders/" + row?.id;
             }}
             color="primary"
             style={{
@@ -206,74 +203,66 @@ function Orders() {
   }
 
   return (
-    <div>
-      <AppSidebar />
-      <Toaster position="top-center" reverseOrder={false} />
-      <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <AppHeader />
-        <div className="body flex-grow px-2">
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "5px 0px",
-              margin: "0px 0px 15px 0px",
-            }}
-          >
-            <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
-                <CFormSelect
-                  aria-label="Default select example"
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}
-                >
-                  <option value={0}>Tất cả</option>
-                  {listCategory.map((item, index) => {
-                    return (
-                      <option key={index} value={item?.setting_id}>
-                        {item?.setting_title}
-                      </option>
-                    );
-                  })}
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
-                <CFormSelect
-                  onChange={(e) => {
-                    setStatus(e.target.value);
-                  }}
-                >
-                  <option value={0}>Tất cả</option>
-                  <option value={1}>Đã gửi</option>
-                  <option value={2}>Đã xác minh</option>
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
-                <CFormInput
-                  type="text"
-                  id="exampleInputPassword1"
+    <div className="body flex-grow px-2">
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: "5px 0px",
+          margin: "0px 0px 15px 0px",
+        }}
+      >
+        <Row className="text-nowrap w-100 my-75 g-0 permission-header">
+          <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
+            <CFormSelect
+              aria-label="Default select example"
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            >
+              <option value={0}>Tất cả</option>
+              {listCategory.map((item, index) => {
+                return (
+                  <option key={index} value={item?.setting_id}>
+                    {item?.setting_title}
+                  </option>
+                );
+              })}
+            </CFormSelect>
+          </Col>
+          <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
+            <CFormSelect
+              onChange={(e) => {
+                setStatus(e.target.value);
+              }}
+            >
+              <option value={0}>Tất cả</option>
+              <option value={1}>Đã gửi</option>
+              <option value={2}>Đã xác minh</option>
+            </CFormSelect>
+          </Col>
+          <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
+            <CFormInput
+              type="text"
+              id="exampleInputPassword1"
 
-                  placeholder="Tìm kiếm..."
-                  onChange={onSearch}
-                />
-              </Col>
-            </Row>
-          </div>
-          <DataTable
-            columns={columns}
-            data={data}
-            paginationTotalRows={totalRows}
-            onChangePage={(page) => setPage(page - 1)}
-            itemsPerPage={itemsPerPage}
-            onChangeRowsPerPage={handlePerRowsChange}
-            pagination
-            paginationServer
-          />
-        </div>
-        <AppFooter />
+              placeholder="Tìm kiếm..."
+              onChange={onSearch}
+            />
+          </Col>
+        </Row>
       </div>
+      <DataTable
+        columns={columns}
+        data={data}
+        paginationTotalRows={totalRows}
+        onChangePage={(page) => setPage(page - 1)}
+        itemsPerPage={itemsPerPage}
+        onChangeRowsPerPage={handlePerRowsChange}
+        pagination
+        paginationServer
+      />
     </div>
   );
 }
 
-export default Orders;
+export default OrderOnline;

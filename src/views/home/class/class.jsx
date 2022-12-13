@@ -10,7 +10,7 @@ import { classApi } from "../../../api/classApi";
 import { combieImg } from "../../../utils/index";
 import ProductAside from "../element/course-aside";
 import {ToastContainer } from "react-bootstrap";
-import { TYPE_CHECKOUT_CLASS } from "../../../constrains";
+import { TYPE_CHECKOUT_CLASS } from "../../../constants";
 function Class() {
   const [res, setRes] = useState(classEx);
   const history = useHistory();

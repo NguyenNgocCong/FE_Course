@@ -13,107 +13,110 @@ const _nav = [
         }
     },
     {
-        component: CNavItem,
-        name: "Người dùng",
-        to: "/admin/users",
-        icon: "fa fa-user",
-    },
-    {
-        component: CNavItem,
-        name: "Thông tin liên hệ",
-        to: "/admin/contacts",
-        icon: "fa fa-id-badge",
-    },
-    {
-        component: CNavItem,
-        name: "Bài học",
-        to: "/admin/subjects",
-        icon: "fa fa-book",
-    },
-    {
-        component: CNavItem,
-        name: "Lớp học",
-        to: "/admin/class",
-        icon: "fa fa-users",
-    },
-    {
-        component: CNavItem,
-        name: "Học viên",
-        to: "/admin/trainee",
-        icon: "fa fa-user-circle",
-    },
-    {
-        component: CNavItem,
-        name: "Blog",
-        to: "/admin/posts",
-        icon: "fa fa-bookmark",
-    },
-    {
-        component: CNavItem,
-        name: "Slider",
-        to: "/admin/sliders",
-        icon: "fa fa-image",
-    },
-    {
-        component: CNavItem,
-        name: "Khóa học",
-        to: "/admin/packages",
-        icon: "fa fa-folder",
-    }, {
-        component: CNavItem,
-        name: "Giảng viên",
-        to: "/admin/experts",
-        icon: "fa fa-user-md",
-    },
-    {
-        component: CNavItem,
-        name: "Combo",
-        to: "/admin/combos",
-        icon: "fa fa-inbox",
-    },
-    {
         component: CNavGroup,
-        name: 'Đơn hàng',
-        to: '/admin/order',
-        icon: "fa fa-shopping-cart",
+        name: 'Quản trị hệ thống',
+        icon: "fa fa-server",
         items: [
             {
                 component: CNavItem,
-                name: "Đăng ký lớp học",
-                to: "/admin/registration",
-                icon: "fa fa-shopping-cart",
+                name: "Người dùng",
+                to: "/admin/users",
+                icon: "fa fa-user",
             },
             {
                 component: CNavItem,
-                name: "Khóa học",
-                to: "/admin/orders",
-                icon: "fa fa-shopping-basket",
-            },
-            {
-                component: CNavItem,
-                name: "Đơn hàng thanh toán",
-                to: "/admin/order-done",
-                icon: "fa fa-cart-plus",
-            },
-            {
-                component: CNavItem,
-                name: "Đơn hàng bị hủy",
-                to: "/admin/order-cancel",
-                icon: "fa fa-cart-arrow-down",
+                name: "Cấu hình",
+                to: "/admin/settings",
+                icon: "fa fa-sliders",
             }
         ]
     },
     {
-        component: CNavItem,
-        name: "Mã giảm giá",
-        to: "/admin/coupon",
-        icon: "fa fa-table",
+        component: CNavGroup,
+        name: 'Quản lý học tập',
+        icon: "fa fa-slideshare",
+        items: [
+            {
+                component: CNavItem,
+                name: "Môn học",
+                to: "/admin/subjects",
+                icon: "fa fa-book",
+            },
+            {
+                component: CNavItem,
+                name: "Khóa học",
+                to: "/admin/packages",
+                icon: "fa fa-folder",
+            },
+            {
+                component: CNavItem,
+                name: "Lớp học",
+                to: "/admin/class",
+                icon: "fa fa-users",
+            },
+            {
+                component: CNavItem,
+                name: "Combo",
+                to: "/admin/combos",
+                icon: "fa fa-inbox",
+            },
+            {
+                component: CNavItem,
+                name: "Học viên",
+                to: "/admin/trainee",
+                icon: "fa fa-user-circle",
+            }
+        ]
     },
     {
-        component: CNavItem,
-        name: "Thiết lập",
-        to: "/admin/settings",
-        icon: "fa fa-sliders",
+        component: CNavGroup,
+        name: 'Nội dung website',
+        icon: "fa fa-signal",
+        items: [
+            {
+                component: CNavItem,
+                name: "bài viết(Blog)",
+                to: "/admin/posts",
+                icon: "fa fa-bookmark",
+            },
+            {
+                component: CNavItem,
+                name: "Slider",
+                to: "/admin/sliders",
+                icon: "fa fa-image",
+            },
+            {
+                component: CNavItem,
+                name: "Giảng viên",
+                to: "/admin/experts",
+                icon: "fa fa-user-md",
+            }
+        ]
+    },
+    {
+        component: CNavGroup,
+        name: 'Bán hàng',
+        icon: "fa fa-shopping-bag",
+        items: [
+            {
+                component: CNavItem,
+                name: 'Đơn hàng',
+                to: '/admin/orders',
+                icon: "fa fa-shopping-cart",
+            },
+            {
+                component: CNavItem,
+                name: "Mã giảm giá",
+                to: "/admin/coupon",
+                icon: "fa fa-table",
+            },
+            {
+                component: CNavItem,
+                name: "Hỗ trợ khách hàng",
+                to: "/admin/contacts",
+                icon: "fa fa-user",
+            }
+        ]
     }
 ];
 

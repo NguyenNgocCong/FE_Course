@@ -7,25 +7,23 @@ import {
     CRow,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
-import Styles from "./style.module.scss";
 import toast, { Toaster } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
-import { adminApi } from "../../../api/adminApi";
-import { AppFooter, AppHeader, AppSidebar } from "../component";
+import { adminApi } from "../../../../api/adminApi";
+import { AppFooter, AppHeader, AppSidebar } from "../../component";
 
-function OrderDetail(props) {
-    const [order, setOrder] = useState();
+function RegistrationDetail(props) {
+    const [registration, setRegistration] = useState();
     const location = useLocation();
     const id = location.pathname.substring(
-        "/admin/orders/".length,
+        "/admin/registration/".length,
         location.pathname.length
     );
 
-    const getOrderById = async () => {
+    const getRegistrationById = async () => {
         try {
             const response = await adminApi.getOrderDetail(id);
-            setOrder(response);
+            setRegistration(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -34,53 +32,9 @@ function OrderDetail(props) {
     };
 
     useEffect(() => {
-        getOrderById();
+        getRegistrationById();
         // eslint-disable-next-line
     }, []);
-
-
-    const columns = [
-        {
-            name: "STT",
-            width: '50px',
-            selector: (row, rowIndex) => rowIndex + 1,
-            sortable: true,
-        },
-        {
-            name: "Tiêu đề",
-            minWidth: '350px',
-            width: '400px',
-            maxWidth: '450px',
-            selector: (row) => row?._package ? row?._package?.title : row?._combo?.title,
-            sortable: true,
-        },
-        {
-            name: "Giá bán",
-            minWidth: '250px',
-            width: '250px',
-            maxWidth: '275px',
-            selector: (row) => " ₫" + row?.packageCost,
-            sortable: true,
-        },
-        {
-            name: "Chiết khấu",
-            minWidth: '250px',
-            width: '250px',
-            maxWidth: '275px',
-            selector: (row) => " ₫" + row?.discount,
-            sortable: true,
-        },
-        {
-            name: "Status",
-            width: "150px",
-            selector: (row) => (
-                <div className={`${row?.activated ? Styles.active : Styles.inactive}`}>
-                    {row.activated ? "Hoạt động" : "Không hoạt động"}
-                </div>
-            ),
-            sortable: true,
-        }
-    ];
 
     return (
         <div>
@@ -92,7 +46,100 @@ function OrderDetail(props) {
                     <CCol xs={12}>
                         <CCard className="mb-4">
                             <CCardBody>
-                                <strong>Thông tin khách hàng</strong>
+                                <strong>Thông tin lớp học</strong>
+                                <hr></hr>
+                                <CRow className="g-3 mb-3">
+                                    <CCol sm={4}>
+                                        <div>
+                                            <CFormLabel>
+                                                Mã lớp học (
+                                                <span style={{ color: "red" }}>*</span>)
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="text"
+                                                id="exampleFormControlInput1"
+                                                disabled={true}
+                                                value={
+                                                    registration?.aclass?.code
+                                                }
+                                            />
+                                        </div>
+                                    </CCol>
+                                    <CCol sm={6}>
+                                        <div>
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Khóa học
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="text"
+                                                id="exampleFormControlInput1"
+                                                disabled={true}
+                                                value={
+                                                    registration?.aclass?.packages?.title
+                                                }
+                                            />
+                                        </div>
+                                    </CCol>
+                                    <CCol sm={2}>
+                                        <div>
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Giá bán
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="text"
+                                                id="exampleFormControlInput1"
+                                                disabled={true}
+                                                value={
+                                                    "$" + registration?.aclass?.packages?.salePrice
+                                                }
+                                            />
+                                        </div>
+                                    </CCol>
+                                    <CCol sm={4}>
+                                        <div>
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Khu vực
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="text"
+                                                id="exampleFormControlInput1"
+                                                disabled={true}
+                                                value={
+                                                    registration?.aclass?.branch != null ? registration?.aclass?.branch?.setting_title : "Online"
+                                                }
+                                            />
+                                        </div>
+                                    </CCol>
+                                    <CCol sm={4}>
+                                        <div>
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Giảng viên
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="text"
+                                                id="exampleFormControlInput1"
+                                                disabled={true}
+                                                value={
+                                                    registration?.aclass?.trainer?.user?.fullname
+                                                }
+                                            />
+                                        </div>
+                                    </CCol>
+                                    <CCol sm={4}>
+                                        <div>
+                                            <CFormLabel htmlFor="exampleFormControlInput1">
+                                                Ngày bắt đầu
+                                            </CFormLabel>
+                                            <CFormInput
+                                                type="text"
+                                                id="exampleFormControlInput1"
+                                                disabled={true}
+                                                value={registration?.aclass?.dateStart}
+                                            />
+                                        </div>
+                                    </CCol>
+                                </CRow>
+                                <strong>thông tin khách hàng</strong>
                                 <hr></hr>
                                 <CRow className="g-3 mb-3">
                                     <CCol sm={4}>
@@ -106,7 +153,7 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    order?.user ? order?.user?.fullname : order?.customer?.fullName
+                                                    registration?.user ? registration?.user?.fullname : registration?.customer?.fullName
                                                 }
                                             />
                                         </div>
@@ -121,7 +168,7 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    order?.user ? order?.user?.email : order?.customer?.email
+                                                    registration?.user ? registration?.user?.email : registration?.customer?.email
                                                 }
                                             />
                                         </div>
@@ -136,13 +183,13 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    order?.user ? order?.user?.phoneNumber : order?.customer?.mobile
+                                                    registration?.user ? registration?.user?.phoneNumber : registration?.customer?.mobile
                                                 }
                                             />
                                         </div>
                                     </CCol>
                                 </CRow>
-                                <strong>Thông tin đơn hàng</strong>
+                                <strong>Thông tin đặt hàng</strong>
                                 <hr></hr>
                                 <CRow className="g-3 mb-3">
                                     <CCol sm={3}>
@@ -156,7 +203,7 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    " ₫" + order?.totalCost
+                                                    "$" + registration?.totalCost
                                                 }
                                             />
                                         </div>
@@ -171,7 +218,7 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    order?.coupon?.code
+                                                    registration?.coupon?.code
                                                 }
                                             />
                                         </div>
@@ -186,7 +233,7 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    " ₫" + order?.totalDiscount
+                                                    "$" + registration?.totalDiscount
                                                 }
                                             />
                                         </div>
@@ -201,7 +248,7 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    " ₫" + (order?.totalCost - order?.totalDiscount)
+                                                    "$" + (registration?.totalCost - registration?.totalDiscount)
                                                 }
                                             />
                                         </div>
@@ -216,20 +263,11 @@ function OrderDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 disabled={true}
                                                 value={
-                                                    Number(order?.status) === 1 ? "Đã gửi" : "Đã xác minh"
+                                                    Number(registration?.status) === 1 ? "Đã gửi" : "Đã xác minh"
                                                 }
                                             />
                                         </div>
                                     </CCol>
-                                </CRow>
-                                <strong>Thông tin sản phẩm</strong>
-                                <hr></hr>
-                                <CRow className="g-3 mb-3">
-                                    <DataTable
-                                        columns={columns}
-                                        data={order?.orderPackages}
-                                        paginationServer
-                                    />
                                 </CRow>
                             </CCardBody>
                         </CCard>
@@ -241,4 +279,4 @@ function OrderDetail(props) {
     );
 }
 
-export default OrderDetail;
+export default RegistrationDetail;

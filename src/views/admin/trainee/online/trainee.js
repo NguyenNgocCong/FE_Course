@@ -1,19 +1,16 @@
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { CFormInput, CFormSelect } from "@coreui/react";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useHistory } from "react-router-dom";
-import { adminApi } from "../../../api/adminApi";
-import { AppFooter, AppHeader, AppSidebar } from "../component";
-import Styles from "./style.module.scss";
+import { adminApi } from "../../../../api/adminApi";
+import Styles from "../style.module.scss";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Col, Row } from "react-bootstrap";
 
-function Trainee() {
+function TraineeOnline() {
   const columns = [
     {
       name: "STT",
@@ -81,13 +78,13 @@ function Trainee() {
       sortable: true,
     },
     {
-      name: "Chức năng",
+      name: "Hành động",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/trainee/" + row?.id;
+              window.location.href = "/admin/trainee/" + row?.id;
             }}
             style={{
               backgroundColor: "#7367f0",
@@ -157,90 +154,82 @@ function Trainee() {
   };
 
   return (
-    <div>
-      <AppSidebar />
-      <Toaster position="top-center" reverseOrder={false} />
-      <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <AppHeader />
-        <div className="body flex-grow px-2">
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "5px 0px",
-              margin: "0px 0px 15px 0px",
-            }}
-          >
-            <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
-                <CFormSelect
-                  aria-label="Default select example"
-                  onChange={(e) => {
-                    setTrainer(e.target.value);
-                  }}
-                >
-                  <option value={0}>Tất cả lớp học</option>
-                  {listClass?.map((item, index) => {
-                    return (
-                      <option key={index} value={item?.id}>
-                        {item?.code}
-                      </option>
-                    );
-                  })}
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
-                <CFormSelect
-                  aria-label="Default select example"
-                  onChange={(e) => {
-                    setStatus(e.target.value);
-                  }}
-                >
-                  <option value="">Tất cả</option>
-                  <option value={true}>Hoạt động</option>
-                  <option value={false}>Không hoạt động</option>
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
-                <CFormInput
-                  type="text"
-                  id="exampleInputPassword1"
-                  placeholder="Tìm kiếm..."
-                  onChange={onSearch}
-                />
-              </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
-                <button
-                  style={{
-                    backgroundColor: "#7367f0",
-                    border: "none",
-                    float: "right",
-                    height: "100%",
-                    width: "100px",
-                    color: "white",
-                    borderRadius: "10px",
-                  }}
-                  onClick={() => history.push("/admin/trainee/create")}
-                >
-                  <CIcon icon={cilLibraryAdd} />
-                </button>
-              </Col>
-            </Row>
-          </div>
-          <DataTable
-            columns={columns}
-            data={data}
-            paginationTotalRows={totalRows}
-            onChangePage={(page) => setPage(page - 1)}
-            itemsPerPage={itemsPerPage}
-            onChangeRowsPerPage={handlePerRowsChange}
-            pagination
-            paginationServer
-          />{" "}
-        </div>
-        <AppFooter />
+    <div className="body flex-grow px-2">
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: "5px 0px",
+          margin: "0px 0px 15px 0px",
+        }}
+      >
+        <Row className="text-nowrap w-100 my-75 g-0 permission-header">
+          <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
+            <CFormSelect
+              aria-label="Default select example"
+              onChange={(e) => {
+                setTrainer(e.target.value);
+              }}
+            >
+              <option value={0}>Tất cả lớp học</option>
+              {listClass?.map((item, index) => {
+                return (
+                  <option key={index} value={item?.id}>
+                    {item?.code}
+                  </option>
+                );
+              })}
+            </CFormSelect>
+          </Col>
+          <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
+            <CFormSelect
+              aria-label="Default select example"
+              onChange={(e) => {
+                setStatus(e.target.value);
+              }}
+            >
+              <option value="">Tất cả</option>
+              <option value={true}>Hoạt động</option>
+              <option value={false}>Không hoạt động</option>
+            </CFormSelect>
+          </Col>
+          <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
+            <CFormInput
+              type="text"
+              id="exampleInputPassword1"
+              placeholder="Tìm kiếm..."
+              onChange={onSearch}
+            />
+          </Col>
+          <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
+            <button
+              style={{
+                backgroundColor: "#7367f0",
+                border: "none",
+                float: "right",
+                height: "100%",
+                width: "100px",
+                color: "white",
+                borderRadius: "10px",
+              }}
+              onClick={() => history.push("/admin/trainee/create")}
+            >
+              <CIcon icon={cilLibraryAdd} />
+            </button>
+          </Col>
+        </Row>
       </div>
+      <DataTable
+        columns={columns}
+        data={data}
+        paginationTotalRows={totalRows}
+        onChangePage={(page) => setPage(page - 1)}
+        itemsPerPage={itemsPerPage}
+        onChangeRowsPerPage={handlePerRowsChange}
+        pagination
+        paginationServer
+      />{" "}
     </div>
   );
 }
 
-export default Trainee;
+export default TraineeOnline;

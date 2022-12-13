@@ -388,6 +388,7 @@ function SubjectDetail(props) {
                                                     <option>Select expert</option>
                                                     {listExpert?.map((item, index) => {
                                                         if (type === 1) {
+                                                            console.log(item)
                                                             return subject?.expert
                                                                 ?.id ===
                                                                 item?.id ? (
@@ -398,7 +399,7 @@ function SubjectDetail(props) {
                                                                     }
                                                                     selected
                                                                 >
-                                                                    {item?.user?.fullname}
+                                                                    {item?.fullname}
                                                                 </option>
                                                             ) : (
                                                                 <option
@@ -407,7 +408,7 @@ function SubjectDetail(props) {
                                                                         item?.id
                                                                     }
                                                                 >
-                                                                    {item?.user?.fullname}
+                                                                    {item?.fullname}
                                                                 </option>
                                                             );
                                                         } else {
@@ -418,7 +419,7 @@ function SubjectDetail(props) {
                                                                         item?.id
                                                                     }
                                                                 >
-                                                                    {item?.user?.fullname}
+                                                                    {item?.fullname}
                                                                 </option>
                                                             );
                                                         }

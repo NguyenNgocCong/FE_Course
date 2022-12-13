@@ -12,44 +12,67 @@ function Register(props) {
   const [email, setEmail] = useState();
   const [fullName, setFullName] = useState();
   const [password, setPassword] = useState();
+  const [rePassword, setRePassword] = useState();
+  const [phone, setPhone] = useState();
   const [alertMessage, setAlertMessage] = useState();
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertType, setPopupAlertType] = useState("primary");
   const [step, setStep] = useState(0);
   const history = useHistory();
+  const [validated, setValidated] = useState(false);
 
-  const handleRegister = async () => {
-    const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-    const regEmail =
-      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    // const regPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_])[A-Za-z\\d@$!%*?&_]{8,20}$/;
-    if (!regUsername.test(username)) {
-      setAlertMessage("Định dạng Tên tài khoản không đúng!");
-      setAlertVisible(true);
-      setPopupAlertType("danger");
-      return;
-    } else if (!regEmail.test(email)) {
-      setAlertMessage("Định dạng Email không đúng!");
-      setAlertVisible(true);
-      setPopupAlertType("danger");
-      return;
-    } 
+  const handleRegister = async (event) => {
+    const form = event.currentTarget
+    setValidated(true)
+    event.preventDefault()
+    event.stopPropagation()
+    if (form.checkValidity()) {
+      const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+      const regEmail = /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?/;
+      const regPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_])[A-Za-z\\d@$!%*?&_]{8,20}$/;
+      const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
 
-    try {
-      const param = {
-        username: username,
-        email: email,
-        password: password,
-        fullName: fullName,
-      };
+      if (!regUsername.test(username)) {
+        setAlertMessage("Vui lòng nhập đúng định dạng tên không chứ kí tự đặc biệt");
+        setAlertVisible(true);
+        setPopupAlertType("danger");
+        return;
+      } else if (!regEmail.test(email)) {
+        setAlertMessage("Email không đúng định dạng");
+        setAlertVisible(true);
+        setPopupAlertType("danger");
+        return;
+      } else if (!regPhoneNumber.test(phone)) {
+        setAlertMessage("vui lòng nhập đúng định dạng số điện thoại");
+        setAlertVisible(true);
+        setPopupAlertType("danger");
+      } else if (password !== rePassword) {
+        setAlertMessage("Mật khẩu nhập lại không trùng khớp");
+        setAlertVisible(true);
+        setPopupAlertType("danger");
+      } else if (!regPassword.test(password)) {
+        setAlertMessage("Vui lòng nhập mật khẩu");
+        setAlertVisible(true);
+        setPopupAlertType("danger");
+      }
 
-      const response = await userApi.registerAccount(param);
-      console.log(response);
-      setStep(1);
-    } catch (responseError) {
-      setAlertMessage(responseError?.data?.message);
-      setAlertVisible(true);
-      setPopupAlertType("danger");
+      try {
+        const param = {
+          username: username,
+          email: email,
+          password: password,
+          fullName: fullName,
+          phone: phone
+        };
+
+        const response = await userApi.registerAccount(param);
+        console.log(response);
+        setStep(1);
+      } catch (responseError) {
+        setAlertMessage(responseError?.data?.message);
+        setAlertVisible(true);
+        setPopupAlertType("danger");
+      }
     }
   };
 
@@ -93,7 +116,10 @@ function Register(props) {
                   aria-label="Close"
                 ></button>
               </div>
-              <CForm className="contact-bx">
+              <CForm className="contact-bx"
+                onSubmit={handleRegister}
+                noValidate
+                validated={validated}>
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="input-group form-group">
@@ -101,9 +127,10 @@ function Register(props) {
                         name="username"
                         type="text"
                         placeholder="Nhập tên tài khoản"
-                        required=""
+                        required
                         className="form-control"
                         onChange={(e) => setUsername(e.target.value)}
+                        feedbackInvalid="Vui lòng tên tài khoản!"
                       />
                     </div>
                   </div>
@@ -113,9 +140,10 @@ function Register(props) {
                         name="fullname"
                         type="text"
                         placeholder="Nhập họ và tên"
-                        required=""
+                        required
                         className="form-control"
                         onChange={(e) => setFullName(e.target.value)}
+                        feedbackInvalid="Vui lòng nhập họ và tên!"
                       />
                     </div>
                   </div>
@@ -125,21 +153,23 @@ function Register(props) {
                         name="email"
                         type="email"
                         placeholder="Nhập địa chỉ email"
-                        required=""
+                        required
                         className="form-control"
                         onChange={(e) => setEmail(e.target.value)}
+                        feedbackInvalid="Vui lòng email!"
                       />
                     </div>
                   </div>
                   <div className="col-lg-12">
                     <div className="input-group form-group">
                       <CFormInput
-                        name="email"
-                        type="email"
+                        name="phone"
+                        type="number"
                         placeholder="Nhập số điện thoại"
-                        required=""
+                        required
                         className="form-control"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setPhone(e.target.value)}
+                        feedbackInvalid="Vui lòng số điện thoại!"
                       />
                     </div>
                   </div>
@@ -150,30 +180,32 @@ function Register(props) {
                         type="password"
                         placeholder="Nhập mật khẩu"
                         className="form-control"
-                        required=""
+                        required
                         onChange={(e) => setPassword(e.target.value)}
+                        feedbackInvalid="Vui lòng nhập mật khẩu!"
                       />
                     </div>
                   </div>
                   <div className="col-lg-12">
                     <div className="input-group form-group">
                       <CFormInput
-                        name="password"
+                        name="rePassword"
                         type="password"
                         placeholder="Nhập lại mật khẩu"
                         className="form-control"
-                        required=""
-                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        feedbackInvalid="Vui lòng nhập lại mật khẩu!"
+                        onChange={(e) => setRePassword(e.target.value)}
                       />
                     </div>
                   </div>
                   <div className="col-lg-12 m-b30">
-                    <p
+                    <button
                       className="btn button-md"
-                      onClick={() => handleRegister()}
+                      type="submit"
                     >
                       Đăng ký
-                    </p>
+                    </button>
                   </div>
                 </div>
               </CForm>
@@ -185,7 +217,7 @@ function Register(props) {
               <div className="heading-bx left">
                 <h2 className="title-head">Thông tin tài khoản</h2>
                 <p>
-                  Thông tin tài khoản lf link kích hoạt đã được gửi đến email: {email}
+                  Thông tin tài khoản và link kích hoạt đã được gửi đến email: {email}
                 </p>
                 <p className="pb-2">Kiểm tra hộp thư email của bạn và đăng nhập ngay!</p>
                 <div className="col-lg-12 m-b30 p-0">

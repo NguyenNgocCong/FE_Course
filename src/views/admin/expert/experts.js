@@ -69,12 +69,12 @@ const Experts = () => {
             sortable: true,
         },
         {
-            name: "Chức năng",
+            name: "Hành động",
             center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
-                        onClick={() => { window.location.href = "/lrs/admin/experts/" + row?.id }}
+                        onClick={() => { window.location.href = "/admin/experts/" + row?.id }}
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
                         <CIcon icon={cilPen} />

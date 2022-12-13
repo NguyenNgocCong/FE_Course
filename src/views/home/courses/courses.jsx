@@ -115,7 +115,7 @@ function Products() {
                             <div
                               onClick={() => {
                                 window.location.href =
-                                  "/lrs/courses-details/" + item.id;
+                                  "/courses-details/" + item.id;
                               }}
                               className="btn btn-warning m-2"
                             >
@@ -127,7 +127,7 @@ function Products() {
                               <div
                                 onClick={() => {
                                   window.location.href =
-                                    "/lrs/courses-details/" + item.id;
+                                    "/courses-details/" + item.id;
                                 }}
                               >
                                 {item.title}

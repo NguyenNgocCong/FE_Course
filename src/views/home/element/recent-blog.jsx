@@ -54,7 +54,7 @@ function FeatureContent3(props) {
                         />
                         <div
                           onClick={() => {
-                            window.location.href = "/lrs/blog/" + item?.id;
+                            window.location.href = "/blog/" + item?.id;
                           }}
                           className="btn btn-warning"
                           style={{ marginTop: "5px" }}
@@ -65,7 +65,7 @@ function FeatureContent3(props) {
                       <div className="col-lg-8 blog-home" style={{ padding: "10px" }}>
                         <h5
                           onClick={() => {
-                            window.location.href = "/lrs/blog/" + item?.id;
+                            window.location.href = "/blog/" + item?.id;
                           }}
                         >
                           {item?.title}

@@ -3,12 +3,9 @@ import React from "react";
 const Dashboard = React.lazy(() => import("./views/admin/dashboard/dashboard"));
 const Users = React.lazy(() => import("./views/admin/users/users"));
 const Subject = React.lazy(() => import("./views/admin/subjects/subjects"));
-const Registration = React.lazy(() => import("./views/admin/registration/registration"));
-const Orders = React.lazy(() => import("./views/admin/orders/orders"));
-const Ordered = React.lazy(() => import("./views/admin/ordered/order-done"));
-const OrderCancel = React.lazy(() => import("./views/admin/order-cancel/order-cancel"));
+const Order = React.lazy(() => import("./views/admin/order/index"));
 const Contact = React.lazy(() => import("./views/admin/contact/contact"));
-const Trainee = React.lazy(() => import("./views/admin/trainee/trainee"));
+const Trainee = React.lazy(() => import("./views/admin/trainee/index"));
 const Coupon = React.lazy(() => import("./views/admin/coupon/coupon"));
 const Class = React.lazy(() => import("./views/admin/class/class"));
 const Posts = React.lazy(() => import("./views/admin/posts/posts"));
@@ -24,10 +21,7 @@ const routes = [
     { path: "/admin/users", name: "Users", element: Users },
     { path: "/admin/contacts", name: "Contact", element: Contact },
     { path: "/admin/subjects", name: "Subject", element: Subject },
-    { path: "/admin/registration", name: "Registration", element: Registration },
-    { path: "/admin/orders", name: "Orders", element: Orders },
-    { path: "/admin/order-done", name: "Ordered", element: Ordered },
-    { path: "/admin/order-cancel", name: "OrderCancel", element: OrderCancel },
+    { path: "/admin/order", name: "Order", element: Order },
     { path: "/admin/class", name: "Class", element: Class },
     { path: "/admin/coupon", name: "Coupon", element: Coupon },
     { path: "/admin/trainee", name: "Trainee", element: Trainee },

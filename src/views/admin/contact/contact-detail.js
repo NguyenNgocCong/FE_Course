@@ -176,7 +176,7 @@ function ContactDetail(props) {
                                 </CRow>
                                 <div className="mb-3">
                                     <CFormLabel htmlFor="exampleFormControlInput1">
-                                        Tin nhắn
+                                        Câu hỏi
                                     </CFormLabel>
                                     <CFormTextarea
                                         id="exampleFormControlTextarea1"

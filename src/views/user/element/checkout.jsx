@@ -8,7 +8,7 @@ import { userApi } from "../../../api/userApi";
 import {
   TYPE_CHECKOUT_CLASS,
   TYPE_CHECKOUT_PACKAGE,
-} from "../../../constrains/index";
+} from "../../../constants/index";
 import { toast } from "react-toastify";
 import { resetState } from "../../../redux/reducers/order";
 import { CForm, CFormInput } from "@coreui/react";
@@ -54,7 +54,6 @@ function CheckOut(prop) {
       setValidated(true)
       event.preventDefault()
       event.stopPropagation()
-      console.log(codeCoupon)
       if (form.checkValidity() || isLogin) {
         const { type } = location.state;
         if (type === TYPE_CHECKOUT_PACKAGE)

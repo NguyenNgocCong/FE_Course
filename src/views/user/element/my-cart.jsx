@@ -4,7 +4,7 @@ import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { BodyCartLocal } from "./cart-local";
-import { TYPE_CHECKOUT_PACKAGE } from "../../../constrains/index";
+import { TYPE_CHECKOUT_PACKAGE } from "../../../constants/index";
 import {
   removeCartCombo,
   removeCartPackage,

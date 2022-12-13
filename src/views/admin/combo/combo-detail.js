@@ -55,14 +55,6 @@ function ComboDetail(props) {
       sortable: true,
     },
     {
-      name: "Mô tả",
-      minWidth: "250px",
-      width: "300px",
-      maxWidth: "350px",
-      selector: (row) => row?._package?.description,
-      sortable: true,
-    },
-    {
       name: "Giá bán",
       minWidth: "250px",
       width: "250px",
@@ -79,7 +71,7 @@ function ComboDetail(props) {
       sortable: true,
     },
     {
-      name: "Chức năng",
+      name: "Hành động",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
