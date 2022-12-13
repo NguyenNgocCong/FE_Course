@@ -4132,7 +4132,7 @@ footer .pt-social-link ul li {
 }
 
 .profile-tabnav-sub .nav .nav-item a.active {
-    border-bottom: 4px solid  var(--primary);
+    border-bottom: 2px solid  var(--primary);
 }
 
 .profile-tabnav-sub .nav .nav-item a i {

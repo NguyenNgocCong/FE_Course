@@ -14,8 +14,8 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useHistory, useLocation } from "react-router-dom";
-import { adminApi } from "../../../api/adminApi";
-import { AppFooter, AppHeader, AppSidebar } from "../component";
+import { adminApi } from "../../../../api/adminApi";
+import { AppFooter, AppHeader, AppSidebar } from "../../component";
 
 function TraineeDetail(props) {
   const [detailClass, setDetailClass] = useState();

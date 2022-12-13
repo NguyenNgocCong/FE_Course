@@ -160,8 +160,8 @@ function ClassDetail(props) {
     ];
 
     const optionIsOnline = [
-        { status: true, label: "Online" },
-        { status: false, label: "Offline" }
+        { status: true, label: "Học Online" },
+        { status: false, label: "Học trực tiếp" }
     ];
 
     return (
@@ -279,7 +279,7 @@ function ClassDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Schedule (
+                                                Lịch (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -296,7 +296,7 @@ function ClassDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Time (
+                                                Thời gian (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -313,7 +313,6 @@ function ClassDetail(props) {
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Status (
                                                     Trạng thái (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
@@ -546,7 +545,7 @@ function ClassDetail(props) {
                                         {isOnline === false ? <CCol sm={12}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="formFile">
-                                                    Khu vực
+                                                    Chi nhánh
                                                 </CFormLabel>
                                                 <CFormSelect
                                                     aria-label="Default select example"

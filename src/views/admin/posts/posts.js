@@ -92,7 +92,7 @@ const Posts = () => {
             sortable: true,
         },
         {
-            name: "Chức năng",
+            name: "Hành động",
             maxWidth: '230px',
             center: true,
             selector: (row) => (
@@ -107,7 +107,7 @@ const Posts = () => {
                             </button>)
                         } else {
                             return (<button
-                                onClick={() => { window.location.href = "/lrs/admin/posts/" + row?.id }}
+                                onClick={() => { window.location.href = "/admin/posts/" + row?.id }}
                                 style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                             >
                                 <CIcon icon={cilPen} />

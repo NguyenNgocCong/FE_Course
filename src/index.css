@@ -32,7 +32,13 @@ html:not([dir=rtl]) .wrapper {
   top: 100%;
 }
 
-.link__card {
+.link__active {
+  font-size: 14px !important;
+  text-decoration: none !important;
+  position: relative !important;
+}
+
+.link__card div {
   position: relative !important;
   text-decoration: none !important;
 }
@@ -42,7 +48,26 @@ html:not([dir=rtl]) .wrapper {
 }
 
 .link__card i:hover {
-  color: #f7b205;
+  color: #FFFFFF;
+}
+
+.link__active {
+  color: #40005e !important;
+  font-size: 15px !important;
+  padding: 8px 0px !important;
+}
+
+.link__active:hover {
+  color: #FFFFFF !important;
+}
+
+.link__auth {
+  color: #40005e !important;
+  padding: 8px 0px !important;
+}
+
+.link__auth:hover {
+  color: #FFFFFF !important;
 }
 
 .link__card span {
@@ -106,12 +131,12 @@ html:not([dir=rtl]) .wrapper {
   border-top: 2px dotted rgba(0, 0, 0, .12);
 }
 
-.product_checkout div{
+.product_checkout div {
   font-size: 14px;
   padding: 5px 0px !important;
 }
 
-.product_checkout h6{
+.product_checkout h6 {
   padding: 5px 0px !important;
 }
 

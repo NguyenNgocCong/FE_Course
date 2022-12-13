@@ -1,12 +1,9 @@
 import { CFormInput, CFormSelect } from "@coreui/react";
-import Styles from "./style.module.scss";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import Styles from "../style.module.scss";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import toast, { Toaster } from "react-hot-toast";
-import { adminApi } from "../../../api/adminApi";
-import { AppFooter, AppHeader, AppSidebar } from "../component";
+import toast from "react-hot-toast";
+import { adminApi } from "../../../../api/adminApi";
 import { useHistory } from "react-router-dom";
 import CIcon from "@coreui/icons-react";
 import { cilLibraryAdd } from "@coreui/icons";
@@ -14,7 +11,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
 
-function Ordered() {
+const OrderDone = (props) => {
   const columns = [
     {
       name: "STT",
@@ -66,7 +63,7 @@ function Ordered() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = row.classId ? "/lrs/admin/registration/" + row?.id : "/lrs/admin/orders/" + row?.id;
+              window.location.href = row.classId ? "/admin/registration/" + row?.id : "/admin/orders/" + row?.id;
             }}
             color="primary"
             style={{
@@ -106,7 +103,7 @@ function Ordered() {
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
   const history = useHistory();
 
-  const getAllOrdered = async () => {
+  const getAllOrderDone = async () => {
     try {
       const response = await adminApi.getAllOrderDone(page, itemsPerPage, keywordSearch, category);
       console.log(response.data)
@@ -126,7 +123,7 @@ function Ordered() {
       buttons: [
         {
           label: "Có",
-          onClick: () => handleUpdateActiveOrdered(row),
+          onClick: () => handleUpdateActiveOrderDone(row),
         },
         {
           label: "Không",
@@ -136,7 +133,7 @@ function Ordered() {
     });
   };
 
-  const handleUpdateActiveOrdered = async (row) => {
+  const handleUpdateActiveOrderDone = async (row) => {
     try {
       const response = await adminApi.updateOrder(2, row?.id);
       toast.success(response?.message, {
@@ -152,7 +149,7 @@ function Ordered() {
 
   const getListCategory = async () => {
     try {
-      // const response = await adminApi.getListCategoryOrdered();
+      // const response = await adminApi.getListCategoryOrderDone();
       // setListCategory(response);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
@@ -166,7 +163,7 @@ function Ordered() {
   };
 
   useEffect(() => {
-    getAllOrdered();
+    getAllOrderDone();
     // eslint-disable-next-line
   }, [isModify, keywordSearch, page, category]);
 
@@ -179,80 +176,72 @@ function Ordered() {
   }
 
   return (
-    <div>
-      <AppSidebar />
-      <Toaster position="top-center" reverseOrdered={false} />
-      <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <AppHeader />
-        <div className="body flex-grow px-2">
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "5px 0px",
-              margin: "0px 0px 15px 0px",
-            }}
-          >
-            <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
-                <CFormSelect
-                  aria-label="Default select example"
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}
-                >
-                  <option value={0}>Tất cả</option>
-                  {listCategory.map((item, index) => {
-                    return (
-                      <option key={index} value={item?.setting_id}>
-                        {item?.setting_title}
-                      </option>
-                    );
-                  })}
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
-                <CFormInput
-                  type="text"
-                  id="exampleInputPassword1"
+    <div className="body flex-grow px-2">
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: "5px 0px",
+          margin: "0px 0px 15px 0px",
+        }}
+      >
+        <Row className="text-nowrap w-100 my-75 g-0 permission-header">
+          <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
+            <CFormSelect
+              aria-label="Default select example"
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            >
+              <option value={0}>Tất cả</option>
+              {listCategory.map((item, index) => {
+                return (
+                  <option key={index} value={item?.setting_id}>
+                    {item?.setting_title}
+                  </option>
+                );
+              })}
+            </CFormSelect>
+          </Col>
+          <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
+            <CFormInput
+              type="text"
+              id="exampleInputPassword1"
 
-                  placeholder="Tìm kiếm..."
-                  onChange={onSearch}
-                />
-              </Col>
-              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
-                <button
-                  style={{
-                    backgroundColor: "#7367f0",
-                    border: "none",
-                    float: "right",
-                    height: "100%",
-                    width: "100px",
-                    color: "white",
-                    borderRadius: "10px",
-                    marginRight: "inherit",
-                  }}
-                  onClick={() => history.push("/admin/subjects/create")}
-                >
-                  <CIcon icon={cilLibraryAdd} />
-                </button>
-              </Col>
-            </Row>
-          </div>
-          <DataTable
-            columns={columns}
-            data={data}
-            paginationTotalRows={totalRows}
-            onChangePage={(page) => setPage(page - 1)}
-            itemsPerPage={itemsPerPage}
-            onChangeRowsPerPage={handlePerRowsChange}
-            pagination
-            paginationServer
-          />
-        </div>
-        <AppFooter />
+              placeholder="Tìm kiếm..."
+              onChange={onSearch}
+            />
+          </Col>
+          <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
+            <button
+              style={{
+                backgroundColor: "#7367f0",
+                border: "none",
+                float: "right",
+                height: "100%",
+                width: "100px",
+                color: "white",
+                borderRadius: "10px",
+                marginRight: "inherit",
+              }}
+              onClick={() => history.push("/admin/subjects/create")}
+            >
+              <CIcon icon={cilLibraryAdd} />
+            </button>
+          </Col>
+        </Row>
       </div>
+      <DataTable
+        columns={columns}
+        data={data}
+        paginationTotalRows={totalRows}
+        onChangePage={(page) => setPage(page - 1)}
+        itemsPerPage={itemsPerPage}
+        onChangeRowsPerPage={handlePerRowsChange}
+        pagination
+        paginationServer
+      />
     </div>
   );
 }
 
-export default Ordered;
+export default OrderDone;

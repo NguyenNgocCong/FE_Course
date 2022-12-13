@@ -135,6 +135,18 @@ function Header() {
                 <div className="secondary-inner">
                   <div className="topbar-right">
                     <ul className="d-flex">
+                      {isLogin ? <li >
+                        <Link
+                          to={"/active-course"}
+                          id="quik-search-btn"
+                          type="button"
+                          className="btn-link fs-4 text-center "
+                        >
+                          <div className="text-center link__active">
+                            Kích hoạt khóa học<i className="fa fa-unlock-alt"></i>
+                          </div>
+                        </Link>
+                      </li> : <></>}
                       <li >
                         <Link
                           to={"/profile/1"}
@@ -155,7 +167,7 @@ function Header() {
                               src={combieImg(user?.avatar)}
                               alt=""
                               size="md"
-                              style={{height:"40px", width:"100%", borderRadius:"20px"}}
+                              style={{ height: "40px", width: "100%", borderRadius: "20px" }}
                               onError={({ currentTarget }) => {
                                 currentTarget.src = avatarProfile;
                               }}
@@ -195,12 +207,21 @@ function Header() {
                           </ul>
                         </li>
                       ) : (
-                        <div>
+                        <div className="text-center">
                           <li className="text-left">
-                            <Link to="/login">Đăng nhập</Link>
+                            <Link to="/login">
+                              <div className="text-center link__auth">
+                                Đăng nhập
+                              </div>
+                            </Link>
                           </li>
                           <li className="text-left">
-                            <Link to="/register">Đăng ký</Link>
+
+                            <Link to="/register">
+                              <div className="text-center link__auth">
+                                Đăng ký
+                              </div>
+                            </Link>
                           </li>
                         </div>
                       )}

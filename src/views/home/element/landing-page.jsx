@@ -81,7 +81,7 @@ function OnlineCourses() {
                 <CListGroupItem
                   className="font-weight-bold list-homepage"
                   onClick={() => {
-                    window.location.href = "/lrs/products";
+                    window.location.href = "/products";
                   }}
                 >
                   <div>Tất cả khóa học</div>
@@ -89,7 +89,7 @@ function OnlineCourses() {
                 <CListGroupItem
                   className="font-weight-bold list-homepage"
                   onClick={() => {
-                    window.location.href = "/lrs/combo";
+                    window.location.href = "/combo";
                   }}
                 >
                   <div>Combo</div>
@@ -97,7 +97,7 @@ function OnlineCourses() {
                 <CListGroupItem
                   className="font-weight-bold list-homepage"
                   onClick={() => {
-                    window.location.href = "/lrs/lecturers";
+                    window.location.href = "/lecturers";
                   }}
                 >
                   <div>Giảng viên</div>

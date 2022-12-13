@@ -230,7 +230,7 @@ function UserDetail(props) {
                   <CCol sm={3}>
                     <div className="mb-3">
                       <CFormLabel htmlFor="formFile">
-                        Vai trò
+                        Role
                       </CFormLabel>
                       <CFormSelect
                         aria-label="Default select example"

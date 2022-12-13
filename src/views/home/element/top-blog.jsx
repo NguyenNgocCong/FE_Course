@@ -104,7 +104,7 @@ const RecentTopsSlider = () => {
                     <p>{item.brefInfo}</p>
                     <div
                       onClick={() => {
-                        window.location.href = "/lrs/blog/" + item?.id;
+                        window.location.href = "/blog/" + item?.id;
                       }}
                       className="btn btn-warning m-2"
                     >
@@ -160,7 +160,7 @@ const RecentTopsSlider = () => {
                     <p>{item.brefInfo}</p>
                     <div
                       onClick={() => {
-                        window.location.href = "/lrs/blog/" + item?.id;
+                        window.location.href = "/blog/" + item?.id;
                       }}
                       className="btn btn-warning m-2"
                     >

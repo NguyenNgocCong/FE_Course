@@ -1,8 +1,6 @@
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import toast, { Toaster } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
@@ -63,7 +61,7 @@ function Class() {
       sortable: true,
     },
     {
-      name: "Chức năng",
+      name: "Hành động",
       center: true,
       selector: (row) => (
         // <CButton href={`/react/admin/class/${row?.id}`} color="primary">
@@ -71,7 +69,7 @@ function Class() {
         // </CButton>
         <div className={Styles.inputSearch}>
           <button
-            onClick={() => { window.location.href = "/lrs/admin/coupon/" + row?.id }}
+            onClick={() => { window.location.href = "/admin/coupon/" + row?.id }}
             style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
           >
             <CIcon icon={cilPen} />

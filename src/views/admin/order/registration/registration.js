@@ -1,17 +1,14 @@
 import { CFormInput, CFormSelect } from "@coreui/react";
-import Styles from "./style.module.scss";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import Styles from "../style.module.scss";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import toast, { Toaster } from "react-hot-toast";
-import { adminApi } from "../../../api/adminApi";
-import { AppFooter, AppHeader, AppSidebar } from "../component";
+import toast from "react-hot-toast";
+import { adminApi } from "../../../../api/adminApi";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
 
-function Registration() {
+const Registration = (props) => {
   const columns = [
     {
       name: "STT",
@@ -21,6 +18,22 @@ function Registration() {
     },
     {
       name: "Tên tài khoản",
+      minWidth: "175px",
+      width: "200px",
+      maxWidth: "225px",
+      selector: (row) => row.user ? row.user?.username : row.customer?.fullName,
+      sortable: true,
+    },
+    {
+      name: "Email",
+      minWidth: "175px",
+      width: "200px",
+      maxWidth: "225px",
+      selector: (row) => row.user ? row.user?.username : row.customer?.fullName,
+      sortable: true,
+    },
+    {
+      name: "Số điện thoại",
       minWidth: "175px",
       width: "200px",
       maxWidth: "225px",
@@ -74,7 +87,7 @@ function Registration() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/registration/" + row?.id;
+              window.location.href = "/admin/registration/" + row?.id;
             }}
             color="primary"
             style={{
@@ -85,7 +98,7 @@ function Registration() {
               float: "right",
             }}
           >
-             <i className="fa fa-eye"></i>
+            <i className="fa fa-eye"></i>
           </button>
           <button
             style={{
@@ -98,7 +111,7 @@ function Registration() {
             onClick={() => submit(row)}
           >
             {Number(row?.status) === 1 ? "Xác minh" : "Thanh toán"}
-            </button>
+          </button>
           <button
             style={{
               backgroundColor: "#7367f0",
@@ -118,7 +131,7 @@ function Registration() {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
-   // eslint-disable-next-line
+  // eslint-disable-next-line
   const [listCategory, setListCategory] = useState([]);
   const [category, setCategory] = useState(0);
   const [status, setStatus] = useState("");
@@ -158,7 +171,7 @@ function Registration() {
 
   const handleUpdateActiveRegistration = async (row, newStatus) => {
     try {
-      if(!newStatus) {
+      if (!newStatus) {
         if (Number(row?.status) === 1) {
           newStatus = 2;
         } else {
@@ -207,72 +220,64 @@ function Registration() {
   }
 
   return (
-    <div>
-      <AppSidebar />
-      <Toaster position="top-center" reverseOrder={false} />
-      <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <AppHeader />
-        <div className="body flex-grow px-2">
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "5px 0px",
-              margin: "0px 0px 15px 0px",
-            }}
-          >
-            <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
-                <CFormSelect
-                  aria-label="Default select example"
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}
-                >
-                  <option value={0}>Tất cả</option>
-                  {listCategory.map((item, index) => {
-                    return (
-                      <option key={index} value={item?.setting_id}>
-                        {item?.setting_title}
-                      </option>
-                    );
-                  })}
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
-                <CFormSelect
-                  onChange={(e) => {
-                    setStatus(e.target.value);
-                  }}
-                >
-                  <option value={0}>Tất cả</option>
-                  <option value={1}>Đã gửi</option>
-                  <option value={2}>Đã xác minh</option>
-                </CFormSelect>
-              </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
-                <CFormInput
-                  type="text"
-                  id="exampleInputPassword1"
-                  
-                  placeholder="Tìm kiếm..."
-                  onChange={onSearch}
-                />
-              </Col>
-            </Row>
-          </div>
-          <DataTable
-            columns={columns}
-            data={data}
-            paginationTotalRows={totalRows}
-            onChangePage={(page) => setPage(page - 1)}
-            itemsPerPage={itemsPerPage}
-            onChangeRowsPerPage={handlePerRowsChange}
-            pagination
-            paginationServer
-          />
-        </div>
-        <AppFooter />
+    <div className="body flex-grow px-2">
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: "5px 0px",
+          margin: "0px 0px 15px 0px",
+        }}
+      >
+        <Row className="text-nowrap w-100 my-75 g-0 permission-header">
+          <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
+            <CFormSelect
+              aria-label="Default select example"
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            >
+              <option value={0}>Tất cả</option>
+              {listCategory.map((item, index) => {
+                return (
+                  <option key={index} value={item?.setting_id}>
+                    {item?.setting_title}
+                  </option>
+                );
+              })}
+            </CFormSelect>
+          </Col>
+          <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
+            <CFormSelect
+              onChange={(e) => {
+                setStatus(e.target.value);
+              }}
+            >
+              <option value={0}>Tất cả</option>
+              <option value={1}>Đã gửi</option>
+              <option value={2}>Đã xác minh</option>
+            </CFormSelect>
+          </Col>
+          <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
+            <CFormInput
+              type="text"
+              id="exampleInputPassword1"
+
+              placeholder="Tìm kiếm..."
+              onChange={onSearch}
+            />
+          </Col>
+        </Row>
       </div>
+      <DataTable
+        columns={columns}
+        data={data}
+        paginationTotalRows={totalRows}
+        onChangePage={(page) => setPage(page - 1)}
+        itemsPerPage={itemsPerPage}
+        onChangeRowsPerPage={handlePerRowsChange}
+        pagination
+        paginationServer
+      />
     </div>
   );
 }

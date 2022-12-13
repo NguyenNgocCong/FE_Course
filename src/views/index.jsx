@@ -35,6 +35,7 @@ import LecturerDetails from "./home/teacher/teacher-detail";
 
 import Cart from "./user/element/cart-local";
 import CheckOut from "./user/element/checkout";
+import ActiveCourse from "./user/element/active-course";
 //admin
 import Dashboard from "./admin/dashboard/dashboard";
 import UserDetail from "./admin/users/user-detail";
@@ -46,8 +47,9 @@ import ClassDetail from "./admin/class/class-detail";
 import Coupon from "./admin/coupon/coupon";
 import CouponDetail from "./admin/coupon/coupon-detail";
 
-import Trainee from "./admin/trainee/trainee";
-import TraineeDetail from "./admin/trainee/trainee-detail";
+import Trainee from "./admin/trainee/index";
+import TraineeDetailOnl from "./admin/trainee/online/trainee-detail";
+import TraineeDetailOff from "./admin/trainee/online/trainee-detail";
 
 import Combo from "./admin/combo/combo";
 import ComboDetail from "./admin/combo/combo-detail";
@@ -73,15 +75,10 @@ import SliderDetail from "./admin/sliders/slider-detail";
 import SubjectDetail from "./admin/subjects/subject-detail";
 import Subjects from "./admin/subjects/subjects";
 
-import RegistrationDetail from "./admin/registration/registration-detail";
-import Registration from "./admin/registration/registration";
-
 // import OrderedDetail from "./admin/ordered/ordered-detail";
-import Ordered from "./admin/ordered/order-done";
-import OrderCancel from "./admin/order-cancel/order-cancel";
-
-import OrdersDetail from "./admin/orders/orders-detail";
-import Orders from "./admin/orders/orders";
+import Orders from "./admin/order/index";
+import RegistrationDetail from "./admin/order/registration/registration-detail";
+import OrdersDetail from "./admin/order/order-online/orders-detail";
 
 import { getAllCartLocal } from "../redux/reducers/order";
 import { useDispatch, useSelector } from "react-redux";
@@ -99,7 +96,7 @@ function Markup(props) {
 
   return (
     <>
-      <BrowserRouter basename={"/lrs/"}>
+      <BrowserRouter basename={"/"}>
         <Switch>
           <Route path="/" exact component={Index} />
 
@@ -151,6 +148,7 @@ function Markup(props) {
           {/* Contact Us */}
           <Route path="/cart" exact component={Cart} />
           <Route path="/checkout" exact component={CheckOut} />
+          <Route path="/active-course" exact component={ActiveCourse} />
 
           {/* admin  */}
           <PrivateRoute path="/admin/dashboard" exact>
@@ -176,31 +174,17 @@ function Markup(props) {
           <PrivateRoute path="/admin/subjects/:id" exact>
             <SubjectDetail />
           </PrivateRoute>
-
-          {/* Registration */}
-          <PrivateRoute path="/admin/registration" exact>
-            <Registration />
-          </PrivateRoute>
-          <PrivateRoute path="/admin/registration/:id" exact>
-            <RegistrationDetail />
-          </PrivateRoute>
-
-          {/* Orders */}
+          {/* Order */}
           <PrivateRoute path="/admin/orders" exact>
             <Orders />
           </PrivateRoute>
           <PrivateRoute path="/admin/orders/:id" exact>
             <OrdersDetail />
           </PrivateRoute>
+          <PrivateRoute path="/admin/registration/:id" exact>
+            <RegistrationDetail />
+          </PrivateRoute>
 
-          {/* Ordered */}
-          <PrivateRoute path="/admin/order-done" exact>
-            <Ordered />
-          </PrivateRoute>
-          {/* OrderCancel */}
-          <PrivateRoute path="/admin/order-cancel" exact>
-            <OrderCancel />
-          </PrivateRoute>
           {/* Class */}
           <PrivateRoute path="/admin/class" exact>
             <Class />
@@ -213,8 +197,11 @@ function Markup(props) {
           <PrivateRoute path="/admin/trainee" exact>
             <Trainee />
           </PrivateRoute>
-          <PrivateRoute path="/admin/trainee/:id" exact>
-            <TraineeDetail />
+          <PrivateRoute path="/admin/trainee-onl/:id" exact>
+            <TraineeDetailOnl />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/trainee-off/:id" exact>
+            <TraineeDetailOff />
           </PrivateRoute>
 
           {/* Coupon */}

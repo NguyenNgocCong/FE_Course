@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils/index";
 import Paging from "../../Paging/Paging";
-import { Button, Form, Modal } from "react-bootstrap";
-import { toast, ToastContainer } from "react-toastify";
 import dateFormat from "dateformat";
 import { useHistory } from "react-router-dom";
 
@@ -14,36 +12,16 @@ function MyOrderProfile(props) {
     totalItems: 0,
     totalPages: 0,
   });
-  const [showModal, setShowModal] = useState(false);
-  const [code, setCode] = useState("");
   const history = useHistory();
   const [pageIndex, setPageIndex] = useState(1);
 
   useEffect(() => {
-    if(props.activeTab === 2)
-    userApi.getMyOrder({ page: pageIndex - 1 }).then((res) => setRes(res));
+    if (props.activeTab === 2)
+      userApi.getMyOrder({ page: pageIndex - 1 }).then((res) => setRes(res));
   }, [pageIndex, props.activeTab]);
 
-  const handleCheckOut = () => {
-    userApi
-      .ActiveMyCourese({
-        code: code,
-      })
-      .then((res) => {
-        toast.success(res);
-        setShowModal(false);
-      })
-      .catch((e) => toast.error(e?.data?.message));
-  };
   return (
     <>
-      <ModalAcctiveCourses
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        handleCheckOut={handleCheckOut}
-        setCode={setCode}
-      />
-      <ToastContainer />
       <div className="courses-filter bg-gray" style={{ padding: "5px" }}>
         <div className="row align-items-center bg-orange" style={{ margin: "0px", minHeight: "50px" }}>
           <div className="col-md-12 col-lg-2 col-sm-12 text-center">
@@ -106,7 +84,6 @@ function MyOrderProfile(props) {
                 <div style={{ margin: "auto" }} className="col-md-12 col-lg-2 col-sm-12 text-center">
                   <span
                     className="badge badge-success"
-                    onClick={() => setShowModal(true)}
                   >
                     Đã Thanh toán
                   </span>
@@ -153,7 +130,6 @@ function MyOrderProfile(props) {
                           ) : (
                             <span
                               className="badge badge-warning"
-                              onClick={() => setShowModal(true)}
                             >
                               Chưa kích hoạt
                             </span>
@@ -163,6 +139,8 @@ function MyOrderProfile(props) {
                           {x.activated === false && !item.aclass ? (
                             <span
                               className="badge badge-success"
+                              onClick={() => { history.push("/active-course"); }}
+                              style={{cursor:"pointer"}}
                             >
                               Kích hoạt ngay
                             </span>
@@ -204,7 +182,6 @@ function MyOrderProfile(props) {
                           ) : (
                             <span
                               className="badge badge-warning"
-                              onClick={() => setShowModal(true)}
                             >
                               Chưa kích hoạt
                             </span>
@@ -214,6 +191,8 @@ function MyOrderProfile(props) {
                           {x.activated === false && !item.aclass ? (
                             <span
                               className="badge badge-success"
+                              onClick={() => { history.push("/active-course"); }}
+                              style={{cursor:"pointer"}}
                             >
                               Kích hoạt ngay
                             </span>
@@ -241,35 +220,5 @@ function MyOrderProfile(props) {
     </>
   );
 }
-
-const ModalAcctiveCourses = ({
-  show,
-  handleClose,
-  handleCheckOut,
-  setCode,
-}) => {
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Active Order</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form.Label htmlFor="inputPassword5">coupon-Code</Form.Label>
-        <Form.Control
-          aria-describedby="passwordHelpBlock"
-          onChange={(e) => setCode(e.target.value)}
-        />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleCheckOut}>
-          active
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-};
 
 export default MyOrderProfile;

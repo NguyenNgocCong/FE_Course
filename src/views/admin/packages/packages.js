@@ -91,13 +91,13 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Chức năng",
+      name: "Hành động",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/packages/" + row?.id;
+              window.location.href = "/admin/packages/" + row?.id;
             }}
             color="primary"
             style={{

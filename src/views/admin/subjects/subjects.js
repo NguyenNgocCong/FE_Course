@@ -1,8 +1,6 @@
 import { CFormInput, CFormSelect } from "@coreui/react";
 import Styles from "./style.module.scss";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import toast, { Toaster } from "react-hot-toast";
 import { adminApi } from "../../../api/adminApi";
@@ -85,19 +83,19 @@ function Subjects() {
       maxWidth: "150px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          <strong>{row.status ? "Hoạt động" : "Bỏ hoạt động"}</strong>
+          <strong>{row.status ? "Hoạt động" : "Không hoạt động"}</strong>
         </div>
       ),
       sortable: true,
     },
     {
-      name: "Chức năng",
+      name: "Hành động",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/lrs/admin/subjects/" + row?.id;
+              window.location.href = "/admin/subjects/" + row?.id;
             }}
             color="primary"
             style={{
@@ -120,7 +118,7 @@ function Subjects() {
             }}
             onClick={() => submit(row)}
           >
-            {row?.status ? "Không hoạt động" : "Hoạt động"}
+            {row?.status ? "Bỏ hoạt động" : "Hoạt động"}
           </button>
         </div>
       ),
