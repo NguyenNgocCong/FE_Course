@@ -41,7 +41,7 @@ function CoursesDetails(props) {
   };
   useEffect(() => {
     getProductById();
-    userApi.getCommentPackage().then((x) => setComments(x));
+    userApi.getCommentPackage({packageId : id}).then((x) => setComments(x));
     // eslint-disable-next-line
   }, []);
 
@@ -51,7 +51,7 @@ function CoursesDetails(props) {
         .createComment({ ...data, packageId: id })
         .then((res) => {
           toast.success(res.message);
-          userApi.getCommentPackage().then((x) => setComments(x));
+          userApi.getCommentPackage({packageId : id}).then((x) => setComments(x));
         })
         .catch((e) => toast.error(e?.data?.message));
     }

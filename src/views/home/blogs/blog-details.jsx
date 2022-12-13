@@ -28,17 +28,18 @@ function BlogDetails(prop) {
   useEffect(() => {
     // console.log(id);
     getPostById();
-    userApi.getCommentBlog().then((x) => setComments(x));
+    userApi.getCommentBlog({BlogId : id}).then((x) => setComments(x));
     // eslint-disable-next-line
   }, []);
 
-  const handleComment = (data) => {
+  const handleComment = async (data) => {
     if (isLogin) {
-      userApi
+      await userApi
         .createComment({ ...data, blogId: id })
         .then((res) => {
+          
           toast.success(res.message);
-          userApi.getCommentPackage().then((x) => setComments(x));
+          userApi.getCommentBlog({BlogId : id}).then((x) => setComments(x));
         })
         .catch((e) => toast.error(e?.data?.message));
     }

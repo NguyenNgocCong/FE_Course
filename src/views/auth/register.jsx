@@ -23,18 +23,17 @@ function Register(props) {
     const regEmail =
       /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     // const regPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_])[A-Za-z\\d@$!%*?&_]{8,20}$/;
-
     if (!regUsername.test(username)) {
-      setAlertMessage("username is invalid");
+      setAlertMessage("Định dạng Tên tài khoản không đúng!");
       setAlertVisible(true);
       setPopupAlertType("danger");
       return;
     } else if (!regEmail.test(email)) {
-      setAlertMessage("email is invalid");
+      setAlertMessage("Định dạng Email không đúng!");
       setAlertVisible(true);
       setPopupAlertType("danger");
       return;
-    }
+    } 
 
     try {
       const param = {

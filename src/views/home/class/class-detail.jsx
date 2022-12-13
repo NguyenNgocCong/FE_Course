@@ -26,7 +26,7 @@ function ClassUserDetails(props) {
     classApi.getClassById(id).then((res) => {
       setRes(res);
     });
-    userApi.getCommentClass().then((x) => setComments(x));
+    userApi.getCommentClass({classId : id}).then((x) => setComments(x));
   }, [id]);
 
   const handleComment = (data) => {
@@ -36,7 +36,7 @@ function ClassUserDetails(props) {
         .then((res) => {
           toast.success(res.message);
 
-          userApi.getCommentClass().then((x) => setComments(x));
+          userApi.getCommentClass({classId : id}).then((x) => setComments(x));
         })
         .catch((e) => toast.error(e?.data?.message));
     }
