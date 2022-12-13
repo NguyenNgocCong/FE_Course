@@ -31,15 +31,7 @@ const AppSidebar = () => {
             if (role === "ROLE_MANAGER") {
                 const newList = [];
                 navigation.forEach((element) => {
-                    const array1 = [
-                        "Combo",
-                        "Coupon",
-                        "Class",
-                        "Packages",
-                        "Expert",
-                        "Posts",
-                    ];
-                    if (array1.includes(element.name)) {
+                    if (element.to === "Manager") {
                         newList.push(element);
                     }
                 });
@@ -47,18 +39,7 @@ const AppSidebar = () => {
             } else if (role === "ROLE_SUPPORTER") {
                 const newList = [];
                 navigation.forEach((element) => {
-                    const array1 = [
-                        "Class",
-                        "Contact",
-                        "Trainee",
-                        "Registration",
-                        "Orders",
-                        "Ordered",
-                        "Feedback",
-                        "Dashboard",
-                        "Posts",
-                    ];
-                    if (array1.includes(element.name)) {
+                    if (element.to === "Supporter" || element.to === "Marketer") {
                         newList.push(element);
                     }
                 });
@@ -66,22 +47,12 @@ const AppSidebar = () => {
             } else if (role === "ROLE_MARKETER") {
                 const newList = [];
                 navigation.forEach((element) => {
-                    const array1 = ["Sliders", "Posts"];
-                    if (array1.includes(element.name)) {
+                    if (element.to === "Marketer") {
                         newList.push(element);
                     }
                 });
                 setListNavigation(newList);
-            } else if (role === "ROLE_EXPERT") {
-                const newList = [];
-                navigation.forEach((element) => {
-                    const array1 = [""];
-                    if (array1.includes(element.name)) {
-                        newList.push(element);
-                    }
-                });
-                setListNavigation(newList);
-            } else if (role === "ROLE_ADMIN") {
+            }  else if (role === "ROLE_ADMIN") {
                 setListNavigation(navigation)
             }
         }

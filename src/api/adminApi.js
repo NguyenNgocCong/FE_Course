@@ -365,6 +365,10 @@ export const adminApi = {
     const url = `/api/trainee?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
+  getAllTraineeOnl: (page, size, keyword, category, status) =>{
+    const url = `/api/trainee/list-trainee-online?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
+    return axiosApi.get(url);
+  },
   getTraineeDetailById: (id) => {
     const url = `/api/trainee/${id}`;
     return axiosApi.get(url);

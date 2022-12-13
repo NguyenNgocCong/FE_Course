@@ -99,10 +99,6 @@ function Class() {
     }
   };
 
-  
-
-  
-
   useEffect(() => {
     getAllCoupon();
     // eslint-disable-next-line

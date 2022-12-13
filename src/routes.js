@@ -21,7 +21,7 @@ const routes = [
     { path: "/admin/users", name: "Users", element: Users },
     { path: "/admin/contacts", name: "Contact", element: Contact },
     { path: "/admin/subjects", name: "Subject", element: Subject },
-    { path: "/admin/order", name: "Order", element: Order },
+    { path: "/admin/orders", name: "Order", element: Order },
     { path: "/admin/class", name: "Class", element: Class },
     { path: "/admin/coupon", name: "Coupon", element: Coupon },
     { path: "/admin/trainee", name: "Trainee", element: Trainee },

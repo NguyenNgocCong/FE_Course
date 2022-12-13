@@ -19,7 +19,7 @@ function TraineeOnline() {
       sortable: true,
     },
     {
-      name: "Biệt hiệu",
+      name: "Tên tài khoản",
       minWidth: '140px',
       width: '160px',
       maxWidth: '180px',
@@ -36,7 +36,6 @@ function TraineeOnline() {
     },
     {
       name: "Họ và tên",
-
       minWidth: "225px",
       width: "250px",
       maxWidth: "275px",
@@ -52,19 +51,11 @@ function TraineeOnline() {
       sortable: true,
     },
     {
-      name: "Ngày bắt đầu",
-      minWidth: "140px",
-      width: "160px",
-      maxWidth: "180px",
-      selector: (row) => new Date(row.aclass.startDate).toLocaleDateString(),
-      sortable: true,
-    },
-    {
-      name: "Lớp học",
+      name: "Khóa học",
       minWidth: "150px",
       width: "200px",
       maxWidth: "250px",
-      selector: (row) => row.aclass?.code,
+      selector: (row) => row.apackage?.title,
       sortable: true,
     },
     {
@@ -72,7 +63,7 @@ function TraineeOnline() {
       width: "150px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          {row.status ? "Hoạt động" : "KHông hoạt động"}
+          {row.status ? "Hoạt động" : "Không hoạt động"}
         </div>
       ),
       sortable: true,
@@ -114,7 +105,7 @@ function TraineeOnline() {
 
   const getAllClass = async () => {
     try {
-      const response = await adminApi.getAllTrainee(page, itemsPerPage, keywordSearch, traner, status);
+      const response = await adminApi.getAllTraineeOnl(page, itemsPerPage, keywordSearch, traner, status);
       setDataTable(response.data);
       setTotalRows(response.totalItems);
     } catch (responseError) {

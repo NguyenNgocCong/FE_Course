@@ -35,6 +35,7 @@ const _nav = [
         component: CNavGroup,
         name: 'Quản lý học tập',
         icon: "fa fa-slideshare",
+        to:"Manager",
         items: [
             {
                 component: CNavItem,
@@ -72,6 +73,7 @@ const _nav = [
         component: CNavGroup,
         name: 'Nội dung website',
         icon: "fa fa-signal",
+        to:"Marketer",
         items: [
             {
                 component: CNavItem,
@@ -97,6 +99,7 @@ const _nav = [
         component: CNavGroup,
         name: 'Bán hàng',
         icon: "fa fa-shopping-bag",
+        to:"Supporter",
         items: [
             {
                 component: CNavItem,

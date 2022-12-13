@@ -19,7 +19,7 @@ function TraineeOfline() {
       sortable: true,
     },
     {
-      name: "Biệt hiệu",
+      name: "Tên tài khoản",
       minWidth: '140px',
       width: '160px',
       maxWidth: '180px',
@@ -36,7 +36,6 @@ function TraineeOfline() {
     },
     {
       name: "Họ và tên",
-
       minWidth: "225px",
       width: "250px",
       maxWidth: "275px",
@@ -72,7 +71,7 @@ function TraineeOfline() {
       width: "150px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
-          {row.status ? "Hoạt động" : "KHông hoạt động"}
+          {row.status ? "Hoạt động" : "Không hoạt động"}
         </div>
       ),
       sortable: true,
