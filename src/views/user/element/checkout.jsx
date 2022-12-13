@@ -8,7 +8,7 @@ import { userApi } from "../../../api/userApi";
 import {
   TYPE_CHECKOUT_CLASS,
   TYPE_CHECKOUT_PACKAGE,
-} from "../../../constrains/index";
+} from "../../../constants/index";
 import { toast } from "react-toastify";
 import { resetState } from "../../../redux/reducers/order";
 import { CForm, CFormInput } from "@coreui/react";
