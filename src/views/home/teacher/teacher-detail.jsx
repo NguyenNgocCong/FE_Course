@@ -30,9 +30,9 @@ function LecturerDetails(prop) {
   };
 
   useEffect(() => {
-    // console.log(id);
+     console.log(id);
     getexpertById();
-    userApi.getCommentExpert().then((x) => setComments(x.data));
+    userApi.getCommentExpert({expertId :id}).then((x) => setComments(x.data));
     // eslint-disable-next-line
   }, []);
 
@@ -43,7 +43,7 @@ function LecturerDetails(prop) {
         .then((res) => {
           toast.success(res.message);
 
-          userApi.getCommentExpert().then((x) => setComments(x));
+          userApi.getCommentExpert({expertId :id}).then((x) => setComments(x));
         })
         .catch((e) => toast.error(e?.data?.message));
     }

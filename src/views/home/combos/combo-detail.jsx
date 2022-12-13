@@ -20,11 +20,14 @@ function CoursesDetails(props) {
   const [res, setRes] = useState(comboDetailsEx);
   const { id } = params;
 
+
+  
+
   useEffect(() => {
     comboApi.getComboById(id).then((res) => {
       setRes(res);
     });
-    userApi.getCommentCombo().then((x) => setComments(x));
+    userApi.getCommentCombo({comboId: id}).then((x) => setComments(x));
   }, [id]);
 
   const handleComment = (data) => {
@@ -34,7 +37,7 @@ function CoursesDetails(props) {
         .then((res) => {
           toast.success(res.message);
 
-          userApi.getCommentCombo().then((x) => setComments(x));
+          userApi.getCommentCombo({comboId: id}).then((x) => setComments(x));
         })
         .catch((e) => toast.error(e?.data?.message));
     }
