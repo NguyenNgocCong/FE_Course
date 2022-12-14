@@ -28,7 +28,7 @@ function CartContent() {
   );
 
   useEffect(() => {
-    userApi.getCarts().then((res) => setRes(res));
+    userApi.getCarts().then((ress) => setRes(ress));
   }, []);
 
   const handleDelete = (params) => {
@@ -87,111 +87,7 @@ function CartContent() {
             <div>Hành động</div>
           </div>
         </div>
-        {isLogin ? (
-          res.map((x, index) => {
-            return (
-              <React.Fragment key={x.id + " " + index}>
-                {x._combo && (
-                  <div key={x.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
-                    <div className="row bg-orange2" style={{ margin: "0px", height: "40px" }}>
-                      <div style={{ margin: "auto" }} className="col-md-12 col-lg-8 col-sm-12 ">
-                        {x._combo?.title}
-                      </div>
-                      <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold" style={{ margin: "auto" }} >
-                         {x._combo.comboPackages.reduce(
-                          (pre, x) => pre + x.salePrice,
-                          0
-                        )} ₫
-                      </div>
-                      <div className="col-md-12 col-lg-2 col-sm-12 text-center" style={{ margin: "auto" }} >
-                        <span
-                          style={{ margin: "0 auto", cursor: "pointer" }}
-                          className="badge badge-danger"
-                          onClick={() => handleDelete({
-                            id: x.id
-                          })}
-                        >
-                          Xóa
-                        </span>
-                      </div>
-                    </div>
-                    {x._combo.comboPackages.map((item, i) => {
-                      return (
-                        <div className="row" key={x.id} style={{ margin: "0px" }}>
-                          <div className="col-md-12 col-lg-6 col-sm-12 ">
-                            <div className="media align-items-center font-weight-semibold align-middle p-2">
-                              <img
-                                style={{ height: "50px", borderRadius: "5px", objectFit: "cover" }}
-                                src={combieImg(item?._package?.image)}
-                                className="d-block ui-w-40 ui-bordered mr-4"
-                                alt=""
-                                width={100}
-                                onError={({ currentTarget }) => {
-                                  currentTarget.src =
-                                    "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
-                                }}
-                              />
-                              <div className="media-body ">
-                                {item?._package?.title}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
-                            {item._package.salePrice} ₫
-                          </div>
-                        </div>
-                      )
-                    }
-                    )}
-                  </div>
-                )}
-                {x._package && (
-                  <div key={x.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
-                    <div className="row bg-orange2" style={{ margin: "0px", height: "40px" }}> <div className="col-md-12 col-lg-8 col-sm-12"></div>
-                      <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2" style={{ margin: "auto" }} >
-                        {x._package.salePrice} ₫
-                      </div>
-                      <div className="col-md-12 col-lg-2 col-sm-12 text-center align-middle" style={{ margin: "auto" }} >
-                        <span
-                          style={{ cursor: "pointer" }}
-                          className="badge badge-danger"
-                          onClick={() => handleDelete({
-                            id: x.id,
-                          })}
-                        >
-                          Xóa
-                        </span>
-                      </div>
-                    </div>
-                    <div className="row" key={x.id} style={{ margin: "0px" }}>
-                      <div className="col-md-12 col-lg-6 col-sm-12">
-                        <div className="media align-items-center font-weight-semibold align-middle p-2">
-                          <img
-                            style={{ height: "50px", borderRadius: "5px", objectFit: "cover" }}
-                            src={combieImg(x._package.image)}
-                            className="d-block ui-w-40 ui-bordered mr-4"
-                            alt=""
-                            width={100}
-                            onError={({ currentTarget }) => {
-                              currentTarget.src =
-                                "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
-                            }}
-                          />
-                          <div className="media-body">
-                            {x._package.title}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
-                        {x._package.salePrice} ₫
-                      </div>
-                    </div>
-                  </div>
-                )
-                }
-              </React.Fragment>
-            );
-          })) : <BodyCartLocal />}
+        {<BodyCartLocal />}
         <div
           className="d-flex flex-wrap align-items-center"
           style={{ marginBottom: "15px" }}

@@ -49,6 +49,12 @@ const Posts = () => {
             sortable: true,
         },
         {
+            name: "Ngày tạo",
+            maxWidth: '150px',
+            selector: (row) => row.brefInfo,
+            sortable: true,
+        },
+        {
             name: "Phân loại",
             maxWidth: '150px',
             selector: (row) => (
@@ -86,7 +92,6 @@ const Posts = () => {
                         })()}
                     </div>
                     <br />
-                    <div>{row?.createDate}</div>
                 </>
             ),
             sortable: true,

@@ -292,10 +292,12 @@ function PrivateRoute({ children, ...rest }) {
   else {
     if (
       (rest?.path?.includes("combos") ||
-        rest?.path?.includes("coupon") ||
         rest?.path?.includes("class") ||
         rest?.path?.includes("packages") ||
+        rest?.path?.includes("subjects") ||
+        rest?.path?.includes("trainee") ||
         rest?.path?.includes("experts") ||
+        rest?.path?.includes("coupon") ||
         rest?.path?.includes("posts")) &&
       Cookies.get("roles") === "ROLE_MANAGER"
     )
@@ -304,9 +306,9 @@ function PrivateRoute({ children, ...rest }) {
       (rest?.path?.includes("contacts") ||
         rest?.path?.includes("trainee") ||
         rest?.path?.includes("class") ||
-        rest?.path?.includes("registration") ||
         rest?.path?.includes("orders") ||
-        rest?.path?.includes("ordered") ||
+        rest?.path?.includes("coupon") ||
+        rest?.path?.includes("sliders") ||
         rest?.path?.includes("feedback") ||
         rest?.path?.includes("dashboard") ||
         rest?.path?.includes("posts")) &&
@@ -333,7 +335,7 @@ function PrivateRoute({ children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: "/error-401",
+              pathname: "/error-404",
               state: { from: location },
             }}
           />
