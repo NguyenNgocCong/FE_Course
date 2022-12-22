@@ -326,7 +326,7 @@ function OrderDetail(props) {
                                     <CRow className="g-2">
                                         <h6>Thông tin sản phẩm</h6>
                                         <hr></hr>
-                                        <Tab.Container defaultActiveKey={1}>
+                                        {type === 1 ? <Tab.Container defaultActiveKey={1}>
                                             <Tab.Content>
                                                 <div className="row">
                                                     <div className="profile-tabnav-sub">
@@ -461,7 +461,7 @@ function OrderDetail(props) {
                                                     </div>
                                                 </div>
                                             </Tab.Content>
-                                        </Tab.Container>
+                                        </Tab.Container> : <></>}
                                         <CCol sm={12}>
                                             <DataTable
                                                 columns={columns}
