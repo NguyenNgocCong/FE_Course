@@ -74,7 +74,7 @@ function CheckOut(prop) {
                 ...info,
                 packages: [...packages].map((x) => x.id),
                 combos: [...combos].map((x) => x.id),
-                couponCode: codeCoupon,
+                codeCoupon: codeCoupon,
               })
               .then((res) => {
                 toast.success(res.message);
@@ -89,7 +89,7 @@ function CheckOut(prop) {
           userApi
             .orderClass({
               ...info,
-              couponCode: codeCoupon,
+              codeCoupon: codeCoupon,
               classId: location.state.class.id,
             })
             .then((res) => {
@@ -208,7 +208,7 @@ function CheckOut(prop) {
                           {item.title}
                         </div>
                         <div className="col-md-3 d-flex justify-content-end" style={{ fontWeight: "bold" }}>
-                          <div>{item.salePrice} ₫</div>
+                          <div>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.salePrice)}</div>
                         </div>
                       </div>)
                   })
@@ -221,10 +221,10 @@ function CheckOut(prop) {
                           {item.title}
                         </div>
                         <div className="col-md-3 d-flex justify-content-end" style={{ fontWeight: "bold" }}>
-                          {item.comboPackages.reduce(
+                          {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.comboPackages.reduce(
                             (total, x) => total + x.salePrice,
                             0
-                          )} ₫
+                          ))}
                         </div>
                       </div>
                     )
@@ -236,7 +236,7 @@ function CheckOut(prop) {
                       <div>{location.state.class.packages.title}</div>
                     </div>
                     <div className="col-md-3 d-flex justify-content-end" style={{ fontWeight: "bold" }}>
-                      <div >{location.state.class.packages.salePrice} ₫</div>
+                      <div >{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(location.state.class.packages.salePrice)}</div>
                     </div>
                   </div>
                 )}
@@ -246,8 +246,8 @@ function CheckOut(prop) {
                   </div>
                   <div className="col-md-3 d-flex justify-content-end" style={{ fontWeight: "bold" }}>
                     {location.state.type === TYPE_CHECKOUT_PACKAGE ? (
-                      <p>{totalPackage + totalCombo} ₫</p>
-                    ) : (<p>{location.state.class.packages.salePrice} ₫</p>)}
+                      <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPackage + totalCombo)}</p>
+                    ) : (<p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(location.state.class.packages.salePrice)}</p>)}
                   </div>
                 </div>
                 <div className="row product_checkout">
@@ -275,7 +275,7 @@ function CheckOut(prop) {
                     <h6>Giảm giá</h6>
                   </div>
                   <div className="col-md-3 d-flex justify-content-end" style={{ fontWeight: "bold" }}>
-                    <p>{discount} ₫</p>
+                    <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(discount)}</p>
                   </div>
                 </div>
                 <div className="row product_checkout">
@@ -284,8 +284,8 @@ function CheckOut(prop) {
                   </div>
                   <div className="col-md-3 d-flex justify-content-end" style={{ color: "red", fontWeight: "bold" }} >
                     {location.state.type === TYPE_CHECKOUT_PACKAGE ? (
-                      <p>{totalPackage + totalCombo - discount} ₫</p>
-                    ) : (<p>{location.state.class.packages.salePrice - discount} ₫</p>)}
+                      <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPackage + totalCombo - discount)}</p>
+                    ) : (<p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(location.state.class.packages.salePrice - discount)}</p>)}
                   </div>
                 </div>
               </div>

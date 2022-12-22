@@ -29,12 +29,17 @@ const AppSidebar = () => {
     useEffect(() => {
         if (navigation.length) {
             if (role === "ROLE_MANAGER") {
-                const newList = [];
+                const newList = navigation.filter(element => element.to === "Manager" || element.name === "Dashboard")
+                setListNavigation(newList);
                 navigation.forEach((element) => {
-                    if (element.to === "Manager") {
-                        newList.push(element);
-                    }
+                    if (element.to === "Supporter" || element.to === "Marketer") {
+                        const item = element.items?.filter(ele => ele.to === "/admin/coupon"  || ele.to === "/admin/posts" 
+                        )
+                        element.items = item;
+                        newList.push(element);  }
                 });
+            } else if (role === "ROLE_MARKETER") {
+                const newList = navigation.filter(element => element.to === "Marketer" || element.name === "Dashboard")
                 setListNavigation(newList);
             } else if (role === "ROLE_SUPPORTER") {
                 const newList = [];
@@ -42,17 +47,16 @@ const AppSidebar = () => {
                     if (element.to === "Supporter" || element.to === "Marketer") {
                         newList.push(element);
                     }
-                });
-                setListNavigation(newList);
-            } else if (role === "ROLE_MARKETER") {
-                const newList = [];
-                navigation.forEach((element) => {
-                    if (element.to === "Marketer") {
+                    else if (element.to === "Manager" || element.name === "Dashboard") {
+                        const item = element.items?.filter(ele => ele.to === "/admin/class" || 
+                        ele.to === "/admin/trainee"  || ele.to === "/admin/feedback" 
+                        )
+                        element.items = item;
                         newList.push(element);
                     }
                 });
                 setListNavigation(newList);
-            }  else if (role === "ROLE_ADMIN") {
+            } else if (role === "ROLE_ADMIN") {
                 setListNavigation(navigation)
             }
         }
@@ -69,7 +73,7 @@ const AppSidebar = () => {
         >
             <CSidebarBrand className="d-none d-md-flex" style={{ backgroundColor: "#FFFFFF", border: "solid 1px #cfd8dc" }} to="/">
                 <Link to="/">
-                    <img src={logo} alt="" style={{height:"50px"}}/>
+                    <img src={logo} alt="" style={{ height: "50px" }} />
                 </Link>
             </CSidebarBrand>
             <CSidebarNav style={{ background: '#fff' }}>

@@ -63,6 +63,12 @@ const _nav = [
             },
             {
                 component: CNavItem,
+                name: "Giảng viên",
+                to: "/admin/experts",
+                icon: "fa fa-user-md",
+            }, 
+            {
+                component: CNavItem,
                 name: "Học viên",
                 to: "/admin/trainee",
                 icon: "fa fa-user-circle",
@@ -77,7 +83,7 @@ const _nav = [
         items: [
             {
                 component: CNavItem,
-                name: "bài viết(Blog)",
+                name: "Bài viết",
                 to: "/admin/posts",
                 icon: "fa fa-bookmark",
             },
@@ -86,12 +92,6 @@ const _nav = [
                 name: "Slider",
                 to: "/admin/sliders",
                 icon: "fa fa-image",
-            },
-            {
-                component: CNavItem,
-                name: "Giảng viên",
-                to: "/admin/experts",
-                icon: "fa fa-user-md",
             }
         ]
     },

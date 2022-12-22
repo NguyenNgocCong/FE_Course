@@ -1,7 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { userApi } from "../../../api/userApi";
-import { combieImg } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { BodyCartLocal } from "./cart-local";
 import { TYPE_CHECKOUT_PACKAGE } from "../../../constants/index";
@@ -10,6 +9,7 @@ import {
   removeCartPackage,
 } from "../../../redux/reducers/order";
 import { useHistory } from "react-router-dom";
+import { combieImg } from "../../../utils";
 
 function CartContent() {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function CartContent() {
   );
 
   useEffect(() => {
-    userApi.getCarts().then((res) => setRes(res));
+    userApi.getCarts().then((ress) => setRes(ress));
   }, []);
 
   const handleDelete = (params) => {
@@ -44,7 +44,7 @@ function CartContent() {
   };
 
   const handleCheckOut = () => {
-     history.push("/checkout", { type: TYPE_CHECKOUT_PACKAGE });
+    history.push("/checkout", { type: TYPE_CHECKOUT_PACKAGE });
   };
 
   return (
@@ -98,10 +98,10 @@ function CartContent() {
                         {x._combo?.title}
                       </div>
                       <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold" style={{ margin: "auto" }} >
-                         {x._combo.comboPackages.reduce(
+                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x._combo.comboPackages.reduce(
                           (pre, x) => pre + x.salePrice,
                           0
-                        )} ₫
+                        ))}
                       </div>
                       <div className="col-md-12 col-lg-2 col-sm-12 text-center" style={{ margin: "auto" }} >
                         <span
@@ -137,7 +137,7 @@ function CartContent() {
                             </div>
                           </div>
                           <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
-                            {item._package.salePrice} ₫
+                            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item._package.salePrice)}
                           </div>
                         </div>
                       )
@@ -149,7 +149,7 @@ function CartContent() {
                   <div key={x.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
                     <div className="row bg-orange2" style={{ margin: "0px", height: "40px" }}> <div className="col-md-12 col-lg-8 col-sm-12"></div>
                       <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2" style={{ margin: "auto" }} >
-                        {x._package.salePrice} ₫
+                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x._package.salePrice)}
                       </div>
                       <div className="col-md-12 col-lg-2 col-sm-12 text-center align-middle" style={{ margin: "auto" }} >
                         <span
@@ -183,7 +183,7 @@ function CartContent() {
                         </div>
                       </div>
                       <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
-                        {x._package.salePrice} ₫
+                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x._package.salePrice)}
                       </div>
                     </div>
                   </div>
@@ -201,7 +201,7 @@ function CartContent() {
           </div>
           <div className="text-right " style={{ marginRight: "10px" }}>
             <div className="text-large">
-              <strong>{totalPackage + totalCombo} ₫</strong>
+              <strong>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPackage + totalCombo)}</strong>
             </div>
           </div>
           <button

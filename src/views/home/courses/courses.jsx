@@ -143,8 +143,8 @@ function Products() {
                           </div>
                           <div className="cours-more-info">
                             <div className="price">
-                              <del>{item.listPrice} ₫</del>
-                              <h5 className="fs-6">{item.salePrice} ₫</h5>
+                              <del>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.listPrice)}</del>
+                              <h5 className="fs-6">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.salePrice)}</h5>
                             </div>
                             <div className="review">
                               {/* <span> expert</span> */}

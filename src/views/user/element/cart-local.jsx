@@ -17,7 +17,7 @@ export const BodyCartLocal = () => {
         <div key={x.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
           <div className="row bg-orange2" style={{ margin: "0px", height: "40px" }}> <div className="col-md-12 col-lg-8 col-sm-12"></div>
             <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2" style={{ margin: "auto" }} >
-              {x.salePrice} ₫
+              {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x.salePrice)}
             </div>
             <div className="col-md-12 col-lg-2 col-sm-12 text-center align-middle" style={{ margin: "auto" }} >
               <span
@@ -49,7 +49,7 @@ export const BodyCartLocal = () => {
               </div>
             </div>
             <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
-              {x.salePrice} ₫
+              {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x.salePrice)}
             </div>
           </div>
         </div>
@@ -60,10 +60,10 @@ export const BodyCartLocal = () => {
             <div style={{ margin: "auto" }} className="col-md-12 col-lg-8 col-sm-12 ">
               {x?.title}</div>
             <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold" style={{ margin: "auto" }} >
-              {x.comboPackages.reduce(
+              {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x.comboPackages.reduce(
                 (pre, x) => pre + x.salePrice,
                 0
-              )} ₫
+              ))}
             </div>
             <div className="col-md-12 col-lg-2 col-sm-12 text-center" style={{ margin: "auto" }} >
               <span
@@ -97,7 +97,7 @@ export const BodyCartLocal = () => {
                   </div>
                 </div>
                 <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
-                  {item._package.salePrice} ₫
+                  {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item._package.salePrice)}
                 </div>
               </div>
             )

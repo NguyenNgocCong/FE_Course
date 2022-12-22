@@ -18,7 +18,7 @@ const packageTemplate = (props) => {
     return (props?.comboPackages.map((element, index) => (
         <div key={index} style={{ margin: "2px" }} className="d-flex align-items-center">
             <div className={`${Styles.element}`}>
-                <CIcon icon={cilCircle} height="7px" /> Tiều đề: {element?._package?.title}, Giá bán: {element?.salePrice} ₫
+                <CIcon icon={cilCircle} height="7px" /> Tiều đề: {element?._package?.title}, Giá bán: {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(element?.salePrice)}
             </div>
         </div>
     )))
@@ -29,13 +29,13 @@ const priceTemplate = (props) => {
     props?.comboPackages.map((element) => (
         price += element?.salePrice
     ))
-    return (<div>{price} ₫</div>)
+    return (<div>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)}</div>)
 }
 const Combo = () => {
 
     const columns = [
         {
-             name: "STT",
+            name: "STT",
             width: '50px',
             selector: (row, rowIndex) => rowIndex + 1,
             sortable: true,
@@ -87,8 +87,7 @@ const Combo = () => {
     const [keyword, setKeyword] = useState("");
     const [page, setPage] = useState(0);
     const [totalRows, setTotalRows] = useState(0);
-    const optionsPerPage = [10, 20, 50];
-    const [itemsPerPage, setItemsPerPage] = React.useState(optionsPerPage[0]);
+    const [itemsPerPage, setItemsPerPage] = React.useState(10);
     const history = useHistory();
 
     const getListCombo = async () => {
@@ -121,7 +120,7 @@ const Combo = () => {
                 <div className="body flex-grow px-2">
                     <div style={{ backgroundColor: "white", padding: "5px 0px", margin: "0px 0px 15px 0px" }} >
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-                            <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+                            <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
@@ -129,7 +128,7 @@ const Combo = () => {
                                     onChange={onSearch}
                                 />
                             </Col>
-                            <Col xs={12} lg={8} className='d-flex justify-content-end'>
+                            <Col xs={12} lg={8} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
                                 <div className={Styles.inputSearch}>
                                     <button
                                         style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}

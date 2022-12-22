@@ -52,7 +52,6 @@ function PostDetail(props) {
             const response = await adminApi.getPostById(id);
             setPost(response);
             setStatus(response.status);
-            console.log(response)
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -87,7 +86,6 @@ function PostDetail(props) {
                     authorId: JSON.parse(Cookies.get("user")).id,
                     body: content
                 };
-                console.log(thumbnailUrl);
                 const response =
                     type === 1
                         ? await adminApi.updatePost(id, params, thumbnailUrl)

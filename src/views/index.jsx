@@ -48,8 +48,6 @@ import Coupon from "./admin/coupon/coupon";
 import CouponDetail from "./admin/coupon/coupon-detail";
 
 import Trainee from "./admin/trainee/index";
-import TraineeDetailOnl from "./admin/trainee/online/trainee-detail";
-import TraineeDetailOff from "./admin/trainee/online/trainee-detail";
 
 import Combo from "./admin/combo/combo";
 import ComboDetail from "./admin/combo/combo-detail";
@@ -197,12 +195,6 @@ function Markup(props) {
           <PrivateRoute path="/admin/trainee" exact>
             <Trainee />
           </PrivateRoute>
-          <PrivateRoute path="/admin/trainee-onl/:id" exact>
-            <TraineeDetailOnl />
-          </PrivateRoute>
-          <PrivateRoute path="/admin/trainee-off/:id" exact>
-            <TraineeDetailOff />
-          </PrivateRoute>
 
           {/* Coupon */}
           <PrivateRoute path="/admin/coupon" exact>
@@ -292,10 +284,12 @@ function PrivateRoute({ children, ...rest }) {
   else {
     if (
       (rest?.path?.includes("combos") ||
-        rest?.path?.includes("coupon") ||
         rest?.path?.includes("class") ||
         rest?.path?.includes("packages") ||
+        rest?.path?.includes("subjects") ||
+        rest?.path?.includes("trainee") ||
         rest?.path?.includes("experts") ||
+        rest?.path?.includes("coupon") ||
         rest?.path?.includes("posts")) &&
       Cookies.get("roles") === "ROLE_MANAGER"
     )
@@ -304,9 +298,9 @@ function PrivateRoute({ children, ...rest }) {
       (rest?.path?.includes("contacts") ||
         rest?.path?.includes("trainee") ||
         rest?.path?.includes("class") ||
-        rest?.path?.includes("registration") ||
         rest?.path?.includes("orders") ||
-        rest?.path?.includes("ordered") ||
+        rest?.path?.includes("coupon") ||
+        rest?.path?.includes("sliders") ||
         rest?.path?.includes("feedback") ||
         rest?.path?.includes("dashboard") ||
         rest?.path?.includes("posts")) &&
@@ -333,7 +327,7 @@ function PrivateRoute({ children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: "/error-401",
+              pathname: "/error-404",
               state: { from: location },
             }}
           />

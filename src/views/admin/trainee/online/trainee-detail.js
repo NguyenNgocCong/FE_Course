@@ -30,7 +30,7 @@ function TraineeDetail(props) {
   const location = useLocation();
   const history = useHistory();
   const id = location.pathname.substring(
-    "/admin/trainee/".length,
+    "/admin/trainee-onl/".length,
     location.pathname.length,
   );
   const type = id !== "create" ? 1 : 0;
@@ -49,7 +49,7 @@ function TraineeDetail(props) {
 
   const getListPackage = async () => {
     try {
-      const response = await adminApi.getAllClass(0, 50, "", 0, "");
+      const response = await adminApi.getAllPackageView(0, 50, "", 0, "");
       setListPackages(response.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
@@ -71,8 +71,6 @@ function TraineeDetail(props) {
           dropOutDate: dropOutDate,
           userId: userId,
         };
-        console.log(params);
-
         const response =
           type === 1
             ? await adminApi.updateTrainee(params, id)
@@ -131,15 +129,26 @@ function TraineeDetail(props) {
                         </CFormLabel>
                         <CFormSelect
                           id="autoSizingSelect"
-                          value={detailClass?.aclass?.id ? detailClass?.aclass?.id : ""}
                           onChange={(e) => setClassId(e.target.value)}
                         >
-                          {listPackages?.map((item, index) => {
-                            return (
-                              <option key={index} value={item?.id}>
-                                {item?.code}
-                              </option>
-                            );
+                           {listPackages?.map((item, index) => {
+                            if (type === 1) {
+                              return detailClass?.status ? (
+                                <option key={index} value={item?.id} selected>
+                                  {item?.title}
+                                </option>
+                              ) : (
+                                <option key={index} value={item?.id}>
+                                  {item?.title}
+                                </option>
+                              );
+                            } else {
+                              return (
+                                <option key={index} value={item?.id}>
+                                  {item?.title}
+                                </option>
+                              );
+                            }
                           })}
                         </CFormSelect>
                       </div>

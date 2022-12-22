@@ -91,7 +91,6 @@ function Class() {
       const response = await adminApi.getAllCoupon(page, itemsPerPage);
       setDataTable(response.data);
       setTotalRows(response.totalItems)
-      console.log(response.data)
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -104,7 +103,7 @@ function Class() {
     // eslint-disable-next-line
   }, [isModify, itemsPerPage, page]);
 
-  
+
 
   const handlePerRowsChange = async (newPerPage) => {
     setItemsPerPage(newPerPage);
@@ -117,9 +116,9 @@ function Class() {
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
         <div className="body flex-grow px-2">
-          <div style={{ backgroundColor: "white",  padding: "5px 0px", margin: "0px 0px 15px 0px" }}>
+          <div style={{ backgroundColor: "white", padding: "5px 0px", margin: "0px 0px 15px 0px" }}>
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
-              <Col xs={12} lg={12} >
+              <Col xs={12} lg={12} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
                 <button
                   style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px' }}
                   onClick={() =>

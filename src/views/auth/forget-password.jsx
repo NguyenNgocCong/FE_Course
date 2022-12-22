@@ -21,7 +21,6 @@ function ForgetPassword(props) {
 
             const response = await userApi.forgetPassword(param);
             setStep(1);
-            console.log(response);
         } catch (responseError) {
             setAlertMessage(responseError?.data?.message);
             setAlertVisible(true);

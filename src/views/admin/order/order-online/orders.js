@@ -7,6 +7,9 @@ import { adminApi } from "../../../../api/adminApi";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
+import CIcon from "@coreui/icons-react";
+import { cilLibraryAdd, cilPen } from "@coreui/icons";
+import { useHistory } from "react-router-dom";
 
 
 const OrderOnline = (props) => {
@@ -51,7 +54,7 @@ const OrderOnline = (props) => {
       name: "Tổng tiền",
       width: "110px",
       center: "true",
-      selector: (row) => row.totalCost + " ₫",
+      selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row.totalCost),
       sortable: true,
     },
     {
@@ -82,7 +85,7 @@ const OrderOnline = (props) => {
               float: "right",
             }}
           >
-            <i className="fa fa-eye"></i>
+            <CIcon icon={cilPen} />
           </button>
           <button
             style={{
@@ -115,18 +118,15 @@ const OrderOnline = (props) => {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
-  // eslint-disable-next-line
-  const [listCategory, setListCategory] = useState([]);
-  const [category, setCategory] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
+  const history = useHistory();
 
   const getAllOrder = async () => {
     try {
-      const response = await adminApi.getAllOrder(page, itemsPerPage, keywordSearch, category, status);
-      console.log(response.data)
+      const response = await adminApi.getAllOrder(page, itemsPerPage, keywordSearch, 0, status);
       setDataTable(response.data);
       setTotalRows(response.totalItems);
     } catch (responseError) {
@@ -190,9 +190,10 @@ const OrderOnline = (props) => {
   };
 
   useEffect(() => {
-    getAllOrder();
+    if (props.activeTab === 2)
+      getAllOrder();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, page, status, category]);
+  }, [isModify, keywordSearch, page, status, props.activeTab]);
 
   useEffect(() => {
     getListCategory();
@@ -214,23 +215,6 @@ const OrderOnline = (props) => {
         <Row className="text-nowrap w-100 my-75 g-0 permission-header">
           <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
             <CFormSelect
-              aria-label="Default select example"
-              onChange={(e) => {
-                setCategory(e.target.value);
-              }}
-            >
-              <option value={0}>Tất cả</option>
-              {listCategory.map((item, index) => {
-                return (
-                  <option key={index} value={item?.setting_id}>
-                    {item?.setting_title}
-                  </option>
-                );
-              })}
-            </CFormSelect>
-          </Col>
-          <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
-            <CFormSelect
               onChange={(e) => {
                 setStatus(e.target.value);
               }}
@@ -248,6 +232,22 @@ const OrderOnline = (props) => {
               placeholder="Tìm kiếm..."
               onChange={onSearch}
             />
+          </Col>
+          <Col xs={12} lg={6} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
+            <button
+              style={{
+                backgroundColor: "#7367f0",
+                border: "none",
+                float: "right",
+                height: "100%",
+                width: "100px",
+                color: "white",
+                borderRadius: "10px",
+              }}
+              onClick={() => history.push("/admin/orders/create")}
+            >
+              <CIcon icon={cilLibraryAdd} />
+            </button>
           </Col>
         </Row>
       </div>

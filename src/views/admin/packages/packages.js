@@ -49,33 +49,22 @@ const Packages = () => {
     {
       name: "Môn Học",
       minWidth: "100px",
-      width: "150px",
       maxWidth: "200px",
       selector: (row) => row.sucjectCode?.name,
       sortable: true,
     },
     {
-      name: "Mô tả",
-      minWidth: "300px",
-      width: "350px",
-      maxWidth: "400px",
-      selector: (row) => row.description,
+      name: "Giá miên yết",
+      minWidth: "100px",
+      maxWidth: "140px",
+      selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row.listPrice),
       sortable: true,
     },
     {
       name: "Giá bán",
       minWidth: "100px",
-      width: "120px",
       maxWidth: "140px",
-      selector: (row) => row.listPrice + " ₫",
-      sortable: true,
-    },
-    {
-      name: "Giá khuyến mãi",
-      minWidth: "100px",
-      width: "120px",
-      maxWidth: "140px",
-      selector: (row) => row.salePrice + " ₫",
+      selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row.salePrice),
       sortable: true,
     },
     {
@@ -190,7 +179,6 @@ const Packages = () => {
         status,
       );
       setDataTable(response.data);
-      console.log(response.data);
       setTotalRows(response.totalItems);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
@@ -231,7 +219,7 @@ const Packages = () => {
             }}
           >
             <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
                   aria-label="Default select example"
                   onChange={(e) => {
@@ -248,7 +236,7 @@ const Packages = () => {
                   })}
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
                   onChange={(e) => {
                     setStatus(e.target.value);
@@ -259,16 +247,16 @@ const Packages = () => {
                   <option value={false}>Không hoạt động</option>
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
-                  
+
                   placeholder="Tìm kiếm..."
                   onChange={onSearch}
                 />
               </Col>
-              <Col xs={12} lg={4} className="d-flex justify-content-end">
+              <Col xs={12} lg={4} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
                 <div className={Styles.inputSearch}>
                   <button
                     style={{

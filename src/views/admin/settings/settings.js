@@ -126,7 +126,7 @@ const Settings = () => {
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
                 <div className="body flex-grow px-2">
-                    <div style={{ backgroundColor: "white",  padding: "5px 0px", margin: "0px 0px 15px 0px" }}>
+                    <div style={{ backgroundColor: "white", padding: "5px 0px", margin: "0px 0px 15px 0px" }}>
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
                             <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                                 <CFormSelect
@@ -148,7 +148,7 @@ const Settings = () => {
                                     })}
                                 </CFormSelect>
                             </Col>
-                            <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+                            <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                                 <CFormSelect
                                     onChange={(e) => {
                                         setStatus(e.target.value);
@@ -159,16 +159,16 @@ const Settings = () => {
                                     <option value={false}>Không hoạt động</option>
                                 </CFormSelect>
                             </Col>
-                            <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+                            <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
                                 <CFormInput
                                     type="text"
                                     id="exampleInputPassword1"
                                     placeholder="Tìm kiếm..."
                                     onChange={onSearch}
-                                    
+
                                 />
                             </Col>
-                            <Col xs={12} lg={4} className='d-flex justify-content-end'>
+                            <Col xs={12} lg={4} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
                                 <div className={Styles.inputSearch}>
                                     <button
                                         style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}

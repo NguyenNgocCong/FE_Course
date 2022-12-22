@@ -27,9 +27,7 @@ function MyCourses(props) {
       </div>
 
       <div className="courses-filter">
-        <div className="table-responsive">
-          <table className="table-bordered">
-            <tbody>
+        <div className="table-responsive row">
               {res.data.map((item, i) => (
                 <div className="col-md-6 col-lg-4 col-sm-6 m-b30" key={i}>
                   <div className="cours-bx">
@@ -63,8 +61,6 @@ function MyCourses(props) {
                   </div>
                 </div>
               ))}
-            </tbody>
-          </table>
         </div>
         <div className="d-flex  justify-content-between align-items-center m-2">
           <Paging

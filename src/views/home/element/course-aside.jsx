@@ -121,8 +121,8 @@ function ProductAside() {
                   <div className="ttr-post-meta">
                     <ul>
                       <li className="price">
-                        <del>{x.listPrice} ₫</del>
-                        <h5>{x.salePrice} ₫</h5>
+                        <del>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x.listPrice)}</del>
+                        <h5>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x.salePrice)}</h5>
                       </li>
                       <li className="review">{x.views} Lượt xem</li>
                     </ul>

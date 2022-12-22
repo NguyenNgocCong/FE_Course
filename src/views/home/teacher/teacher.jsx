@@ -26,7 +26,6 @@ const Lecturers = () => {
   const getListPost = async () => {
     try {
       const response = await userApi.getAllExpert({ page: pageIndex });
-      console.log({ response });
       setListPost(
         response.data.filter((res) =>
           res.user?.fullname

@@ -114,8 +114,8 @@ function Class() {
                           </div>
                           <div className="cours-more-info">
                             <div className="price">
-                              <del>{item.packages?.listPrice} ₫</del>
-                              <h5>{item.packages?.salePrice} ₫</h5>
+                              <del>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.packages?.listPrice)}</del>
+                              <h5>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.packages?.salePrice)}</h5>
                             </div>
                             <div className="review">
                               <div

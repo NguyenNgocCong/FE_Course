@@ -59,14 +59,6 @@ function TraineeOfline() {
       sortable: true,
     },
     {
-      name: "Lớp học",
-      minWidth: "150px",
-      width: "200px",
-      maxWidth: "250px",
-      selector: (row) => row.aclass?.code,
-      sortable: true,
-    },
-    {
       name: "Trạng thái",
       width: "150px",
       selector: (row) => (
@@ -83,7 +75,7 @@ function TraineeOfline() {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/admin/trainee/" + row?.id;
+              window.location.href = "/admin/orders/" + row?.id;
             }}
             style={{
               backgroundColor: "#7367f0",
@@ -102,20 +94,20 @@ function TraineeOfline() {
   const history = useHistory();
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
-  // eslint-disable-next-line
-  const [isModify, setIsModify] = useState(false);
   const [listClass, setListClass] = useState([]);
-  const [traner, setTrainer] = useState(0);
+  const [trainer, setTrainer] = useState();
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = React.useState(50);
+  const [itemsPerPage, setItemsPerPage] = React.useState(10);
 
   const getAllClass = async () => {
     try {
-      const response = await adminApi.getAllTrainee(page, itemsPerPage, keywordSearch, traner, status);
-      setDataTable(response.data);
-      setTotalRows(response.totalItems);
+      if (trainer) {
+        const response = await adminApi.getAllTrainee(page, itemsPerPage, keywordSearch, trainer, status);
+        setDataTable(response.data);
+        setTotalRows(response.totalItems);
+      }
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -126,6 +118,7 @@ function TraineeOfline() {
   const getListTrainer = async () => {
     try {
       const response = await adminApi.getAllClass(0, 50, "", 0, "");
+      setTrainer(response.data?.length > 0 ? response.data[0]?.id : {})
       setListClass(response.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
@@ -141,7 +134,7 @@ function TraineeOfline() {
   useEffect(() => {
     getAllClass();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, status, traner, itemsPerPage, page]);
+  }, [keywordSearch, status, trainer, itemsPerPage, page]);
 
   useEffect(() => {
     getListTrainer();
@@ -169,7 +162,6 @@ function TraineeOfline() {
                 setTrainer(e.target.value);
               }}
             >
-              <option value={0}>Tất cả lớp học</option>
               {listClass?.map((item, index) => {
                 return (
                   <option key={index} value={item?.id}>
@@ -199,7 +191,7 @@ function TraineeOfline() {
               onChange={onSearch}
             />
           </Col>
-          <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
+          <Col xs={12} lg={4} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
             <button
               style={{
                 backgroundColor: "#7367f0",
@@ -210,7 +202,7 @@ function TraineeOfline() {
                 color: "white",
                 borderRadius: "10px",
               }}
-              onClick={() => history.push("/admin/trainee/create")}
+              onClick={() => history.push("/admin/orders/create")}
             >
               <CIcon icon={cilLibraryAdd} />
             </button>

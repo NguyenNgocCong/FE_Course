@@ -7,6 +7,9 @@ import { adminApi } from "../../../../api/adminApi";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
+import CIcon from "@coreui/icons-react";
+import { cilLibraryAdd, cilPen } from "@coreui/icons";
+import { useHistory } from "react-router-dom";
 
 const Registration = (props) => {
   const columns = [
@@ -29,7 +32,7 @@ const Registration = (props) => {
       minWidth: "175px",
       width: "200px",
       maxWidth: "225px",
-      selector: (row) => row.user ? row.user?.username : row.customer?.fullName,
+      selector: (row) => row.user ? row.user?.email : row.customer?.email,
       sortable: true,
     },
     {
@@ -37,7 +40,7 @@ const Registration = (props) => {
       minWidth: "175px",
       width: "200px",
       maxWidth: "225px",
-      selector: (row) => row.user ? row.user?.username : row.customer?.fullName,
+      selector: (row) => row.user ? row.user?.phoneNumber : row.customer?.mobile,
       sortable: true,
     },
     {
@@ -98,7 +101,7 @@ const Registration = (props) => {
               float: "right",
             }}
           >
-            <i className="fa fa-eye"></i>
+            <CIcon icon={cilPen} />
           </button>
           <button
             style={{
@@ -131,13 +134,13 @@ const Registration = (props) => {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
-  // eslint-disable-next-line
   const [listCategory, setListCategory] = useState([]);
   const [category, setCategory] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
+  const history = useHistory();
 
   const getAllRegistration = async () => {
     try {
@@ -178,7 +181,6 @@ const Registration = (props) => {
           newStatus = 3;
         }
       }
-      console.log(toast)
       const response = await adminApi.updateOrder(newStatus, row?.id);
       toast.success(response?.message, {
         duration: 2000,
@@ -193,8 +195,8 @@ const Registration = (props) => {
 
   const getListCategory = async () => {
     try {
-      // const response = await adminApi.getListCategoryRegistration();
-      // setListCategory(response);
+      const response = await adminApi.getAllClass(0, 50, "", 0, "");
+      setListCategory(response?.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -207,9 +209,10 @@ const Registration = (props) => {
   };
 
   useEffect(() => {
-    getAllRegistration();
+    if (props.activeTab === 1)
+      getAllRegistration();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, page, status, category]);
+  }, [isModify, keywordSearch, page, status, category, props.activeTab]);
 
   useEffect(() => {
     getListCategory();
@@ -239,8 +242,8 @@ const Registration = (props) => {
               <option value={0}>Tất cả</option>
               {listCategory.map((item, index) => {
                 return (
-                  <option key={index} value={item?.setting_id}>
-                    {item?.setting_title}
+                  <option key={index} value={item?.id}>
+                    {item?.code}
                   </option>
                 );
               })}
@@ -265,6 +268,22 @@ const Registration = (props) => {
               placeholder="Tìm kiếm..."
               onChange={onSearch}
             />
+          </Col>
+          <Col xs={12} lg={4} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
+            <button
+              style={{
+                backgroundColor: "#7367f0",
+                border: "none",
+                float: "right",
+                height: "100%",
+                width: "100px",
+                color: "white",
+                borderRadius: "10px",
+              }}
+              onClick={() => history.push("/admin/registration/create")}
+            >
+              <CIcon icon={cilLibraryAdd} />
+            </button>
           </Col>
         </Row>
       </div>

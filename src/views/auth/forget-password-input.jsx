@@ -28,7 +28,6 @@ function ForgetPasswordInput(props) {
             };
 
             const token = location.pathname.replace("/reset-password/", "");
-            console.log(token);
             toast.success("Change password sucessfully", {
                 duration: 2000,
             });
@@ -44,7 +43,6 @@ function ForgetPasswordInput(props) {
                     },
                 }
             );
-            console.log(response);
         } catch (responseError) {
             setAlertMessage(responseError?.data?.message);
             setAlertVisible(true);

@@ -26,7 +26,6 @@ export const userApi = {
     return axiosApi.get(url);
   },
   updateInfo: (params, id) => {
-    console.log(params);
     const url = `/api/account/update-info?id=${id}`;
     return axiosApi.put(url, params);
   },
@@ -117,8 +116,8 @@ export const userApi = {
     const url = `/api/order/cart`;
     return axiosApi.get(url, { params });
   },
-  payCarts: (couponCode) => {
-    const url = `/api/order/pay?couponCode=${couponCode}`;
+  payCarts: (codeCoupon) => {
+    const url = `/api/order/pay?codeCoupon=${codeCoupon}`;
     return axiosApi.put(url);
   },
   orderClass: (body) => {

@@ -75,7 +75,7 @@ function CoursesDetails(props) {
       name: "Price",
       right: true,
       width: "100px",
-      selector: (row) => row?.salePrice + "  ₫",
+      selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row?.salePrice),
       sortable: true,
     },
   ];
@@ -118,16 +118,16 @@ function CoursesDetails(props) {
                       </div>
                       <div className="course-detail-bx">
                         <div className="course-price">
-                          <del> {res.comboPackages.reduce(
+                          <del> {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(res.comboPackages.reduce(
                               (total, x) => total + x._package.salePrice,
                               0
-                            )} ₫
+                            ))}
                           </del>
                           <h4 className="price">
-                             {res.comboPackages.reduce(
+                             {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(res.comboPackages.reduce(
                               (total, x) => total + x.salePrice,
                               0
-                            )} ₫
+                            ))}
                           </h4>
                         </div>
                         <div className="course-buy-now text-center">

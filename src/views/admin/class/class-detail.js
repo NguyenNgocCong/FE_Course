@@ -33,6 +33,7 @@ function ClassDetail(props) {
     const [supporter, setSupporter] = useState();
     const [status, setStatus] = useState();
     const [schedule, setSchedule] = useState();
+    const [code, setCode] = useState();
     const [time, setTime] = useState();
     const [validated, setValidated] = useState(false);
     const role = JSON.parse(Cookies.get("user"))?.role;
@@ -114,6 +115,7 @@ function ClassDetail(props) {
                     packages: packageId,
                     dateFrom: dateFrom,
                     dateTo: dateTo,
+                    code: code,
                     status: status,
                     trainer: trainer,
                     online: isOnline,
@@ -123,8 +125,6 @@ function ClassDetail(props) {
                     schedule: schedule,
                     time: time
                 };
-                console.log(params);
-
                 const response =
                     type === 1
                         ? await adminApi.updateClass(params, id)
@@ -188,6 +188,22 @@ function ClassDetail(props) {
                                     onSubmit={handleSubmit}
                                 >
                                     <CRow className="g-3 mb-3">
+                                        <CCol sm={6}>
+                                            <div className="mb-3">
+                                                <CFormLabel htmlFor="exampleFormControlInput1">
+                                                    Mã lớp (<span style={{ color: "red" }}>*</span>)
+                                                </CFormLabel>
+                                                <CFormInput
+                                                    type="text"
+                                                    id="exampleFormControlInput1"
+                                                    defaultValue={type === 1 ? detailClass?.code : ""}
+                                                    onChange={(e) => setCode(e.target.value)}
+                                                    feedbackInvalid="Please enter code!"
+                                                    required
+                                                    tooltipFeedback
+                                                />
+                                            </div>
+                                        </CCol>
                                         <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
@@ -276,10 +292,10 @@ function ClassDetail(props) {
                                                 />
                                             </div>
                                         </CCol>
-                                        <CCol sm={6}>
+                                        <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Lịch (
+                                                    Lịch (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput
@@ -293,10 +309,10 @@ function ClassDetail(props) {
                                                 />
                                             </div>
                                         </CCol>
-                                        <CCol sm={6}>
+                                        <CCol sm={3}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
-                                                Thời gian (
+                                                    Thời gian (
                                                     <span style={{ color: "red" }}>*</span>)
                                                 </CFormLabel>
                                                 <CFormInput

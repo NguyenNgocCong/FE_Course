@@ -121,16 +121,16 @@ function Combos() {
                           <div className="cours-more-info">
                             <div className="price">
                               <del>
-                                {item.comboPackages.reduce(
+                                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.comboPackages.reduce(
                                   (total, x) => total + x._package.salePrice,
                                   0
-                                )} ₫
+                                ))}
                               </del>
                               <h5>
-                                {item.comboPackages.reduce(
+                                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.comboPackages.reduce(
                                   (total, x) => total + x.salePrice,
                                   0
-                                )} ₫
+                                ))}
                               </h5>
                             </div>
                             <div className="review">

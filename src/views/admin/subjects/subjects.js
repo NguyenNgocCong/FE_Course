@@ -224,7 +224,7 @@ function Subjects() {
             }}
           >
             <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
                   aria-label="Default select example"
                   onChange={(e) => {
@@ -241,7 +241,7 @@ function Subjects() {
                   })}
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
                   onChange={(e) => {
                     setStatus(e.target.value);
@@ -252,7 +252,7 @@ function Subjects() {
                   <option value={false}>Không hoạt động</option>
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"
@@ -260,7 +260,7 @@ function Subjects() {
                   onChange={onSearch}
                 />
               </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={4} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
                 <button
                   style={{
                     backgroundColor: "#7367f0",
