@@ -202,7 +202,7 @@ function TraineeOfline() {
                 color: "white",
                 borderRadius: "10px",
               }}
-              onClick={() => history.push("/admin/orders/create")}
+              onClick={() => history.push("/admin/registration/create")}
             >
               <CIcon icon={cilLibraryAdd} />
             </button>

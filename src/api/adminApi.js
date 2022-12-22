@@ -111,6 +111,18 @@ export const adminApi = {
     const url = `api/order/createAdmin`;
     return axiosApi.post(url, params);
   },
+  updateOrderAdmin: (params, id) => {
+    const url = `api/order/updateOrderAdmin?id=${id}`;
+    return axiosApi.put(url, params);
+  },
+  removeOrder: (params) => {
+    const url = `/api/order/remove-order`;
+    return axiosApi.delete(url, { params });
+  },
+  removeProductFromOrder: (params) => {
+    const url = `/api/order/remove-product-from-order`;
+    return axiosApi.delete(url, { params });
+  },
   // subject
   getAllSubject: (page, size, keyword, category, status) => {
     const url = `/api/subjects?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;

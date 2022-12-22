@@ -21,20 +21,8 @@ import DataTable from "react-data-table-component";
 import CIcon from "@coreui/icons-react";
 import { cilDelete } from "@coreui/icons";
 import Styles from "./../style.module.scss";
+import { confirmAlert } from "react-confirm-alert";
 
-
-const priceTemplate = (props) => {
-    let price = 0
-    console.log(props)
-    if (props?.product?.comboPackages) {
-        props?.product?.comboPackages.map((element) => (
-            price += element?.salePrice
-        ))
-    } else {
-        price = props?.product?.salePrice
-    }
-    return (<div>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)}</div>)
-}
 
 function OrderDetail(props) {
 
@@ -49,14 +37,14 @@ function OrderDetail(props) {
             name: "Tiêu đề",
             minWidth: "250px",
             maxWidth: "450px",
-            selector: (row) => row?.product?.title,
+            selector: (row) => row?._package ? row?._package?.title : row?._combo?.title,
             sortable: true,
         },
         {
             name: "Giá bán",
             minWidth: "150px",
             maxWidth: "200px",
-            selector: (row) => priceTemplate(row),
+            selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row?.packageCost),
             sortable: true,
         },
         {
@@ -107,22 +95,70 @@ function OrderDetail(props) {
     const type = id !== "create" ? 1 : 0;
 
     useEffect(() => {
-
-        // eslint-disable-next-line
-    }, [listSubject])
+        handleCheckCoupon()
+    }, [price])
 
     useEffect(() => {
         if (detailOrder?.totalCost) {
             setPrice(detailOrder?.totalCost + detailOrder?.totalDiscount)
             setDiscount(detailOrder?.totalDiscount)
             setCodeCouponCheck(detailOrder?.coupon?.code)
+            setListProduct(detailOrder?.orderPackages)
         }
         // eslint-disable-next-line
     }, [detailOrder])
 
     const deleteProduct = async (row) => {
+        if (type === 1) {
+            if (listProduct.length > 1) {
+                const listData = listProduct.filter((item) => item !== row);
+                if (row?._combo) {
+                    listCombo.splice(listCombo.findIndex(element => element === row?._combo?.id), 1)
+                } else {
+                    listPackage.splice(listPackage.findIndex(element => element === row?._package?.id), 1)
+                }
+                setListProduct(listData);
+                setPrice(price - row?.packageCost)
+                adminApi.removeProductFromOrder({ id: row?.id })
+                    .then((res) => {
+                        toast.success(res.message);
+                    })
+                    .catch((e) => toast.error(e?.data?.message));
+            } else {
+                confirmAlert({
+                    title: "Xác nhận hủy đơn hàng",
+                    message: "Bạn đang muốn xóa sản phẩm cuối cùng trong đơn hàng này vì vậy đơn hàng này sẽ bị hủy sau thao tác này, Bạn có chắc về điều này",
+                    buttons: [
+                        {
+                            label: "Có",
+                            onClick: () => handleDeleteOrder(row),
+                        },
+                        {
+                            label: "Không",
+                            //onClick: () => alert('Click No')
+                        },
+                    ],
+                });
+
+            }
+        }
+    };
+
+    const handleDeleteOrder = (row) => {
         const listData = listProduct.filter((item) => item !== row);
+        if (row?._combo) {
+            listCombo.splice(listCombo.findIndex(element => element === row?._combo?.id), 1)
+        } else {
+            listPackage.splice(listPackage.findIndex(element => element === row?._package?.id), 1)
+        }
         setListProduct(listData);
+        setPrice(price - row?.packageCost)
+        adminApi.removeOrder({ id: detailOrder?.id })
+            .then((res) => {
+                toast.success(res.message);
+                history.push("/admin/orders");
+            })
+            .catch((e) => toast.error(e?.data?.message));
     };
 
     const handleSelectPackage = (val) => {
@@ -136,10 +172,11 @@ function OrderDetail(props) {
             });
         } else {
             const listData = listProduct.filter((item) => item);
-            listData.push({ id: listData.length, product: packages });
+            listData.push({ id: listData.length, _package: packages, packageCost: packages.salePrice });
             listPackage.push(packages?.id);
             setListProduct(listData);
             setPackages({ id: 0 });
+            setPrice(price + packages.salePrice)
         }
     };
 
@@ -154,7 +191,7 @@ function OrderDetail(props) {
             });
         } else {
             const listData = listProduct.filter((item) => item);
-            listData.push({ id: listData.length, product: combo });
+            listData.push({ id: listData.length, _combo: combo, packageCost: combo.comboPackages.reduce((total, x) => total + x._package.salePrice, 0) });
             listCombo.push(combo?.id);
             setListProduct(listData);
             setCombo({ id: 0 });
