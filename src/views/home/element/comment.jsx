@@ -70,7 +70,7 @@ const Testimonial2 = () => {
 												<p>-{item?.user?.username}</p>
 											</div>
 										</div>
-										<div className="testimonial-content">
+										<div>
 											<p>{item.body}</p>
 										</div>
 									</div>

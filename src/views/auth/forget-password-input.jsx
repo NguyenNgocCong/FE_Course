@@ -27,6 +27,7 @@ function ForgetPasswordInput(props) {
             };
 
             const token = location.pathname.replace("/reset-password/", "");
+<<<<<<< HEAD
             userApi.resetPassword(token, param).then((rs) => {
                 toast.success(rs.message, {
                     duration: 1000,
@@ -36,6 +37,23 @@ function ForgetPasswordInput(props) {
                 }, 1000);
             }).catch((e) => toast.error(e?.data?.message));
 
+=======
+            toast.success("Change password sucessfully", {
+                duration: 2000,
+            });
+            setTimeout(() => {
+                history.push("/login");
+            }, 2000);
+            const response = await axios.post(
+                process.env.REACT_APP_BASE_URL + "/api/account/reset-password",
+                param,
+                {
+                    params: {
+                        token,
+                    },
+                }
+            );
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
         } catch (responseError) {
             setAlertMessage(responseError?.data?.message);
             setAlertVisible(true);

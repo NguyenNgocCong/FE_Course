@@ -19,12 +19,18 @@ function ForgetPassword(props) {
             const param = {
                 email: email,
             };
+<<<<<<< HEAD
             userApi.forgetPassword(param).then((rs) => {
                 toast.success(rs.message, {
                     duration: 2000
                 });
                 setStep(1);
             }).catch((e) => toast.error(e?.data?.message));
+=======
+
+            const response = await userApi.forgetPassword(param);
+            setStep(1);
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
         } catch (responseError) {
             setAlertMessage(responseError?.data?.message);
             setAlertVisible(true);

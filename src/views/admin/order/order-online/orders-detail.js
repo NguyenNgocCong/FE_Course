@@ -21,6 +21,7 @@ import DataTable from "react-data-table-component";
 import CIcon from "@coreui/icons-react";
 import { cilDelete } from "@coreui/icons";
 import Styles from "./../style.module.scss";
+<<<<<<< HEAD
 
 
 const priceTemplate = (props) => {
@@ -36,6 +37,11 @@ const priceTemplate = (props) => {
     return (<div>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)}</div>)
 }
 
+=======
+import { confirmAlert } from "react-confirm-alert";
+
+
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
 function OrderDetail(props) {
 
     const columns = [
@@ -49,14 +55,22 @@ function OrderDetail(props) {
             name: "Tiêu đề",
             minWidth: "250px",
             maxWidth: "450px",
+<<<<<<< HEAD
             selector: (row) => row?.product?.title,
+=======
+            selector: (row) => row?._package ? row?._package?.title : row?._combo?.title,
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
             sortable: true,
         },
         {
             name: "Giá bán",
             minWidth: "150px",
             maxWidth: "200px",
+<<<<<<< HEAD
             selector: (row) => priceTemplate(row),
+=======
+            selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row?.packageCost),
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
             sortable: true,
         },
         {
@@ -107,22 +121,84 @@ function OrderDetail(props) {
     const type = id !== "create" ? 1 : 0;
 
     useEffect(() => {
+<<<<<<< HEAD
 
         // eslint-disable-next-line
     }, [listSubject])
+=======
+        handleCheckCoupon()
+    }, [price])
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
 
     useEffect(() => {
         if (detailOrder?.totalCost) {
             setPrice(detailOrder?.totalCost + detailOrder?.totalDiscount)
             setDiscount(detailOrder?.totalDiscount)
             setCodeCouponCheck(detailOrder?.coupon?.code)
+<<<<<<< HEAD
+=======
+            setListProduct(detailOrder?.orderPackages)
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
         }
         // eslint-disable-next-line
     }, [detailOrder])
 
     const deleteProduct = async (row) => {
+<<<<<<< HEAD
         const listData = listProduct.filter((item) => item !== row);
         setListProduct(listData);
+=======
+        if (type === 1) {
+            if (listProduct.length > 1) {
+                const listData = listProduct.filter((item) => item !== row);
+                if (row?._combo) {
+                    listCombo.splice(listCombo.findIndex(element => element === row?._combo?.id), 1)
+                } else {
+                    listPackage.splice(listPackage.findIndex(element => element === row?._package?.id), 1)
+                }
+                setListProduct(listData);
+                setPrice(price - row?.packageCost)
+                adminApi.removeProductFromOrder({ id: row?.id })
+                    .then((res) => {
+                        toast.success(res.message);
+                    })
+                    .catch((e) => toast.error(e?.data?.message));
+            } else {
+                confirmAlert({
+                    title: "Xác nhận hủy đơn hàng",
+                    message: "Bạn đang muốn xóa sản phẩm cuối cùng trong đơn hàng này vì vậy đơn hàng này sẽ bị hủy sau thao tác này, Bạn có chắc về điều này",
+                    buttons: [
+                        {
+                            label: "Có",
+                            onClick: () => handleDeleteOrder(row),
+                        },
+                        {
+                            label: "Không",
+                            //onClick: () => alert('Click No')
+                        },
+                    ],
+                });
+
+            }
+        }
+    };
+
+    const handleDeleteOrder = (row) => {
+        const listData = listProduct.filter((item) => item !== row);
+        if (row?._combo) {
+            listCombo.splice(listCombo.findIndex(element => element === row?._combo?.id), 1)
+        } else {
+            listPackage.splice(listPackage.findIndex(element => element === row?._package?.id), 1)
+        }
+        setListProduct(listData);
+        setPrice(price - row?.packageCost)
+        adminApi.removeOrder({ id: detailOrder?.id })
+            .then((res) => {
+                toast.success(res.message);
+                history.push("/admin/orders");
+            })
+            .catch((e) => toast.error(e?.data?.message));
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
     };
 
     const handleSelectPackage = (val) => {
@@ -136,10 +212,18 @@ function OrderDetail(props) {
             });
         } else {
             const listData = listProduct.filter((item) => item);
+<<<<<<< HEAD
             listData.push({ id: listData.length, product: packages });
             listPackage.push(packages?.id);
             setListProduct(listData);
             setPackages({ id: 0 });
+=======
+            listData.push({ id: listData.length, _package: packages, packageCost: packages.salePrice });
+            listPackage.push(packages?.id);
+            setListProduct(listData);
+            setPackages({ id: 0 });
+            setPrice(price + packages.salePrice)
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
         }
     };
 
@@ -154,7 +238,11 @@ function OrderDetail(props) {
             });
         } else {
             const listData = listProduct.filter((item) => item);
+<<<<<<< HEAD
             listData.push({ id: listData.length, product: combo });
+=======
+            listData.push({ id: listData.length, _combo: combo, packageCost: combo.comboPackages.reduce((total, x) => total + x._package.salePrice, 0) });
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
             listCombo.push(combo?.id);
             setListProduct(listData);
             setCombo({ id: 0 });
@@ -289,7 +377,11 @@ function OrderDetail(props) {
                                     <CRow className="g-2">
                                         <h6>Thông tin sản phẩm</h6>
                                         <hr></hr>
+<<<<<<< HEAD
                                         <Tab.Container defaultActiveKey={1}>
+=======
+                                        {type === 1 ? <Tab.Container defaultActiveKey={1}>
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
                                             <Tab.Content>
                                                 <div className="row">
                                                     <div className="profile-tabnav-sub">
@@ -424,7 +516,11 @@ function OrderDetail(props) {
                                                     </div>
                                                 </div>
                                             </Tab.Content>
+<<<<<<< HEAD
                                         </Tab.Container>
+=======
+                                        </Tab.Container> : <></>}
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
                                         <CCol sm={12}>
                                             <DataTable
                                                 columns={columns}

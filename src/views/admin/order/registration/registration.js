@@ -70,7 +70,7 @@ const Registration = (props) => {
       name: "Tổng tiền",
       width: "110px",
       center: "true",
-      selector: (row) => row.totalCost + "$",
+      selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row.totalCost),
       sortable: true,
     },
     {

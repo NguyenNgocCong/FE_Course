@@ -50,25 +50,48 @@ function RegistrationDetail(props) {
     if (classDetail) {
       setCalander(classDetail?.time && classDetail?.schedule ? classDetail?.time + " các ngày " + classDetail?.schedule : "Chưa được đặt");
       setPackage(classDetail?.packages?.title);
+<<<<<<< HEAD
       setPrice(classDetail?.packages?.salePrice)
+=======
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
       setExpert(classDetail?.trainer?.user?.fullname);
       setSupporter(classDetail?.supporter?.fullname);
       setStartDate(moment(classDetail?.dateFrom).format('DD/mm/yyyy') + " - " + moment(classDetail?.dateTo).format('DD/mm/yyyy'));
     }
     // eslint-disable-next-line
+<<<<<<< HEAD
   }, [classId, detailOrder, listClasses])
+=======
+  }, [detailOrder, listClasses])
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
 
   useEffect(() => {
     if (detailOrder?.totalCost) {
       setPrice(detailOrder?.totalCost + detailOrder?.totalDiscount)
       setDiscount(detailOrder?.totalDiscount)
+<<<<<<< HEAD
       setCodeCouponCheck(detailOrder?.coupon?.code)
+=======
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
     }
     // eslint-disable-next-line
   }, [detailOrder])
 
   useEffect(() => {
+<<<<<<< HEAD
     handleCheckCoupon()
+=======
+    const classDetail = listClasses[listClasses.findIndex(element => Number(element.id) === Number(classId))]
+    if (classDetail) {
+      setCalander(classDetail?.time && classDetail?.schedule ? classDetail?.time + " các ngày " + classDetail?.schedule : "Chưa được đặt");
+      setPackage(classDetail?.packages?.title);
+      setExpert(classDetail?.trainer?.user?.fullname);
+      setPrice(classDetail?.packages?.salePrice);
+      setSupporter(classDetail?.supporter?.fullname);
+      setStartDate(moment(classDetail?.dateFrom).format('DD/mm/yyyy') + " - " + moment(classDetail?.dateTo).format('DD/mm/yyyy'));
+      handleCheckCoupon()
+    }
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
     // eslint-disable-next-line
   }, [classId])
 
@@ -135,8 +158,13 @@ function RegistrationDetail(props) {
   }, []);
 
   const handleCheckCoupon = () => {
+<<<<<<< HEAD
     if (codeCouponCheck && classId) {
       adminApi.checkCoupon(codeCouponCheck).then((res) => {
+=======
+    if ((codeCouponCheck || detailOrder?.coupon?.code) && classId) {
+      adminApi.checkCoupon(codeCouponCheck ? codeCouponCheck : detailOrder?.coupon?.code).then((res) => {
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
         setCodeCoupon(res.code);
         setDiscount(res.discountRate ? price * res.discountRate / 100 : 0);
       })
@@ -296,7 +324,10 @@ function RegistrationDetail(props) {
                           <span style={{ color: "red" }}>*</span>)
                         </CFormLabel>
                         <CFormInput
+<<<<<<< HEAD
                           readOnly={type === 1}
+=======
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
                           type="text"
                           id="exampleFormControlInput1"
                           onChange={(e) => setFullName(e.target.value)}
@@ -311,7 +342,10 @@ function RegistrationDetail(props) {
                           Số điện thoại (<span style={{ color: "red" }}>*</span>)
                         </CFormLabel>
                         <CFormInput
+<<<<<<< HEAD
                           readOnly={type === 1}
+=======
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
                           type="number"
                           id="exampleFormControlInput1"
                           onChange={(e) => setPhone(e.target.value)}
@@ -363,7 +397,10 @@ function RegistrationDetail(props) {
                               Mã giảm giá
                             </CFormLabel>
                             <CFormInput
+<<<<<<< HEAD
                               readOnly={type === 1}
+=======
+>>>>>>> 816b9a2159b3521d6a3bf8c50aeebf0d2f8a7ec3
                               onChange={(e) => setCodeCouponCheck(e.target.value)}
                               type="text"
                               defaultValue={type === 1 ? detailOrder?.coupon?.code : ""}
