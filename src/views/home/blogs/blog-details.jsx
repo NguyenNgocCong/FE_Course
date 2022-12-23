@@ -19,14 +19,11 @@ function BlogDetails(prop) {
   const { isLogin } = useSelector((state) => state.auth);
 
   const getPostById = async () => {
-    console.log(id);
     const response = await userApi.getPostById(id);
-    console.log(response);
     setPost(response);
   };
 
   useEffect(() => {
-    // console.log(id);
     getPostById();
     userApi.getCommentBlog({BlogId : id}).then((x) => setComments(x));
     // eslint-disable-next-line

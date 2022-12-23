@@ -78,7 +78,6 @@ function SubjectDetail(props) {
     const getListExpert = async () => {
         try {
             const response = await adminApi.getListUserExpert();
-            console.log(response.data)
             setListExpert(response.data);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
@@ -121,7 +120,6 @@ function SubjectDetail(props) {
                         type === 1
                             ? await adminApi.updateSubject(params, id)
                             : await adminApi.addSubject(params);
-                    console.log(response);
                     toast.success(response?.message, {
                         duration: 2000,
                     });
@@ -388,7 +386,6 @@ function SubjectDetail(props) {
                                                     <option>Select expert</option>
                                                     {listExpert?.map((item, index) => {
                                                         if (type === 1) {
-                                                            console.log(item)
                                                             return subject?.expert
                                                                 ?.id ===
                                                                 item?.id ? (

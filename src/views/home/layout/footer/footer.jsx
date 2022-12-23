@@ -46,7 +46,6 @@ function Footer(props) {
       };
 
       const response = await userApi.sendContact(params);
-      console.log(response);
       setAlertMessage(response?.message);
       setAlertVisible(true);
       setAlertType("success");

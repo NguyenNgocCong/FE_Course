@@ -28,7 +28,7 @@ function ActiveCourse(prop) {
               code: code,
             })
             .then((res) => {
-              toast.success(res);
+              toast.success(res?.message);
             })
             .catch((e) => toast.error(e?.data?.message));
         } else {

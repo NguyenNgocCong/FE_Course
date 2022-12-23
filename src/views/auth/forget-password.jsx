@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import logoWhite2 from "../../images/logo-white-2.png";
 import bannerImg from "../../images/background/bg2.jpg";
 import { userApi } from "../../api/userApi";
+import { toast, Toaster } from "react-hot-toast";
 
 function ForgetPassword(props) {
     const [email, setEmail] = useState();
@@ -18,10 +19,12 @@ function ForgetPassword(props) {
             const param = {
                 email: email,
             };
-
-            const response = await userApi.forgetPassword(param);
-            setStep(1);
-            console.log(response);
+            userApi.forgetPassword(param).then((rs) => {
+                toast.success(rs.message, {
+                    duration: 2000
+                });
+                setStep(1);
+            }).catch((e) => toast.error(e?.data?.message));
         } catch (responseError) {
             setAlertMessage(responseError?.data?.message);
             setAlertVisible(true);
@@ -111,6 +114,7 @@ function ForgetPassword(props) {
                     </div>
                 )}
             </div>
+            <Toaster position="top-center" reverseOrder={false} />
         </>
     );
 }

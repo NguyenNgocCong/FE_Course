@@ -38,16 +38,15 @@ function CouponDetail(props) {
     const type = id !== "create" ? 1 : 0;
 
     const getCouponById = async () => {
-        try {
+        try { 
             const response = await adminApi.getCouponDetail(id);
             setDetailCoupon(response);
             setValidFrom(response?.validFrom);
             setValidTo(response?.validTo);
             setStatus(response.status);
             setCode(response?.code);
-            setMaxQuantity(response?.maxQuantity);
+            setMaxQuantity(response?.quantity);
             setDiscountRate(response?.discountRate);
-            console.log(response)
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -69,7 +68,6 @@ function CouponDetail(props) {
                     validFrom: validFrom,
                     validTo: validTo,
                 };
-                console.log(params);
 
                 const response =
                     type === 1

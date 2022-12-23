@@ -29,15 +29,21 @@ const orderSlice = createSlice({
       CartSotre.setCartLocal(state.data);
     },
     removeCartPackage: (state, action) => {
-      state.data.packages = state.data.packages.filter(
-        (x) => x.id !== action.payload
-      );
+      for (var i in state.data.packages) {
+        if(state.data.packages[i].id === action.payload) {
+          state.data.packages.splice(i, 1);
+          break;
+        }
+      }
       CartSotre.setCartLocal(state.data);
     },
     removeCartCombo: (state, action) => {
-      state.data.combos = state.data.combos.filter(
-        (x) => x.id !== action.payload
-      );
+      for (var i in state.data.combos) {
+        if(state.data.combos[i].id === action.payload) {
+          state.data.combos.splice(i, 1);
+          break;
+        }
+      }
       CartSotre.setCartLocal(state.data);
     },
 
@@ -55,7 +61,6 @@ export const getAllCartReduce = createAsyncThunk(
   async ({ page }, { dispatch }) => {
     try {
       const data = await userApi.getCarts({ page });
-      console.log(data);
       dispatch(requestSuccess(data));
     } catch (error) {
       dispatch(requestFail(error?.data?.message));

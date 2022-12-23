@@ -65,7 +65,6 @@ function CoursesDetails(props) {
       });
     } else {
       userApi.addToCard({ packageId: data.id }).then((res) => {
-        console.log(res);
         toast.success("Add To Cart Success !", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
@@ -154,8 +153,8 @@ function CoursesDetails(props) {
                       }}
                     />
                     <div className="course-price">
-                      <del>{product?.listPrice} ₫</del>
-                      <h6 className="price">{product?.salePrice} ₫</h6>
+                      <del>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.listPrice)}</del>
+                      <h6 className="price">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.salePrice)}</h6>
                     </div>
                     <div className="course-buy-now text-center">
                       <div

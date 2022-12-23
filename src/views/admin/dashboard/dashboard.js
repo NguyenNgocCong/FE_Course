@@ -23,7 +23,6 @@ const Dashboard = () => {
         try {
             const response = await dashboardApi.getDataDashboard();
             setDataDashboard(response)
-            console.log(response)
         } catch (responseError) {
             console.log(responseError)
             toast.error(responseError?.data.message, {

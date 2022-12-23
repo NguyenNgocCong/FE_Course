@@ -23,7 +23,6 @@ const WidgetsDropdown = () => {
       setTotalClass(response?.totalClass)
       setTotalSubject(response?.totalSubject)
       setTotalSoldOut(response?.totalSoldOut)
-      console.log(response)
     } catch (responseError) {
       console.log(responseError)
       toast.error(responseError?.data.message, {

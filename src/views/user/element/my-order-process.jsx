@@ -32,7 +32,6 @@ function MyOrderProcess(props) {
   };
 
   const handleCancelProductFromOrder = (params) => {
-    console.log(params)
     userApi
       .removeProductFromOrder({ ...params })
       .then((res) => {
@@ -87,7 +86,7 @@ function MyOrderProcess(props) {
                 <div style={{ margin: "auto" }} className="col-md-12 col-lg-3 col-sm-12 text-center">
                   <div className="row">
                     <div style={{ margin: "auto" }} className="col-md-12 col-lg-7 col-sm-12 text-center">
-                      {item.totalCost}VNĐ
+                      {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.totalCost)}
                     </div>
                     <div style={{ margin: "auto" }} className="col-md-12 col-lg-5 col-sm-12 text-center">
                       {item.aclass ? "Offline" : "Online"}
@@ -157,10 +156,10 @@ function MyOrderProcess(props) {
                           </div>
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2" style={{ cursor: "pointer", }} onClick={() => history.push(`/courses-details/${x._package?.id}`)}>
-                          {x._combo.comboPackages.reduce(
+                          {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x._combo.comboPackages.reduce(
                             (pre, x) => pre + x.salePrice,
                             0
-                          )}VNĐ
+                          ))}
                         </div>
                         <div className="col-md-12 col-lg-3 col-sm-12 text-center p-2">
                           {item.status === 2 ? (
@@ -205,7 +204,7 @@ function MyOrderProcess(props) {
                           </div>
                         </div>
                         <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
-                          {x?._package?.salePrice}VNĐ
+                          {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x?._package?.salePrice)}
                         </div>
                         <div className="col-md-12 col-lg-3 col-sm-12 text-center p-2">
                           {item.status === 2 ? (

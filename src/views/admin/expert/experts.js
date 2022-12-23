@@ -94,8 +94,7 @@ const Experts = () => {
     const [keyword, setKeyword] = useState("");
     const [page, setPage] = useState(0);
     const [totalRows, setTotalRows] = useState(0);
-    const optionsPerPage = [10, 20, 50];
-    const [itemsPerPage, setItemsPerPage] = React.useState(optionsPerPage[0]);
+    const [itemsPerPage, setItemsPerPage] = React.useState(10);
     const [isModify, setIsModify] = useState(false);
 
     const getListExperts = async () => {

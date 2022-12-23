@@ -1,10 +1,7 @@
-import { cilLibraryAdd, cilPen } from "@coreui/icons";
-import CIcon from "@coreui/icons-react";
 import { CFormInput, CFormSelect } from "@coreui/react";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import toast from "react-hot-toast";
-import { useHistory } from "react-router-dom";
 import { adminApi } from "../../../../api/adminApi";
 import Styles from "../style.module.scss";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -67,45 +64,22 @@ function TraineeOnline() {
         </div>
       ),
       sortable: true,
-    },
-    {
-      name: "Hành động",
-      center: true,
-      selector: (row) => (
-        <div className={Styles.inputSearch}>
-          <button
-            onClick={() => {
-              window.location.href = "/admin/trainee/" + row?.id;
-            }}
-            style={{
-              backgroundColor: "#7367f0",
-              height: "30px",
-              width: "40px",
-              border: "none",
-              float: "right",
-            }}
-          >
-            <CIcon icon={cilPen} />
-          </button>
-        </div>
-      ),
-    },
+    }
   ];
-  const history = useHistory();
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   // eslint-disable-next-line
   const [isModify, setIsModify] = useState(false);
   const [listClass, setListClass] = useState([]);
-  const [traner, setTrainer] = useState(0);
+  const [trainer, setTrainer] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = React.useState(50);
+  const [itemsPerPage, setItemsPerPage] = React.useState(10);
 
   const getAllClass = async () => {
     try {
-      const response = await adminApi.getAllTraineeOnl(page, itemsPerPage, keywordSearch, traner, status);
+      const response = await adminApi.getAllTraineeOnl(page, itemsPerPage, keywordSearch, trainer, status);
       setDataTable(response.data);
       setTotalRows(response.totalItems);
     } catch (responseError) {
@@ -117,7 +91,7 @@ function TraineeOnline() {
 
   const getListTrainer = async () => {
     try {
-      const response = await adminApi.getAllClass(0, 50, "", 0, "");
+      const response = await adminApi.getAllPackageView(0, 50, "", 0, "");
       setListClass(response.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
@@ -133,7 +107,7 @@ function TraineeOnline() {
   useEffect(() => {
     getAllClass();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, status, traner, itemsPerPage, page]);
+  }, [isModify, keywordSearch, status, trainer, itemsPerPage, page]);
 
   useEffect(() => {
     getListTrainer();
@@ -161,11 +135,11 @@ function TraineeOnline() {
                 setTrainer(e.target.value);
               }}
             >
-              <option value={0}>Tất cả lớp học</option>
+              <option value={0}>Tất cả khóa học</option>
               {listClass?.map((item, index) => {
                 return (
                   <option key={index} value={item?.id}>
-                    {item?.code}
+                    {item?.title}
                   </option>
                 );
               })}
@@ -190,22 +164,6 @@ function TraineeOnline() {
               placeholder="Tìm kiếm..."
               onChange={onSearch}
             />
-          </Col>
-          <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
-            <button
-              style={{
-                backgroundColor: "#7367f0",
-                border: "none",
-                float: "right",
-                height: "100%",
-                width: "100px",
-                color: "white",
-                borderRadius: "10px",
-              }}
-              onClick={() => history.push("/admin/trainee/create")}
-            >
-              <CIcon icon={cilLibraryAdd} />
-            </button>
           </Col>
         </Row>
       </div>

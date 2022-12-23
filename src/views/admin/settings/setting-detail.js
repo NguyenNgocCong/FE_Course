@@ -42,7 +42,6 @@ function SettingDetail(props) {
         try {
             const response = await adminApi.getSettingById(id);
             setSetting(response);
-            console.log(response);
             setStatus(response.status);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
@@ -55,7 +54,6 @@ function SettingDetail(props) {
         try {
             const response = await adminApi.getListType();
             setListType(response);
-            console.log(response);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,

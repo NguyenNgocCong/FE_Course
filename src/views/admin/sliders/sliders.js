@@ -200,8 +200,8 @@ const Sliders = () => {
                                     <option value="2">Hoàn thành</option>
                                 </CFormSelect>
                             </Col>
-                            <Col xs={12} lg={6} className={`${Styles.inputSearch} d-flex justify-content-end`}>
-                                <button
+                            <Col xs={12} lg={6} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
+  <button
                                     style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
                                     onClick={() =>
                                         history.push(

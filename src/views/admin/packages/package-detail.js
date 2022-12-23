@@ -49,7 +49,6 @@ function PackagesDetail(props) {
     const getPackageById = async () => {
         try {
             const response = await adminApi.getPackageById(id);
-            console.log(response)
             setPackage(response);
             setStatus(response.status);
         } catch (responseError) {

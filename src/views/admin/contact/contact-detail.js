@@ -37,8 +37,9 @@ function ContactDetail(props) {
     );
 
     const getContactById = async () => {
-        const response = await adminApi.getAllContact();
-        setContact(response.data?.filter((item) => item?.id === id)[0]);
+        const response = await adminApi.getAllContact(0,30,"",0,"");
+        const dataContac = response.data?.filter(item => item?.id === id-0);
+        setContact(dataContac);
     };
 
     const getListCategory = async () => {
@@ -75,6 +76,9 @@ function ContactDetail(props) {
 
     useEffect(() => {
         getContactById();
+        // eslint-disable-next-line
+    }, [id]);
+    useEffect(() => {
         getListCategory();
         // eslint-disable-next-line
     }, []);
@@ -101,7 +105,8 @@ function ContactDetail(props) {
                                             <CFormInput
                                                 type="email"
                                                 id="exampleFormControlInput1"
-                                                defaultValue={contact?.email}
+                                                defaultValue={contact?.map((item)=> {return item?.email})}
+                                                readOnly
                                                 onChange={(e) =>
                                                     setEmail(e.target.value)
                                                 }
@@ -117,7 +122,8 @@ function ContactDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 placeholder=""
-                                                defaultValue={contact?.fullName}
+                                                defaultValue={contact?.map((item)=> {return item?.fullName})}
+                                                readOnly
                                                 onChange={(e) =>
                                                     setFullname(e.target.value)
                                                 }
@@ -135,7 +141,7 @@ function ContactDetail(props) {
                                             >
                                                 <option value="">Select category</option>
                                                 {listCategory.map((item, index) => {
-                                                    return contact?.setting_id ===
+                                                    return contact?.map((item)=> {return item?.setting_id}) ===
                                                         item?.setting_id ? (
                                                         <option
                                                             key={index}
@@ -166,7 +172,8 @@ function ContactDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 placeholder=""
-                                                defaultValue={contact?.phoneNumber}
+                                                readOnly
+                                                defaultValue={contact?.map((item)=> {return item?.phoneNumber})}
                                                 onChange={(e) =>
                                                     setPhone(e.target.value)
                                                 }
@@ -181,8 +188,9 @@ function ContactDetail(props) {
                                     <CFormTextarea
                                         id="exampleFormControlTextarea1"
                                         defaultValue={
-                                            contact?.message
+                                            contact?.map((item)=> {return item?.message})
                                         }
+                                        readOnly
                                         onChange={(e) =>
                                             setComment(e.target.value)
                                         }

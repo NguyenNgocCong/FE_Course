@@ -32,21 +32,21 @@ function Orders(props) {
                     <Nav className="nav-tabs">
                       <Nav.Item>
                         <Nav.Link eventKey="1" onClick={() => setActive(1)}>
-                          Lớp học đã đăng ký
+                          Đăng ký lớp học
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="2" onClick={() => setActive(1)}>
-                          Khóa học đã đăng ký
+                        <Nav.Link eventKey="2" onClick={() => setActive(2)}>
+                          Đăng ký khóa học
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="3" onClick={() => setActive(2)}>
+                        <Nav.Link eventKey="3" onClick={() => setActive(3)}>
                           Đơn hàng đã thanh toán
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="4" onClick={() => setActive(3)}>
+                        <Nav.Link eventKey="4" onClick={() => setActive(4)}>
                           Đơn hàng đã hủy
                         </Nav.Link>
                       </Nav.Item>

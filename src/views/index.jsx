@@ -48,8 +48,6 @@ import Coupon from "./admin/coupon/coupon";
 import CouponDetail from "./admin/coupon/coupon-detail";
 
 import Trainee from "./admin/trainee/index";
-import TraineeDetailOnl from "./admin/trainee/online/trainee-detail";
-import TraineeDetailOff from "./admin/trainee/online/trainee-detail";
 
 import Combo from "./admin/combo/combo";
 import ComboDetail from "./admin/combo/combo-detail";
@@ -196,12 +194,6 @@ function Markup(props) {
           {/* Trainee */}
           <PrivateRoute path="/admin/trainee" exact>
             <Trainee />
-          </PrivateRoute>
-          <PrivateRoute path="/admin/trainee-onl/:id" exact>
-            <TraineeDetailOnl />
-          </PrivateRoute>
-          <PrivateRoute path="/admin/trainee-off/:id" exact>
-            <TraineeDetailOff />
           </PrivateRoute>
 
           {/* Coupon */}

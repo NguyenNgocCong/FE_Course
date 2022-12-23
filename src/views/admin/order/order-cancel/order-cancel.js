@@ -1,12 +1,9 @@
-import { CFormInput, CFormSelect } from "@coreui/react";
+import { CFormInput } from "@coreui/react";
 import Styles from "../style.module.scss";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import toast from "react-hot-toast";
 import { adminApi } from "../../../../api/adminApi";
-import { useHistory } from "react-router-dom";
-import CIcon from "@coreui/icons-react";
-import { cilLibraryAdd } from "@coreui/icons";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Row, Col } from "react-bootstrap";
@@ -53,7 +50,7 @@ const OrderCancel = (props) => {
       name: "Tổng tiền",
       width: "120px",
       center: "true",
-      selector: (row) => row.totalCost + " ₫",
+      selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row.totalCost),
       sortable: true,
     },
     {
@@ -95,18 +92,13 @@ const OrderCancel = (props) => {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [isModify, setIsModify] = useState(false);
-  // eslint-disable-next-line
-  const [listCategory, setListCategory] = useState([]);
-  const [category, setCategory] = useState(0);
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
-  const history = useHistory();
 
   const getAllOrdered = async () => {
     try {
-      const response = await adminApi.getAllOrderCancel(page, itemsPerPage, keywordSearch, category);
-      console.log(response.data)
+      const response = await adminApi.getAllOrderCancel(page, itemsPerPage, keywordSearch);
       setDataTable(response.data);
       setTotalRows(response.totalItems);
     } catch (responseError) {
@@ -163,9 +155,10 @@ const OrderCancel = (props) => {
   };
 
   useEffect(() => {
+    if(props.activeTab === 4)
     getAllOrdered();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, page, category]);
+  }, [isModify, keywordSearch, page, props.activeTab]);
 
   useEffect(() => {
     getListCategory();
@@ -185,23 +178,6 @@ const OrderCancel = (props) => {
         }}
       >
         <Row className="text-nowrap w-100 my-75 g-0 permission-header">
-          <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
-            <CFormSelect
-              aria-label="Default select example"
-              onChange={(e) => {
-                setCategory(e.target.value);
-              }}
-            >
-              <option value={0}>Tất cả</option>
-              {listCategory.map((item, index) => {
-                return (
-                  <option key={index} value={item?.setting_id}>
-                    {item?.setting_title}
-                  </option>
-                );
-              })}
-            </CFormSelect>
-          </Col>
           <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
             <CFormInput
               type="text"
@@ -210,23 +186,6 @@ const OrderCancel = (props) => {
               placeholder="Tìm kiếm..."
               onChange={onSearch}
             />
-          </Col>
-          <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
-            <button
-              style={{
-                backgroundColor: "#7367f0",
-                border: "none",
-                float: "right",
-                height: "100%",
-                width: "100px",
-                color: "white",
-                borderRadius: "10px",
-                marginRight: "inherit",
-              }}
-              onClick={() => history.push("/admin/subjects/create")}
-            >
-              <CIcon icon={cilLibraryAdd} />
-            </button>
           </Col>
         </Row>
       </div>

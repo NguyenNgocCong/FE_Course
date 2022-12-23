@@ -1,7 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { userApi } from "../../../api/userApi";
-import { combieImg } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { BodyCartLocal } from "./cart-local";
 import { TYPE_CHECKOUT_PACKAGE } from "../../../constants/index";
@@ -10,6 +9,7 @@ import {
   removeCartPackage,
 } from "../../../redux/reducers/order";
 import { useHistory } from "react-router-dom";
+import { combieImg } from "../../../utils";
 
 function CartContent() {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ function CartContent() {
   };
 
   const handleCheckOut = () => {
-     history.push("/checkout", { type: TYPE_CHECKOUT_PACKAGE });
+    history.push("/checkout", { type: TYPE_CHECKOUT_PACKAGE });
   };
 
   return (
@@ -87,7 +87,111 @@ function CartContent() {
             <div>Hành động</div>
           </div>
         </div>
-        {<BodyCartLocal />}
+        {isLogin ? (
+          res.map((x, index) => {
+            return (
+              <React.Fragment key={x.id + " " + index}>
+                {x._combo && (
+                  <div key={x.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
+                    <div className="row bg-orange2" style={{ margin: "0px", height: "40px" }}>
+                      <div style={{ margin: "auto" }} className="col-md-12 col-lg-8 col-sm-12 ">
+                        {x._combo?.title}
+                      </div>
+                      <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold" style={{ margin: "auto" }} >
+                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x._combo.comboPackages.reduce(
+                          (pre, x) => pre + x.salePrice,
+                          0
+                        ))}
+                      </div>
+                      <div className="col-md-12 col-lg-2 col-sm-12 text-center" style={{ margin: "auto" }} >
+                        <span
+                          style={{ margin: "0 auto", cursor: "pointer" }}
+                          className="badge badge-danger"
+                          onClick={() => handleDelete({
+                            id: x.id
+                          })}
+                        >
+                          Xóa
+                        </span>
+                      </div>
+                    </div>
+                    {x._combo.comboPackages.map((item, i) => {
+                      return (
+                        <div className="row" key={x.id} style={{ margin: "0px" }}>
+                          <div className="col-md-12 col-lg-6 col-sm-12 ">
+                            <div className="media align-items-center font-weight-semibold align-middle p-2">
+                              <img
+                                style={{ height: "50px", borderRadius: "5px", objectFit: "cover" }}
+                                src={combieImg(item?._package?.image)}
+                                className="d-block ui-w-40 ui-bordered mr-4"
+                                alt=""
+                                width={100}
+                                onError={({ currentTarget }) => {
+                                  currentTarget.src =
+                                    "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                                }}
+                              />
+                              <div className="media-body ">
+                                {item?._package?.title}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
+                            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item._package.salePrice)}
+                          </div>
+                        </div>
+                      )
+                    }
+                    )}
+                  </div>
+                )}
+                {x._package && (
+                  <div key={x.id + " " + index} className="bg-white" style={{ margin: "15px 0px", borderRadius: "5px", boxShadow: "0px 5px 20px rgb(0 0 0 / 20%)" }}>
+                    <div className="row bg-orange2" style={{ margin: "0px", height: "40px" }}> <div className="col-md-12 col-lg-8 col-sm-12"></div>
+                      <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2" style={{ margin: "auto" }} >
+                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x._package.salePrice)}
+                      </div>
+                      <div className="col-md-12 col-lg-2 col-sm-12 text-center align-middle" style={{ margin: "auto" }} >
+                        <span
+                          style={{ cursor: "pointer" }}
+                          className="badge badge-danger"
+                          onClick={() => handleDelete({
+                            id: x.id,
+                          })}
+                        >
+                          Xóa
+                        </span>
+                      </div>
+                    </div>
+                    <div className="row" key={x.id} style={{ margin: "0px" }}>
+                      <div className="col-md-12 col-lg-6 col-sm-12">
+                        <div className="media align-items-center font-weight-semibold align-middle p-2">
+                          <img
+                            style={{ height: "50px", borderRadius: "5px", objectFit: "cover" }}
+                            src={combieImg(x._package.image)}
+                            className="d-block ui-w-40 ui-bordered mr-4"
+                            alt=""
+                            width={100}
+                            onError={({ currentTarget }) => {
+                              currentTarget.src =
+                                "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
+                            }}
+                          />
+                          <div className="media-body">
+                            {x._package.title}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-12 col-lg-2 col-sm-12 text-center font-weight-semibold align-middle p-2">
+                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x._package.salePrice)}
+                      </div>
+                    </div>
+                  </div>
+                )
+                }
+              </React.Fragment>
+            );
+          })) : <BodyCartLocal />}
         <div
           className="d-flex flex-wrap align-items-center"
           style={{ marginBottom: "15px" }}
@@ -97,7 +201,7 @@ function CartContent() {
           </div>
           <div className="text-right " style={{ marginRight: "10px" }}>
             <div className="text-large">
-              <strong>{totalPackage + totalCombo} ₫</strong>
+              <strong>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPackage + totalCombo)}</strong>
             </div>
           </div>
           <button

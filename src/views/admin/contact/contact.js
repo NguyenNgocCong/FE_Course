@@ -50,7 +50,6 @@ const Contact = () => {
                 status: e.status,
             };
             const response = await adminApi.updateStatusContact(params, e?.id);
-            console.log(response)
             toast.success(response?.message, {
                 duration: 2000,
             });
@@ -82,7 +81,7 @@ const Contact = () => {
     useEffect(() => {
         getListContact();
         // eslint-disable-next-line
-    }, [isModify, keywordSearch, category, status]);
+    }, [isModify,page, keywordSearch, category, status]);
 
     useEffect(() => {
         getListCategory();
@@ -154,16 +153,16 @@ const Contact = () => {
         },
         {
             name: "Hành động",
-            width: '150px',
+            width: '200px',
             center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
-                    {/* <button
-                        onClick={() => { window.location.href = "/admin/contact/" + row?.id }}
+                    <button
+                        onClick={() => { window.location.href = "/admin/contacts/" + row?.id }}
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
                     >
-                        <CIcon icon={cilPen} />
-                    </button> */}
+                        <i className="fa fa-eye"></i>
+                    </button>
                     <button
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "120px", border: "none", float: 'right' }}
                         onClick={() => submit(row)}

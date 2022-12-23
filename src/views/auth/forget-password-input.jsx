@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logoWhite2 from "../../images/logo-white-2.png";
 import bannerImg from "../../images/background/bg2.jpg";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import axios from "axios";
+import { userApi } from "../../api/userApi";
 import toast, { Toaster } from "react-hot-toast";
 
 function ForgetPasswordInput(props) {
@@ -16,35 +16,26 @@ function ForgetPasswordInput(props) {
 
     const handleResetPass = async () => {
         if (rePassword !== password) {
-            setAlertMessage("re password wrong");
+            setAlertMessage("sai mật khẩu nhập lại");
             setAlertVisible(true);
             setPopupAlertType("danger");
             return;
         }
-
         try {
             const param = {
                 password: password,
             };
 
             const token = location.pathname.replace("/reset-password/", "");
-            console.log(token);
-            toast.success("Change password sucessfully", {
-                duration: 2000,
-            });
-            setTimeout(() => {
-                history.push("/login");
-            }, 2000);
-            const response = await axios.post(
-                process.env.REACT_APP_BASE_URL + "/api/account/reset-password",
-                param,
-                {
-                    params: {
-                        token,
-                    },
-                }
-            );
-            console.log(response);
+            userApi.resetPassword(token, param).then((rs) => {
+                toast.success(rs.message, {
+                    duration: 1000,
+                });
+                setTimeout(() => {
+                    history.push("/login");
+                }, 1000);
+            }).catch((e) => toast.error(e?.data?.message));
+
         } catch (responseError) {
             setAlertMessage(responseError?.data?.message);
             setAlertVisible(true);
@@ -66,7 +57,7 @@ function ForgetPasswordInput(props) {
                 <div className="account-form-inner">
                     <div className="account-container">
                         <div className="heading-bx left">
-                            <h2 className="title-head">Reset your password</h2>
+                            <h2 className="title-head">Đặt lại mật khẩu</h2>
                         </div>
                         <div
                             className={`alert alert-${alertType} alert-dismissible fade show`}
@@ -90,7 +81,7 @@ function ForgetPasswordInput(props) {
                                                 name="name"
                                                 type="password"
                                                 required=""
-                                                placeholder="New password"
+                                                placeholder="Mật khẩu mới"
                                                 className="form-control"
                                                 onChange={(e) =>
                                                     setPassword(e.target.value)
@@ -106,7 +97,7 @@ function ForgetPasswordInput(props) {
                                                 name="repassword"
                                                 type="password"
                                                 className="form-control"
-                                                placeholder="Re input password"
+                                                placeholder="Nhập mật khẩu mới"
                                                 required=""
                                                 onChange={(e) =>
                                                     setRePassword(
@@ -123,7 +114,7 @@ function ForgetPasswordInput(props) {
                                         className="btn button-md"
                                         onClick={() => handleResetPass()}
                                     >
-                                        Submit
+                                        Gửi
                                     </p>
                                 </div>
                             </div>

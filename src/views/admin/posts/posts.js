@@ -173,7 +173,6 @@ const Posts = () => {
         } else if (status === 4) {
             statusChange = 1;
         }
-        console.log(id, status);
         try {
             const params = {
                 status: statusChange,
@@ -314,8 +313,8 @@ const Posts = () => {
                                     onChange={onSearch}
                                 />
                             </Col>
-                            <Col lg={4} className='d-flex justify-content-end'>
-                                <div className={Styles.inputSearch}>
+                            <Col xs={12} lg={4} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
+                                   <div className={Styles.inputSearch}>
                                     <button
                                         style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
                                         onClick={() =>

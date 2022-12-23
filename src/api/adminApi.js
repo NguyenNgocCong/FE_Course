@@ -91,12 +91,12 @@ export const adminApi = {
     const url = `/api/order/list-onli?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
-  getAllOrderDone: (page, size, keyword, category) => {
-    const url = `/api/order/list-confirm?page=${page}&size=${size}&category=${category}&keyword=${keyword}`;
+  getAllOrderDone: (page, size, keyword) => {
+    const url = `/api/order/list-confirm?page=${page}&size=${size}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
-  getAllOrderCancel: (page, size, keyword, category) => {
-    const url = `/api/order/list-cancel?page=${page}&size=${size}&category=${category}&keyword=${keyword}`;
+  getAllOrderCancel: (page, size, keyword) => {
+    const url = `/api/order/list-cancel?page=${page}&size=${size}&keyword=${keyword}`;
     return axiosApi.get(url);
   },
   getOrderDetail: (id) => {
@@ -106,6 +106,10 @@ export const adminApi = {
   updateOrder: (status, id) => {
     const url = `/api/order/update-status?id=${id}&status=${status}`;
     return axiosApi.put(url);
+  },
+  createOrderAdmin: (params) => {
+    const url = `api/order/createAdmin`;
+    return axiosApi.post(url, params);
   },
   // subject
   getAllSubject: (page, size, keyword, category, status) => {
@@ -193,7 +197,6 @@ export const adminApi = {
     const url = `/api/slide/create`;
     var formData = new FormData();
     formData.append("image", image);
-    console.log(image, params);
     formData.append("data", JSON.stringify(params));
     return axiosApi.post(url, formData, {
       headers: {
@@ -245,7 +248,6 @@ export const adminApi = {
     const url = `/api/package/create`;
     var formData = new FormData();
     formData.append("image", image);
-    console.log(image, params);
     formData.append("data", JSON.stringify(params));
     return axiosApi.post(url, formData, {
       headers: {
@@ -279,7 +281,6 @@ export const adminApi = {
     const url = `/api/combo/create`;
     var formData = new FormData();
     formData.append("image", image);
-    console.log(image, params);
     formData.append("data", JSON.stringify(params));
     return axiosApi.post(url, formData, {
       headers: {
@@ -340,32 +341,36 @@ export const adminApi = {
   },
 
   //coupon 
-  getAllCoupon: (page,size) =>{
+  getAllCoupon: (page, size) => {
     const url = `/api/coupon?page=${page}&size=${size}`;
     return axiosApi.get(url);
   },
   getCouponDetail: (id) => {
-    const url = `/api/coupon/${id}`;
+    const url = `/api/coupon/getById/${id}`;
     return axiosApi.get(url);
   },
-  updateCoupon: (params,id) =>{
+  updateCoupon: (params, id) => {
     const url = `api/coupon/update?id=${id}`;
-    return axiosApi.put(url,params);
+    return axiosApi.put(url, params);
   },
-  createCoupon: (params) =>{
+  createCoupon: (params) => {
     const url = `api/coupon/create`;
-    return axiosApi.post(url,params);
+    return axiosApi.post(url, params);
+  },
+  checkCoupon: (code) => {
+    const url = `/api/coupon/${code}`;
+    return axiosApi.get(url);
   },
   //trainee
-  createTrainee: (params) =>{
+  createTrainee: (params) => {
     const url = `api/trainee/create`;
-    return axiosApi.post(url,params);
+    return axiosApi.post(url, params);
   },
-   getAllTrainee: (page, size, keyword, category, status) =>{
+  getAllTrainee: (page, size, keyword, category, status) => {
     const url = `/api/trainee?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
-  getAllTraineeOnl: (page, size, keyword, category, status) =>{
+  getAllTraineeOnl: (page, size, keyword, category, status) => {
     const url = `/api/trainee/list-trainee-online?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
@@ -373,8 +378,8 @@ export const adminApi = {
     const url = `/api/trainee/${id}`;
     return axiosApi.get(url);
   },
-  updateTrainee: (params,id) =>{
+  updateTrainee: (params, id) => {
     const url = `api/trainee/update?id=${id}`;
-    return axiosApi.put(url,params);
+    return axiosApi.put(url, params);
   },
 };

@@ -165,7 +165,6 @@ function ComboDetail(props) {
             };
             return params.packages.push(pack);
           });
-          console.log(params);
           const response =
             type === 1
               ? await adminApi.updateCombo(id, image, params)
@@ -227,7 +226,6 @@ function ComboDetail(props) {
 
   const handleSelectPackage = async (val) => {
     setPackages(listPackages.find((element) => element?.id === parseInt(val)));
-    console.log(packages);
   };
 
 
