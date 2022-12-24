@@ -109,7 +109,7 @@ const Settings = () => {
     useEffect(() => {
         getListSetting();
         // eslint-disable-next-line
-    }, [typeId, keyword, status, page]);
+    }, [typeId, keyword, status, page,itemsPerPage]);
 
     useEffect(() => {
         getAllType();

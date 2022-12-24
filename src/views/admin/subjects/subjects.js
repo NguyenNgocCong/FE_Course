@@ -199,7 +199,7 @@ function Subjects() {
   useEffect(() => {
     getAllSubject();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, page, status, category]);
+  }, [isModify, keywordSearch, page, status, category,itemsPerPage]);
 
   useEffect(() => {
     getListCategory();

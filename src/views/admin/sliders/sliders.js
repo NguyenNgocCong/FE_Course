@@ -171,7 +171,7 @@ const Sliders = () => {
     useEffect(() => {
         getListSlider();
         // eslint-disable-next-line
-    }, [isModify, status, page]);
+    }, [isModify, status, page,itemsPerPage]);
 
     const handlePerRowsChange = async (newPerPage) => {
         setItemsPerPage(newPerPage);
