@@ -134,7 +134,7 @@ function SliderDetail(props) {
                                                             type="text"
                                                             id="exampleFormControlInput1"
                                                             defaultValue={
-                                                                type === 1 ? slider?.url : ""
+                                                                type === 1 ? slider?.title : ""
                                                             }
                                                             onChange={(e) =>
                                                                 setTitle(e.target.value)
@@ -155,7 +155,7 @@ function SliderDetail(props) {
                                                             type="text"
                                                             id="exampleFormControlInput1"
                                                             defaultValue={
-                                                                type === 1 ? slider?.title : ""
+                                                                type === 1 ? slider?.url : ""
                                                             }
                                                             onChange={(e) =>
                                                                 setURL(e.target.value)
