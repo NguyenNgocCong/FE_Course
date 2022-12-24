@@ -246,7 +246,7 @@ const Posts = () => {
     useEffect(() => {
         getListPost();
         // eslint-disable-next-line
-    }, [isModify, keywordSearch, page, status, category]);
+    }, [isModify, keywordSearch, page, status, category,itemsPerPage]);
 
     useEffect(() => {
         getListCategory();
