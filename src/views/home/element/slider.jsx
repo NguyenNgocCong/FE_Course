@@ -49,7 +49,7 @@ function Slider1() {
             </marquee>
           </div>
           <div className="slider-thumb">
-            <img src={combieImg(slider?.imageUrl)} alt={slider?.title} />
+            <a href={slider?.url}> <img src={combieImg(slider?.imageUrl)} alt={slider?.title} /></a>
           </div>
         </div>
       ))}
