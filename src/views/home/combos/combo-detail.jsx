@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userApi } from "../../../api/userApi";
 import { toast } from "react-toastify";
 import { addComboLocal } from "../../../redux/reducers/order";
-
+import { combieImg } from "../../../utils";
 function CoursesDetails(props) {
   const params = useParams();
   const { isLogin } = useSelector((state) => state.auth);
@@ -113,7 +113,7 @@ function CoursesDetails(props) {
                     <div className="col-md-12 col-lg-4 ">
                       <div className="ttr-post-media media-effect">
                         <Link to="#">
-                          <img src={blogDefaultThum1} alt="" />
+                          <img src={combieImg(res.image)} alt="" />
                         </Link>
                       </div>
                       <div className="course-detail-bx">

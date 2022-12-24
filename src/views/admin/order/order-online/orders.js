@@ -193,7 +193,7 @@ const OrderOnline = (props) => {
     if (props.activeTab === 2)
       getAllOrder();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, page, status, props.activeTab]);
+  }, [isModify, keywordSearch, page, status, props.activeTab ,itemsPerPage]);
 
   useEffect(() => {
     getListCategory();

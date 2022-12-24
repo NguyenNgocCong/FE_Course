@@ -5060,20 +5060,22 @@ footer .pt-social-link ul li {
 
 .tt-slider .slick-arrow {
     background-color: rgba(0, 0, 0, 0.15);
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     z-index: 9;
     font-size: 0;
     padding: 0;
+    border-radius: 10px;
 }
 
 .tt-slider .slick-arrow:before {
     font-family: "fontawesome";
-    line-height: 100px;
+    line-height: 50px;
     font-size: 42px;
     color: #fff;
     display: block;
     background-color: transparent;
+    border-radius: 20px;
 }
 
 .tt-slider .slick-arrow.slick-prev:before {

@@ -201,7 +201,7 @@ html:not([dir=rtl]) .wrapper {
 
 .titledown {
   background-color: rgba(0, 0, 0, .2);
-  padding: 2rem;
+  padding: 16px;
   position: absolute;
   width: max-content;
   left: 1rem;

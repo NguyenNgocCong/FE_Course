@@ -19,7 +19,7 @@ class About2 extends Component {
           >
             <div className="container">
               <div className="page-banner-entry">
-                <h1 className="text-white">Giơi thiệu</h1>
+                <h1 className="text-white">Giới thiệu</h1>
               </div>
             </div>
           </div>
@@ -69,7 +69,7 @@ class About2 extends Component {
                     </div>
                   </div>
                   <div className="heading-bx left">
-                    <h2 className="title-head m-b0">Chiến lược hát triển</h2>
+                    <h2 className="title-head m-b0">Chiến lược phát triển</h2>
                     <div>
                       Định hướng phát triển là trở thành một kênh đào tạo trực tuyến có uy tín là cầu nối cho doanh nghiệp và các bạn làm nghề.
                       Giúp tăng khả năng cạnh tranh cho các bạn lập trình viên và điều cuối cùng là
