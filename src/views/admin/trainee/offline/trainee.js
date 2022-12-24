@@ -18,12 +18,13 @@ function TraineeOfline() {
       selector: (row, rowIndex) => rowIndex + 1,
       sortable: true,
     },
+   
     {
-      name: "Tên tài khoản",
-      minWidth: '140px',
-      width: '160px',
-      maxWidth: '180px',
-      selector: (row) => row?.user.username,
+      name: "Họ và tên",
+      minWidth: "225px",
+      width: "250px",
+      maxWidth: "275px",
+      selector: (row) => row.user.fullname,
       sortable: true,
     },
     {
@@ -35,10 +36,9 @@ function TraineeOfline() {
       sortable: true,
     },
     {
-      name: "Họ và tên",
-      minWidth: "225px",
-      width: "250px",
-      maxWidth: "275px",
+      name: "Mã lớp học",
+      minWidth: "80px",
+      maxWidth: "100px",
       selector: (row) => row.user.fullname,
       sortable: true,
     },
@@ -47,7 +47,7 @@ function TraineeOfline() {
       minWidth: "140px",
       width: "160px",
       maxWidth: "180px",
-      selector: (row) => row.user.phoneNumber,
+      selector: (row) => row.aclass.code,
       sortable: true,
     },
     {
@@ -95,7 +95,7 @@ function TraineeOfline() {
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [listClass, setListClass] = useState([]);
-  const [trainer, setTrainer] = useState();
+  const [classes, setClass] = useState(0);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
@@ -103,11 +103,9 @@ function TraineeOfline() {
 
   const getAllClass = async () => {
     try {
-      if (trainer) {
-        const response = await adminApi.getAllTrainee(page, itemsPerPage, keywordSearch, trainer, status);
+        const response = await adminApi.getAllTrainee(page, itemsPerPage, keywordSearch, classes, status);
         setDataTable(response.data);
         setTotalRows(response.totalItems);
-      }
     } catch (responseError) {
       toast.error(responseError?.data.message, {
         duration: 2000,
@@ -118,7 +116,6 @@ function TraineeOfline() {
   const getListTrainer = async () => {
     try {
       const response = await adminApi.getAllClass(0, 50, "", 0, "");
-      setTrainer(response.data?.length > 0 ? response.data[0]?.id : {})
       setListClass(response.data);
     } catch (responseError) {
       toast.error(responseError?.data.message, {
@@ -134,7 +131,7 @@ function TraineeOfline() {
   useEffect(() => {
     getAllClass();
     // eslint-disable-next-line
-  }, [keywordSearch, status, trainer, itemsPerPage, page]);
+  }, [keywordSearch, status, classes, itemsPerPage, page]);
 
   useEffect(() => {
     getListTrainer();
@@ -159,9 +156,10 @@ function TraineeOfline() {
             <CFormSelect
               aria-label="Default select example"
               onChange={(e) => {
-                setTrainer(e.target.value);
+                setClass(e.target.value);
               }}
             >
+              <option value={0}>Tất cả</option>
               {listClass?.map((item, index) => {
                 return (
                   <option key={index} value={item?.id}>

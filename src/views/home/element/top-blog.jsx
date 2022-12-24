@@ -7,7 +7,6 @@ import { combieImg } from "../../../utils";
 
 const RecentTopsSlider = () => {
   const [listPost, setListPost] = useState([]);
-
   const getListPost = async () => {
     try {
       const response = await userApi.getListTopViewPost(8);
@@ -116,62 +115,6 @@ const RecentTopsSlider = () => {
             ))}
           </Slider>
         </div>
-        {/* <div className="container">
-          <div className="heading-bx left">
-            <h2 className="title-head">
-              A News <span>Blog</span>
-            </h2>
-          </div>
-          <Slider
-            {...settings}
-            className="recent-news-carousel slick-slider owl-btn-1"
-          >
-            {recentBlog.map((item) => (
-              <div className="slider-item" key={item?.id}>
-                <div className="recent-news">
-                  <div className="action-box">
-                    <img
-                      src={combieImg(item?.thumnailUrl)}
-                      alt=""
-                      style={{ objectFit: "cover" }}
-                      onError={({ currentTarget }) => {
-                        currentTarget.src =
-                          "http://www.onlinecoursehow.com/wp-content/uploads/2019/05/4.jpg";
-                      }}
-                    />
-                  </div>
-                  <div className="info-bx">
-                    <h5 className="post-title">
-                      <div to={`/blog/${item?.id}`}>{item.title}</div>
-                    </h5>
-                    <ul className="media-post" style={{ minHeight: "85px" }}>
-                      <li>
-                        <i className="fa fa-calendar"></i>
-                        {" " + new Date(item?.createDate).toLocaleDateString()}
-                      </li>
-                      <li>
-                        <i className="fa fa-user"></i> By{" "}
-                        {item?.author.fullname}
-                      </li>
-                      <li>
-                        <i className="fa fa-eye"></i> {item?.views}
-                      </li>
-                    </ul>
-                    <p>{item.brefInfo}</p>
-                    <div
-                      onClick={() => {
-                        window.location.href = "/blog/" + item?.id;
-                      }}
-                      className="btn btn-warning m-2"
-                    >
-                      Read More
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </Slider>
-        </div> */}
       </div>
     </>
   );

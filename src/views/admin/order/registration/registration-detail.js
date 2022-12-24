@@ -152,9 +152,9 @@ function RegistrationDetail(props) {
   }
 
   const optionStatus = [
-    { value: 1, label: "Đăng ký" },
-    { value: 2, label: "Đã xác nhận" },
-    { value: 3, label: "Đã thanh toán" }
+    { status: 1, label: "Đăng ký" },
+    { status: 2, label: "Đã xác nhận" },
+    { status: 3, label: "Đã thanh toán" }
   ];
 
   return (

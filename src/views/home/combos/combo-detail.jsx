@@ -6,7 +6,6 @@ import { Markup } from "interweave";
 import DataTable from "react-data-table-component";
 import { comboApi } from "../../../api/comboApi";
 import bannerImg from "../../../images/banner/banner2.jpg";
-import blogDefaultThum1 from "../../../images/blog/default/thum1.jpg";
 import Comments from "../../element/Comments";
 import { useDispatch, useSelector } from "react-redux";
 import { userApi } from "../../../api/userApi";
@@ -20,8 +19,6 @@ function CoursesDetails(props) {
   const [res, setRes] = useState(comboDetailsEx);
   const { id } = params;
 
-
-  
 
   useEffect(() => {
     comboApi.getComboById(id).then((res) => {
@@ -66,17 +63,13 @@ function CoursesDetails(props) {
     {
       name: "Title",
       minWidth: "200px",
-      width: "225px",
-      maxWidth: "250",
       selector: (row) => row?._package.title,
-      sortable: true,
     },
     {
       name: "Price",
       right: true,
-      width: "100px",
+      minWidth: "100px",
       selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row?.salePrice),
-      sortable: true,
     },
   ];
   return (

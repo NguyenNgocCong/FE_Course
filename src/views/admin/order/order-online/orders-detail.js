@@ -96,6 +96,7 @@ function OrderDetail(props) {
 
     useEffect(() => {
         handleCheckCoupon()
+         // eslint-disable-next-line 
     }, [price])
 
     useEffect(() => {

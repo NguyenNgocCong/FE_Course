@@ -4,10 +4,20 @@ import { useEffect } from "react";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
 
-function FeatureContent3(props) {
+const FeatureContent3 = () => {
   const [listPost, setListPost] = useState([]);
-
-
+  const [count, setCount] = useState();
+  const getListPost = async () => {
+    try {
+      const response = await userApi.getAllPost({
+        page: 0,
+        size:1000,
+      });
+      setCount(response.data.length)
+    } catch (responseError) {
+      console.log(responseError);
+    }
+  };
   const getListRecentPost = async () => {
     try {
       const response = await userApi.getListRecentPost(4);
@@ -19,6 +29,7 @@ function FeatureContent3(props) {
 
   useEffect(() => {
     getListRecentPost();
+    getListPost();
   }, []);
   return (
     <>
@@ -34,7 +45,7 @@ function FeatureContent3(props) {
             </div>
             <div className="col-lg-2">
               <h2 className="title-head text-white">
-                <span><Count counter={968} />+ Blogs</span>
+                <span>{count}+ Blogs</span>
               </h2>
             </div>
             <div className="col-lg-12">
