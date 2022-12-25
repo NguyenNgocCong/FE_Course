@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BodyCartLocal } from "./cart-local";
 import { TYPE_CHECKOUT_PACKAGE } from "../../../constants/index";
 import {
-  removeCartCombo,
-  removeCartPackage,
+  getAllCartServer
 } from "../../../redux/reducers/order";
 import { useHistory } from "react-router-dom";
 import { combieImg } from "../../../utils";
@@ -35,8 +34,7 @@ function CartContent() {
     userApi
       .removeCart({ ...params })
       .then((res) => {
-        if (params.packageId) dispatch(removeCartPackage(params.packageId));
-        if (params.comboId) dispatch(removeCartCombo(params.comboId));
+        dispatch(getAllCartServer())
         toast.success(res.message);
         userApi.getCarts().then((res) => setRes(res));
       })
@@ -108,7 +106,8 @@ function CartContent() {
                           style={{ margin: "0 auto", cursor: "pointer" }}
                           className="badge badge-danger"
                           onClick={() => handleDelete({
-                            id: x.id
+                            id: x.id,
+                            type: 2
                           })}
                         >
                           Xóa
@@ -157,6 +156,7 @@ function CartContent() {
                           className="badge badge-danger"
                           onClick={() => handleDelete({
                             id: x.id,
+                            type: 1
                           })}
                         >
                           Xóa

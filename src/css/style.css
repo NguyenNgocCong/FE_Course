@@ -1816,11 +1816,11 @@ ol.comment-list li.comment {
 
 ol.comment-list li.comment .comment-body {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     margin-left: 80px;
     position: relative;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 20px;
+    padding-bottom: 5px;
 }
 
 ol.comment-list li.comment .comment-author {
