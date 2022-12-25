@@ -20,7 +20,7 @@ import Comments from "../../element/Comments";
 function LecturerDetails(prop) {
   const [expert, setexpert] = useState({});
   const { isLogin } = useSelector((state) => state.auth);
-  const [commets, setComments] = useState([]);
+  const [commets, setComments] = useState({ data: [] });
 
   const { id } = useParams();
 
@@ -30,9 +30,8 @@ function LecturerDetails(prop) {
   };
 
   useEffect(() => {
-     console.log(id);
     getexpertById();
-    userApi.getCommentExpert({expertId :id}).then((x) => setComments(x.data));
+    userApi.getCommentExpert({ expertId: id }).then((x) => setComments(x));
     // eslint-disable-next-line
   }, []);
 
@@ -42,8 +41,7 @@ function LecturerDetails(prop) {
         .createComment({ ...data, expertId: id })
         .then((res) => {
           toast.success(res.message);
-
-          userApi.getCommentExpert({expertId :id}).then((x) => setComments(x));
+          userApi.getCommentExpert({ expertId: id }).then((x) => setComments(x));
         })
         .catch((e) => toast.error(e?.data?.message));
     }
@@ -119,7 +117,7 @@ function LecturerDetails(prop) {
                   </div>
                   <Comments
                     hanleComment={handleComment}
-                    comments={commets}
+                    comments={commets.data}
                   />
                 </div>
               </div>

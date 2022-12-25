@@ -77,7 +77,7 @@ const Lecturers = () => {
                 </div>
                 <div className="col-lg-9 col-xl-9 col-md-7">
                   <CRow className="g-0">
-                    {listPost.map((item) => (
+                    {listPost.length > 0 ? listPost.map((item) => (
                       <CRow key={item?.id}>
                         <CCol md={3}>
                           <CCardImage
@@ -106,7 +106,7 @@ const Lecturers = () => {
                         </CCol>
                         <hr />
                       </CRow>
-                    ))}
+                    )) : <h6>Không có giảng viên nào</h6>}
                   </CRow>
                   {listPost.length !== 0 ? (
                     <>

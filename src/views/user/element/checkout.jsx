@@ -10,7 +10,7 @@ import {
   TYPE_CHECKOUT_PACKAGE,
 } from "../../../constants/index";
 import { toast } from "react-toastify";
-import { resetState } from "../../../redux/reducers/order";
+import { resetStateCart } from "../../../redux/reducers/order";
 import { CForm, CFormInput } from "@coreui/react";
 function CheckOut(prop) {
   const { data } = useSelector((state) => state.order);
@@ -62,10 +62,10 @@ function CheckOut(prop) {
               .payCarts(codeCoupon)
               .then((res) => {
                 toast.success("checkout success");
-                dispatch(resetState());
                 setTimeout(() => {
                   history.replace("/");
                 }, 1000);
+                dispatch(resetStateCart());
               })
               .catch((e) => toast.error(e?.data?.message));
           } else {
@@ -78,10 +78,10 @@ function CheckOut(prop) {
               })
               .then((res) => {
                 toast.success(res.message);
-                dispatch(resetState());
                 setTimeout(() => {
                   history.replace("/");
                 }, 1000);
+                dispatch(resetStateCart());
               })
               .catch((e) => toast.error(e?.data?.message));
           }
@@ -94,7 +94,7 @@ function CheckOut(prop) {
             })
             .then((res) => {
               toast.success(res.message);
-              dispatch(resetState());
+              dispatch(resetStateCart());
               setTimeout(() => {
                 history.replace("/");
               }, 1000);
@@ -201,9 +201,9 @@ function CheckOut(prop) {
               <div className="border_checkout" style={{ marginTop: "60px" }}>
                 <h6>Sản phẩm</h6>
                 {location.state.type === TYPE_CHECKOUT_PACKAGE && (
-                  [...packages].map((item) => {
+                  [...packages].map((item, index) => {
                     return (
-                      <div className="row product_checkout">
+                      <div className="row product_checkout" key={index}>
                         <div className="col-md-9" style={{ fontWeight: "bold" }}>
                           {item.title}
                         </div>

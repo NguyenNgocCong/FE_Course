@@ -11,7 +11,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { combieImg } from "../../../../utils";
 import { getUserInfoReduce, resetState } from "../../../../redux/reducers/auth";
 import {
-  getAllCartServer,
+  getAllCartServer, resetCart,
 } from "../../../../redux/reducers/order";
 
 function Header() {
@@ -102,6 +102,7 @@ function Header() {
     Cookies.remove("user");
     setId(undefined);
     dispatch(resetState());
+    dispatch(resetCart());
   };
 
   return (
@@ -189,7 +190,7 @@ function Header() {
                             }
                           >
                             {role === "ROLE_ADMIN" || role === "ROLE_SUPPORTER" || role === "ROLE_MARKETER" || role === "ROLE_MANAGER" ? (
-                              <Link to="/admin/class">
+                              <Link to="/admin/dashboard">
                                 <li className="text-left">Dashboard</li>
                               </Link>
                             ) : (
