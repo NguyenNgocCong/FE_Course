@@ -4,14 +4,13 @@ import { userApi } from "../../../../api/userApi";
 // Images
 import logo from "../../../../images/logowhite.png";
 import {
-  CAlert,
   CButton,
   CForm,
   CFormInput,
   CFormSelect,
   CFormTextarea,
 } from "@coreui/react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 function Footer(props) {
   const [listCategory, setListCategory] = useState([]);
@@ -20,9 +19,7 @@ function Footer(props) {
   const [phone, setPhone] = useState();
   const [categoryId, setCategoryId] = useState();
   const [comment, setComment] = useState();
-  const [alertMessage, setAlertMessage] = useState("Please input field");
-  const [alertVisible, setAlertVisible] = useState(false);
-  const [alertType, setAlertType] = useState("primary");
+  const [validated, setValidated] = useState(false);
 
   const getListCategory = async () => {
     try {
@@ -35,24 +32,43 @@ function Footer(props) {
     }
   };
 
-  const handleSendContact = async () => {
-    try {
-      const params = {
-        fullName: fullname,
-        email: email,
-        categoryId: categoryId,
-        phoneNumber: phone,
-        message: comment,
-      };
+  const handleSendContact = async (event) => {
+    const form = event.currentTarget
+    setValidated(true)
+    event.preventDefault()
+    event.stopPropagation()
+    if (form.checkValidity()) {
+      const regEmail = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+      const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
+      if (!regEmail.test(email)) {
+        toast.error("Vui lòng nhập đúng định dạng email!", {
+          duration: 5000,
+        });
+        return;
+      } else if (!regPhoneNumber.test(phone)) {
+        toast.error("Vui lòng nhập đúng định dạng số điện thoại!", {
+          duration: 5000,
+        });
+        return;
+      }
+      try {
+        const params = {
+          fullName: fullname,
+          email: email,
+          categoryId: categoryId,
+          phoneNumber: phone,
+          message: comment,
+        };
 
-      const response = await userApi.sendContact(params);
-      setAlertMessage(response?.message);
-      setAlertVisible(true);
-      setAlertType("success");
-    } catch (responseError) {
-      setAlertMessage(responseError?.data.message);
-      setAlertVisible(true);
-      setAlertType("danger");
+        const response = await userApi.sendContact(params);
+        toast.success(response?.message, {
+          duration: 5000,
+        });
+      } catch (responseError) {
+        toast.error(responseError?.data.message, {
+          duration: 5000,
+        });
+      }
     }
   };
 
@@ -63,6 +79,7 @@ function Footer(props) {
   return (
     <>
       <footer>
+      <Toaster position="top-center" reverseOrder={false} />
         <div className="footer-top">
           <div className="pt-exebar">
             <div className="container">
@@ -116,28 +133,30 @@ function Footer(props) {
                 ></iframe>
               </div>
               <div className="col-12 col-lg-6 col-md-7 col-sm-12">
-                <CForm>
+                <CForm
+                  onSubmit={handleSendContact}
+                  noValidate
+                  validated={validated}>
                   <h5 className="footer-title">Contact Us</h5>
-                  <CAlert color={alertType} visible={alertVisible}>
-                    {alertMessage}
-                  </CAlert>
                   <div className="row pb-3">
                     <div className="w-50">
                       <CFormInput
                         type="text"
                         id="floatingInput"
-                        placeholder="name@example.com"
-                        floatingLabel="Fullname"
+                        floatingLabel="Họ và tên"
                         onChange={(e) => setFullname(e.target.value)}
+                        required
+                        feedbackInvalid="Vui lòng nhập tên!"
                       />
                     </div>
                     <div className="w-50">
                       <CFormInput
-                        type="text"
+                        type="number"
                         id="floatingInput"
-                        floatingLabel="Phone Number"
+                        floatingLabel="Số điện thoại"
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="name@example.com"
+                        required
+                        feedbackInvalid="Vui lòng nhập số điện thoại!"
                       />
                     </div>
                   </div>
@@ -145,14 +164,15 @@ function Footer(props) {
                     <div className="w-50">
                       <CFormSelect
                         aria-label="Default select example"
-                        style={{ height: "55px" ,color: "#b0b0b0",fontWeight:"600"}}
-                        placeholder="Category"
+                        style={{ height: "55px", color: "#b0b0b0", fontWeight: "600" }}
+                        required
+                        feedbackInvalid="Vui lòng chọn phân loại!"
                         onChange={(e) => {
                           //   dispatch(setValueFilter(e.target.value));
                           setCategoryId(e.target.value);
                         }}
                       >
-                        <option value="">Select Category</option>
+                        <option value="">Phân loại</option>
                         {listCategory.map((item, index) => {
                           return (
                             <option
@@ -169,22 +189,24 @@ function Footer(props) {
                       <CFormInput
                         type="email"
                         id="floatingInput"
-                        placeholder="name@example.com"
                         onChange={(e) => setEmail(e.target.value)}
                         floatingLabel="Email"
+                        required
+                        feedbackInvalid="Vui lòng nhập email!"
                       />
                     </div>
                   </div>
                   <CFormTextarea
-                    placeholder="Leave a comment here"
                     id="floatingTextarea2"
-                    floatingLabel="Message"
+                    floatingLabel="Nội dung"
                     onChange={(e) => setComment(e.target.value)}
+                    required
+                    feedbackInvalid="Vui lòng nhập nội dung!"
                   ></CFormTextarea>
                   <div className="p-2"></div>
                   <CButton
                     style={{ float: "right" }}
-                    onClick={() => handleSendContact()}
+                    type="submit"
                     className="mb-3"
                   >
                     Send

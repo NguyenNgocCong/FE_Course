@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userApi } from "../../api/userApi";
-import { CartSotre } from "../../services/localStore";
+import { CartStore } from "../../services/localStore";
 
 const initState = {
   isLoading: false,
@@ -22,20 +22,21 @@ const orderSlice = createSlice({
     },
     addToCart: (state, action) => {
       state.data.packages.unshift(action.payload);
-      CartSotre.setCartLocal(state.data);
+      CartStore.setCartLocal(state.data);
     },
     addComboToCart: (state, action) => {
       state.data.combos.unshift(action.payload);
-      CartSotre.setCartLocal(state.data);
+      CartStore.setCartLocal(state.data);
     },
     removeCartPackage: (state, action) => {
+      console.log(state.data.packages)
       for (var i in state.data.packages) {
         if(state.data.packages[i].id === action.payload) {
           state.data.packages.splice(i, 1);
           break;
         }
       }
-      CartSotre.setCartLocal(state.data);
+      CartStore.setCartLocal(state.data);
     },
     removeCartCombo: (state, action) => {
       for (var i in state.data.combos) {
@@ -44,13 +45,14 @@ const orderSlice = createSlice({
           break;
         }
       }
-      CartSotre.setCartLocal(state.data);
+      CartStore.setCartLocal(state.data);
     },
 
     requestFail: (state, action) => {
       state.error = action.payload;
     },
-    resetState: () => {
+    resetStateCart: () => {
+      console.log(initState)
       return initState;
     },
   },
@@ -72,7 +74,7 @@ export const getAllCartLocal = createAsyncThunk(
   "getCartLocal",
   async (params = null, { dispatch }) => {
     try {
-      const data = CartSotre.getCartLocal();
+      const data = CartStore.getCartLocal();
       dispatch(requestSuccess(data));
     } catch (error) {
       dispatch(requestFail(error.message));
@@ -110,7 +112,21 @@ export const getAllCartServer = createAsyncThunk(
       let combos = data.filter((x) => x._combo).map((x) => x._combo);
       let packages = data.filter((x) => x._package).map((x) => x._package);
 
-      CartSotre.setCartLocal({ combos, packages });
+      CartStore.setCartLocal({ combos, packages });
+      dispatch(getAllCartLocal());
+    } catch (error) {
+      dispatch(getAllCartLocal());
+    }
+  }
+);
+
+export const resetCart = createAsyncThunk(
+  "addComboLocal",
+  async (data, { dispatch, getState }) => {
+    try {
+      let combos = [];
+      let packages = [];
+      CartStore.setCartLocal({ combos, packages });
       dispatch(getAllCartLocal());
     } catch (error) {
       dispatch(getAllCartLocal());
@@ -122,7 +138,7 @@ export const {
   sendRequest,
   requestSuccess,
   requestFail,
-  resetState,
+  resetStateCart,
   addToCart,
   removeCartPackage,
   addComboToCart,

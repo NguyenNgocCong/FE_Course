@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Count from "../../element/counter-sensor";
 import { useEffect } from "react";
 import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";

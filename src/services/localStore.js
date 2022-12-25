@@ -1,5 +1,5 @@
 const KEY_CART = "LOCAL_KEY_CART_13123122892";
-export class CartSotre {
+export class CartStore {
   static setCartLocal({ packages, combos }) {
     localStorage.setItem(KEY_CART, JSON.stringify({ packages, combos }));
   }
