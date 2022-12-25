@@ -94,10 +94,12 @@ function Class() {
                             <h5>{item.packages.title}</h5>
                             <div>
                               <i className="fa fa-calendar"></i>{" "}
-                              {new Date(item?.dateStart).toLocaleDateString()}
+                              {item?.schedule}&emsp;
+                              <i className="fa fa-clock-o"></i>{" "}
+                              {item?.time}
                             </div>
                             <div>
-                              <i className="fa fa-clock-o"></i>{" "}
+                              <i className="fa fa-calculator"></i>{" "}
                               {new Date(item?.dateFrom).toLocaleDateString()} -{" "}
                               {new Date(item?.dateTo).toLocaleDateString()}
                             </div>

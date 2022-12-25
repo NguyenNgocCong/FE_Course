@@ -26,7 +26,7 @@ function ClassUserDetails(props) {
     classApi.getClassById(id).then((res) => {
       setRes(res);
     });
-    userApi.getCommentClass({classId : id}).then((x) => setComments(x));
+    userApi.getCommentClass({ classId: id }).then((x) => setComments(x));
   }, [id]);
 
   const handleComment = (data) => {
@@ -36,7 +36,7 @@ function ClassUserDetails(props) {
         .then((res) => {
           toast.success(res.message);
 
-          userApi.getCommentClass({classId : id}).then((x) => setComments(x));
+          userApi.getCommentClass({ classId: id }).then((x) => setComments(x));
         })
         .catch((e) => toast.error(e?.data?.message));
     }
@@ -87,10 +87,12 @@ function ClassUserDetails(props) {
                     </div>
                     <div className="text-center">
                       <i className="fa fa-calendar"></i>{" "}
-                      {new Date(res?.dateStart).toLocaleDateString()}
-                    </div>
-                    <div className="course-pricetext-center">
+                      {res?.schedule}&emsp;
                       <i className="fa fa-clock-o"></i>{" "}
+                      {res?.time}
+                    </div>
+                    <div className="text-center">
+                      <i className="fa fa-calculator"></i>{" "}
                       {new Date(res?.dateFrom).toLocaleDateString()} -{" "}
                       {new Date(res?.dateTo).toLocaleDateString()}
                     </div>
@@ -103,7 +105,7 @@ function ClassUserDetails(props) {
                     <div className="course-buy-now text-center">
                       <Link to="#" className="btn radius-xl btn-primary">
                         {" "}
-                        Advise{" "}
+                        Liên hệ{" "}
                       </Link>
                     </div>
                     <div className="teacher-bx">
