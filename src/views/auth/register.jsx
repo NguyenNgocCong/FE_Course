@@ -28,8 +28,8 @@ function Register(props) {
     event.stopPropagation()
     if (form.checkValidity()) {
       const regUsername = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-      const regEmail = /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?/;
-      const regPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_])[A-Za-z\\d@$!%*?&_]{8,20}$/;
+      const regEmail = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+      const regPassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
       const regPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
 
       if (!regUsername.test(username)) {
@@ -43,17 +43,20 @@ function Register(props) {
         setPopupAlertType("danger");
         return;
       } else if (!regPhoneNumber.test(phone)) {
-        setAlertMessage("vui lòng nhập đúng định dạng số điện thoại");
+        setAlertMessage("Vui lòng nhập đúng định dạng số điện thoại");
         setAlertVisible(true);
         setPopupAlertType("danger");
-      } else if (password !== rePassword) {
+        return;
+      }  else if (!regPassword.test(password)) {
+        setAlertMessage("Mật khẩu phải có ít nhất 8 ký tự trong đó có ít nhất 1 ký tự đặc biệt 1 chữ hoa 1 chữ thường và 1 số!");
+        setAlertVisible(true);
+        setPopupAlertType("danger");
+        return;
+      }else if (password !== rePassword) {
         setAlertMessage("Mật khẩu nhập lại không trùng khớp");
         setAlertVisible(true);
         setPopupAlertType("danger");
-      } else if (!regPassword.test(password)) {
-        setAlertMessage("Vui lòng nhập mật khẩu");
-        setAlertVisible(true);
-        setPopupAlertType("danger");
+        return;
       }
 
       try {

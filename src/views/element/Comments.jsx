@@ -1,9 +1,11 @@
+import moment from "moment";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import testiPic1 from "../../images/testimonials/pic1.jpg";
 import { combieImg } from "../../utils/index";
 
 const Comments = ({ hanleComment, comments }) => {
+  const { isLogin } = useSelector((state) => state.auth);
   const [text, setText] = useState("");
   const [vote, setVote] = useState(5);
   return (
@@ -24,18 +26,30 @@ const Comments = ({ hanleComment, comments }) => {
                       }}
                       alt=""
                     />
-                    <cite className="fn">{x.user?.fullname}</cite>
+                    <cite className="fn">{x.user?.fullname} </cite>
                     <span className="comment-meta">
-                      <Link to="#">December 02, 2019 at 10:45 am</Link>
+                      &nbsp;lúc {moment(x.created_date).format('DD/mm/yyyy hh:MM:ss A')}
+                    </span>
+                    <span className="comment-meta">
+                      <ul className="cours-star">
+                        {[1, 2, 3, 4, 5].map((star) => {
+                          return (
+                            <li
+                              className={star <= x.vote && "active"}
+                            >
+                              <i className="fa fa-star fs-6"></i>
+                            </li>
+                          );
+                        })}
+                      </ul>
                     </span>
                   </div>
-
                   <p>{x.body}</p>
                 </div>
               </li>
             ))}
           </ol>
-          <div className="comment-respond" id="respond">
+          {isLogin ? <div className="comment-respond" id="respond">
             <div className="d-flex justify-content-between">
               <h4 className="comment-reply-title" id="reply-title">
                 Viết bình luận
@@ -81,11 +95,11 @@ const Comments = ({ hanleComment, comments }) => {
                   value="Gửi phản hổi"
                   className="submit"
                   name="submit"
-                  style={{color:"black"}}
+                  style={{ color: "black" }}
                 />
               </p>
             </form>
-          </div>
+          </div> : <></>}
         </div>
       </div>
     </div>

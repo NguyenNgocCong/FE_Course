@@ -9,7 +9,7 @@ import Paging from "../../Paging/Paging";
 import { classApi } from "../../../api/classApi";
 import { combieImg } from "../../../utils/index";
 import ProductAside from "../element/course-aside";
-import {ToastContainer } from "react-bootstrap";
+import { ToastContainer } from "react-bootstrap";
 import { TYPE_CHECKOUT_CLASS } from "../../../constants";
 function Class() {
   const [res, setRes] = useState(classEx);
@@ -63,7 +63,7 @@ function Class() {
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
                   <div className="row">
-                    {data.map((item, index) => (
+                    {data.length > 0 ? data.map((item, index) => (
                       <div
                         className="col-md-6 col-lg-4 col-sm-6 m-b30"
                         key={index}
@@ -141,7 +141,7 @@ function Class() {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )) : <h6>Không có lớp học nào</h6>}
                     <div className="col-lg-12 m-b20">
                       <div className="pagination-bx rounded-sm gray clearfix">
                         {/* <ul className="pagination">

@@ -58,6 +58,10 @@ function Products() {
     // eslint-disable-next-line
   }, [pageIndex, loaction.state]);
 
+  useEffect(() => {
+    setPageIndex(1)
+  }, [loaction.state]);
+
   return (
     <>
       <Header />
@@ -93,7 +97,7 @@ function Products() {
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
                   <div className="row">
-                    {data.map((item) => (
+                    {data?.length > 0 ? data.map((item) => (
                       <div
                         className="col-md-6 col-lg-4 col-sm-6 m-b30"
                         key={item.id}
@@ -165,7 +169,7 @@ function Products() {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )) : <h6>Không có khóa học nào</h6>}
                     <div className="col-lg-12 m-b20">
                       <div className="pagination-bx rounded-sm gray clearfix">
                         {/* <ul className="pagination">

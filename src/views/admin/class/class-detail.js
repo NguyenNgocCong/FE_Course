@@ -50,6 +50,7 @@ function ClassDetail(props) {
         try {
             const response = await adminApi.getClassDetail(id);
             setDetailClass(response);
+            console.log(detailClass)
             setDateFrom(response?.dateFrom);
             setDateTo(response?.dateTo);
             setStatus(response?.status);
@@ -220,14 +221,34 @@ function ClassDetail(props) {
                                                 >
                                                     <option value="">Chọn khóa học</option>
                                                     {listPackages?.map((item, index) => {
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={item?.id}
-                                                            >
-                                                                {item?.title}
-                                                            </option>
-                                                        );
+                                                        if (type === 1) {
+                                                            return detailClass?.packages?.id ===
+                                                                item?.id ? (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.id}
+                                                                    selected
+                                                                >
+                                                                    {item?.title}
+                                                                </option>
+                                                            ) : (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.id}
+                                                                >
+                                                                    {item?.title}
+                                                                </option>
+                                                            );
+                                                        } else {
+                                                            return (
+                                                                <option
+                                                                    key={index}
+                                                                    value={item?.id}
+                                                                >
+                                                                    {item?.title}
+                                                                </option>
+                                                            );
+                                                        }
                                                     })}
                                                 </CFormSelect>
                                             </div>
@@ -253,7 +274,7 @@ function ClassDetail(props) {
                                                             ).toLocaleDateString("en-CA")
                                                     }
                                                     onChange={(e) =>
-                                                        setDateFrom(
+                                                        setDateStart(
                                                             new Date(e.target.value)
                                                         )
                                                     }
@@ -427,7 +448,7 @@ function ClassDetail(props) {
                                                 </CFormSelect>
                                             </div>
                                         </CCol>
-                                        <CCol sm={3}>
+                                        <CCol sm={6}>
                                             <div className="mb-3">
                                                 <CFormLabel htmlFor="exampleFormControlInput1">
                                                     Phương thức học (
@@ -470,37 +491,6 @@ function ClassDetail(props) {
                                                         }
                                                     })}
                                                 </CFormSelect>
-                                            </div>
-                                        </CCol>
-                                        <CCol sm={3}>
-                                            <div className="mb-3">
-                                                <CFormLabel htmlFor="exampleFormControlInput1">
-                                                    Ngày khai giảng(
-                                                    <span style={{ color: "red" }}>*</span>)
-                                                </CFormLabel>
-                                                <CFormInput
-                                                    type="date"
-                                                    id="exampleFormControlInput1"
-                                                    disabled={isNotAdmin}
-                                                    placeholder=""
-                                                    value={
-                                                        dateStart
-                                                            ? new Date(
-                                                                dateStart
-                                                            ).toLocaleDateString("en-CA")
-                                                            : new Date(
-                                                                ""
-                                                            ).toLocaleDateString("en-CA")
-                                                    }
-                                                    onChange={(e) =>
-                                                        setDateStart(
-                                                            new Date(e.target.value)
-                                                        )
-                                                    }
-                                                    feedbackInvalid="Không được để trống!"
-                                                    required
-                                                    tooltipFeedback
-                                                />
                                             </div>
                                         </CCol>
                                         <CCol sm={6}>

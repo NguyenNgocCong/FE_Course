@@ -69,7 +69,7 @@ const BlogClassicSidebar = () => {
                 </div>
                 <div className="col-lg-9 col-xl-9 col-md-7">
                   <CRow className="g-0">
-                    {listPost.map((item) => (
+                    {listPost.length > 0 ? listPost.map((item) => (
                       <CRow key={item?.id}>
                         <CCol md={3}>
                           <CCardImage
@@ -116,7 +116,7 @@ const BlogClassicSidebar = () => {
                         </CCol>
                         <hr />
                       </CRow>
-                    ))}
+                    )) : <h6>Không có Blog nào</h6>}
                   </CRow>
                   {listPost.length !== 0 ? (
                     <>
@@ -131,7 +131,7 @@ const BlogClassicSidebar = () => {
                       </div>
                     </>
                   ) : (
-                    <h5 style={{ marginLeft: "50px" }}>Không tồn tại Blog nào</h5>
+                    <></>
                   )}
                 </div>
               </div>

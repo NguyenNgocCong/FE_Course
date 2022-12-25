@@ -82,7 +82,7 @@ function Combos() {
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
                   <div className="row">
-                    {data.map((item) => (
+                    {data.length > 0 ? data.map((item) => (
                       <div
                         className="col-md-6 col-lg-4 col-sm-6 m-b30"
                         key={item.id}
@@ -151,7 +151,7 @@ function Combos() {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )) : <h6>Không có combo nào</h6>}
                     <div className="col-lg-12 m-b20">
                       <div className="pagination-bx rounded-sm gray clearfix">
                         {/* <ul className="pagination">
