@@ -48,6 +48,10 @@ export const adminApi = {
     const url = `/api/admin/web-contact?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
     return axiosApi.get(url);
   },
+  getContactById: (id) => {
+    const url = `/api/admin/web-contact/${id}`;
+    return axiosApi.get(url);
+  },
   updateStatusContact: (params, id) => {
     const url = `/api/admin/web-contact/update-status?id=${id}`;
     return axiosApi.put(url, params);

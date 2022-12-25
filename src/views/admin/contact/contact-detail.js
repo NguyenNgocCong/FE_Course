@@ -22,13 +22,8 @@ import {
 } from "../component";
 
 function ContactDetail(props) {
-    const [listCategory, setListCategory] = useState([]);
     const [contact, setContact] = useState();
-    const [fullname, setFullname] = useState();
-    const [email, setEmail] = useState();
-    const [categoryId, setCategoryId] = useState();
-    const [phone, setPhone] = useState();
-    const [comment, setComment] = useState();
+    const [note, setNote] = useState();
     const history = useHistory();
     const location = useLocation();
     const id = location.pathname.substring(
@@ -37,30 +32,15 @@ function ContactDetail(props) {
     );
 
     const getContactById = async () => {
-        const response = await adminApi.getAllContact(0,30,"",0,"");
-        const dataContac = response.data?.filter(item => item?.id === id-0);
-        setContact(dataContac);
+        const response = await adminApi.getContactById(id);
+        setContact(response);
     };
 
-    const getListCategory = async () => {
-        try {
-            const response = await userApi.getListCategoryWebContact();
-            setListCategory(response);
-        } catch (responseError) {
-            toast.error(responseError?.data.message, {
-                duration: 2000,
-            });
-        }
-    };
 
     const handleUpdateContact = async () => {
         try {
             const params = {
-                fullName: fullname,
-                email: email,
-                phoneNumber: phone,
-                message: comment,
-                categoryId: categoryId,
+                note: note,
             };
             const response = await adminApi.updateContact(params, id);
             toast.success(response?.message, {
@@ -78,10 +58,6 @@ function ContactDetail(props) {
         getContactById();
         // eslint-disable-next-line
     }, [id]);
-    useEffect(() => {
-        getListCategory();
-        // eslint-disable-next-line
-    }, []);
 
     return (
         <div>
@@ -105,11 +81,8 @@ function ContactDetail(props) {
                                             <CFormInput
                                                 type="email"
                                                 id="exampleFormControlInput1"
-                                                defaultValue={contact?.map((item)=> {return item?.email})}
+                                                defaultValue={contact?.email}
                                                 readOnly
-                                                onChange={(e) =>
-                                                    setEmail(e.target.value)
-                                                }
                                             />
                                         </div>
                                     </CCol>
@@ -122,11 +95,8 @@ function ContactDetail(props) {
                                                 type="text"
                                                 id="exampleFormControlInput1"
                                                 placeholder=""
-                                                defaultValue={contact?.map((item)=> {return item?.fullName})}
+                                                defaultValue={contact?.fullName}
                                                 readOnly
-                                                onChange={(e) =>
-                                                    setFullname(e.target.value)
-                                                }
                                             />
                                         </div>
                                     </CCol>
@@ -135,32 +105,13 @@ function ContactDetail(props) {
                                             <CFormLabel htmlFor="exampleFormControlInput1">
                                                 Phân loại
                                             </CFormLabel>
-                                            <CFormSelect
-                                                id="autoSizingSelect"
-                                                onChange={(e) => setCategoryId(e.target.value)}
-                                            >
-                                                <option value="">Select category</option>
-                                                {listCategory.map((item, index) => {
-                                                    return contact?.map((item)=> {return item?.setting_id}) ===
-                                                        item?.setting_id ? (
-                                                        <option
-                                                            key={index}
-                                                            value={item?.setting_id}
-                                                            selected
-                                                        >
-                                                            {item?.setting_title}
-                                                        </option>
-                                                    ) : (
-                                                        <option
-                                                            key={index}
-                                                            value={item?.setting_id}
-                                                        >
-                                                            {item?.setting_title}
-                                                        </option>
-                                                    );
-
-                                                })}
-                                            </CFormSelect>
+                                            <CFormInput
+                                                type="text"
+                                                id="exampleFormControlInput1"
+                                                placeholder=""
+                                                defaultValue={contact?.category?.setting_title}
+                                                readOnly
+                                            />
                                         </div>
                                     </CCol>
                                     <CCol sm={6}>
@@ -173,10 +124,7 @@ function ContactDetail(props) {
                                                 id="exampleFormControlInput1"
                                                 placeholder=""
                                                 readOnly
-                                                defaultValue={contact?.map((item)=> {return item?.phoneNumber})}
-                                                onChange={(e) =>
-                                                    setPhone(e.target.value)
-                                                }
+                                                defaultValue={contact?.phoneNumber}
                                             />
                                         </div>
                                     </CCol>
@@ -187,12 +135,21 @@ function ContactDetail(props) {
                                     </CFormLabel>
                                     <CFormTextarea
                                         id="exampleFormControlTextarea1"
-                                        defaultValue={
-                                            contact?.map((item)=> {return item?.message})
-                                        }
+                                        defaultValue={contact?.message}
                                         readOnly
+                                        rows="3"
+                                    >
+                                    </CFormTextarea>
+                                </div>
+                                <div className="mb-3">
+                                    <CFormLabel htmlFor="exampleFormControlInput1">
+                                        Ghi chú
+                                    </CFormLabel>
+                                    <CFormTextarea
+                                        id="exampleFormControlTextarea1"
+                                        defaultValue={contact?.note}
                                         onChange={(e) =>
-                                            setComment(e.target.value)
+                                            setNote(e.target.value)
                                         }
                                         rows="3"
                                     >

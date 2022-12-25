@@ -26,7 +26,6 @@ function ClassDetail(props) {
     const [listPackages, setListPackages] = useState([]);
     const [dateFrom, setDateFrom] = useState();
     const [dateTo, setDateTo] = useState();
-    const [dateStart, setDateStart] = useState();
     const [trainer, setTrainer] = useState(0);
     const [branch, setBranch] = useState(0);
     const [isOnline, setIsOnline] = useState(true);
@@ -50,10 +49,10 @@ function ClassDetail(props) {
         try {
             const response = await adminApi.getClassDetail(id);
             setDetailClass(response);
-            console.log(detailClass)
             setDateFrom(response?.dateFrom);
             setDateTo(response?.dateTo);
             setStatus(response?.status);
+            setIsOnline(response?.branch ? false : true);
         } catch (responseError) {
             toast.error(responseError?.data.message, {
                 duration: 2000,
@@ -122,7 +121,6 @@ function ClassDetail(props) {
                     online: isOnline,
                     supporterId: supporter,
                     branch: branch,
-                    startDate: dateStart,
                     schedule: schedule,
                     time: time
                 };
@@ -213,7 +211,6 @@ function ClassDetail(props) {
                                                 </CFormLabel>
                                                 <CFormSelect
                                                     id="autoSizingSelect"
-                                                    value={packageId ? packageId : ""}
                                                     onChange={(e) => setPackageId(e.target.value)}
                                                     feedbackInvalid="Không được để trống!"
                                                     required
@@ -221,12 +218,13 @@ function ClassDetail(props) {
                                                 >
                                                     <option value="">Chọn khóa học</option>
                                                     {listPackages?.map((item, index) => {
-                                                        if (type === 1) {
-                                                            return detailClass?.packages?.id ===
-                                                                item?.id ? (
+                                                       if (type === 1) {
+                                                            return detailClass?.packages.id === item?.id ? (
                                                                 <option
                                                                     key={index}
-                                                                    value={item?.id}
+                                                                    value={
+                                                                        item?.id
+                                                                    }
                                                                     selected
                                                                 >
                                                                     {item?.title}
@@ -234,7 +232,9 @@ function ClassDetail(props) {
                                                             ) : (
                                                                 <option
                                                                     key={index}
-                                                                    value={item?.id}
+                                                                    value={
+                                                                        item?.id
+                                                                    }
                                                                 >
                                                                     {item?.title}
                                                                 </option>
@@ -243,7 +243,9 @@ function ClassDetail(props) {
                                                             return (
                                                                 <option
                                                                     key={index}
-                                                                    value={item?.id}
+                                                                    value={
+                                                                        item?.id
+                                                                    }
                                                                 >
                                                                     {item?.title}
                                                                 </option>
@@ -274,7 +276,7 @@ function ClassDetail(props) {
                                                             ).toLocaleDateString("en-CA")
                                                     }
                                                     onChange={(e) =>
-                                                        setDateStart(
+                                                        setDateFrom(
                                                             new Date(e.target.value)
                                                         )
                                                     }
@@ -462,8 +464,7 @@ function ClassDetail(props) {
                                                 >
                                                     {optionIsOnline?.map((item, index) => {
                                                         if (type === 1) {
-                                                            return detailClass?.isOnline ===
-                                                                item?.isOnline ? (
+                                                            return isOnline === item?.status ? (
                                                                 <option
                                                                     key={index}
                                                                     value={item?.status}
