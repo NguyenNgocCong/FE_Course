@@ -25,24 +25,21 @@ const Experts = () => {
         {
             name: "Họ và tên",
             minWidth: '150px',
-            width: '200px',
-            maxWidth: '250px',
+            maxWidth: '180px',
             selector: (row) => row?.user?.fullname,
             sortable: true,
         },
         {
             name: "Email",
             minWidth: '175px',
-            width: '200px',
             maxWidth: '225px',
             selector: (row) => row?.user?.email,
             sortable: true,
         },
         {
             name: "Công ty",
-            minWidth: '250px',
-            width: '250px',
-            maxWidth: '275px',
+            minWidth: '175px',
+            maxWidth: '225px',
             selector: (row) => row?.company,
             sortable: true,
         },
@@ -50,7 +47,6 @@ const Experts = () => {
             name: "Công việc",
             left: true,
             minWidth: '150px',
-            width: '200px',
             maxWidth: '250px',
             selector: (row) => row?.jobTitle,
             sortable: true,
@@ -71,6 +67,7 @@ const Experts = () => {
         {
             name: "Hành động",
             center: true,
+            width: '250px',
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
@@ -83,7 +80,7 @@ const Experts = () => {
                         style={{ backgroundColor: "#7367f0", height: "30px", width: "120px", border: "none", float: 'right' }}
                         onClick={() => submit(row)}
                     >
-                        {row?.status ? "Không công khai" : "Công khai"}
+                        {row?.status ? "Tắt công khai" : "Bật công khai"}
                     </button>
                 </div>
 

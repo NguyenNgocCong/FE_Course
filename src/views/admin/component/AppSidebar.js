@@ -31,23 +31,23 @@ const AppSidebar = () => {
             if (role === "ROLE_MANAGER") {
                 const newList = navigation.filter(element => element.to === "Manager" || element.name === "Dashboard")
                 setListNavigation(newList);
-                navigation.forEach((element) => {
-                    if (element.to === "Supporter" || element.to === "Marketer") {
-                        const item = element.items?.filter(ele => ele.to === "/admin/coupon"  || ele.to === "/admin/posts" 
-                        )
-                        element.items = item;
-                        newList.push(element);  }
-                });
+                // navigation.forEach((element) => {
+                //     if (element.to === "Supporter" || element.to === "Marketer") {
+                //         const item = element.items?.filter(ele => ele.to === "/admin/coupon"  || ele.to === "/admin/posts" 
+                //         )
+                //         element.items = item;
+                //         newList.push(element);  }
+                // });
             } else if (role === "ROLE_MARKETER") {
                 const newList = navigation.filter(element => element.to === "Marketer" || element.name === "Dashboard")
                 setListNavigation(newList);
             } else if (role === "ROLE_SUPPORTER") {
                 const newList = [];
                 navigation.forEach((element) => {
-                    if (element.to === "Supporter" || element.to === "Marketer") {
+                    if (element.to === "Supporter" || element.to === "Marketer" || element.name === "Dashboard") {
                         newList.push(element);
                     }
-                    else if (element.to === "Manager" || element.name === "Dashboard") {
+                    else if (element.to === "Manager") {
                         const item = element.items?.filter(ele => ele.to === "/admin/class" || 
                         ele.to === "/admin/trainee"  || ele.to === "/admin/feedback" 
                         )
