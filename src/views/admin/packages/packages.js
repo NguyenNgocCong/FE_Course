@@ -198,7 +198,7 @@ const Packages = () => {
   useEffect(() => {
     getListProduct();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, page, status, category]);
+  }, [isModify, keywordSearch, page, status, category,itemsPerPage]);
 
   const handlePerRowsChange = async (newPerPage) => {
     setItemsPerPage(newPerPage);
