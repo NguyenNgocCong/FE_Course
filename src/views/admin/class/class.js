@@ -10,6 +10,7 @@ import { AppFooter, AppHeader, AppSidebar } from "../component";
 import Styles from "./style.module.scss";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Col, Row } from "react-bootstrap";
+import { confirmAlert } from "react-confirm-alert";
 
 function Class() {
   const columns = [
@@ -21,59 +22,57 @@ function Class() {
     },
     {
       name: "Mã lớp học",
-      minWidth: "140px",
-      width: "160px",
-      maxWidth: "180px",
+      minWidth: "120px",
+      maxWidth: "150px",
       selector: (row) => row.code,
       sortable: true,
     },
     {
       name: "Lịch",
-      maxWidth: "180px",
+      minWidth: "80px",
+      maxWidth: "150px",
       selector: (row) => row.schedule,
       sortable: true,
     },
     {
       name: "Thời gian",
-      maxWidth: "180px",
+      minWidth: "80px",
+      maxWidth: "150px",
       selector: (row) => row.time,
       sortable: true,
     },
     {
       name: "Khóa học",
       minWidth: "225px",
-      width: "250px",
       maxWidth: "275px",
       selector: (row) => row.packages.title,
       sortable: true,
     },
     {
       name: "Ngày bắt đầu",
-      minWidth: "140px",
-      width: "160px",
-      maxWidth: "180px",
+      minWidth: "130px",
+      maxWidth: "150px",
       selector: (row) => new Date(row.dateFrom).toLocaleDateString(),
       sortable: true,
     },
     {
       name: "Ngày kết thúc",
-      minWidth: "140px",
-      width: "160px",
-      maxWidth: "180px",
+      minWidth: "130px",
+      maxWidth: "150px",
       selector: (row) => new Date(row.dateTo).toLocaleDateString(),
       sortable: true,
     },
     {
       name: "Giảng viên",
-      minWidth: "150px",
-      width: "200px",
+      minWidth: "170px",
       maxWidth: "250px",
       selector: (row) => row.trainer?.user?.fullname,
       sortable: true,
     },
     {
       name: "Chi nhánh",
-      width: "120px",
+      minWidth: "120px",
+      maxWidth: "200px",
       selector: (row) => (
         <div className={`${row?.branch ? Styles.inactive : Styles.active}`}>
           {row.branch ? row?.branch.setting_title : "Online"}
@@ -83,7 +82,7 @@ function Class() {
     },
     {
       name: "Trạng thái",
-      width: "120px",
+      width: "150px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
           {row.status ? "Hoạt động" : "Không hoạt động"}
@@ -94,6 +93,7 @@ function Class() {
     {
       name: "Hành động",
       center: true,
+      width: "250px",
       selector: (row) => (
         // <CButton href={`/react/admin/class/${row?.id}`} color="primary">
         //   <CIcon icon={cilPen} />
@@ -113,6 +113,12 @@ function Class() {
           >
             <CIcon icon={cilPen} />
           </button>
+          <button
+            style={{ backgroundColor: "#7367f0", height: "30px", width: "120px", border: "none", float: 'right' }}
+            onClick={() => submit(row)}
+          >
+            {row?.status ? "Tắt hoạt động" : "Bật hoạt động"}
+          </button>
         </div>
       ),
     },
@@ -120,7 +126,6 @@ function Class() {
   const history = useHistory();
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
-  // eslint-disable-next-line
   const [isModify, setIsModify] = useState(false);
   const [listTraner, setListTrainer] = useState([]);
   const [traner, setTrainer] = useState(0);
@@ -145,6 +150,40 @@ function Class() {
         duration: 2000,
       });
     }
+  };
+
+  const handleUpdateStatus = async (row) => {
+    try {
+      const params = {
+        status: !row?.status,
+      };
+      const response = await adminApi.updateClass(params, row?.id);
+      setIsModify(!isModify);
+      toast.success(response?.message, {
+        duration: 2000,
+      });
+    } catch (responseError) {
+      toast.error(responseError?.data.message, {
+        duration: 2000,
+      });
+    }
+  };
+
+  const submit = (row) => {
+    confirmAlert({
+      title: "Xác nhận thay đổi trạng thái",
+      message: "Bạn có chắc về điều này",
+      buttons: [
+        {
+          label: "Có",
+          onClick: () => handleUpdateStatus(row),
+        },
+        {
+          label: "Không",
+          //onClick: () => alert('Click No')
+        },
+      ],
+    });
   };
 
   const getListTrainer = async () => {

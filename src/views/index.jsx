@@ -285,12 +285,11 @@ function PrivateRoute({ children, ...rest }) {
     if (
       (rest?.path?.includes("combos") ||
         rest?.path?.includes("class") ||
+        rest?.path?.includes("dashboard") ||
         rest?.path?.includes("packages") ||
         rest?.path?.includes("subjects") ||
         rest?.path?.includes("trainee") ||
-        rest?.path?.includes("experts") ||
-        rest?.path?.includes("coupon") ||
-        rest?.path?.includes("posts")) &&
+        rest?.path?.includes("experts")) &&
       Cookies.get("roles") === "ROLE_MANAGER"
     )
       isAuthenticated = true;
@@ -313,7 +312,7 @@ function PrivateRoute({ children, ...rest }) {
     // )
     //   isAuthenticated = true;
     else if (
-      (rest?.path?.includes("posts") || rest?.path?.includes("sliders")) &&
+        (rest?.path?.includes("posts") || rest?.path?.includes("sliders") || rest?.path?.includes("dashboard")) &&
       Cookies.get("roles") === "ROLE_MARKETER"
     )
       isAuthenticated = true;

@@ -42,16 +42,16 @@ const Combo = () => {
         },
         {
             name: "Tiêu đề",
-            minWidth: '125px',
-            width: '150px',
-            maxWidth: '175px',
+            minWidth: '200px',
+            maxWidth: '250px',
             selector: (row) => row?.title,
             sortable: true,
         },
         {
             name: "Khóa học",
             left: true,
-            maxWidth: '700px',
+            maxWidth: '400px',
+            maxWidth: '600px',
             selector: (row) => packageTemplate(row),
             sortable: true,
         },
@@ -71,6 +71,7 @@ const Combo = () => {
         {
             name: "Hành động",
             center: true,
+            width: '110px',
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
