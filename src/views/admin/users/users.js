@@ -28,7 +28,6 @@ const Users = () => {
     {
       name: "Tên tài khoản",
       minWidth: '140px',
-      width: '160px',
       maxWidth: '180px',
       selector: (row) => row?.username,
       sortable: true,
@@ -36,7 +35,6 @@ const Users = () => {
     {
       name: "Email",
       minWidth: '225px',
-      width: '250px',
       maxWidth: '275px',
       selector: (row) => row?.email,
       sortable: true,
@@ -44,7 +42,6 @@ const Users = () => {
     {
       name: "Họ và tên",
       minWidth: '150px',
-      width: '200px',
       maxWidth: '250px',
       selector: (row) => row?.fullname,
       sortable: true,
@@ -53,7 +50,6 @@ const Users = () => {
       name: "Số điện thoại",
       left: true,
       minWidth: '80px',
-      width: '150px',
       maxWidth: '160px',
       selector: (row) => row?.phoneNumber,
       sortable: true,
@@ -94,6 +90,7 @@ const Users = () => {
     {
       name: "Hành động",
       center: true,
+      width: '250px',
       selector: (row) => (
         <div className={Styles.inputSearch}>
           <button
@@ -106,7 +103,7 @@ const Users = () => {
             style={{ backgroundColor: "#7367f0", height: "30px", width: "120px", border: "none", float: 'right' }}
             onClick={() => submit(row)}
           >
-            {row?.active ? "Tắt hoạt động" : "Hoạt động"}
+            {row?.active ?  "Tắt hoạt động" : "Bật hoạt động"}
           </button>
         </div>
       ),
@@ -199,7 +196,7 @@ const Users = () => {
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
         <div className="body flex-grow px-2">
-          <div style={{ backgroundColor: "white", margin: "0px 0px 15px 0px", padding:"5px 0px"}} >
+          <div style={{ backgroundColor: "white", margin: "0px 0px 15px 0px", padding: "5px 0px" }} >
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
               <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
@@ -220,7 +217,7 @@ const Users = () => {
                   })}
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={2}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={2} style={{ padding: "5px 10px" }}>
                 <CFormSelect
                   onChange={(e) => {
                     setStatus(e.target.value);
@@ -231,7 +228,7 @@ const Users = () => {
                   <option value={false}>Không hoạt động</option>
                 </CFormSelect>
               </Col>
-              <Col xs={12} lg={4}  style={{ padding: "5px 10px" }}>
+              <Col xs={12} lg={4} style={{ padding: "5px 10px" }}>
                 <CFormInput
                   type="text"
                   id="exampleInputPassword1"

@@ -18,31 +18,27 @@ function TraineeOnline() {
     {
       name: "Tên tài khoản",
       minWidth: '140px',
-      width: '160px',
       maxWidth: '180px',
       selector: (row) => row?.user.username,
       sortable: true,
     },
     {
       name: "Email",
-      minWidth: "180px",
-      width: "250px",
-      maxWidth: "270px",
+      minWidth: "200px",
+      maxWidth: "250px",
       selector: (row) => row.user.email,
       sortable: true,
     },
     {
       name: "Họ và tên",
-      minWidth: "225px",
-      width: "250px",
-      maxWidth: "275px",
+      minWidth: "200px",
+      maxWidth: "250px",
       selector: (row) => row.user.fullname,
       sortable: true,
     },
     {
       name: "Số điện thoại",
       minWidth: "140px",
-      width: "160px",
       maxWidth: "180px",
       selector: (row) => row.user.phoneNumber,
       sortable: true,
@@ -50,7 +46,6 @@ function TraineeOnline() {
     {
       name: "Khóa học",
       minWidth: "150px",
-      width: "200px",
       maxWidth: "250px",
       selector: (row) => row.apackage?.title,
       sortable: true,
@@ -68,8 +63,6 @@ function TraineeOnline() {
   ];
   const [data, setDataTable] = useState([]);
   const [keywordSearch, setKeywordSearch] = useState("");
-  // eslint-disable-next-line
-  const [isModify, setIsModify] = useState(false);
   const [listClass, setListClass] = useState([]);
   const [trainer, setTrainer] = useState(0);
   const [status, setStatus] = useState("");
@@ -107,7 +100,7 @@ function TraineeOnline() {
   useEffect(() => {
     getAllClass();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, status, trainer, itemsPerPage, page]);
+  }, [keywordSearch, status, trainer, itemsPerPage, page]);
 
   useEffect(() => {
     getListTrainer();

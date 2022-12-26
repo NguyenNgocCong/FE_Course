@@ -21,41 +21,37 @@ function TraineeOfline() {
    
     {
       name: "Họ và tên",
-      minWidth: "225px",
-      width: "250px",
-      maxWidth: "275px",
+      minWidth: "130px",
+      maxWidth: "180px",
       selector: (row) => row.user.fullname,
       sortable: true,
     },
     {
       name: "Email",
-      minWidth: "180px",
-      width: "250px",
-      maxWidth: "270px",
+      minWidth: "150px",
+      maxWidth: "200px",
       selector: (row) => row.user.email,
       sortable: true,
     },
     {
       name: "Mã lớp học",
-      minWidth: "80px",
-      maxWidth: "100px",
-      selector: (row) => row.user.fullname,
+      minWidth: "100px",
+      maxWidth: "120px",
+      selector: (row) => row.aclass.code,
       sortable: true,
     },
     {
       name: "Số điện thoại",
       minWidth: "140px",
-      width: "160px",
       maxWidth: "180px",
-      selector: (row) => row.aclass.code,
+      selector: (row) => row.user.phoneNumber,
       sortable: true,
     },
     {
       name: "Ngày bắt đầu",
       minWidth: "140px",
-      width: "160px",
       maxWidth: "180px",
-      selector: (row) => new Date(row.aclass.startDate).toLocaleDateString(),
+      selector: (row) => new Date(row.aclass.dateFrom).toLocaleDateString(),
       sortable: true,
     },
     {
@@ -70,12 +66,13 @@ function TraineeOfline() {
     },
     {
       name: "Hành động",
+      width: "150px",
       center: true,
       selector: (row) => (
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = "/admin/orders/" + row?.id;
+              window.location.href = "/admin/registration/" + row?.id;
             }}
             style={{
               backgroundColor: "#7367f0",

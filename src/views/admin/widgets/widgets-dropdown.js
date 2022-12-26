@@ -2,13 +2,16 @@ import React from 'react'
 import {
   CRow,
   CCol,
-  CWidgetStatsC,
+  CWidgetStatsB,
+  CCardHeader,
+  CCard,
+  CCardBody,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { dashboardApi } from "../../../api/dashboardApi";
-import {cilUser,cilRoom,cilBook,cilCart} from '@coreui/icons';
+import { cilUser, cilRoom, cilBook, cilCart } from '@coreui/icons';
 const WidgetsDropdown = () => {
   // const [dataDashboard, setDataDashboard] = useState();
   const [totalTraineeActive, setTotalTraineeActive] = useState();
@@ -36,46 +39,48 @@ const WidgetsDropdown = () => {
   }, []);
 
   return (
-    <CRow>
-      <CCol sm={6} lg={3}>
-        <CWidgetStatsC
-          className="mb-4"
-          color=""
-          icon={<CIcon icon={cilUser} height={36} />}
-          value={totalTraineeActive}
-          progress={{ value: 100 }}
-          title="Học viên"/>
-      </CCol>
-      <CCol sm={6} lg={3}>
-        <CWidgetStatsC
-          className="mb-4"
-          color=""
-          value={totalClass}
-          title="Lớp học"
-          progress={{color:"success", value: 100 }}
-          icon={<CIcon icon={cilRoom} height={36} />}
-        />
-      </CCol>
-      <CCol sm={6} lg={3}>
-        <CWidgetStatsC
-          className="mb-4"
-          color=""
-          value={totalSubject}
-          title="Môn học"
-          progress={{color:"warning", value: 100 }}
-          icon={<CIcon icon={cilBook} height={36} />}
-        />
-      </CCol>
-      <CCol sm={6} lg={3}>
-        <CWidgetStatsC
-          className="mb-4"
-          icon={<CIcon icon={cilCart} height={36} />}
-          progress={{color:"danger", value: 100 }}
-          value={totalSoldOut}
-          title="Sản phẩm đã bán ra"
-        />
-      </CCol>
-    </CRow>
+    <CCard className="mb-4">
+      <CCardBody>
+        <CRow>
+          <CCol xs={12} sm={6} lg={3}>
+            <CWidgetStatsB
+              className="mb-4"
+              progress={{ color: 'success', value: 89.9 }}
+              text="Lorem ipsum dolor sit amet enim."
+              title="Widget title"
+              value="89.9%"
+            />
+          </CCol>
+          <CCol xs={12} sm={6} lg={3}>
+            <CWidgetStatsB
+              className="mb-4"
+              value="12.124"
+              title="Widget title"
+              progress={{ color: 'info', value: 89.9 }}
+              text="Lorem ipsum dolor sit amet enim."
+            />
+          </CCol>
+          <CCol xs={12} sm={6} lg={3}>
+            <CWidgetStatsB
+              className="mb-4"
+              value="$98.111,00"
+              title="Widget title"
+              progress={{ color: 'warning', value: 89.9 }}
+              text="Lorem ipsum dolor sit amet enim."
+            />
+          </CCol>
+          <CCol xs={12} sm={6} lg={3}>
+            <CWidgetStatsB
+              className="mb-4"
+              value="2 TB"
+              title="Widget title"
+              progress={{ color: 'primary', value: 89.9 }}
+              text="Lorem ipsum dolor sit amet enim."
+            />
+          </CCol>
+        </CRow>
+      </CCardBody>
+    </CCard>
   )
 }
 
