@@ -15,35 +15,30 @@ import Styles from "./style.module.scss";
 const Packages = () => {
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row.id,
-      minWidth: "10px",
-      width: "50px",
-      maxWidth: "60px",
+      name: "STT",
+      width: '50px',
+      selector: (row, rowIndex) => rowIndex + 1,
       sortable: true,
     },
     {
       name: "Tiêu đề",
-      minWidth: "100px",
-      width: "200px",
+      minWidth: "200px",
       maxWidth: "300px",
       selector: (row) => row.title,
       sortable: true,
     },
     {
       name: "Tóm tắt",
-      minWidth: "100px",
-      width: "150px",
-      maxWidth: "200px",
+      minWidth: "200px",
+      maxWidth: "300px",
       selector: (row) => row.excerpt,
       sortable: true,
     },
     {
       name: "Thời hạn",
       minWidth: "100px",
-      width: "100px",
-      maxWidth: "200px",
-      selector: (row) => row.duration,
+      maxWidth: "150px",
+      selector: (row) => row.duration + " Tháng",
       sortable: true,
     },
     {
@@ -70,8 +65,7 @@ const Packages = () => {
     {
       name: "Trạng thái",
       minWidth: "100px",
-      width: "150px",
-      maxWidth: "140px",
+      maxWidth: "120px",
       selector: (row) => (
         <div className={`${row?.status ? Styles.active : Styles.inactive}`}>
           <strong>{row.status ? "Hoạt động" : "Không hoạt động"}</strong>
@@ -82,6 +76,7 @@ const Packages = () => {
     {
       name: "Hành động",
       center: true,
+      width: "250px",
       selector: (row) => (
         <div className={Styles.inputSearch}>
           <button
@@ -109,7 +104,7 @@ const Packages = () => {
             }}
             onClick={() => submit(row)}
           >
-            {row?.status ? "Không hoạt động" : "Hoạt động"}
+            {row?.status ? "Tắt hoạt động" : "Bật hoạt động"}
           </button>
         </div>
       ),

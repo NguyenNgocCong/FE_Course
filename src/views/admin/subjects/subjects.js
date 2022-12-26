@@ -23,28 +23,24 @@ function Subjects() {
     },
     {
       name: "Mã môn học",
-      minWidth: "180px",
-      width: "200px",
-      maxWidth: "220px",
+      minWidth: "100px",
+      maxWidth: "150px",
       selector: (row) => row.code,
       sortable: true,
     },
     {
       name: "Tên môn học",
-      minWidth: "225px",
-      width: "250px",
-      maxWidth: "275px",
+      minWidth: "200px",
+      maxWidth: "250px",
       selector: (row) => row.name,
       sortable: true,
     },
     {
       name: "Quản lí",
-      minWidth: "180px",
-      width: "200px",
-      maxWidth: "220px",
+      minWidth: "120px",
+      maxWidth: "150px",
       selector: (row) => (
         <>
-          {" "}
           <FaDatabase color="#28C76F" style={{ marginRight: "5px" }} />
           {row.manager?.username}
         </>
@@ -53,29 +49,16 @@ function Subjects() {
     },
     {
       name: "Chuyên gia",
-      minWidth: "180px",
-      width: "200px",
-      maxWidth: "220px",
+      minWidth: "120px",
+      maxWidth: "150px",
       selector: (row) => row.expert?.user?.username,
       sortable: true,
     },
     {
       name: "Phân loại",
-      minWidth: "160px",
-      width: "180px",
-      maxWidth: "200px",
+      minWidth: "120px",
+      maxWidth: "150px",
       selector: (row) => row.category?.setting_title,
-      // selector: (row) => (
-      //   <>
-      //     <div>
-      //       {listCategory.map((category) => {
-      //         return category?.setting_id === row.category.setting_title
-      //           ? category.setting_title
-      //           : "";
-      //       })}
-      //     </div>
-      //   </>
-      // ),
       sortable: true,
     },
     {
@@ -118,7 +101,7 @@ function Subjects() {
             }}
             onClick={() => submit(row)}
           >
-            {row?.status ? "Bỏ hoạt động" : "Hoạt động"}
+            {row?.status ? "Tắt hoạt động" : "Bật hoạt động"}
           </button>
         </div>
       ),

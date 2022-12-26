@@ -47,6 +47,7 @@ function RegistrationDetail(props) {
 
   useEffect(() => {
     const classDetail = listClasses[listClasses.findIndex(element => Number(element.id) === Number(classId ? classId : detailOrder?.aclass?.id))]
+    console.log(detailOrder?.aclass)
     if (classDetail) {
       setCalander(classDetail?.time && classDetail?.schedule ? classDetail?.time + " các ngày " + classDetail?.schedule : "Chưa được đặt");
       setPackage(classDetail?.packages?.title);

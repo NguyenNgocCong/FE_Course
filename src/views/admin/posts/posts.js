@@ -79,11 +79,11 @@ const Posts = () => {
                     <div className={` ${row?.status !== 4 ? Styles.active : Styles.inactive}`} style={{ textAlign: 'center' }}>
                         {(() => {
                             if (row?.status === 0) {
-                                return (<>Draft</>)
+                                return (<>Nháp</>)
                             } else if (row?.status === 1) {
-                                return (<>Submitted</>)
+                                return (<>Đã nộp</>)
                             } else if (row?.status === 2) {
-                                return (<>Published</>)
+                                return (<>Đã công khai</>)
                             } else if (row?.status === 3) {
                                 return (<>Achieved</>)
                             } else if (row?.status === 4) {

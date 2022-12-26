@@ -93,39 +93,25 @@ function SubjectDetail(props) {
             event.preventDefault()
             event.stopPropagation()
             if (form.checkValidity()) {
-                if (isNotAdmin) {
-                    const params = {
-                        id: id,
-                        categoryId: categoryId,
-                        status: status,
-                        expert: expert,
-                    };
+                const params = {
+                    code: codeSubject,
+                    name: name,
+                    categoryId: categoryId,
+                    status: status,
+                    note: note,
+                    manager: isNotAdmin ? JSON.parse(Cookies.get("user"))?.username : manager,
+                    expert: expert
+                };
 
-                    const response = await adminApi.managerUpdateSubject(params);
-                    toast.success(response?.message, {
-                        duration: 2000,
-                    });
-                } else {
-                    const params = {
-                        code: codeSubject,
-                        name: name,
-                        categoryId: categoryId,
-                        status: status,
-                        note: note,
-                        manager: manager,
-                        expert: expert
-                    };
+                const response =
+                    type === 1
+                        ? await adminApi.updateSubject(params, id)
+                        : await adminApi.addSubject(params);
+                toast.success(response?.message, {
+                    duration: 2000,
+                });
 
-                    const response =
-                        type === 1
-                            ? await adminApi.updateSubject(params, id)
-                            : await adminApi.addSubject(params);
-                    toast.success(response?.message, {
-                        duration: 2000,
-                    });
-
-                    history.push("/admin/subjects");
-                }
+                history.push("/admin/subjects");
             }
         } catch (responseError) {
             toast.error(responseError?.data.message, {
@@ -183,7 +169,6 @@ function SubjectDetail(props) {
                                                 <CFormInput
                                                     type="text"
                                                     id="exampleFormControlInput1"
-                                                    disabled={isNotAdmin}
                                                     defaultValue={
                                                         type === 1 ? subject?.code : ""
                                                     }
@@ -205,7 +190,6 @@ function SubjectDetail(props) {
                                                 <CFormInput
                                                     type="text"
                                                     id="exampleFormControlInput1"
-                                                    disabled={isNotAdmin}
                                                     placeholder=""
                                                     defaultValue={
                                                         type === 1 ? subject?.name : ""
@@ -228,7 +212,6 @@ function SubjectDetail(props) {
                                                 <CFormSelect
                                                     id="autoSizingSelect"
                                                     onChange={(e) => setCategoryId(e.target.value)}
-
                                                     feedbackInvalid="Không được để trống!"
                                                     required
                                                     tooltipFeedback
@@ -236,12 +219,11 @@ function SubjectDetail(props) {
                                                     <option value="">Select category</option>
                                                     {listCategory?.map((item, index) => {
                                                         if (type === 1) {
-                                                            return subject?.category?.setting_id ===
-                                                                item?.setting_id ? (
+                                                            return subject?.category?.setting_id === item?.setting_id ? (
                                                                 <option
                                                                     key={index}
                                                                     value={item?.setting_id}
-
+                                                                    selected
                                                                 >
                                                                     {item?.setting_title}
                                                                 </option>
@@ -318,7 +300,10 @@ function SubjectDetail(props) {
                                                 <CFormLabel htmlFor="formFile">
                                                     Manager
                                                 </CFormLabel>
-                                                <CFormSelect
+                                                {isNotAdmin ? <CFormInput
+                                                    readOnly
+                                                    defaultValue={type === 1 ? subject?.manager?.username :JSON.parse(Cookies.get("user"))?.username }
+                                                /> : <CFormSelect
                                                     aria-label="Default select example"
                                                     disabled={isNotAdmin}
                                                     onChange={(e) =>
@@ -331,9 +316,7 @@ function SubjectDetail(props) {
                                                     <option>Select manager</option>
                                                     {listManager?.map((item, index) => {
                                                         if (type === 1) {
-                                                            return subject?.manager
-                                                                ?.username ===
-                                                                item?.username ? (
+                                                            return subject?.manager?.username === item?.username ? (
                                                                 <option
                                                                     key={index}
                                                                     value={
@@ -366,7 +349,7 @@ function SubjectDetail(props) {
                                                             );
                                                         }
                                                     })}
-                                                </CFormSelect>
+                                                </CFormSelect>}
                                             </div>
                                         </CCol>
                                         <CCol sm={6}>
@@ -432,7 +415,6 @@ function SubjectDetail(props) {
                                         </CFormLabel>
                                         <CFormTextarea
                                             id="exampleFormControlTextarea1"
-                                            disabled={isNotAdmin}
                                             defaultValue={
                                                 type === 1 ? subject?.note : ""
                                             }

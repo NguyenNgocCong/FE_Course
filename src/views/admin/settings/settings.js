@@ -12,6 +12,7 @@ import DataTable from "react-data-table-component";
 import CIcon from '@coreui/icons-react';
 import { cilLibraryAdd, cilPen } from "@coreui/icons";
 import { Col, Row } from "react-bootstrap";
+import { confirmAlert } from "react-confirm-alert";
 
 const Settings = () => {
     const [data, setData] = useState([]);
@@ -22,6 +23,7 @@ const Settings = () => {
     const [typeId, setTypeId] = useState(0);
     const [keyword, setKeyword] = useState("");
     const [totalRows, setTotalRows] = useState(0);
+    const [isModify, setIsModify] = useState(false);
     const history = useHistory();
 
     const columns = [
@@ -64,7 +66,7 @@ const Settings = () => {
         {
             name: "Hành động",
             center: true,
-            maxWidth: '140px',
+            width: '250px',
             selector: (row) => (
                 <div className={Styles.inputSearch}>
                     <button
@@ -73,10 +75,57 @@ const Settings = () => {
                     >
                         <CIcon icon={cilPen} />
                     </button>
+                    <button
+                        style={{
+                            backgroundColor: "#7367f0",
+                            height: "30px",
+                            width: "120px",
+                            border: "none",
+                            float: "right",
+                        }}
+                        onClick={() => submit(row)}
+                    >
+                        {row?.status ? "Tắt hoạt động" : "Bật hoạt động"}
+                    </button>
                 </div>
             ),
         },
     ];
+
+    const submit = (row) => {
+
+        confirmAlert({
+            title: 'Xác nhận thay đổi trạng thái',
+            message: 'Bạn có chắc chắn về vấn đề này',
+            buttons: [
+                {
+                    label: 'Có',
+                    onClick: () => handleUpdateActive(row)
+                },
+                {
+                    label: 'Không',
+                    //onClick: () => alert('Click No')
+                }
+            ]
+        });
+    }
+
+    const handleUpdateActive = async (row) => {
+        try {
+            const params = {
+                status: row?.active,
+            };
+            const response = await adminApi.updateSetting(params);
+            toast.success(response?.message, {
+                duration: 2000,
+            });
+            setIsModify(!isModify);
+        } catch (responseError) {
+            toast.error(responseError?.data.message, {
+                duration: 2000,
+            });
+        }
+    };
 
     const getListSetting = async () => {
         try {
@@ -109,7 +158,7 @@ const Settings = () => {
     useEffect(() => {
         getListSetting();
         // eslint-disable-next-line
-    }, [typeId, keyword, status, page,itemsPerPage]);
+    }, [typeId, keyword, status, page, itemsPerPage, isModify]);
 
     useEffect(() => {
         getAllType();
