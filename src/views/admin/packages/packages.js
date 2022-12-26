@@ -54,7 +54,7 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Giá miên yết",
+      name: "Giá niêm yết",
       minWidth: "100px",
       maxWidth: "140px",
       selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row.listPrice),
