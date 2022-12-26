@@ -49,7 +49,7 @@ const Packages = () => {
       sortable: true,
     },
     {
-      name: "Giá miên yết",
+      name: "Giá niêm yết",
       minWidth: "100px",
       maxWidth: "140px",
       selector: (row) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(row.listPrice),
@@ -193,7 +193,7 @@ const Packages = () => {
   useEffect(() => {
     getListProduct();
     // eslint-disable-next-line
-  }, [isModify, keywordSearch, page, status, category]);
+  }, [isModify, keywordSearch, page, status, category,itemsPerPage]);
 
   const handlePerRowsChange = async (newPerPage) => {
     setItemsPerPage(newPerPage);
