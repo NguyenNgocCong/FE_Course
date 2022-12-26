@@ -21,7 +21,7 @@ export const options = {
   maintainAspectRatio: false,
   animation: false,
   legend: { display: false },
-  cornerRadius: 20,
+  cornerRadius: 12,
   tooltips: {
     enabled: true,
     mode: 'index',
@@ -37,8 +37,8 @@ export const options = {
   scales: {
     xAxes: [
       {
-        barThickness: 12,
-        maxBarThickness: 10,
+        barThickness: 2,
+        maxBarThickness: 5,
         barPercentage: 0.5,
         categoryPercentage: 0.5,
         ticks: {
