@@ -6,27 +6,42 @@ import {
     CRow,
 } from "@coreui/react";
 import { dashboardApi } from "../../../api/dashboardApi";
-import { CChartBar, CChartDoughnut, CChartLine } from "@coreui/react-chartjs";
+import { CChart, CChartBar, CChartDoughnut } from "@coreui/react-chartjs";
 import { getStyle, hexToRgba } from "@coreui/utils";
-import toast from "react-hot-toast";
 import WidgetsDropdown from "../widgets/widgets-dropdown";
 import { AppFooter, AppHeader, AppSidebar } from "../component";
 import { useEffect, useState } from "react";
-import palette from "./LatestSales/palette";
-
-
+import palette from "./palette";
+import { toast } from "react-hot-toast";
 
 const Dashboard = () => {
+    const [dataDoughnut, setDataDoughnut] = useState();
+    const [dataOrder, setDataOrder] = useState();
+    const [dataChartBar, setDataChartBar] = useState();
+    const [category, setCategory] = useState(1);
 
-
-    const [dataDashboard, setDataDashboard] = useState();
     const getDataDashboard = async () => {
         try {
-            const response = await dashboardApi.getDataDashboard();
-            setDataDashboard(response)
+            const response = await dashboardApi.getDataDoughnut();
+            setDataDoughnut(response)
         } catch (responseError) {
-            console.log(responseError)
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
+                duration: 2000,
+            });
+        }
+        try {
+            const response = await dashboardApi.getDataBar(category);
+            setDataChartBar(response)
+        } catch (responseError) {
+            toast.error(responseError?.message, {
+                duration: 2000,
+            });
+        }
+        try {
+            const response = await dashboardApi.getOrders();
+            setDataOrder(response);
+        } catch (responseError) {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -37,14 +52,13 @@ const Dashboard = () => {
     }, []);
 
 
-
     const data = {
         datasets: [
             {
-                data: [63, 15, 22],
+                data: [dataOrder?.total_class_month, dataOrder?.total_package_month, dataOrder?.total_combo_month],
                 backgroundColor: [
-                    palette.primary.main,
                     palette.error.main,
+                    palette.success.main,
                     palette.warning.main
                 ],
                 borderWidth: 8,
@@ -52,18 +66,88 @@ const Dashboard = () => {
                 hoverBorderColor: palette.white
             }
         ],
-        labels: ['Desktop', 'Tablet', 'Mobile']
+        labels: ['Lớp học', 'Khóa học', 'Combo']
+    };
+
+    const data2 = {
+        datasets: [
+            {
+                data: [dataDoughnut?.total_submit, dataDoughnut?.total_verfi, dataDoughnut?.total_done, dataDoughnut?.total_cancel],
+                backgroundColor: [
+                    palette.secondary.main,
+                    palette.error.main,
+                    palette.success.main,
+                    palette.warning.main
+                ],
+                borderWidth: 8,
+                borderColor: palette.white,
+                hoverBorderColor: palette.white
+            }
+        ],
+        labels: ['Đăng ký', 'Xác nhận', 'Thanh toán', 'Hủy']
     };
 
     const options = {
-        legend: {
-            display: false
+        plugins: {
+            legend: {
+                position: 'bottom',
+                rtl: true,
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                    padding: 35,
+                }
+            }
         },
         responsive: true,
         maintainAspectRatio: true,
-        animation: true,
-        cutoutPercentage: 80,
-        layout: { padding: 0 },
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+            borderWidth: 2,
+            borderColor: palette.divider,
+            backgroundColor: palette.white,
+            titleFontColor: palette.text.primary,
+            bodyFontColor: palette.text.secondary,
+            footerFontColor: palette.text.secondary
+        }
+    };
+
+    const dataBar = {
+        labels: dataChartBar?.list_label,
+        datasets: [
+            {
+                label: 'Doanh số',
+                backgroundColor: palette.neutral,
+                data: dataChartBar?.list_sales
+            },
+            {
+                label: 'Doanh thu',
+                backgroundColor: palette.secondary.main,
+                data: dataChartBar?.list_revenue
+            }
+
+        ]
+    };
+
+    const optionsBar = {
+        plugins: {
+            legend: {
+                position: 'bottom',
+                rtl: true,
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                    padding: 35,
+                }
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        legend: { display: false },
+        cornerRadius: 12,
         tooltips: {
             enabled: true,
             mode: 'index',
@@ -74,18 +158,71 @@ const Dashboard = () => {
             titleFontColor: palette.text.primary,
             bodyFontColor: palette.text.secondary,
             footerFontColor: palette.text.secondary
+        },
+        layout: { padding: 0 },
+        scales: {
+            xAxes: [
+                {
+                    barThickness: 2,
+                    maxBarThickness: 5,
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.5,
+                    ticks: {
+                        fontColor: palette.text.secondary
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    }
+                }
+            ],
+            yAxes: [
+                {
+                    ticks: {
+                        fontColor: palette.text.secondary,
+                        beginAtZero: true,
+                        min: 0
+                    },
+                    gridLines: {
+                        borderDash: [2],
+                        borderDashOffset: [2],
+                        color: palette.divider,
+                        drawBorder: false,
+                        zeroLineBorderDash: [2],
+                        zeroLineBorderDashOffset: [2],
+                        zeroLineColor: palette.divider
+                    }
+                }
+            ]
         }
     };
+
     return (
         <>
             <AppSidebar />
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
                 <div className="body flex-grow-1 px-3">
-                    <WidgetsDropdown />
+                    <CRow>
+                        <CCol xs={12} sm={6} lg={9}>
+                            <WidgetsDropdown />
+                        </CCol>
+                        <CCol xs={12} sm={4} lg={3}>
+                            <CCard>
+                                <CCardBody
+                                >
+                                    <CChartDoughnut
+                                        style={{ height: "261px", marginTop: "20px" }}
+                                        data={data}
+                                        options={options}
+                                    />
+                                </CCardBody>
+                            </CCard>
+                        </CCol>
+                    </CRow>
                     <CRow>
                         <CCol sm={9}>
-                            <CCard className="mb-4" data={data}>
+                            <CCard className="mb-4">
                                 <CCardBody>
                                     <CRow>
                                         <CCol sm={5}>
@@ -98,59 +235,8 @@ const Dashboard = () => {
                                         </CCol>
                                         <CChartBar
                                             style={{ height: "300px", marginTop: "20px" }}
-                                            data={{
-                                                labels: data?.turnovers?.map((item) => item[0] + "-" + item[1]),
-                                                datasets: [
-                                                    {
-                                                        label: "Income",
-                                                        backgroundColor: hexToRgba(
-                                                            getStyle("--cui-info"),
-                                                            10
-                                                        ),
-                                                        borderColor: getStyle("--cui-info"),
-                                                        pointHoverBackgroundColor:
-                                                            getStyle("--cui-info"),
-                                                        borderWidth: 2,
-                                                        data: dataDashboard?.turnovers?.map((item) => item[2]),
-                                                        fill: true,
-                                                        pointBorderWidth: 4
-                                                    },
-                                                ],
-                                            }}
-                                            options={{
-                                                maintainAspectRatio: false,
-                                                plugins: {
-                                                    legend: {
-                                                        display: false,
-                                                    },
-                                                },
-                                                scales: {
-                                                    x: {
-                                                        grid: {
-                                                            drawOnChartArea: false,
-                                                        },
-                                                    },
-                                                    y: {
-                                                        ticks: {
-                                                            beginAtZero: true,
-                                                            maxTicksLimit: 5,
-                                                            stepSize: Math.ceil(250 / 5),
-                                                            callback: (value) => value + "VND"
-                                                        },
-                                                    },
-                                                },
-                                                elements: {
-                                                    line: {
-                                                        tension: 0.4,
-                                                    },
-                                                    point: {
-                                                        radius: 0,
-                                                        hitRadius: 10,
-                                                        hoverRadius: 4,
-                                                        hoverBorderWidth: 3,
-                                                    },
-                                                },
-                                            }}
+                                            data={dataBar}
+                                            options={optionsBar}
                                         />
                                     </CRow>
                                 </CCardBody>
@@ -161,7 +247,7 @@ const Dashboard = () => {
                                 <CCardBody>
                                     <CChartDoughnut
                                         style={{ height: "330px", marginTop: "20px" }}
-                                        data={data}
+                                        data={data2}
                                         options={options}
                                     />
                                 </CCardBody>

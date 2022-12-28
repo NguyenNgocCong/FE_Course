@@ -92,7 +92,7 @@ function Class() {
       setDataTable(response.data);
       setTotalRows(response.totalItems)
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -120,7 +120,7 @@ function Class() {
             <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
               <Col xs={12} lg={12} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
                 <button
-                  style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '100%', width: '100px', color: 'white', borderRadius: '10px' }}
+                  style={{ backgroundColor: "#7367f0", border: "none", float: 'right', height: '35px', width: '100px', color: 'white', borderRadius: '10px' }}
                   onClick={() =>
                     history.push(
                       "/admin/coupon/create"

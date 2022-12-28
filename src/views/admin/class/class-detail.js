@@ -54,7 +54,7 @@ function ClassDetail(props) {
             setStatus(response?.status);
             setIsOnline(response?.branch ? false : true);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -65,7 +65,7 @@ function ClassDetail(props) {
             const response = await adminApi.getListExperts(0, 50, "");
             setListTrainer(response.data);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -76,7 +76,7 @@ function ClassDetail(props) {
             const response = await adminApi.getListCategoryBranch();
             setListBranch(response);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -87,7 +87,7 @@ function ClassDetail(props) {
             const response = await adminApi.getListSupporter();
             setListSupporter(response.data);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -98,7 +98,7 @@ function ClassDetail(props) {
             const response = await adminApi.getAllProduct(0, 50, "", 0, "");
             setListPackages(response.data);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -134,7 +134,7 @@ function ClassDetail(props) {
                 history.push("/admin/class");
             }
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
