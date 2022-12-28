@@ -168,7 +168,7 @@ const OrderOnline = (props) => {
       });
       setIsModify(!isModify);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -179,7 +179,7 @@ const OrderOnline = (props) => {
       // const response = await adminApi.getListCategoryOrder();
       // setListCategory(response);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

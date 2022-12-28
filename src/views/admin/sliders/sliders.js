@@ -32,11 +32,11 @@ const Sliders = () => {
         },
         {
             name: "Ảnh",
-            width:'250px',
+            width: '250px',
             selector: (row) => (
                 <img
                     src={(row?.imageUrl != null && row?.imageUrl) ? combieImg(row?.imageUrl) : ""}
-                    style={{height:"70px", width:"100%"}}
+                    style={{ height: "70px", width: "100%" }}
                     alt='thumbnail'
                 />
             ),
@@ -132,7 +132,7 @@ const Sliders = () => {
                 duration: 2000,
             });
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -162,7 +162,7 @@ const Sliders = () => {
             setDataTable(response.data);
             setTotalRows(response.totalItems);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -171,7 +171,7 @@ const Sliders = () => {
     useEffect(() => {
         getListSlider();
         // eslint-disable-next-line
-    }, [isModify, status, page,itemsPerPage]);
+    }, [isModify, status, page, itemsPerPage]);
 
     const handlePerRowsChange = async (newPerPage) => {
         setItemsPerPage(newPerPage);
@@ -184,7 +184,7 @@ const Sliders = () => {
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
                 <div className="body flex-grow px-2">
-                    <div style={{ backgroundColor: "white",  padding: "5px 0px", margin: "0px 0px 15px 0px" }}>
+                    <div style={{ backgroundColor: "white", padding: "5px 0px", margin: "0px 0px 15px 0px" }}>
                         <Row className='text-nowrap w-100 my-75 g-0 permission-header'>
                             <Col xs={12} lg={6} className={Styles.showEntry}>
                                 <CFormSelect
@@ -201,16 +201,18 @@ const Sliders = () => {
                                 </CFormSelect>
                             </Col>
                             <Col xs={12} lg={6} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
-  <button
-                                    style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
-                                    onClick={() =>
-                                        history.push(
-                                            "/admin/sliders/create"
-                                        )
-                                    }
-                                >
-                                    <CIcon icon={cilLibraryAdd} />
-                                </button>
+                                <div className={Styles.inputSearch}>
+                                    <button
+                                        style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
+                                        onClick={() =>
+                                            history.push(
+                                                "/admin/posts/create"
+                                            )
+                                        }
+                                    >
+                                        <CIcon icon={cilLibraryAdd} />
+                                    </button>
+                                </div>
                             </Col>
                         </Row>
                     </div>

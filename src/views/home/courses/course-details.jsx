@@ -34,7 +34,7 @@ function CoursesDetails(props) {
       const response = await adminApi.getProductById(id);
       setProduct(response);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

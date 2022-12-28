@@ -104,7 +104,7 @@ function TraineeOfline() {
         setDataTable(response.data);
         setTotalRows(response.totalItems);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -115,7 +115,7 @@ function TraineeOfline() {
       const response = await adminApi.getAllClass(0, 50, "", 0, "");
       setListClass(response.data);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

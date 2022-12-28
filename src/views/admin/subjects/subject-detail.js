@@ -46,7 +46,7 @@ function SubjectDetail(props) {
             const response = await adminApi.getListCategorySubject();
             setListCategory(response);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -58,7 +58,7 @@ function SubjectDetail(props) {
             setSubject(response);
             setStatus(response.status);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -69,7 +69,7 @@ function SubjectDetail(props) {
             const response = await adminApi.getListManager();
             setListManager(response.data);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -80,7 +80,7 @@ function SubjectDetail(props) {
             const response = await adminApi.getListUserExpert();
             setListExpert(response.data);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -114,7 +114,7 @@ function SubjectDetail(props) {
                 history.push("/admin/subjects");
             }
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }

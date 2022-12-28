@@ -39,7 +39,7 @@ function ChangePassword(props) {
                     duration: 2000,
                 });
             } catch (responseError) {
-                setAlertMessage(responseError?.data.errorCode === 1101 ? responseError?.data.message : "Sai mật khẩu cũ");
+                setAlertMessage(responseError?.data.errorCode === 1101 ? responseError?.message : "Sai mật khẩu cũ");
                 setAlertVisible(true);
                 setPopupAlertType("danger");
             }

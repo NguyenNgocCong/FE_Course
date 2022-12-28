@@ -108,23 +108,15 @@ const Lecturers = () => {
                       </CRow>
                     )) : <h6>Không có giảng viên nào</h6>}
                   </CRow>
-                  {listPost.length !== 0 ? (
-                    <>
-                      <div className="pagination-bx rounded-sm gray m-b30 clearfix">
-                        <Paging
-                          totalPage={totalPages}
-                          pageIndex={pageIndex}
-                          onChange={(e) => {
-                            setPageIndex(e);
-                          }}
-                        ></Paging>
-                      </div>
-                    </>
-                  ) : (
-                    <h5 style={{ marginLeft: "50px" }}>
-                      Không tồn tại giảng viên nào
-                    </h5>
-                  )}
+                  <div className="pagination-bx rounded-sm gray m-b30 clearfix">
+                    <Paging
+                      totalPage={totalPages}
+                      pageIndex={pageIndex}
+                      onChange={(e) => {
+                        setPageIndex(e);
+                      }}
+                    ></Paging>
+                  </div>
                 </div>
               </div>
             </div>

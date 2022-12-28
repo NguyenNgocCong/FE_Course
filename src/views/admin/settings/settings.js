@@ -121,7 +121,7 @@ const Settings = () => {
             });
             setIsModify(!isModify);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -133,7 +133,7 @@ const Settings = () => {
             setData(response.data);
             setTotalRows(response.totalItems)
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -149,7 +149,7 @@ const Settings = () => {
             setListType(response);
             console.log(response);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }

@@ -30,7 +30,7 @@ function Products() {
       setDataTable(response.data);
       setTotalPages(response.totalPages);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

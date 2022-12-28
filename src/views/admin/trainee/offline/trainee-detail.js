@@ -64,7 +64,7 @@ function TraineeDetail(props) {
       const response = await adminApi.getTraineeDetailById(id);
       setDetailTrainee(response);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -75,7 +75,7 @@ function TraineeDetail(props) {
       const response = await adminApi.getAllClass(0, 50, "", 0, true);
       setListClasses(response.data);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -107,7 +107,7 @@ function TraineeDetail(props) {
         history.push("/admin/orders");
       }
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

@@ -26,7 +26,7 @@ function RegistrationDetail(props) {
   const [codeCoupon, setCodeCoupon] = useState("");
   const [discount, setDiscount] = useState(0);
   const [price, setPrice] = useState(0);
-  const [status, setStatus] = useState(1);
+  const [status, setStatus] = useState();
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -39,15 +39,10 @@ function RegistrationDetail(props) {
   const [startDate, setStartDate] = useState("");
   const location = useLocation();
   const history = useHistory();
-  const id = location.pathname.substring(
-    "/admin/registration/".length,
-    location.pathname.length,
-  );
-  const type = id !== "create" ? 1 : 0;
-
+  const type = location.pathname.indexOf("registration/create") !== -1 ? 0 : location.pathname.indexOf("registration-detail") !== -1 ? 2 : 1;
+  const id = type === 2 ? location.pathname.substring("/admin/registration-detail/".length, location.pathname.length,) : location.pathname.substring("/admin/registration/".length, location.pathname.length,)
   useEffect(() => {
     const classDetail = listClasses[listClasses.findIndex(element => Number(element.id) === Number(classId ? classId : detailOrder?.aclass?.id))]
-    console.log(detailOrder?.aclass)
     if (classDetail) {
       setCalander(classDetail?.time && classDetail?.schedule ? classDetail?.time + " các ngày " + classDetail?.schedule : "Chưa được đặt");
       setPackage(classDetail?.packages?.title);
@@ -85,7 +80,7 @@ function RegistrationDetail(props) {
       const response = await adminApi.getOrderDetail(id);
       setDetailOrder(response);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -96,7 +91,7 @@ function RegistrationDetail(props) {
       const response = await adminApi.getAllClass(0, 50, "", 0, true);
       setListClasses(response.data);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -119,7 +114,7 @@ function RegistrationDetail(props) {
           codeCoupon: codeCoupon,
         };
         const response =
-          type === 1
+          type === 1 || type === 2
             ? await adminApi.updateOrderAdmin(params, id)
             : await adminApi.createOrderAdmin(params);
         toast.success(response?.message, {
@@ -128,14 +123,14 @@ function RegistrationDetail(props) {
         history.push("/admin/orders");
       }
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
   };
 
   useEffect(() => {
-    if (type === 1) {
+    if (type === 1 || type === 2) {
       getOrderDetailById();
     }
     getListPackage();
@@ -169,7 +164,7 @@ function RegistrationDetail(props) {
             <CCard className="mb-4">
               <CCardHeader>
                 <strong>
-                  {type === 1 ? "Sửa thông tin đơn hàng" : "Thêm đơn hàng"}
+                  {type === 1 ? "Sửa thông tin đơn hàng" : type === 2 ? "Xem" : "Thêm đơn hàng"}
                 </strong>
               </CCardHeader>
               <CCardBody>
@@ -190,6 +185,7 @@ function RegistrationDetail(props) {
                         <CFormSelect
                           id="autoSizingSelect"
                           onChange={(e) => setClassId(e.target.value)}
+                          disabled={type === 2}
                         >
                           {listClasses?.map((item, index) => {
                             if (type === 1) {
@@ -288,7 +284,7 @@ function RegistrationDetail(props) {
                           Email (<span style={{ color: "red" }}>*</span>)
                         </CFormLabel>
                         <CFormInput
-                          readOnly={type === 1}
+                          readOnly={type === 1 || type === 2}
                           onChange={(e) => setEmail(e.target.value)}
                           type="email"
                           id="exampleFormControlInput1"
@@ -308,6 +304,7 @@ function RegistrationDetail(props) {
                           id="exampleFormControlInput1"
                           onChange={(e) => setFullName(e.target.value)}
                           placeholder=""
+                          readOnly={type === 2}
                           defaultValue={detailOrder?.user ? detailOrder?.user?.fullname : detailOrder?.customer?.fullName}
                         />
                       </div>
@@ -319,6 +316,7 @@ function RegistrationDetail(props) {
                         </CFormLabel>
                         <CFormInput
                           type="number"
+                          readOnly={type === 2}
                           id="exampleFormControlInput1"
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder=""
@@ -340,9 +338,10 @@ function RegistrationDetail(props) {
                             <CFormSelect
                               aria-label="Default select example"
                               onChange={(e) => setStatus(e.target.value)}
+                              disabled={type === 2}
                             >
                               {optionStatus?.map((item, index) => {
-                                if (type === 1) {
+                                if (type === 1 || type === 2) {
                                   return detailOrder?.status ? (
                                     <option key={index} value={item?.status} selected>
                                       {item?.label}
@@ -371,14 +370,15 @@ function RegistrationDetail(props) {
                             <CFormInput
                               onChange={(e) => setCodeCouponCheck(e.target.value)}
                               type="text"
-                              defaultValue={type === 1 ? detailOrder?.coupon?.code : ""}
+                              disabled={type === 2}
+                              defaultValue={type === 1 || type === 2 ? detailOrder?.coupon?.code : ""}
                               id="exampleFormControlInput1"
                             />
                           </div>
                         </CCol>
                         <CCol sm={3}>
                           <div className="mb-3" style={{ float: "initial", margin: "32px 0px 10px 10px", }}>
-                            <CButton type="button" onClick={() => handleCheckCoupon()}>Thêm</CButton>
+                            <CButton type="button" onClick={() => handleCheckCoupon()} disabled={type === 2}>Thêm</CButton>
                           </div>
                         </CCol>
                         <CCol sm={4}>
@@ -409,7 +409,7 @@ function RegistrationDetail(props) {
                         </CFormLabel>
                         <CFormTextarea
                           id="exampleFormControlTextarea1"
-                          defaultValue={type === 1 ? detailOrder?.note : ""}
+                          defaultValue={type === 1 || type === 2 ? detailOrder?.note : ""}
                           onChange={(e) =>
                             setNote(e.target.value)
                           }

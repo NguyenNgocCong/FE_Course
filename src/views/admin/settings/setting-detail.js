@@ -44,7 +44,7 @@ function SettingDetail(props) {
             setSetting(response);
             setStatus(response.status);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -55,7 +55,7 @@ function SettingDetail(props) {
             const response = await adminApi.getListType();
             setListType(response);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -94,7 +94,7 @@ function SettingDetail(props) {
                 history.push("/admin/settings");
             }
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }

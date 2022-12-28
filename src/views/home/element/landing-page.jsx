@@ -15,7 +15,7 @@ function OnlineCourses() {
       const response = await userApi.getListCategoryPost();
       setListCategory(response);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -26,7 +26,7 @@ function OnlineCourses() {
       const response = await userApi.getListAllSubject();
       setListSubject(response.splice(0, 7))
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

@@ -158,7 +158,7 @@ function Subjects() {
       });
       setIsModify(!isModify);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -169,7 +169,7 @@ function Subjects() {
       const response = await adminApi.getListCategorySubject();
       setListCategory(response);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

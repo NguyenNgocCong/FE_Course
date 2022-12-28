@@ -76,7 +76,7 @@ function TraineeOnline() {
       setDataTable(response.data);
       setTotalRows(response.totalItems);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -87,7 +87,7 @@ function TraineeOnline() {
       const response = await adminApi.getAllPackageView(0, 50, "", 0, "");
       setListClass(response.data);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

@@ -53,7 +53,7 @@ function PostDetail(props) {
             setPost(response);
             setStatus(response.status);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -64,7 +64,7 @@ function PostDetail(props) {
             const response = await adminApi.getListCategoryPost();
             setListCategory(response);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -97,7 +97,7 @@ function PostDetail(props) {
                 history.push("/admin/posts");
             }
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -120,10 +120,7 @@ function PostDetail(props) {
 
     const optionStatus = [
         { status: 0, label: "Nháp" },
-        { status: 1, label: "Gửi" },
-        { status: 2, label: "Được phát hành" },
-        { status: 3, label: "Hoàn thành" },
-        { status: 4, label: "Từ chối" },
+        { status: 1, label: "Gửi bài viết" }
     ];
 
     return (

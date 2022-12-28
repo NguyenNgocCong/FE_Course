@@ -15,6 +15,8 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Col, Row } from "react-bootstrap";
 import { combieImg } from "../../../utils";
+import Cookies from "js-cookie";
+import moment from "moment";
 
 const Posts = () => {
     const columns = [
@@ -51,7 +53,7 @@ const Posts = () => {
         {
             name: "Ngày tạo",
             maxWidth: '150px',
-            selector: (row) => row.brefInfo,
+            selector: (row) => moment(row.createDate).format('hh:MM DD/mm/yyyy'),
             sortable: true,
         },
         {
@@ -85,9 +87,9 @@ const Posts = () => {
                             } else if (row?.status === 2) {
                                 return (<>Đã công khai</>)
                             } else if (row?.status === 3) {
-                                return (<>Achieved</>)
+                                return (<>Đã ẩn</>)
                             } else if (row?.status === 4) {
-                                return (<>Rejected</>)
+                                return (<>Đã từ chối</>)
                             }
                         })()}
                     </div>
@@ -102,41 +104,85 @@ const Posts = () => {
             center: true,
             selector: (row) => (
                 <div className={Styles.inputSearch}>
-                    {(() => {
-                        if (row?.status === 1) {
+                    {isMarketer ? <button
+                        onClick={() => { window.location.href = "/admin/posts/" + row?.id }}
+                        style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
+                    >
+                        <CIcon icon={cilPen} />
+                    </button> : <></>}
+                    {isMarketer ? (() => {
+                        if (row?.status === 0) {
                             return (<button
-                                onClick={() => submit(row, 0)}
+                                onClick={() => submit(row.id, 1)}
                                 style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
                             >
-                                Chấp thuận
+                                Nộp bài viết
                             </button>)
-                        } else {
+                        } else if (row?.status === 2) {
                             return (<button
-                                onClick={() => { window.location.href = "/admin/posts/" + row?.id }}
-                                style={{ backgroundColor: "#7367f0", height: "30px", width: "40px", border: "none", float: 'right' }}
+                                onClick={() => submit(row.id, 3)}
+                                style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
                             >
-                                <CIcon icon={cilPen} />
+                                Ẩn bài viết
+                            </button>)
+                        } else if (row?.status === 3) {
+                            return (<button
+                                onClick={() => submit(row.id, 1)}
+                                style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                            >
+                                Nộp bài viết
                             </button>)
                         }
+                    })() : (() => {
+                        if (row?.status === 1) {
+                            return (<>
+                                <button
+                                    onClick={() => submit(row.id, 2)}
+                                    style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                                >
+                                    Chấp thuận
+                                </button>
+                                <button
+                                    onClick={() => submit(row.id, 4)}
+                                    style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                                >
+                                    Từ chối
+                                </button></>)
+                        } else if (row?.status === 4) {
+                            return (<button
+                                onClick={() => submit(row.id, 2)}
+                                style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                            >
+                                Công khai
+                            </button>)
+                        }
+                        else if (row?.status === 2) {
+                            return (
+                                <>
+                                    <button
+                                        onClick={() => submit(row.id, 3)}
+                                        style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                                    >
+                                        Ẩn bài viết
+                                    </button>
+                                    <button
+                                        onClick={() => submit(row.id, 4)}
+                                        style={{ backgroundColor: "#7367f0", height: "30px", width: "100px", border: "none", float: 'right' }}
+                                    >
+                                        Bỏ công khai
+                                    </button>
+                                </>)
+                        }
+                        else if (row?.status === 2) {
+                            return (
+                                <button
+                                    onClick={() => submit(row.id, 2)}
+                                    style={{ backgroundColor: "#7367f0", height: "30px", width: "80px", border: "none", float: 'right' }}
+                                >
+                                    Chấp nhận đăng
+                                </button>)
+                        }
                     })()}
-                    <button
-                        style={{ backgroundColor: "#7367f0", height: "30px", width: "150px", border: "none", float: 'right' }}
-                        onClick={() => submit(row)}
-                    >
-                        {(() => {
-                            if (row?.status === 0) {
-                                return ("Gửi")
-                            } else if (row?.status === 1) {
-                                return ("Từ chối")
-                            } else if (row?.status === 2) {
-                                return ("Hoàn thành")
-                            } else if (row?.status === 3) {
-                                return ("Được phát hành")
-                            } else if (row?.status === 4) {
-                                return ("Gửi")
-                            }
-                        })()}
-                    </button>
                 </div>
             ),
         },
@@ -152,30 +198,13 @@ const Posts = () => {
     const [totalRows, setTotalRows] = useState(0);
     const [itemsPerPage, setItemsPerPage] = React.useState(10);
     const history = useHistory();
+    const role = JSON.parse(Cookies.get("user"))?.role;
+    const isMarketer = role === "ROLE_MARKETER" ? true : false;
 
-
-    const handleUpdateStatus = async (row, type) => {
-        let id = row.id;
-        let status = row.status;
-        let statusChange = -1;
-        if (status === 0) {
-            statusChange = 1;
-        } else if (status === 1) {
-            if (type === 0) {
-                statusChange = 2;
-            } else {
-                statusChange = 4;
-            }
-        } else if (status === 2) {
-            statusChange = 3;
-        } else if (status === 3) {
-            statusChange = 2;
-        } else if (status === 4) {
-            statusChange = 1;
-        }
+    const handleUpdateStatus = async (id, status) => {
         try {
             const params = {
-                status: statusChange,
+                status: status,
             };
 
             const response = await adminApi.updatePost(id, params, null);
@@ -184,13 +213,13 @@ const Posts = () => {
                 duration: 2000,
             });
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
     }
 
-    const submit = (row, type) => {
+    const submit = (id, status) => {
 
         confirmAlert({
             title: 'Xác nhận thay đổi trạng thái',
@@ -198,7 +227,7 @@ const Posts = () => {
             buttons: [
                 {
                     label: 'Có',
-                    onClick: () => handleUpdateStatus(row, type)
+                    onClick: () => handleUpdateStatus(id, status)
                 },
                 {
                     label: 'Không',
@@ -214,7 +243,7 @@ const Posts = () => {
             setDataTable(response.data);
             setTotalRows(response.totalItems);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -225,7 +254,7 @@ const Posts = () => {
             const response = await adminApi.getListCategoryPost();
             setListCategory(response);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -246,7 +275,7 @@ const Posts = () => {
     useEffect(() => {
         getListPost();
         // eslint-disable-next-line
-    }, [isModify, keywordSearch, page, status, category,itemsPerPage]);
+    }, [isModify, keywordSearch, page, status, category, itemsPerPage]);
 
     useEffect(() => {
         getListCategory();
@@ -313,8 +342,8 @@ const Posts = () => {
                                     onChange={onSearch}
                                 />
                             </Col>
-                            <Col xs={12} lg={4} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
-                                   <div className={Styles.inputSearch}>
+                            {isMarketer ? <Col xs={12} lg={6} className='d-flex justify-content-end' style={{ padding: "5px 10px" }}>
+                                <div className={Styles.inputSearch}>
                                     <button
                                         style={{ backgroundColor: "#7367f0", border: "none", float: 'right' }}
                                         onClick={() =>
@@ -325,8 +354,8 @@ const Posts = () => {
                                     >
                                         <CIcon icon={cilLibraryAdd} />
                                     </button>
-                                </div></Col>
-
+                                </div>
+                            </Col> : <></>}
 
                         </Row>
                     </div>

@@ -52,7 +52,7 @@ function PackagesDetail(props) {
             setPackage(response);
             setStatus(response.status);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -63,7 +63,7 @@ function PackagesDetail(props) {
             const response = await adminApi.getAllSubject(0, 100, "", 0, true);
             setListSubject(response.data);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -103,7 +103,7 @@ function PackagesDetail(props) {
                 history.push("/admin/packages");
             }
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
