@@ -60,7 +60,7 @@ const OrderDone = (props) => {
         <div className={Styles.inputSearch}>
           <button
             onClick={() => {
-              window.location.href = row.classId ? "/admin/registration/" + row?.id : "/admin/orders/" + row?.id;
+              window.location.href = row.aclass ? "/admin/registration-detail/" + row?.id : "/admin/orders-detail/" + row?.id;
             }}
             color="primary"
             style={{
@@ -127,13 +127,13 @@ const OrderDone = (props) => {
 
   const handleUpdateActiveOrderDone = async (row) => {
     try {
-      const response = await adminApi.updateOrder(2, row?.id);
+      const response = await adminApi.updateOrder(3, row?.id);
       toast.success(response?.message, {
         duration: 2000,
       });
       setIsModify(!isModify);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -144,7 +144,7 @@ const OrderDone = (props) => {
       // const response = await adminApi.getListCategoryOrderDone();
       // setListCategory(response);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

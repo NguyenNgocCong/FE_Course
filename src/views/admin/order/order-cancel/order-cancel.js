@@ -133,7 +133,7 @@ const OrderCancel = (props) => {
       });
       setIsModify(!isModify);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }
@@ -144,7 +144,7 @@ const OrderCancel = (props) => {
       // const response = await adminApi.getListCategoryOrdered();
       // setListCategory(response);
     } catch (responseError) {
-      toast.error(responseError?.data.message, {
+      toast.error(responseError?.message, {
         duration: 2000,
       });
     }

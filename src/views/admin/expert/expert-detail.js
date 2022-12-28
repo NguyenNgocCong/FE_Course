@@ -48,7 +48,7 @@ function ExpertDetail(props) {
             setExpert(response);
         } catch (responseError) {
             console.log(responseError)
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -73,7 +73,7 @@ function ExpertDetail(props) {
             });
             history.push("/admin/experts");
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }

@@ -51,6 +51,7 @@ function OrderDetail(props) {
             name: "Hành động",
             center: true,
             selector: (row) => (
+                type !== 2 ?
                 <div className={Styles.inputSearch}>
                     <CButton onClick={() => deleteProduct(row)}
                         style={{
@@ -60,7 +61,7 @@ function OrderDetail(props) {
                     >
                         <CIcon icon={cilDelete} />
                     </CButton>
-                </div >
+                </div > : <></>
             ),
         }
     ];
@@ -79,7 +80,7 @@ function OrderDetail(props) {
     const [codeCoupon, setCodeCoupon] = useState("");
     const [discount, setDiscount] = useState(0);
     const [price, setPrice] = useState(0);
-    const [status, setStatus] = useState(1);
+    const [status, setStatus] = useState();
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -88,15 +89,12 @@ function OrderDetail(props) {
     const location = useLocation();
     const history = useHistory();
 
-    const id = location.pathname.substring(
-        "/admin/orders/".length,
-        location.pathname.length,
-    );
-    const type = id !== "create" ? 1 : 0;
+    const type = location.pathname.indexOf("orders/create") !== -1 ? 0 : location.pathname.indexOf("orders-detail") !== -1 ? 2 : 1;
+    const id = type === 2 ? location.pathname.substring("/admin/orders-detail/".length, location.pathname.length,) : location.pathname.substring("/admin/orders/".length, location.pathname.length,)
 
     useEffect(() => {
         handleCheckCoupon()
-         // eslint-disable-next-line 
+        // eslint-disable-next-line 
     }, [price])
 
     useEffect(() => {
@@ -204,7 +202,7 @@ function OrderDetail(props) {
             const response = await adminApi.getOrderDetail(id);
             setDetailOrder(response);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -215,7 +213,7 @@ function OrderDetail(props) {
             const response = await adminApi.getListPackage(0, 50, "", value, true);
             setListCBXPackage(response.data);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -226,7 +224,7 @@ function OrderDetail(props) {
             const response = await adminApi.getAllSubject(0, 50, "", 0, true);
             setListSubject(response.data);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -237,7 +235,7 @@ function OrderDetail(props) {
             const response = await adminApi.getAllCombo(0, 50, "", 0, true);
             setListCBXCombo(response.data);
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
@@ -263,7 +261,7 @@ function OrderDetail(props) {
                     combos: listCombo,
                 };
                 const response =
-                    type === 1
+                    type === 1 || type === 2
                         ? await adminApi.updateOrderAdmin(params, id)
                         : await adminApi.createOrderAdmin(params);
                 toast.success(response?.message, {
@@ -272,18 +270,19 @@ function OrderDetail(props) {
                 history.push("/admin/orders");
             }
         } catch (responseError) {
-            toast.error(responseError?.data.message, {
+            toast.error(responseError?.message, {
                 duration: 2000,
             });
         }
     };
 
     useEffect(() => {
-        if (type === 1) {
+        if (type === 1 || type === 2) {
             getOrderDetailById();
+        } else {
+            getListSubject();
+            getListCombo();
         }
-        getListSubject();
-        getListCombo();
         // eslint-disable-next-line
     }, []);
 
@@ -314,7 +313,7 @@ function OrderDetail(props) {
                         <CCard className="mb-4">
                             <CCardHeader>
                                 <strong>
-                                    {type === 1 ? "Sửa thông tin học viên" : "Thêm học viên"}
+                                    {type === 1 ? "Sửa thông tin đơn hàng" : type === 2 ? "Xem thông tin đơn hàng" : "Thêm đơn hàng"}
                                 </strong>
                             </CCardHeader>
                             <CCardBody>
@@ -327,7 +326,7 @@ function OrderDetail(props) {
                                     <CRow className="g-2">
                                         <h6>Thông tin sản phẩm</h6>
                                         <hr></hr>
-                                        {type === 1 ? <Tab.Container defaultActiveKey={1}>
+                                        {type === 0 ? <Tab.Container defaultActiveKey={1}>
                                             <Tab.Content>
                                                 <div className="row">
                                                     <div className="profile-tabnav-sub">
@@ -479,7 +478,7 @@ function OrderDetail(props) {
                                                         Email (<span style={{ color: "red" }}>*</span>)
                                                     </CFormLabel>
                                                     <CFormInput
-                                                        readOnly={type === 1}
+                                                        readOnly={type === 1 || type === 2}
                                                         onChange={(e) => setEmail(e.target.value)}
                                                         type="email"
                                                         id="exampleFormControlInput1"
@@ -495,7 +494,7 @@ function OrderDetail(props) {
                                                         <span style={{ color: "red" }}>*</span>)
                                                     </CFormLabel>
                                                     <CFormInput
-                                                        readOnly={type === 1}
+                                                        readOnly={type === 2}
                                                         type="text"
                                                         id="exampleFormControlInput1"
                                                         onChange={(e) => setFullName(e.target.value)}
@@ -510,7 +509,7 @@ function OrderDetail(props) {
                                                         Số điện thoại (<span style={{ color: "red" }}>*</span>)
                                                     </CFormLabel>
                                                     <CFormInput
-                                                        readOnly={type === 1}
+                                                        readOnly={type === 2}
                                                         type="number"
                                                         id="exampleFormControlInput1"
                                                         onChange={(e) => setPhone(e.target.value)}
@@ -531,10 +530,11 @@ function OrderDetail(props) {
                                                         </CFormLabel>
                                                         <CFormSelect
                                                             aria-label="Default select example"
+                                                            disabled={type === 2}
                                                             onChange={(e) => setStatus(e.target.value)}
                                                         >
                                                             {optionStatus?.map((item, index) => {
-                                                                if (type === 1) {
+                                                                if (type === 1 || type === 2) {
                                                                     return detailOrder?.status ? (
                                                                         <option key={index} value={item?.status} selected>
                                                                             {item?.label}
@@ -561,10 +561,10 @@ function OrderDetail(props) {
                                                             Mã giảm giá
                                                         </CFormLabel>
                                                         <CFormInput
-                                                            readOnly={type === 1}
+                                                            readOnly={type === 2}
                                                             onChange={(e) => setCodeCouponCheck(e.target.value)}
                                                             type="text"
-                                                            defaultValue={type === 1 ? detailOrder?.coupon?.code : ""}
+                                                            defaultValue={type === 1 || type === 2 ? detailOrder?.coupon?.code : ""}
                                                             id="exampleFormControlInput1"
                                                         />
                                                     </div>
@@ -602,7 +602,7 @@ function OrderDetail(props) {
                                                 </CFormLabel>
                                                 <CFormTextarea
                                                     id="exampleFormControlTextarea1"
-                                                    defaultValue={type === 1 ? detailOrder?.note : ""}
+                                                    defaultValue={type === 1 || type === 2 ? detailOrder?.note : ""}
                                                     onChange={(e) =>
                                                         setNote(e.target.value)
                                                     }
