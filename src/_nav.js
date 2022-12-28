@@ -92,6 +92,12 @@ const _nav = [
                 name: "Slider",
                 to: "/admin/sliders",
                 icon: "fa fa-image",
+            },
+            {
+                component: CNavItem,
+                name: "Phản hồi",
+                to: "/admin/feedback",
+                icon: "fa fa-stack-exchange",
             }
         ]
     },

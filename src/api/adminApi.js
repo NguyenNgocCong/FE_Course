@@ -199,6 +199,10 @@ export const adminApi = {
       },
     });
   },
+  deletePost: (id) => {
+    const url = `/api/post/delete?id=${id}`;
+    return axiosApi.delete(url);
+  },
 
   //slide
   getAllSlider: (page, size, status) => {
@@ -232,7 +236,10 @@ export const adminApi = {
       },
     });
   },
-
+  deleteSlider: (id) => {
+    const url = `/api/slide/delete?id=${id}`;
+    return axiosApi.delete(url);
+  },
   //product
   getAllProduct: (page, size, keyword, category, status) => {
     const url = `/api/package?page=${page}&size=${size}&category=${category}&keyword=${keyword}&status=${status}`;
@@ -361,6 +368,10 @@ export const adminApi = {
     const url = `/api/coupon?page=${page}&size=${size}`;
     return axiosApi.get(url);
   },
+  deleteCoupon: (id) => {
+    const url = `/api/coupon/delete?id=${id}`;
+    return axiosApi.delete(url);
+  },
   getCouponDetail: (id) => {
     const url = `/api/coupon/getById/${id}`;
     return axiosApi.get(url);
@@ -376,6 +387,35 @@ export const adminApi = {
   checkCoupon: (code) => {
     const url = `/api/coupon/${code}`;
     return axiosApi.get(url);
+  },
+  getAllCoupon: (page, size) => {
+    const url = `/api/coupon?page=${page}&size=${size}`;
+    return axiosApi.get(url);
+  },
+  deleteCoupon: (id) => {
+    const url = `/api/coupon/delete?id=${id}`;
+    return axiosApi.delete(url);
+  },
+  //feedback
+  getFeedbackDetail: (id) => {
+    const url = `/api/feedback/getById/${id}`;
+    return axiosApi.get(url);
+  },
+  updateFeedback: (params, id) => {
+    const url = `api/feedback/update?id=${id}`;
+    return axiosApi.put(url, params);
+  },
+  createFeedback: (params) => {
+    const url = `api/feedback/create-admin`;
+    return axiosApi.post(url, params);
+  },
+  getAllFeedback: (page, size) => {
+    const url = `/api/feedback/list-website?page=${page}&size=${size}`;
+    return axiosApi.get(url);
+  },
+  deleteFeedback: (id) => {
+    const url = `/api/feedback/delete?id=${id}`;
+    return axiosApi.delete(url);
   },
   //trainee
   createTrainee: (params) => {

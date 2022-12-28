@@ -70,6 +70,9 @@ import Settings from "./admin/settings/settings";
 import Sliders from "./admin/sliders/sliders";
 import SliderDetail from "./admin/sliders/slider-detail";
 
+import Feedback from "./admin/feedback/feedback";
+import FeedbackDetail from "./admin/feedback/feedback-detail";
+
 import SubjectDetail from "./admin/subjects/subject-detail";
 import Subjects from "./admin/subjects/subjects";
 
@@ -182,6 +185,12 @@ function Markup(props) {
           <PrivateRoute path="/admin/registration/:id" exact>
             <RegistrationDetail />
           </PrivateRoute>
+          <PrivateRoute path="/admin/orders-detail/:id" exact>
+            <OrdersDetail />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/registration-detail/:id" exact>
+            <RegistrationDetail />
+          </PrivateRoute>
 
           {/* Class */}
           <PrivateRoute path="/admin/class" exact>
@@ -232,6 +241,17 @@ function Markup(props) {
           </PrivateRoute>
           <PrivateRoute path="/admin/sliders/:id" exact>
             <SliderDetail />
+          </PrivateRoute>
+
+          {/* Feedback */}
+          <PrivateRoute path="/admin/feedback" exact>
+            <Feedback />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/feedback/create" exact>
+            <FeedbackDetail />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/feedback/:id" exact>
+            <FeedbackDetail />
           </PrivateRoute>
 
           {/* Product */}
@@ -312,7 +332,7 @@ function PrivateRoute({ children, ...rest }) {
     // )
     //   isAuthenticated = true;
     else if (
-        (rest?.path?.includes("posts") || rest?.path?.includes("sliders") || rest?.path?.includes("dashboard")) &&
+      (rest?.path?.includes("feedback") || rest?.path?.includes("posts") || rest?.path?.includes("sliders") || rest?.path?.includes("dashboard")) &&
       Cookies.get("roles") === "ROLE_MARKETER"
     )
       isAuthenticated = true;
