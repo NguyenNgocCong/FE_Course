@@ -48,7 +48,7 @@ function ContactDetail(props) {
             });
             history.push('/admin/contacts');
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }

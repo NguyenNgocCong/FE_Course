@@ -53,7 +53,7 @@ function UserDetail(props) {
       setUser(response);
       setPhone(response.phoneNumber);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -85,7 +85,7 @@ function UserDetail(props) {
         history.push("/admin/users");
       }
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
       console.log(responseError);

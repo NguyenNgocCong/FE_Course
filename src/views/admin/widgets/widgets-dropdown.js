@@ -22,7 +22,7 @@ const WidgetsDropdown = () => {
       const response = await dashboardApi.getClasss();
       setDataClass(response);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -30,7 +30,7 @@ const WidgetsDropdown = () => {
       const response = await dashboardApi.getCombos();
       setDataCombo(response);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -38,7 +38,7 @@ const WidgetsDropdown = () => {
       const response = await dashboardApi.getPackages();
       setDataPackage(response);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -46,7 +46,7 @@ const WidgetsDropdown = () => {
       const response = await dashboardApi.getPosts();
       setDataPost(response);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -54,7 +54,7 @@ const WidgetsDropdown = () => {
       const response = await dashboardApi.getTrainees();
       setDataTrainee(response);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -62,7 +62,7 @@ const WidgetsDropdown = () => {
       const response = await dashboardApi.getUsers();
       setDataUser(response);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }

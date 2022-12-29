@@ -146,7 +146,7 @@ function Class() {
       setDataTable(response.data);
       setTotalRows(response.totalItems);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -163,7 +163,7 @@ function Class() {
         duration: 2000,
       });
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -191,7 +191,7 @@ function Class() {
       const response = await adminApi.getListExperts(0, 50, "");
       setListTrainer(response.data);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }

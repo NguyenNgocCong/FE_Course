@@ -45,7 +45,7 @@ function MyCourses(props) {
                         }}
                       />
                       <Link
-                        to={`/class/${item.id}`}
+                        to={`/courses-details/${item?.apackage?.id}`}
                         className="btn m-3 btn-warning"
                       >
                         Học ngay

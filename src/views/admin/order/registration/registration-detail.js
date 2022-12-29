@@ -80,7 +80,7 @@ function RegistrationDetail(props) {
       const response = await adminApi.getOrderDetail(id);
       setDetailOrder(response);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -91,7 +91,7 @@ function RegistrationDetail(props) {
       const response = await adminApi.getAllClass(0, 50, "", 0, true);
       setListClasses(response.data);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -106,7 +106,7 @@ function RegistrationDetail(props) {
       if (form.checkValidity()) {
         const params = {
           classId: classId,
-          status: status,
+          status: type === 1 ? status : status ? status : 1 ,
           email: email,
           fullName: fullName,
           mobile: phone,
@@ -123,7 +123,7 @@ function RegistrationDetail(props) {
         history.push("/admin/orders");
       }
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }

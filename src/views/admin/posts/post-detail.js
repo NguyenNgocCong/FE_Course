@@ -53,7 +53,7 @@ function PostDetail(props) {
             setPost(response);
             setStatus(response.status);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -64,7 +64,7 @@ function PostDetail(props) {
             const response = await adminApi.getListCategoryPost();
             setListCategory(response);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -97,7 +97,7 @@ function PostDetail(props) {
                 history.push("/admin/posts");
             }
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }

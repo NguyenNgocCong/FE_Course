@@ -47,7 +47,7 @@ function SliderDetail(props) {
             setValidTo(response?.validTo);
             setStatus(response.status);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -76,7 +76,7 @@ function SliderDetail(props) {
                 history.push("/admin/sliders");
             }
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }

@@ -26,7 +26,7 @@ function Footer(props) {
       const response = await userApi.getListCategoryWebContact();
       setListCategory(response);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }

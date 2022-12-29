@@ -187,7 +187,7 @@ const Registration = (props) => {
       });
       setIsModify(!isModify);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -198,7 +198,7 @@ const Registration = (props) => {
       const response = await adminApi.getAllClass(0, 50, "", 0, "");
       setListCategory(response?.data);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }

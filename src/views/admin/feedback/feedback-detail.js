@@ -37,7 +37,7 @@ function FeedbackDetail(props) {
             const response = await adminApi.getFeedbackDetail(id);
             setDetailFeedback(response);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }

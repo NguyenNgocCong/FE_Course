@@ -25,7 +25,7 @@ const Dashboard = () => {
             const response = await dashboardApi.getDataDoughnut();
             setDataDoughnut(response)
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -33,7 +33,7 @@ const Dashboard = () => {
             const response = await dashboardApi.getDataBar(category);
             setDataChartBar(response)
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -41,7 +41,7 @@ const Dashboard = () => {
             const response = await dashboardApi.getOrders();
             setDataOrder(response);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }

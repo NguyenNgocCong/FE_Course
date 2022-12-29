@@ -213,7 +213,7 @@ const Posts = () => {
                 duration: 2000,
             });
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -243,7 +243,7 @@ const Posts = () => {
             setDataTable(response.data);
             setTotalRows(response.totalItems);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -254,7 +254,7 @@ const Posts = () => {
             const response = await adminApi.getListCategoryPost();
             setListCategory(response);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }

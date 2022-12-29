@@ -113,7 +113,7 @@ function ComboDetail(props) {
       const listData = response.comboPackages.filter((item) => item);
       setListPackagesSale(listData);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -138,7 +138,7 @@ function ComboDetail(props) {
       });
       setListPackages(listpackage);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -180,7 +180,7 @@ function ComboDetail(props) {
         }
       }
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }

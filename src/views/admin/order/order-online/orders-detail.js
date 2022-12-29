@@ -52,16 +52,16 @@ function OrderDetail(props) {
             center: true,
             selector: (row) => (
                 type !== 2 ?
-                <div className={Styles.inputSearch}>
-                    <CButton onClick={() => deleteProduct(row)}
-                        style={{
-                            height: "35px",
-                            width: "50px",
-                        }}
-                    >
-                        <CIcon icon={cilDelete} />
-                    </CButton>
-                </div > : <></>
+                    <div className={Styles.inputSearch}>
+                        <CButton onClick={() => deleteProduct(row)}
+                            style={{
+                                height: "35px",
+                                width: "50px",
+                            }}
+                        >
+                            <CIcon icon={cilDelete} />
+                        </CButton>
+                    </div > : <></>
             ),
         }
     ];
@@ -202,7 +202,7 @@ function OrderDetail(props) {
             const response = await adminApi.getOrderDetail(id);
             setDetailOrder(response);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -213,7 +213,7 @@ function OrderDetail(props) {
             const response = await adminApi.getListPackage(0, 50, "", value, true);
             setListCBXPackage(response.data);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -224,7 +224,7 @@ function OrderDetail(props) {
             const response = await adminApi.getAllSubject(0, 50, "", 0, true);
             setListSubject(response.data);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -235,7 +235,7 @@ function OrderDetail(props) {
             const response = await adminApi.getAllCombo(0, 50, "", 0, true);
             setListCBXCombo(response.data);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -251,7 +251,7 @@ function OrderDetail(props) {
             console.log(listPackage)
             if (form.checkValidity()) {
                 const params = {
-                    status: status,
+                    status: type === 1 ? status : status ? status : 1,
                     email: email,
                     fullName: fullName,
                     mobile: phone,
@@ -270,7 +270,7 @@ function OrderDetail(props) {
                 history.push("/admin/orders");
             }
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }

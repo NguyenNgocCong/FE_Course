@@ -48,7 +48,7 @@ function CouponDetail(props) {
             setMaxQuantity(response?.quantity);
             setDiscountRate(response?.discountRate);
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }
@@ -79,7 +79,7 @@ function CouponDetail(props) {
                 history.push("/admin/coupon");
             }
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }

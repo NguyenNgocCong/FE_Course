@@ -55,7 +55,7 @@ function EditProfile({ stateChanger, state, user }) {
             });
             dispatch(setEditAvatar(true));
         } catch (responseError) {
-            toast.error(responseError?.message, {
+            toast.error(responseError?.data?.message, {
                 duration: 2000,
             });
         }

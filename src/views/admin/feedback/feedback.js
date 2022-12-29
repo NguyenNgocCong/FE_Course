@@ -89,7 +89,7 @@ function Class() {
       setDataTable(response.data);
       setTotalRows(response.totalItems)
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
