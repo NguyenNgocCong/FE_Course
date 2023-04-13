@@ -103,7 +103,7 @@ function CheckOut(prop) {
         }
       }
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }

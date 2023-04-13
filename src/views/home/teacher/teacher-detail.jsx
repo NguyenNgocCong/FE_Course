@@ -11,7 +11,7 @@ import BlogAside from "../element/blog-aside";
 // Images
 import bannerImg from "../../../images/banner/banner2.jpg";
 import { userApi } from "../../../api/userApi";
-import ReactHtmlParser from "react-html-parser";
+// import ReactHtmlParser from "react-html-parser";
 import { combieImg } from "../../../utils/index";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -112,7 +112,7 @@ function LecturerDetails(prop) {
                         <span className="post-title">Email: </span>
                         <span>{expert?.user?.email}</span>
                       </div>
-                      <p>{ReactHtmlParser(expert?.description)}</p>
+                      {/* <p>{ReactHtmlParser(expert?.description)}</p> */}
                     </div>
                   </div>
                   <Comments

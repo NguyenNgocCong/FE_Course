@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addPackageLocal } from "../../../redux/reducers/order";
 import { toast } from "react-toastify";
 import { userApi } from "../../../api/userApi";
-
+//tim component no co chu nay ne : "function Products() {"
 function Products() {
   const { isLogin } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ function Products() {
       setDataTable(response.data);
       setTotalPages(response.totalPages);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }

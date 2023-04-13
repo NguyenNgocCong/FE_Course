@@ -1,4 +1,4 @@
-import { colors } from '@material-ui/core';
+// import { colors } from '@material-ui/core';
 
 const white = '#FFFFFF';
 const black = '#000000';
@@ -8,49 +8,49 @@ export default {
   white,
   primary: {
     contrastText: white,
-    dark: colors.indigo[900],
-    main: colors.indigo[500],
-    light: colors.indigo[100]
+    dark:white,
+    main: white,
+    light:white
   },
   secondary: {
     contrastText: white,
-    dark: colors.blue[900],
-    main: colors.blue['A400'],
-    light: colors.blue['A400']
+    dark:white,
+    main: white,
+    light:white
   },
   success: {
     contrastText: white,
-    dark: colors.green[900],
-    main: colors.green[600],
-    light: colors.green[400]
+    dark:white,
+    main: white,
+    light:white
   },
   info: {
     contrastText: white,
-    dark: colors.blue[900],
-    main: colors.blue[600],
-    light: colors.blue[400]
+    dark:white,
+    main: white,
+    light:white
   },
   warning: {
     contrastText: white,
-    dark: colors.orange[900],
-    main: colors.orange[600],
-    light: colors.orange[400]
+    dark:white,
+    main: white,
+    light:white
   },
   error: {
     contrastText: white,
-    dark: colors.red[900],
-    main: colors.red[600],
-    light: colors.red[400]
+    dark:white,
+    main: white,
+    light:white
   },
   text: {
-    primary: colors.blueGrey[900],
-    secondary: colors.blueGrey[600],
-    link: colors.blue[600]
+    primary:white,
+    secondary: white,
+    link: white
   },
   background: {
     default: '#F4F6F8',
     paper: white
   },
-  icon: colors.blueGrey[600],
-  divider: colors.grey[200]
+  icon:white,
+  divider:white
 };

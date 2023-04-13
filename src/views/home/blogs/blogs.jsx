@@ -4,10 +4,10 @@ import Header from "../layout/header/header";
 import Footer from "../layout/footer/footer";
 import BlogAside from "../element/blog-aside";
 import bannerImg from "../../../images/banner/banner1.jpg";
-import { CRow, CCol, CCardImage, CCardTitle, CCardText } from "@coreui/react";
+// import { CRow, CCol, CCardImage, CCardTitle, CCardText } from "@coreui/react";
 import { CButton } from "@coreui/react";
 import { userApi } from "../../../api/userApi";
-import ReactHtmlParser from "react-html-parser";
+// import ReactHtmlParser from "react-html-parser";
 import Paging from "../../Paging/Paging";
 import { combieImg } from "../../../utils";
 
@@ -68,7 +68,7 @@ const BlogClassicSidebar = () => {
                   <BlogAside />
                 </div>
                 <div className="col-lg-9 col-xl-9 col-md-7">
-                  <CRow className="g-0">
+                  {/* <CRow className="g-0">
                     {listPost.length > 0 ? listPost.map((item) => (
                       <CRow key={item?.id}>
                         <CCol md={3}>
@@ -108,7 +108,7 @@ const BlogClassicSidebar = () => {
                             </ul>
                           </CCardText>
                           <CCardText>
-                            {ReactHtmlParser(item?.brefInfo)}
+                           
                           </CCardText>
                           <CButton>
                             <Link to={`/blog/${item?.id}`}>Đọc thêm</Link>
@@ -117,7 +117,7 @@ const BlogClassicSidebar = () => {
                         <hr />
                       </CRow>
                     )) : <h6>Không có Blog nào</h6>}
-                  </CRow>
+                  </CRow> */}
                   {listPost.length !== 0 ? (
                     <>
                       <div className="pagination-bx rounded-sm gray m-b30 clearfix">

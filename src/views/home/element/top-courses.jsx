@@ -5,7 +5,7 @@ import { userApi } from "../../../api/userApi";
 import { combieImg } from "../../../utils";
 import { addPackageLocal } from "../../../redux/reducers/order";
 import { toast } from "react-toastify";
-
+// vidu tim component dayyyy
 function PopularCoursesSlider() {
   const [listPackage, setListPackage] = useState([]);
   const { isLogin } = useSelector((state) => state.auth);

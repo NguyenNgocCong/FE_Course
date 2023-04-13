@@ -5,7 +5,7 @@ import Slider1 from "./slider";
 import { userApi } from "../../../api/userApi";
 import toast from "react-hot-toast";
 import bg1 from '../../../images/background/bg1.jpg';
-
+// day la component tren dau day 
 function OnlineCourses() {
   const history = useHistory();
   const [listCategory, setListCategory] = useState([]);
@@ -15,7 +15,7 @@ function OnlineCourses() {
       const response = await userApi.getListCategoryPost();
       setListCategory(response);
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
@@ -26,7 +26,7 @@ function OnlineCourses() {
       const response = await userApi.getListAllSubject();
       setListSubject(response.splice(0, 7))
     } catch (responseError) {
-      toast.error(responseError?.message, {
+      toast.error(responseError?.data?.message, {
         duration: 2000,
       });
     }
