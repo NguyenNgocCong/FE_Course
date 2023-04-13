@@ -1,10 +1,10 @@
 import React from "react";
-import {
-    CCard,
-    CCardBody,
-    CCol,
-    CRow,
-} from "@coreui/react";
+// import {
+//     CCard,
+//     CCardBody,
+//     CCol,
+//     CRow,
+// } from "@coreui/react";
 import { dashboardApi } from "../../../api/dashboardApi";
 import { CChart, CChartBar, CChartDoughnut } from "@coreui/react-chartjs";
 import { getStyle, hexToRgba } from "@coreui/utils";
@@ -203,7 +203,7 @@ const Dashboard = () => {
             <div className="wrapper d-flex flex-column min-vh-100 bg-light">
                 <AppHeader />
                 <div className="body flex-grow-1 px-3">
-                    <CRow>
+                    {/* <CRow>
                         <CCol xs={12} sm={6} lg={9}>
                             <WidgetsDropdown />
                         </CCol>
@@ -253,7 +253,7 @@ const Dashboard = () => {
                                 </CCardBody>
                             </CCard>
                         </CCol>
-                    </CRow >
+                    </CRow > */}
                 </div >
                 <AppFooter />
             </div >

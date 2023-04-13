@@ -7,7 +7,7 @@ import Footer from "../layout/footer/footer";
 import BlogAside from "../element/blog-aside";
 import bannerImg from "../../../images/banner/banner2.jpg";
 import { userApi } from "../../../api/userApi";
-import ReactHtmlParser from "react-html-parser";
+// import ReactHtmlParser from "react-html-parser";
 import Comments from "../../element/Comments";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
@@ -94,7 +94,7 @@ function BlogDetails(prop) {
                         </li>
                       </ul>
                       <h3 className="post-title">{post?.title}</h3>
-                      <div>{ReactHtmlParser(post?.body)}</div>
+                      {/* <div>{ReactHtmlParser(post?.body)}</div> */}
                       <div className="ttr-divider bg-gray">
                         <i className="icon-dot c-square"></i>
                       </div>
